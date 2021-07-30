@@ -579,7 +579,7 @@ def index():
     )
 
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST', 'OPTIONS'])
 def search():
     """Search query in q and return results.
 

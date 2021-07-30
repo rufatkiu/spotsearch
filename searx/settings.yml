@@ -28,6 +28,9 @@ server:
     http_protocol_version : "1.0"  # 1.0 and 1.1 are supported
     method: "POST" # POST queries are more secure as they don't show up in history but may cause problems when using Firefox containers
     default_http_headers:
+        Access-Control-Allow-Origin : "*"
+        Access-Control-Allow-Methods : GET, POST
+        Access-Control-Allow-Headers: "*"
         X-Content-Type-Options : nosniff
         X-XSS-Protection : 1; mode=block
         X-Download-Options : noopen
