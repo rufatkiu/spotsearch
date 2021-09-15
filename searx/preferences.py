@@ -82,7 +82,8 @@ class EnumStringSetting(Setting):
 
     def _validate_selection(self, selection):
         if selection not in self.choices:  # pylint: disable=no-member
-            raise ValidationException('Invalid value: "{0}"'.format(selection))
+            message = f"Invalid value '{selection}' was not found in {self.choices}" # pylint: disable=no-member
+            raise ValidationException(message)
 
     def parse(self, data):
         """Parse and validate ``data`` and store the result at ``self.value``
