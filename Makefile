@@ -147,8 +147,8 @@ themes.simple: node.env
 	$(call cmd,grunt,searx/static/themes/simple/gruntfile.js)
 
 themes.eelo: node.env
-	$(Q)echo '[!] build eelo theme'
-	$(call cmd,grunt,searx/static/themes/eelo/gruntfile.js)
+	$(Q)echo '[!] build etheme theme'
+	$(call cmd,grunt,searx/static/themes/etheme/gruntfile.js)
 
 # docker
 # ------
