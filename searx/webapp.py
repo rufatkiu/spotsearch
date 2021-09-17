@@ -63,8 +63,8 @@ from searx.engines import (
     categories, engines, engine_shortcuts, get_engines_stats
 )
 from searx.webutils import (
-    UnicodeWriter, highlight_content, get_resources_directory,
-    get_static_files, get_result_templates, get_themes,
+    UnicodeWriter, get_themes, highlight_content, get_resources_directory,
+    get_static_files, get_result_templates, get_themes_folder_name,
     prettify_url, new_hmac, is_flask_run_cmdline
 )
 from searx.webadapter import get_search_query_from_webapp, get_selected_categories
@@ -101,10 +101,11 @@ static_files = get_static_files(static_path)
 default_theme = settings['ui']['default_theme']
 templates_path = get_resources_directory(searx_dir, 'templates', settings['ui']['templates_path'])
 logger.debug('templates directory is %s', templates_path)
+themes_folder_name = get_themes_folder_name(templates_path)
 themes = get_themes(templates_path)
 result_templates = get_result_templates(templates_path)
 global_favicons = []
-for indice, theme in enumerate(themes):
+for indice, theme in enumerate(themes_folder_name):
     global_favicons.append([])
     theme_img_path = os.path.join(static_path, 'themes', theme, 'img', 'icons')
     for (dirpath, dirnames, filenames) in os.walk(theme_img_path):
@@ -280,7 +281,7 @@ def get_base_url():
     return hostname
 
 
-def get_current_theme_name(override=None):
+def get_current_theme_folder_name(override=None):
     """Returns theme name.
 
     Checks in this order:
@@ -288,10 +289,10 @@ def get_current_theme_name(override=None):
     2. cookies
     3. settings"""
 
-    if override and (override in themes or override == '__common__'):
+    if override and (override in themes_folder_name or override == '__common__'):
         return override
     theme_name = request.args.get('theme', request.preferences.get_value('theme'))
-    if theme_name not in themes:
+    if theme_name not in themes_folder_name:
         theme_name = default_theme
     return theme_name
 
@@ -305,7 +306,7 @@ def get_result_template(theme, template_name):
 
 def url_for_theme(endpoint, override_theme=None, **values):
     if endpoint == 'static' and values.get('filename'):
-        theme_name = get_current_theme_name(override=override_theme)
+        theme_name = get_current_theme_folder_name(override=override_theme)
         filename_with_theme = "themes/{}/{}".format(theme_name, values['filename'])
         if filename_with_theme in static_files:
             values['filename'] = filename_with_theme
@@ -414,7 +415,7 @@ def render(template_name, override_theme=None, **kwargs):
 
     kwargs['get_result_template'] = get_result_template
 
-    kwargs['theme'] = get_current_theme_name(override=override_theme)
+    kwargs['theme'] = get_current_theme_folder_name(override=override_theme)
 
     kwargs['template_name'] = template_name
 
@@ -464,7 +465,7 @@ def pre_request():
     request.timings = []
     request.errors = []
 
-    preferences = Preferences(themes, list(categories.keys()), engines, plugins)
+    preferences = Preferences(themes_folder_name, list(categories.keys()), engines, plugins)
     user_agent = request.headers.get('User-Agent', '').lower()
     if 'webkit' in user_agent and 'android' in user_agent:
         preferences.key_value_settings['method'].value = 'GET'
@@ -749,8 +750,8 @@ def search():
                                         LANGUAGE_CODES,
                                         fallback=request.preferences.get_value("language")),
         base_url=get_base_url(),
-        theme=get_current_theme_name(),
-        favicons=global_favicons[themes.index(get_current_theme_name())],
+        theme=get_current_theme_folder_name(),
+        favicons=global_favicons[themes_folder_name.index(get_current_theme_folder_name())],
         timeout_limit=request.form.get('timeout_limit', None)
     )
 
@@ -884,7 +885,7 @@ def preferences():
                   doi_resolvers=settings['doi_resolvers'],
                   current_doi_resolver=get_doi_resolver(request.args, request.preferences.get_value('doi_resolver')),
                   allowed_plugins=allowed_plugins,
-                  theme=get_current_theme_name(),
+                  theme=get_current_theme_folder_name(),
                   preferences_url_params=request.preferences.get_as_url_params(),
                   base_url=get_base_url(),
                   locked_preferences=locked_preferences,
@@ -1030,7 +1031,7 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path,
                                             static_path,
                                             'themes',
-                                            get_current_theme_name(),
+                                            get_current_theme_folder_name(),
                                             'img'),
                                'favicon.png',
                                mimetype='image/vnd.microsoft.icon')

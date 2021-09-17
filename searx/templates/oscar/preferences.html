@@ -122,8 +122,8 @@
                     {% set theme_info = _('Change searx layout') %}
                     {{ preferences_item_header(theme_info, theme_label, rtl, 'theme') }}
                         <select class="form-control {{ custom_select_class(rtl) }}" name="theme" id="theme">
-                            {% for name in themes %}
-                            <option value="{{ name }}" {% if name == theme %}selected="selected"{% endif %}>{{ name }}</option>
+                            {% for t in themes %}
+                            <option value="{{ t }}" {% if t == theme %}selected="selected"{% endif %}>{{ themes[t] }}</option>
                             {% endfor %}
                         </select>
                     {{ preferences_item_footer(theme_info, theme_label, rtl) }}

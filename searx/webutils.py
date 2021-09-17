@@ -8,6 +8,7 @@ import inspect
 
 from io import StringIO
 from codecs import getincrementalencoder
+from typing import Dict
 
 from searx import logger
 
@@ -55,7 +56,7 @@ def get_resources_directory(searx_directory, subdirectory, resources_directory):
     return resources_directory
 
 
-def get_themes(templates_path):
+def get_themes_folder_name(templates_path):
     """Returns available themes list."""
 
     print(f'templates_path: "{templates_path}"')
@@ -64,6 +65,12 @@ def get_themes(templates_path):
         themes.remove('__common__')
     return themes
 
+def get_themes(templates_path: str) -> Dict[str,int]:
+    themes = {}
+    names = get_themes_folder_name(templates_path)
+    for name in names:
+        themes[name] = '/e/ theme' if name == 'etheme' else name
+    return themes
 
 def get_static_files(static_path):
     static_files = set()
