@@ -99,7 +99,7 @@ npm_packages() {
     npm install
 
     echo '[!] install NPM packages for eelo theme'
-    cd -- "$BASE_DIR/searx/static/themes/eelo"
+    cd -- "$BASE_DIR/searx/static/themes/etheme"
     npm install
 }
 

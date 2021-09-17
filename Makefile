@@ -121,8 +121,8 @@ node.clean:
 	  ./searx/static/themes/oscar/node_modules \
 	  ./searx/static/themes/simple/package-lock.json \
 	  ./searx/static/themes/simple/node_modules \
-	  ./searx/static/themes/eelo/package-lock.json \
-	  ./searx/static/themes/eelo/node_modules
+	  ./searx/static/themes/etheme/package-lock.json \
+	  ./searx/static/themes/etheme/node_modules
 
 # build themes
 # ------------

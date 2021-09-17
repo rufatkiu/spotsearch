@@ -1,6 +1,6 @@
 # spot for [/e/](https://e.foundation)
 
-![logo](searx/static/themes/eelo/img/favicon.png)
+![logo](searx/static/themes/etheme/img/favicon.png)
 
 A privacy-respecting, hackable [metasearch engine](https://en.wikipedia.org/wiki/Metasearch_engine).
 

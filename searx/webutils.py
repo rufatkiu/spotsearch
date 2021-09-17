@@ -57,6 +57,8 @@ def get_resources_directory(searx_directory, subdirectory, resources_directory):
 
 def get_themes(templates_path):
     """Returns available themes list."""
+
+    print(f'templates_path: "{templates_path}"')
     themes = os.listdir(templates_path)
     if '__common__' in themes:
         themes.remove('__common__')
