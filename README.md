@@ -8,7 +8,7 @@ Spot was forked from searx: read [documentation](https://asciimoo.github.io/sear
 
 ## Changes between Spot and Searx
 
-* eelo theme
+* /e/ theme
 * redis cache on http requests (TTL 1 day)
 * docker packaging thinking to be production ready
 

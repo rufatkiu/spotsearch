@@ -127,8 +127,8 @@ node.clean:
 # build themes
 # ------------
 
-PHONY += themes themes.oscar themes.simple themes.eelo
-themes: buildenv themes.oscar themes.simple themes.eelo
+PHONY += themes themes.oscar themes.simple themes.etheme
+themes: buildenv themes.oscar themes.simple themes.etheme
 
 quiet_cmd_lessc = LESSC     $3
       cmd_lessc = PATH="$$(npm bin):$$PATH" \
@@ -146,7 +146,7 @@ themes.simple: node.env
 	$(Q)echo '[!] build simple theme'
 	$(call cmd,grunt,searx/static/themes/simple/gruntfile.js)
 
-themes.eelo: node.env
+themes.etheme: node.env
 	$(Q)echo '[!] build etheme theme'
 	$(call cmd,grunt,searx/static/themes/etheme/gruntfile.js)
 

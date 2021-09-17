@@ -52,9 +52,9 @@
                     {% if result.template %}
                         {# Torrents presented in a gallery like layout are different than the regular layout #}
                         {% if template == "torrent" and 'videos' in selected_categories %}
-                        {% include get_result_template('eelo', 'video_torrent.html') %}
+                        {% include get_result_template('etheme', 'video_torrent.html') %}
                         {% else %}
-                        {% include get_result_template('eelo', result['template']) %}
+                        {% include get_result_template('etheme', result['template']) %}
                         {% endif %}
                     {% else %}
                         {% include 'etheme/result_templates/default.html' %}

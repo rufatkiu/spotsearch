@@ -54,7 +54,7 @@ module.exports = function(grunt) {
             files: ['<%= jshint.files %>'],
             tasks: ['jshint', 'uglify']
         },
-        eelo_styles: {
+        etheme_styles: {
             files: ['less/etheme/**/*.less'],
             tasks: ['less:development', 'less:production']
         },
