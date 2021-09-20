@@ -67,7 +67,7 @@ class ViewsTestCase(SearxTestCase):
                 return override
             return 'oscar'
 
-        self.setattr4test(webapp, 'get_current_theme_name', get_current_theme_name_mock)
+        self.setattr4test(webapp, 'get_current_theme_folder_name', get_current_theme_name_mock)
 
         self.maxDiff = None  # to see full diffs
 
