@@ -48,7 +48,11 @@ class UnicodeWriter:
             self.writerow(row)
 
 
-def get_resources_directory(searx_directory, subdirectory, resources_directory):
+def get_resources_directory(
+    searx_directory,
+    subdirectory,
+    resources_directory
+):
     if not resources_directory:
         resources_directory = os.path.join(searx_directory, subdirectory)
     if not os.path.isdir(resources_directory):
@@ -65,12 +69,14 @@ def get_themes_folder_name(templates_path):
         themes.remove('__common__')
     return themes
 
-def get_themes(templates_path: str) -> Dict[str,int]:
+
+def get_themes(templates_path: str) -> Dict[str, int]:
     themes = {}
     names = get_themes_folder_name(templates_path)
     for name in names:
         themes[name] = '/e/ theme' if name == 'etheme' else name
     return themes
+
 
 def get_static_files(static_path):
     static_files = set()
