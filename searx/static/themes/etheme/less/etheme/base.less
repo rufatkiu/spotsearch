@@ -2,7 +2,7 @@
 html {
   position: relative;
   min-height: 100%;
-  color: @text-color;
+  color: var(--color-main-text);
 }
 
 body {
@@ -10,7 +10,7 @@ body {
   padding: 0px;
   font-size: @fontsize_medium;
   margin-bottom: 120px;
-  background-color: white;
+  background-color: var(--color-main-background);
   font-family: 'Roboto', "Cantarell", Helvetica, Arial, sans-serif;
 
   &.lock { overflow: hidden; }
@@ -22,6 +22,16 @@ body {
 
 input, select {
   box-shadow: none !important;
+  color: var(--main-text-color);
+}
+
+option {
+  background-color: var(--color-main-background);
+}
+
+.input-current-preferences {
+  background-color: var(--color-main-background);
+  border: 1px solid var(--color-primary-text);
 }
 
 a { 

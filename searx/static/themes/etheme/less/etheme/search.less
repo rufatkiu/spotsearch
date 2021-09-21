@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
 
-    .widget-border(rgba(0, 0, 0, 0.24));
+    .widget-border(var(--input-border-color));
     border-radius: 50px;
     height: @input-size;
     &:hover, &:active { box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13); }
@@ -40,6 +40,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      fill: var(--color-main-text);
   
       .icon { transition: fill 0.2s ease-in-out, transform 0.1s ease-in-out; }
     }
@@ -120,7 +121,7 @@
 
     select, label { font-size: @fontsize_small; }
     select {
-      color: rgba(0, 0, 0, .5);
+      color: var(--text-muted-normal-alpha);
       text-align: right;
       padding-right: 32px;
     }

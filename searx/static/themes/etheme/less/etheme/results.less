@@ -9,7 +9,7 @@
   .result-template {
     font-weight: bold;
     text-transform: uppercase;
-    color: @text-muted-color;
+    color: var(--text-muted-normal-alpha);
 
     & + .result_header { margin-top: 0; }
   }
@@ -43,7 +43,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      color: @text-muted-color;
+      color: var(--text-muted-normal-alpha);
       font-weight: bold;
       padding: @spacing_small @spacing_large;
       text-transform: uppercase;
@@ -116,7 +116,7 @@
   }
 
   .extra-info {
-    color: @text-muted-color;
+    color: var(--text-muted-normal-alpha);
   }
 
 
@@ -223,7 +223,7 @@
       margin-top: 0;
       margin-bottom: 0;
     }
-    small { color: @text-muted-color; }
+    small { color: var(--text-muted-normal-alpha); }
   }
 
   .body {
@@ -268,7 +268,7 @@
 
     & > .label {
       text-align: right;
-      color: @text-muted-color;
+      color: var(--text-muted-normal-alpha);
       padding-right: @spacing_large;
     }
   }
