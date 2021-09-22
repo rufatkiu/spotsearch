@@ -82,7 +82,8 @@ class EnumStringSetting(Setting):
 
     def _validate_selection(self, selection):
         if selection not in self.choices:  # pylint: disable=no-member
-            raise ValidationException('Invalid value: "{0}"'.format(selection))
+            message = f"Invalid value '{selection}' was not found in {self.choices}" # pylint: disable=no-member
+            raise ValidationException(message)
 
     def parse(self, data):
         """Parse and validate ``data`` and store the result at ``self.value``
@@ -445,6 +446,8 @@ class Preferences:
     def parse_dict(self, input_data):
         """parse preferences from request (``flask.request.form``)"""
         for user_setting_name, user_setting in input_data.items():
+            if user_setting_name == 'theme' and user_setting == 'eelo': # Fix theme name for old cookies
+                user_setting = settings['ui'].get('default_theme', 'oscar')
             if user_setting_name in self.key_value_settings:
                 if self.key_value_settings[user_setting_name].locked:
                     continue

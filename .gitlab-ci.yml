@@ -24,7 +24,7 @@ build:web:
     - ./manage.sh update_dev_packages
   script:
     - ./manage.sh locales
-    - make V=1 themes.eelo
+    - make V=1 themes.etheme
 
 .build:docker:
   stage: build

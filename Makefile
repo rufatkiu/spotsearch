@@ -121,14 +121,14 @@ node.clean:
 	  ./searx/static/themes/oscar/node_modules \
 	  ./searx/static/themes/simple/package-lock.json \
 	  ./searx/static/themes/simple/node_modules \
-	  ./searx/static/themes/eelo/package-lock.json \
-	  ./searx/static/themes/eelo/node_modules
+	  ./searx/static/themes/etheme/package-lock.json \
+	  ./searx/static/themes/etheme/node_modules
 
 # build themes
 # ------------
 
-PHONY += themes themes.oscar themes.simple themes.eelo
-themes: buildenv themes.oscar themes.simple themes.eelo
+PHONY += themes themes.oscar themes.simple themes.etheme
+themes: buildenv themes.oscar themes.simple themes.etheme
 
 quiet_cmd_lessc = LESSC     $3
       cmd_lessc = PATH="$$(npm bin):$$PATH" \
@@ -146,9 +146,9 @@ themes.simple: node.env
 	$(Q)echo '[!] build simple theme'
 	$(call cmd,grunt,searx/static/themes/simple/gruntfile.js)
 
-themes.eelo: node.env
-	$(Q)echo '[!] build eelo theme'
-	$(call cmd,grunt,searx/static/themes/eelo/gruntfile.js)
+themes.etheme: node.env
+	$(Q)echo '[!] build etheme theme'
+	$(call cmd,grunt,searx/static/themes/etheme/gruntfile.js)
 
 # docker
 # ------
