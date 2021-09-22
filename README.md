@@ -1,6 +1,6 @@
 # spot for [/e/](https://e.foundation)
 
-![logo](searx/static/themes/eelo/img/favicon.png)
+![logo](searx/static/themes/etheme/img/favicon.png)
 
 A privacy-respecting, hackable [metasearch engine](https://en.wikipedia.org/wiki/Metasearch_engine).
 
@@ -8,7 +8,7 @@ Spot was forked from searx: read [documentation](https://asciimoo.github.io/sear
 
 ## Changes between Spot and Searx
 
-* eelo theme
+* /e/ theme
 * redis cache on http requests (TTL 1 day)
 * docker packaging thinking to be production ready
 

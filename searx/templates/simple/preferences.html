@@ -168,8 +168,8 @@
     <legend>{{ _('Themes') }}</legend>
     <p class="value">
       <select name="theme">
-        {%- for name in themes -%}
-        <option value="{{ name }}" {% if name == theme %}selected="selected"{% endif %}>{{ name }}</option>
+        {%- for t in themes -%}
+        <option value="{{ t }}" {% if t == theme %}selected="selected"{% endif %}>{{ themes[t] }}</option>
         {%- endfor -%}
       </select>
     </p>
