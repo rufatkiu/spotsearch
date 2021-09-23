@@ -42,6 +42,21 @@ function build_image(images) {
   return res;
 }
 
+function setUpDarkModetoggle() {
+
+  var isDarkMode = $('body').hasClass('dark-mode');
+  var darkModeSwitch = $('.nav_dark-mode input');
+
+  darkModeSwitch.attr("checked", isDarkMode);
+  darkModeSwitch.change(function() {
+    setEThemeStyle(this.checked);
+  });
+}
+
+function setEThemeStyle(isDarkMode) {
+  $('body').toggleClass('dark-mode', isDarkMode);
+}
+
 $(document).ready(function(){
   function configure_image_view(target, view_url) {
     document.getElementById("image_view_image").src = view_url;
@@ -97,4 +112,6 @@ $(document).ready(function(){
         }
       });
   }
+
+  setUpDarkModetoggle();
 });

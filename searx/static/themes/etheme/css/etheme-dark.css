@@ -37,4 +37,5 @@
   --input-border-color: rgba(255, 255, 255, 0.24);
   --text-color-hl: #c2d2dc;
   --dropdown-bg-color: #333333;
+  --link-color: var(--color-main-text);
 }
