@@ -24,6 +24,7 @@
   --text-muted-normal-alpha: rgba(0, 0, 0, 0.4);
   --input-border-color: rgba(0, 0, 0, 0.24);
   --text-color-hl: #5c6469;
+  --dropdown-bg-color: #eeeeee;
   --color-main-text: #60686f;
   --color-primary: #1f6ed7;
   --color-delete: #e06572;
@@ -598,7 +599,7 @@ nav #etheme_links > * {
   border: 2px solid var(--input-border-color);
   width: 100% !important;
   box-sizing: border-box !important;
-  background-color: #eeeeee;
+  background-color: var(--dropdown-bg-color);
   padding-left: 16px;
   padding-right: 16px;
 }

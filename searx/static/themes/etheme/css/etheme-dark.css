@@ -1,6 +1,6 @@
 :root.dark-mode {
   --color-main-text: #d8d8d8;
-  --color-main-background: #181818;
+  --color-main-background: #1c1c1c;
   --color-main-background-translucent: #181818;
   --color-background-hover: #0e0e0e;
   --color-background-dark: #222;
@@ -36,4 +36,5 @@
   --text-muted-normal-alpha: rgba(216, 216, 216, 0.4);
   --input-border-color: rgba(255, 255, 255, 0.24);
   --text-color-hl: #c2d2dc;
+  --dropdown-bg-color: #333333;
 }
