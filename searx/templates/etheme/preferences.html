@@ -83,10 +83,9 @@
                 {% endcall %}
 
                 {% call preferences_item(_('Choose style for this theme'), _('Style'), rtl) %}
-                    <select class="form-control custom-select" name='oscar-style'>
-                        <option value="logicodev" >Logicodev</option>
-                        <option value="pointhi" {% if preferences.get_value('oscar-style') == 'pointhi' %}selected="selected"{% endif %}>Pointhi</option>
-                        <option value="logicodev-dark" {% if preferences.get_value('oscar-style') == 'logicodev-dark' %}selected="selected"{% endif %}>Logicodev dark</option>
+                    <select class="form-control custom-select" name='etheme-style'>
+                        <option value="light" {% if preferences.get_value('etheme-style') == 'light' %}selected="selected"{% endif %}>Light</option>
+                        <option value="dark" {% if preferences.get_value('etheme-style') == 'dark' %}selected="selected"{% endif %}>Dark</option>
                     </select>
                 {% endcall %}
 
