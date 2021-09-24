@@ -829,6 +829,7 @@ def preferences_theme_style(style):
     resp.status_code = 204
     return resp
 
+
 @app.route('/preferences', methods=['GET', 'POST'])
 def preferences():
     """Render preferences page && save user preferences"""

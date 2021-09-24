@@ -335,7 +335,7 @@ body * {
 input,
 select {
   box-shadow: none !important;
-  color: var(--main-text-color);
+  color: var(--color-main-text);
 }
 option {
   background-color: var(--color-main-background);
