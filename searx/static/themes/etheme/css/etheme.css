@@ -323,6 +323,7 @@ body {
   font-size: 16px;
   margin-bottom: 120px;
   background-color: var(--color-main-background);
+  transition: background-color 0.2s ease-in-out;
   font-family: 'Roboto', "Cantarell", Helvetica, Arial, sans-serif;
 }
 body.lock {
@@ -472,7 +473,7 @@ nav #etheme_links > * {
     top: 0;
     flex-direction: column;
     height: 100%;
-    background-color: white;
+    background-color: var(--color-main-background);
     z-index: 1000;
     width: 280px;
     min-width: 280px;
@@ -524,6 +525,7 @@ nav #etheme_links > * {
 }
 .nav_dark-mode {
   margin-right: 1rem;
+  padding: 1rem;
 }
 .nav_dark-mode .nav_dark-mode--label {
   margin-right: 0.5rem;

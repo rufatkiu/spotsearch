@@ -54,7 +54,20 @@ function setUpDarkModetoggle() {
 }
 
 function setEThemeStyle(isDarkMode) {
+
   $('body').toggleClass('dark-mode', isDarkMode);
+
+  var ethemeStyle = isDarkMode ? 'dark' : 'light';
+  var options = {
+    method:'PATCH'
+  };
+  fetch('/preferences/etheme-style/' + ethemeStyle, options)
+  .then(function(_) {
+    
+  })
+  .catch(function(err) {
+    console.log('Error while setting etheme style', err);
+  });
 }
 
 $(document).ready(function(){

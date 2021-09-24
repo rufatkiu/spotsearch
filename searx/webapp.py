@@ -819,6 +819,16 @@ def autocompleter():
                     mimetype='application/x-suggestions+json')
 
 
+@app.route('/preferences/etheme-style/<style>', methods=['PATCH'])
+def preferences_theme_style(style):
+    etheme_valid_styles = ['light', 'dark']
+    if style not in etheme_valid_styles:
+        return f"Theme style '{style}' not recognized. Must be one of {etheme_valid_styles}", 400
+    resp = make_response()
+    resp.set_cookie('etheme-style', style)
+    resp.status_code = 204
+    return resp
+
 @app.route('/preferences', methods=['GET', 'POST'])
 def preferences():
     """Render preferences page && save user preferences"""

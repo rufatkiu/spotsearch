@@ -10,7 +10,7 @@
         <span class="nav_dark-mode">
             <span class="nav_dark-mode--label">Dark</span>
             <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" {% if preferences.get_value('etheme-style') == 'dark' %}checked{% endif %}>
                 <span class="slider"></span>
             </label>
         </span>
