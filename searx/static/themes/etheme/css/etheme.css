@@ -7,7 +7,7 @@
   --color-error: #fb3845;
   --color-delete: #e9322d;
   --color-success: #3ad975;
-  --color-main-background: #f2f2f2;
+  --color-main-background: #ffffff;
   --color-main-background-translucent: #f2f2f2;
   --color-main-text: #000000;
   --color-background-hover: white;
@@ -26,6 +26,7 @@
   --text-color-hl: #5c6469;
   --dropdown-bg-color: #eeeeee;
   --link-color: #007fff;
+  --color-accent--dark: #2344a2;
   --color-main-text: #60686f;
   --color-primary: #1f6ed7;
   --color-delete: #e06572;
@@ -222,14 +223,15 @@ a {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  color: var(--main-text-color);
 }
 .btn:not(:disabled) {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
 .btn:hover:not(:disabled) {
-  border-color: #2344a2;
-  color: #2344a2;
+  border-color: var(--color-accent--dark);
+  color: var(--color-accent--dark);
 }
 .btn.primary,
 input.btn[type="submit"] {
@@ -240,7 +242,7 @@ input.btn[type="submit"] {
 .btn.primary:hover,
 input.btn[type="submit"]:hover {
   color: #ffffff;
-  background-color: #2344a2;
+  background-color: var(--color-accent--dark);
 }
 .btn.danger {
   color: var(--color-delete);
@@ -257,7 +259,7 @@ input.btn[type="submit"]:hover {
   background-color: transparent;
 }
 .btn.btn-flat:hover {
-  color: #2344a2;
+  color: var(--color-accent--dark);
 }
 .btn.plain-white {
   border-color: rgba(255, 255, 255, 0.4);
@@ -914,7 +916,7 @@ input:checked + .slider:before {
 }
 .result .external-link {
   font-size: 14px;
-  color: #39a441;
+  color: var(--color-success);
 }
 .result .extra-info {
   color: var(--text-muted-normal-alpha);

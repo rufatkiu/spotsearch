@@ -1,4 +1,4 @@
-:root .dark-mode {
+:root.dark-mode {
   --color-main-text: #d8d8d8;
   --color-main-background: #1c1c1c;
   --color-main-background-translucent: #181818;
@@ -13,9 +13,10 @@
   --color-primary-text-dark: #ededed;
   --color-primary-element: #007fff;
   --color-primary-element-light: #4da5ff;
-  --color-error: #e9322d;
+  --color-error: #fb3846;
+  --color-delete: #fb3846;
   --color-warning: #eca700;
-  --color-success: #46ba61;
+  --color-success: #38d874;
   --color-text-maxcontrast: #8c8c8c;
   --color-text-light: #d8d8d8;
   --color-text-lighter: #8c8c8c;
@@ -33,9 +34,13 @@
   --animation-quick: 100ms;
   --animation-slow: 300ms;
   --header-height: 50px;
-  --text-muted-normal-alpha: rgba(216, 216, 216, 0.4);
+  --text-muted-normal-alpha: rgba(216, 216, 216, 0.8);
   --input-border-color: rgba(255, 255, 255, 0.24);
   --text-color-hl: #c2d2dc;
   --dropdown-bg-color: #333333;
-  --link-color: var(--color-main-text);
+  --link-color: var(--color-primary);
+  --color-accent--dark: #24527e;
+}
+:root.dark-mode .custom-select {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAIhJREFUOE/FUkEOwCAIo/z/zbCAQjCyzMTDPBmlLS2ALg4usHQHFlE1dWYcE4mqQokQ4FOCWr+AvwjUJK0IRK5sd2OzS3wwdgvRqnoV3Gb6HKzjwx5RMhCR0HEJZnbcEpL7yRZGUXqc7zXYLeFsYC5AcjUTacdTE40l6kb5OtuTER4vRrfG/4Eft2BLALbkjNwAAAAASUVORK5CYII=) 96% no-repeat;
 }

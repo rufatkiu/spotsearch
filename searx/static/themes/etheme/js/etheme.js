@@ -44,7 +44,7 @@ function build_image(images) {
 
 function setUpDarkModetoggle() {
 
-  var isDarkMode = $('body').hasClass('dark-mode');
+  var isDarkMode = $('html').hasClass('dark-mode');
   var darkModeSwitch = $('.nav_dark-mode input');
 
   darkModeSwitch.attr("checked", isDarkMode);
@@ -55,7 +55,7 @@ function setUpDarkModetoggle() {
 
 function setEThemeStyle(isDarkMode) {
 
-  $('body').toggleClass('dark-mode', isDarkMode);
+  $('html').toggleClass('dark-mode', isDarkMode);
 
   var ethemeStyle = isDarkMode ? 'dark' : 'light';
   var options = {

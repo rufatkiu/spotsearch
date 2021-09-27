@@ -1,6 +1,12 @@
 {% from 'etheme/macros.html' import icon %}
+
+{% set etheme_style = "" %}
+{% if preferences.get_value('etheme-style') == 'dark' %}
+    {% set etheme_style = "dark-mode" %}
+{% endif %}
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" {% if rtl %} dir="rtl" {% endif %}>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" {% if rtl %} dir="rtl" {% endif %} class="{{ etheme_style }}">
 <head>
     {% set version = searx_version.split('+') %}
     <meta charset="UTF-8" />
@@ -45,12 +51,7 @@
     </noscript>
 </head>
 
-{% set etheme_style = "" %}
-{% if preferences.get_value('etheme-style') == 'dark' %}
-    {% set etheme_style = "dark-mode" %}
-{% endif %}
-
-<body class="{{ etheme_style }}">
+<body>
     {% include 'etheme/components/icons.html' %}
     {% include 'etheme/components/navbar.html' %}
 

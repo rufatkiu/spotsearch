@@ -28,14 +28,15 @@
   font-size: @fontsize_medium;
   font-weight: bold;
   cursor: pointer;
+  color: var(--main-text-color);
 
   &:not(:disabled) {
     color: @color_accent;
     border-color: @color_accent;
   }
   &:hover:not(:disabled) { 
-    border-color: @color_accent__dark;
-    color: @color_accent__dark;
+    border-color: var(--color-accent--dark);
+    color: var(--color-accent--dark);
   }
 
   &.primary, input&[type="submit"] {
@@ -44,7 +45,7 @@
     border-color: @dim-color-light;
     &:hover {
       color: @color_accent__op;
-      background-color: @color_accent__dark;
+      background-color: var(--color-accent--dark);
     }
   }
   &.danger { 
@@ -65,7 +66,7 @@
   }
 
   &.btn-flat:hover {
-    color: @color_accent__dark;
+    color: var(--color-accent--dark);
   }
 
   &.btn-block { &:extend(.block); }
