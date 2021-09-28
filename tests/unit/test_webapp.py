@@ -65,7 +65,7 @@ class ViewsTestCase(SearxTestCase):
         def get_current_theme_name_mock(override=None):
             if override:
                 return override
-            return 'oscar'
+            return 'etheme'
 
         self.setattr4test(webapp, 'get_current_theme_folder_name', get_current_theme_name_mock)
 
@@ -75,7 +75,7 @@ class ViewsTestCase(SearxTestCase):
         result = self.app.post('/')
         self.assertEqual(result.status_code, 200)
         self.assertIn(b'<div class="text-hide center-block" id="main-logo">'
-                      + b'<img class="center-block img-responsive" src="/static/themes/oscar/img/logo_searx_a.png"'
+                      + b'<img class="center-block img-responsive" src="/static/themes/etheme/img/logo_searx_a.png"'
                       + b' alt="searx logo" />searx</div>', result.data)
 
     def test_index_html_post(self):
@@ -110,7 +110,7 @@ class ViewsTestCase(SearxTestCase):
 
         self.assertIn(
             b'<h4 class="result_header" id="result-2"><img width="32" height="32" class="favicon"'
-            + b' src="/static/themes/oscar/img/icons/youtube.png" alt="youtube" /><a href="http://second.test.xyz"'
+            + b' src="/static/themes/etheme/img/icons/youtube.png" alt="youtube" /><a href="http://second.test.xyz"'
             + b' rel="noreferrer" aria-labelledby="result-2">Second <span class="highlight">Test</span></a></h4>',  # noqa
             result.data
         )

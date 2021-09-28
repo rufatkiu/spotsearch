@@ -31,14 +31,14 @@ class ValidateQueryCase(SearxTestCase):
         searx.search.initialize(TEST_ENGINES)
 
     def test_query_private_engine_without_token(self):
-        preferences = Preferences(['oscar', 'etheme'], ['general'], engines, [])
+        preferences = Preferences(['etheme'], ['general'], engines, [])
         valid, unknown, invalid_token = validate_engineref_list(SEARCHQUERY, preferences)
         self.assertEqual(len(valid), 0)
         self.assertEqual(len(unknown), 0)
         self.assertEqual(len(invalid_token), 1)
 
     def test_query_private_engine_with_incorrect_token(self):
-        preferences_with_tokens = Preferences(['oscar', 'etheme'], ['general'], engines, [])
+        preferences_with_tokens = Preferences(['etheme'], ['general'], engines, [])
         preferences_with_tokens.parse_dict({'tokens': 'bad-token'})
         valid, unknown, invalid_token = validate_engineref_list(SEARCHQUERY, preferences_with_tokens)
         self.assertEqual(len(valid), 0)
