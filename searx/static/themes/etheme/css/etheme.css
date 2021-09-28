@@ -523,7 +523,7 @@ nav #etheme_links > * {
   }
 }
 .nav_dark-mode {
-  margin-right: 1rem;
+  padding: 1rem;
   color: var(--nav-text-color);
 }
 .nav_dark-mode .nav_dark-mode--label {
