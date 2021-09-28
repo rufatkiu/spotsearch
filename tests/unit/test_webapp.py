@@ -74,9 +74,7 @@ class ViewsTestCase(SearxTestCase):
     def test_index_empty(self):
         result = self.app.post('/')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<div class="text-hide center-block" id="main-logo">'
-                      + b'<img class="center-block img-responsive" src="/static/themes/etheme/img/logo_searx_a.png"'
-                      + b' alt="searx logo" />searx</div>', result.data)
+        self.assertIn(b'<img src="/static/themes/etheme/img/logo_searx_a.png" alt="/e/ logo">', result.data)
 
     def test_index_html_post(self):
         result = self.app.post('/', data={'q': 'test'})
@@ -212,11 +210,6 @@ class ViewsTestCase(SearxTestCase):
             result.data,
             'Search language ignored browser preference.'
         )
-
-    def test_stats(self):
-        result = self.app.get('/stats')
-        self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<h1>Engine stats</h1>', result.data)
 
     def test_robots_txt(self):
         result = self.app.get('/robots.txt')
