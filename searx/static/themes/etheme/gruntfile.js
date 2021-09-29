@@ -5,7 +5,8 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'js/etheme.min.js': ['js/etheme.js']
+          'js/etheme.min.js': ['js/etheme.js'],
+          'js/searx.min.js': ['js/searx.js']
         }
       }
     },
