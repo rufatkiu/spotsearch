@@ -74,7 +74,7 @@ class ViewsTestCase(SearxTestCase):
     def test_index_empty(self):
         result = self.app.post('/')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<img src="/static/themes/etheme/img/logo_searx_a.png" alt="/e/ logo">', result.data)
+        self.assertIn(b'<img src="/static/themes/etheme/img/logo_searx_a.png" alt="/e/ logo" />', result.data)
 
     def test_index_html_post(self):
         result = self.app.post('/', data={'q': 'test'})
@@ -107,9 +107,9 @@ class ViewsTestCase(SearxTestCase):
         result = self.app.post('/search', data={'q': 'test'})
 
         self.assertIn(
-            b'<h4 class="result_header" id="result-2"><img width="32" height="32" class="favicon"'
-            + b' src="/static/themes/etheme/img/icons/youtube.png" alt="youtube" /><a href="http://second.test.xyz"'
-            + b' rel="noreferrer" aria-labelledby="result-2">Second <span class="highlight">Test</span></a></h4>',  # noqa
+            b'<h4 class="result_header"><img width="32" height="32" class="favicon"'
+            + b' src="/static/themes/etheme/img/icons/youtube.png" alt="youtube" /> <a href="http://second.test.xyz"'
+            + b' rel="noreferrer">Second <span class="highlight">Test</span></a></h4>',  # noqa
             result.data
         )
         self.assertIn(
