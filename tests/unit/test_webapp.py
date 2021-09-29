@@ -86,11 +86,6 @@ class ViewsTestCase(SearxTestCase):
         self.assertEqual(result.status_code, 308)
         self.assertEqual(result.location, 'http://localhost/search?q=test')
 
-    def test_search_empty_html(self):
-        result = self.app.post('/search', data={'q': ''})
-        self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<span class="instance pull-left"><a href="/">/e/ spot</a></span>', result.data)
-
     def test_search_empty_json(self):
         result = self.app.post('/search', data={'q': '', 'format': 'json'})
         self.assertEqual(result.status_code, 400)
@@ -113,7 +108,7 @@ class ViewsTestCase(SearxTestCase):
             result.data
         )
         self.assertIn(
-            b'<p class="result-content">second <span class="highlight">test</span> content</p>',  # noqa
+            b'second <span class="highlight">test</span> content',  # noqa
             result.data
         )
 
@@ -185,15 +180,11 @@ class ViewsTestCase(SearxTestCase):
         result = self.app.get('/preferences')
         self.assertEqual(result.status_code, 200)
         self.assertIn(
-            b'<form method="post" action="/preferences" id="search_form">',
+            b'<form method="post" action="/preferences" id="preferences" class="container">',
             result.data
         )
         self.assertIn(
-            b'<label class="col-sm-3 col-md-2" for="categories">Default categories</label>',
-            result.data
-        )
-        self.assertIn(
-            b'<label class="col-sm-3 col-md-2" for="locale">Interface language</label>',
+            b'Interface language',
             result.data
         )
 
