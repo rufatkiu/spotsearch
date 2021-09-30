@@ -341,6 +341,14 @@ span.select2-selection.select2-selection--single {
   background-color: var(--color-accent--dark);
   color: var(--select-selected-text-color);
 }
+#time_and_lang span.select2-selection.select2-selection--single {
+  border: none;
+}
+#time_and_lang .select2-container--default .select2-selection--single .select2-selection__rendered {
+  margin-right: 1rem;
+  color: var(--nav-text-color);
+  font-size: 14px;
+}
 html {
   position: relative;
   min-height: 100%;
