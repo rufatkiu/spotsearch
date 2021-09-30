@@ -70,6 +70,10 @@ function setEThemeStyle(isDarkMode) {
   });
 }
 
+function setUpSelectors() {
+  $('select').select2();
+}
+
 $(document).ready(function(){
   function configure_image_view(target, view_url) {
     document.getElementById("image_view_image").src = view_url;
@@ -127,4 +131,5 @@ $(document).ready(function(){
   }
 
   setUpDarkModetoggle();
+  setUpSelectors();
 });

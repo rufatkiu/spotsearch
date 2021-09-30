@@ -19,6 +19,7 @@
     {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %}{{ instance_name }}</title>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme-dark.min.css') }}" type="text/css" />
 
@@ -102,6 +103,7 @@
 
 
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/etheme.min.js') }}"></script>
     {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>{% endif %}
     <script src="{{ url_for('static', filename='js/searx.min.js') }}"

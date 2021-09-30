@@ -25,6 +25,7 @@
   --input-border-color: rgba(0, 0, 0, 0.24);
   --input-text-color: black;
   --select-border-color: rgba(0, 0, 0, 0.2);
+  --select-selected-text-color: white;
   --text-color-hl: #5c6469;
   --dropdown-bg-color: #eeeeee;
   --link-color: #007fff;
@@ -226,7 +227,7 @@ a {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  color: var(--main-text-color);
+  color: var(--color-main-text);
 }
 .btn:not(:disabled) {
   color: var(--color-primary);
@@ -309,6 +310,36 @@ input.btn[type="submit"]:hover {
 .custom-select:not(.flat) {
   width: 100%;
   border-radius: 50px;
+}
+span.select2-selection.select2-selection--single {
+  background-color: var(--color-main-background);
+  border: 2px solid var(--select-border-color);
+  border-radius: 50px;
+}
+.select2-container--open .select2-dropdown--below {
+  background-color: var(--color-main-background);
+  border: 2px solid var(--select-border-color);
+  border-top: none;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  right: 0.5rem;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: var(--color-text-maxcontrast);
+  padding: 4px 12px 4px 12px;
+  line-height: normal;
+  font-size: 13.3px;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  background-color: var(--color-main-background);
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: var(--color-primary);
+  color: var(--select-selected-text-color);
+}
+.select2-container--default .select2-results__option[aria-selected=true] {
+  background-color: var(--color-accent--dark);
+  color: var(--select-selected-text-color);
 }
 html {
   position: relative;
@@ -715,7 +746,7 @@ input:checked + .slider:before {
   flex-direction: column;
   border-radius: 8px;
   border: 2px solid var(--input-border-color);
-  background-color: #eeeeee;
+  background-color: var(--dropdown-bg-color);
   padding-bottom: 8px;
   padding-top: 8px;
   left: 0;
