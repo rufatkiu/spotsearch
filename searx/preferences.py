@@ -378,7 +378,7 @@ class Preferences:
                 choices=themes
             ),
             'etheme-style': EnumStringSetting(
-                settings['ui'].get('theme_args', {}).get('ethemestyle', 'dark'),
+                settings['ui'].get('theme_args', {}).get('ethemestyle', 'light'),
                 is_locked('etheme-style'),
                 choices=['', 'light', 'dark']),
             'results_on_new_tab': MapSetting(
