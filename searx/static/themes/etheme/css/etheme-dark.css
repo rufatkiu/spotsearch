@@ -44,7 +44,7 @@
   --color-accent--dark: #24527e;
   --nav-text-color: var(--color-main-text);
 }
-:root.dark-mode .custom-select {
+:root.dark-mode .select2-selection__arrow {
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAIhJREFUOE/FUkEOwCAIo/z/zbCAQjCyzMTDPBmlLS2ALg4usHQHFlE1dWYcE4mqQokQ4FOCWr+AvwjUJK0IRK5sd2OzS3wwdgvRqnoV3Gb6HKzjwx5RMhCR0HEJZnbcEpL7yRZGUXqc7zXYLeFsYC5AcjUTacdTE40l6kb5OtuTER4vRrfG/4Eft2BLALbkjNwAAAAASUVORK5CYII=") 96% no-repeat;
 }
 :root.dark-mode .result_header a {

@@ -314,7 +314,7 @@ input.btn[type="submit"]:hover {
 span.select2-selection.select2-selection--single {
   background-color: var(--color-main-background);
   border: 2px solid var(--select-border-color);
-  border-radius: 50px;
+  border-radius: 14px;
 }
 .select2-container--open .select2-dropdown--below {
   background-color: var(--color-main-background);
@@ -323,6 +323,10 @@ span.select2-selection.select2-selection--single {
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow {
   right: 0.5rem;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAQAAACR313BAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAABFkAAARZAVnbJUkAAAAHdElNRQfgBxgLDwB20OFsAAAAbElEQVQY073OsQ3CMAAEwJMYwJGnsAehpoXJItltBkmcdZBYgIIiQoLglnz3ui+eP+bk5uneteTMZJa6OJuIqvYzSJoqwqBq8gdmTTW86/dghxAUq4xsVYT9laBYXCw93Aajh7GPEF23t4fkBYevGFTANkPRAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE2LTA3LTI0VDExOjU1OjU4KzAyOjAwRFqFOQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNi0wNy0yNFQxMToxNTowMCswMjowMP7RDgQAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC") 96% no-repeat;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  display: none;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: var(--color-text-maxcontrast);
@@ -567,6 +571,9 @@ nav #etheme_links > * {
 }
 .nav_dark-mode .nav_dark-mode--label {
   margin-right: 0.5rem;
+}
+.nav_dark-mode .nav_dark-mode--label label {
+  cursor: pointer;
 }
 .switch {
   position: relative;

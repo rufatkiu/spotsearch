@@ -72,16 +72,6 @@
                     </select>
                 {% endcall %}
 
-                {% set theme_label = _('Themes') %}
-                {% set theme_info = _('Change searx layout') %}
-                {% call preferences_item(theme_info, theme_label, rtl) %}
-                    <select class="form-control custom-select" name="theme">
-                        {% for t in themes %}
-                        <option value="{{ t }}" {% if t == theme %}selected="selected"{% endif %}>{{ themes[t] }}</option>
-                        {% endfor %}
-                    </select>
-                {% endcall %}
-
                 {% call preferences_item(_('Choose style for this theme'), _('Style'), rtl) %}
                     <select class="form-control custom-select" name='etheme-style'>
                         <option value="light" {% if preferences.get_value('etheme-style') == 'light' %}selected="selected"{% endif %}>Light</option>
