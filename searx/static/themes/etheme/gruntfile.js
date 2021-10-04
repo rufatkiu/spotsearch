@@ -27,6 +27,7 @@ module.exports = function(grunt) {
         development: {
             options: {
                 paths: ["less/etheme"]
+                //banner: '/*! less/etheme/oscar.css | <%= grunt.template.today("dd-mm-yyyy") %> | https://github.com/asciimoo/searx */\n'
             },
             files: {
               "css/etheme.css": "less/etheme/etheme.less",
@@ -36,6 +37,7 @@ module.exports = function(grunt) {
         production: {
             options: {
                 paths: ["less/etheme"],
+                //banner: '/*! less/etheme/oscar.css | <%= grunt.template.today("dd-mm-yyyy") %> | https://github.com/asciimoo/searx */\n',
                 cleancss: true
             },
             files: {

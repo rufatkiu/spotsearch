@@ -373,7 +373,7 @@ class Preferences:
                 }
             ),
             'theme': EnumStringSetting(
-                settings['ui'].get('default_theme', 'etheme'),
+                settings['ui'].get('default_theme', 'oscar'),
                 is_locked('theme'),
                 choices=themes
             ),
@@ -396,6 +396,10 @@ class Preferences:
                 is_locked('doi_resolver'),
                 choices=DOI_RESOLVERS
             ),
+            'oscar-style': EnumStringSetting(
+                settings['ui'].get('theme_args', {}).get('oscar_style', 'logicodev'),
+                is_locked('oscar-style'),
+                choices=['', 'logicodev', 'logicodev-dark', 'pointhi']),
             'advanced_search': MapSetting(
                 settings['ui'].get('advanced_search', False),
                 is_locked('advanced_search'),
@@ -446,8 +450,8 @@ class Preferences:
     def parse_dict(self, input_data):
         """parse preferences from request (``flask.request.form``)"""
         for user_setting_name, user_setting in input_data.items():
-            if user_setting_name == 'theme': # Fix theme name for old cookies
-                user_setting = 'etheme' # only one theme supported
+            if user_setting_name == 'theme' and user_setting == 'eelo': # Fix theme name for old cookies
+                user_setting = settings['ui'].get('default_theme', 'oscar')
             if user_setting_name in self.key_value_settings:
                 if self.key_value_settings[user_setting_name].locked:
                     continue

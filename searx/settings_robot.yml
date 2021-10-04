@@ -15,7 +15,7 @@ server:
 ui:
     static_path : ""
     templates_path : ""
-    default_theme : etheme
+    default_theme : oscar
 
 preferences:
     lock: []
