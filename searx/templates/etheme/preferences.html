@@ -56,7 +56,7 @@
                 {% set image_proxy_label = _('Image proxy') %}
                 {% set image_proxy_info = _('Proxying image results through searx') %}
                 {% call preferences_item(image_proxy_info, image_proxy_label, rtl) %}
-                    <select class="form-control custom-select" name='image_proxy'>
+                    <select class="form-control custom-select" name='image_proxy' data-hide-search>
                         <option value="1" {% if image_proxy  %}selected="selected"{% endif %}>{{ _('Enabled') }}</option>
                         <option value="" {% if not image_proxy %}selected="selected"{% endif %}>{{ _('Disabled')}}</option>
                     </select>
@@ -65,7 +65,7 @@
                 {% set safesearch_label = _('SafeSearch') %}
                 {% set safesearch_info = _('Filter content') %}
                 {% call preferences_item(safesearch_info, safesearch_label, rtl) %}
-                    <select class="form-control custom-select" name='safesearch'>
+                    <select class="form-control custom-select" name='safesearch' data-hide-search>
                         <option value="2" {% if safesearch == '2' %}selected="selected"{% endif %}>{{ _('Strict') }}</option>
                         <option value="1" {% if safesearch == '1' %}selected="selected"{% endif %}>{{ _('Moderate') }}</option>
                         <option value="0" {% if safesearch == '0' %}selected="selected"{% endif %}>{{ _('None') }}</option>
@@ -73,7 +73,7 @@
                 {% endcall %}
 
                 {% call preferences_item(_('Choose style for this theme'), _('Style'), rtl) %}
-                    <select class="form-control custom-select" name='etheme-style'>
+                    <select class="form-control custom-select" name='etheme-style' data-hide-search>
                         <option value="light" {% if preferences.get_value('etheme-style') == 'light' %}selected="selected"{% endif %}>Light</option>
                         <option value="dark" {% if preferences.get_value('etheme-style') == 'dark' %}selected="selected"{% endif %}>Dark</option>
                     </select>
@@ -82,7 +82,7 @@
                 {% set label = _('Results on new tabs') %}
                 {% set info = _('Open result links on new browser tabs') %}
                 {% call preferences_item(info, label, rtl) %}
-                    <select class="form-control custom-select" name='results_on_new_tab'>
+                    <select class="form-control custom-select" name='results_on_new_tab' data-hide-search>
                         <option value="1" {% if results_on_new_tab %}selected="selected"{% endif %}>{{ _('On') }}</option>
                         <option value="0" {% if not results_on_new_tab %}selected="selected"{% endif %}>{{ _('Off')}}</option>
                     </select>

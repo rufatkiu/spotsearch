@@ -71,7 +71,10 @@ function setEThemeStyle(isDarkMode) {
 }
 
 function setUpSelectors() {
-  $('select').select2();
+  $('select:not([data-hide-search])').select2();
+  $('select[data-hide-search]').select2({
+    minimumResultsForSearch: Infinity,
+  });
 }
 
 $(document).ready(function(){
