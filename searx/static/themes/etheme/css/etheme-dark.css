@@ -50,3 +50,6 @@
 :root.dark-mode .result_header a {
   color: var(--color-main-text);
 }
+:root.dark-mode #nav_toggle_btn {
+  fill: var();
+}

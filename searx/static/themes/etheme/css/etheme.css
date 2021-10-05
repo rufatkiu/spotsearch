@@ -567,6 +567,7 @@ nav #etheme_links > * {
 }
 .nav_dark-mode {
   padding: 1rem;
+  padding-right: 3rem;
   color: var(--nav-text-color);
 }
 .nav_dark-mode .nav_dark-mode--label {
