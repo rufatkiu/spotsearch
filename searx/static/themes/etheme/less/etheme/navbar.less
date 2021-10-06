@@ -17,7 +17,7 @@ nav {
       color: @color_accent;
     }
   }
-  #etheme_links > * { margin-right: 32px; }
+  .etheme_links > a { margin-right: 32px; }
 }
 #nav_toggle_btn {
   display: none;
@@ -31,7 +31,7 @@ nav {
     top: 0;
     flex-direction: column;
     height: 100%;
-    background-color: var(--color-main-background);
+    background-color: var(--nav-mobile-background-color);
     z-index: 1000;
     width: 280px;
     min-width: 280px;
@@ -43,10 +43,10 @@ nav {
     padding: 0;
   }
   nav > :first-child { margin-top: @spacing_large / 2; }
-  nav > :last-child { margin-bottom: @spacing_large / 2; }
+  nav > :last-child { margin-bottom: @spacing_large }
   nav a {
     display: block;
-    padding: @spacing_large / 2 @spacing_large;
+    padding: @spacing_large @spacing_large;
   }
   #nav_toggle_btn {
     display: block;
@@ -91,6 +91,7 @@ nav {
   display: inline-block;
   width: 36px;
   height: 20px;
+  margin-right: 0.75rem;
   input { 
     opacity: 0;
     width: 0;

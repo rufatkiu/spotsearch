@@ -142,3 +142,21 @@ footer {
     margin-right: @spacing_medium;
   }
 }
+
+.separator {
+  margin: 0 0.75rem;
+  border-bottom: none;
+}
+
+.show-mobile-mq {
+  display: none;
+}
+
+.mobile-mq({
+  .hide-mobile-mq {
+    display: none;
+  }
+  .show-mobile-mq {
+    display: block;
+  }
+});

@@ -487,6 +487,21 @@ footer .links > :first-child {
   display: inline-block;
   margin-right: 8px;
 }
+.separator {
+  margin: 0 0.75rem;
+  border-bottom: none;
+}
+.show-mobile-mq {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .hide-mobile-mq {
+    display: none;
+  }
+  .show-mobile-mq {
+    display: block;
+  }
+}
 nav {
   height: 48px;
   display: flex;
@@ -502,7 +517,7 @@ nav a {
 nav a:hover {
   color: var(--color-primary);
 }
-nav #etheme_links > * {
+nav .etheme_links > a {
   margin-right: 32px;
 }
 #nav_toggle_btn {
@@ -515,7 +530,7 @@ nav #etheme_links > * {
     top: 0;
     flex-direction: column;
     height: 100%;
-    background-color: var(--color-main-background);
+    background-color: var(--nav-mobile-background-color);
     z-index: 1000;
     width: 280px;
     min-width: 280px;
@@ -529,11 +544,11 @@ nav #etheme_links > * {
     margin-top: 8px;
   }
   nav > :last-child {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
   nav a {
     display: block;
-    padding: 8px 16px;
+    padding: 16px 16px;
   }
   #nav_toggle_btn {
     display: block;
@@ -581,6 +596,7 @@ nav #etheme_links > * {
   display: inline-block;
   width: 36px;
   height: 20px;
+  margin-right: 0.75rem;
 }
 .switch input {
   opacity: 0;
