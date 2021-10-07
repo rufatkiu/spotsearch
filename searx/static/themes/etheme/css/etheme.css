@@ -31,6 +31,7 @@
   --link-color: #007fff;
   --color-accent--dark: #2344a2;
   --nav-text-color: #868686;
+  --nav-background-color: white;
   --color-main-text: #60686f;
   --color-primary: #1f6ed7;
   --color-delete: #e06572;
@@ -530,7 +531,7 @@ nav .etheme_links > a {
     top: 0;
     flex-direction: column;
     height: 100%;
-    background-color: var(--nav-mobile-background-color);
+    background-color: var(--nav-background-color);
     z-index: 1000;
     width: 280px;
     min-width: 280px;
