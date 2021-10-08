@@ -1,13 +1,23 @@
 {% from 'etheme/macros.html' import navbar_menu %}
 <input type="checkbox" name="nav_toggle" id="nav_toggle" class="hidden">
 <nav>
-    <span id="etheme_links">
+    <span class="etheme_links">
         <a href="https://ecloud.global/apps/rainloop">{{_('mail')}}</a>
         <a href="https://ecloud.global/apps/files">{{_('drive')}}</a>
+
+        <hr class="show-mobile-mq separator" />
+        <a class="show-mobile-mq" href="{{ url_for('preferences') }}">{{ _('preferences') }}</a>
     </span>
 
     <span>
-        <a href="{{ url_for('preferences') }}">{{ _('preferences') }}</a>
+        <span class="nav_dark-mode">
+            <label class="switch">
+                <input id="dark-mode-switch" type="checkbox" {% if preferences.get_value('etheme-style') == 'dark' %}checked{% endif %}>
+                <span class="slider"></span>
+            </label>
+            <span class="nav_dark-mode--label"><label for="dark-mode-switch">Dark Mode</label></span>
+        </span>
+        <a class="hide-mobile-mq" href="{{ url_for('preferences') }}">{{ _('preferences') }}</a>
     </span>
 </nav>
 <div id="nav_cover"></div>

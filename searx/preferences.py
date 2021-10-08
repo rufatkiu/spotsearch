@@ -377,6 +377,10 @@ class Preferences:
                 is_locked('theme'),
                 choices=themes
             ),
+            'etheme-style': EnumStringSetting(
+                settings['ui'].get('theme_args', {}).get('ethemestyle', 'light'),
+                is_locked('etheme-style'),
+                choices=['', 'light', 'dark']),
             'results_on_new_tab': MapSetting(
                 settings['ui'].get('results_on_new_tab', False),
                 is_locked('results_on_new_tab'),

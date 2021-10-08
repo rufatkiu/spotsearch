@@ -117,18 +117,14 @@ node.clean:
 	$(Q)rm -rf \
 	  ./node_modules  \
 	  ./package-lock.json \
-	  ./searx/static/themes/oscar/package-lock.json \
-	  ./searx/static/themes/oscar/node_modules \
-	  ./searx/static/themes/simple/package-lock.json \
-	  ./searx/static/themes/simple/node_modules \
 	  ./searx/static/themes/etheme/package-lock.json \
 	  ./searx/static/themes/etheme/node_modules
 
 # build themes
 # ------------
 
-PHONY += themes themes.oscar themes.simple themes.etheme
-themes: buildenv themes.oscar themes.simple themes.etheme
+PHONY += themes themes.etheme
+themes: buildenv themes.etheme
 
 quiet_cmd_lessc = LESSC     $3
       cmd_lessc = PATH="$$(npm bin):$$PATH" \
@@ -137,14 +133,6 @@ quiet_cmd_lessc = LESSC     $3
 quiet_cmd_grunt = GRUNT     $2
       cmd_grunt = PATH="$$(npm bin):$$PATH" \
 	grunt --gruntfile  "$2"
-
-themes.oscar: node.env
-	$(Q)echo '[!] build oscar theme'
-	$(call cmd,grunt,searx/static/themes/oscar/gruntfile.js)
-
-themes.simple: node.env
-	$(Q)echo '[!] build simple theme'
-	$(call cmd,grunt,searx/static/themes/simple/gruntfile.js)
 
 themes.etheme: node.env
 	$(Q)echo '[!] build etheme theme'

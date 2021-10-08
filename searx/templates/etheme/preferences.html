@@ -56,7 +56,7 @@
                 {% set image_proxy_label = _('Image proxy') %}
                 {% set image_proxy_info = _('Proxying image results through searx') %}
                 {% call preferences_item(image_proxy_info, image_proxy_label, rtl) %}
-                    <select class="form-control custom-select" name='image_proxy'>
+                    <select class="form-control custom-select" name='image_proxy' data-hide-search>
                         <option value="1" {% if image_proxy  %}selected="selected"{% endif %}>{{ _('Enabled') }}</option>
                         <option value="" {% if not image_proxy %}selected="selected"{% endif %}>{{ _('Disabled')}}</option>
                     </select>
@@ -65,35 +65,24 @@
                 {% set safesearch_label = _('SafeSearch') %}
                 {% set safesearch_info = _('Filter content') %}
                 {% call preferences_item(safesearch_info, safesearch_label, rtl) %}
-                    <select class="form-control custom-select" name='safesearch'>
+                    <select class="form-control custom-select" name='safesearch' data-hide-search>
                         <option value="2" {% if safesearch == '2' %}selected="selected"{% endif %}>{{ _('Strict') }}</option>
                         <option value="1" {% if safesearch == '1' %}selected="selected"{% endif %}>{{ _('Moderate') }}</option>
                         <option value="0" {% if safesearch == '0' %}selected="selected"{% endif %}>{{ _('None') }}</option>
                     </select>
                 {% endcall %}
 
-                {% set theme_label = _('Themes') %}
-                {% set theme_info = _('Change searx layout') %}
-                {% call preferences_item(theme_info, theme_label, rtl) %}
-                    <select class="form-control custom-select" name="theme">
-                        {% for t in themes %}
-                        <option value="{{ t }}" {% if t == theme %}selected="selected"{% endif %}>{{ themes[t] }}</option>
-                        {% endfor %}
-                    </select>
-                {% endcall %}
-
                 {% call preferences_item(_('Choose style for this theme'), _('Style'), rtl) %}
-                    <select class="form-control custom-select" name='oscar-style'>
-                        <option value="logicodev" >Logicodev</option>
-                        <option value="pointhi" {% if preferences.get_value('oscar-style') == 'pointhi' %}selected="selected"{% endif %}>Pointhi</option>
-                        <option value="logicodev-dark" {% if preferences.get_value('oscar-style') == 'logicodev-dark' %}selected="selected"{% endif %}>Logicodev dark</option>
+                    <select class="form-control custom-select" name='etheme-style' data-hide-search>
+                        <option value="light" {% if preferences.get_value('etheme-style') == 'light' %}selected="selected"{% endif %}>Light</option>
+                        <option value="dark" {% if preferences.get_value('etheme-style') == 'dark' %}selected="selected"{% endif %}>Dark</option>
                     </select>
                 {% endcall %}
 
                 {% set label = _('Results on new tabs') %}
                 {% set info = _('Open result links on new browser tabs') %}
                 {% call preferences_item(info, label, rtl) %}
-                    <select class="form-control custom-select" name='results_on_new_tab'>
+                    <select class="form-control custom-select" name='results_on_new_tab' data-hide-search>
                         <option value="1" {% if results_on_new_tab %}selected="selected"{% endif %}>{{ _('On') }}</option>
                         <option value="0" {% if not results_on_new_tab %}selected="selected"{% endif %}>{{ _('Off')}}</option>
                     </select>
@@ -223,7 +212,7 @@
 
         <div>
             <p>{{ _('Search URL of the currently saved preferences') }} <small class="text-muted">({{ _('Note: specifying custom settings in the search URL can reduce privacy by leaking data to the clicked result sites.') }})</small>:<br/> </p>
-            <input readonly="" class="select-all-on-click block" type="url" value="{{ url_for('index', _external=True) }}?preferences={{ preferences_url_params|e }}{% raw %}&amp;q=%s{% endraw %}">
+            <input readonly="" class="input-current-preferences select-all-on-click block" type="url" value="{{ url_for('index', _external=True) }}?preferences={{ preferences_url_params|e }}{% raw %}&amp;q=%s{% endraw %}">
         </div>
 
         <section id="action_buttons">

@@ -2,7 +2,7 @@
 html {
   position: relative;
   min-height: 100%;
-  color: @text-color;
+  color: var(--color-main-text);
 }
 
 body {
@@ -10,7 +10,8 @@ body {
   padding: 0px;
   font-size: @fontsize_medium;
   margin-bottom: 120px;
-  background-color: white;
+  background-color: var(--color-main-background);
+  transition: background-color 0.2s ease-in-out;
   font-family: 'Roboto', "Cantarell", Helvetica, Arial, sans-serif;
 
   &.lock { overflow: hidden; }
@@ -22,10 +23,20 @@ body {
 
 input, select {
   box-shadow: none !important;
+  color: var(--input-text-color);
+}
+
+option {
+  background-color: var(--color-main-background);
+}
+
+.input-current-preferences {
+  background-color: var(--color-main-background);
+  border: 1px inset var(--color-main-text);
 }
 
 a { 
-  color: @link-color;
+  color: var(--link-color);
   &:extend(.color-transition);
 }
 a, select {
@@ -131,3 +142,21 @@ footer {
     margin-right: @spacing_medium;
   }
 }
+
+.separator {
+  margin: 0 0.75rem;
+  border-bottom: none;
+}
+
+.show-mobile-mq {
+  display: none;
+}
+
+.mobile-mq({
+  .hide-mobile-mq {
+    display: none;
+  }
+  .show-mobile-mq {
+    display: block;
+  }
+});

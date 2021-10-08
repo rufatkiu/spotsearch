@@ -5,7 +5,8 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'js/etheme.min.js': ['js/etheme.js']
+          'js/etheme.min.js': ['js/etheme.js'],
+          'js/searx.min.js': ['js/searx.js']
         }
       }
     },
@@ -28,7 +29,10 @@ module.exports = function(grunt) {
                 paths: ["less/etheme"]
                 //banner: '/*! less/etheme/oscar.css | <%= grunt.template.today("dd-mm-yyyy") %> | https://github.com/asciimoo/searx */\n'
             },
-            files: {"css/etheme.css": "less/etheme/etheme.less"}
+            files: {
+              "css/etheme.css": "less/etheme/etheme.less",
+              "css/etheme-dark.css": "less/etheme/etheme-dark.less"
+            }
         },
         production: {
             options: {
@@ -36,7 +40,10 @@ module.exports = function(grunt) {
                 //banner: '/*! less/etheme/oscar.css | <%= grunt.template.today("dd-mm-yyyy") %> | https://github.com/asciimoo/searx */\n',
                 cleancss: true
             },
-            files: {"css/etheme.min.css": "less/etheme/etheme.less"}
+            files: {
+              "css/etheme.min.css": "less/etheme/etheme.less",
+              "css/etheme-dark.min.css": "less/etheme/etheme-dark.less"
+            }
         },
         /*
         // built with ./manage.sh styles
