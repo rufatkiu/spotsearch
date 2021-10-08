@@ -1,6 +1,12 @@
 {% from 'etheme/macros.html' import icon %}
+
+{% set etheme_style = "" %}
+{% if preferences.get_value('etheme-style') == 'dark' %}
+    {% set etheme_style = "dark-mode" %}
+{% endif %}
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"{% if rtl %} dir="rtl"{% endif %}>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" {% if rtl %} dir="rtl" {% endif %} class="{{ etheme_style }}">
 <head>
     {% set version = searx_version.split('+') %}
     <meta charset="UTF-8" />
@@ -13,7 +19,9 @@
     {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %}{{ instance_name }}</title>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme-dark.min.css') }}" type="text/css" />
 
     {% for css in styles %}
         <link rel="stylesheet" href="{{ url_for('static', filename=css) }}" type="text/css" />
@@ -43,7 +51,6 @@
         </style>
     </noscript>
 </head>
-
 
 <body>
     {% include 'etheme/components/icons.html' %}
@@ -96,6 +103,7 @@
 
 
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/etheme.min.js') }}"></script>
     {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>{% endif %}
     <script src="{{ url_for('static', filename='js/searx.min.js') }}"

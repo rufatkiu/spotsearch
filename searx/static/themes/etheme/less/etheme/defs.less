@@ -1,17 +1,56 @@
-@black: #020f16;
-@grey: #eeeeee;
-@text-color: #60686f;
-@text-color-hl: #5c6469;
-@link-color: #1f6ed7;
+:root {
+  --color-primary: #007fff;
+  --color-primary-element: #007fff;
+  --color-secondary-element: white;
+  --border-color-secondary-element: #007fff;
+  --color-primary-element-light: #007fff;
+  --color-error: #fb3845;
+  --color-delete: #e9322d;
+  --color-success: #3ad975;
+  --color-main-background: #ffffff;
+  --color-main-background-translucent: #f2f2f2;
+  --color-main-text: rgb(0, 0, 0);
+  --color-background-hover: white;
+  --color-text-maxcontrast: black;
+  --color-border-dark: #e6e6e6;
+  --color-border: #e6e6e6;
+  --icon-settings-dark-000: #000000;
+  --icon-inactive-color: #808080;
+  --icon-active-color: #007fff;
+  --input-background-color: white;
+  --menu-icon-color: #222;
+  --color-dashboard-panels: #f2f2f2;
+  --color-dashboard-background-plain: #d2d2d2;
 
-@color_accent: #5068dd;
+  // Project specific variables
+  --text-muted-normal-alpha: rgba(0, 0, 0, 0.4);
+  --input-border-color: rgba(0, 0, 0, 0.24);
+  --input-text-color: black;
+  --select-border-color: rgba(0, 0, 0, 0.2);
+  --select-selected-text-color: white;
+  --text-color-hl: #5c6469;
+  --dropdown-bg-color: #eeeeee;
+  --link-color: #007fff;
+  --color-accent--dark: #2344a2;
+  --nav-text-color: #868686;
+  --nav-background-color: white;
+
+  // For backwards consistency only
+  --color-main-text: rgb(96, 104, 111);
+  --color-primary: #1f6ed7;
+  --color-delete: #e06572;
+}
+
+@text-color: var(--color-main-text);
+@text-color-hl: var(--text-color-hl);
+
+@color_accent: var(--color-primary);
 @color_accent__op: white;
-@color_accent__dark: #2344a2;
 @color_primary: blue;
 @color_base: blue;
-@color_base-text-hl: #5c6469;
+@color_base-text-hl: var(--text-color-hl);
 
-@color_danger: #e06572;
+@color_danger: var(--color-delete);
 @color_danger__op: white;
 
 @corner-radius: 8px;
@@ -70,7 +109,7 @@
 .fill-transition { transition: @fill-transition; }
 .box-shadow-transition { transition: @box-shadow-transition; }
 
-.widget-border(@color: rgba(0, 0, 0, .2)) {
+.widget-border(@color: var(--input-border-color)) {
   border: 2px solid @color;
 }
 

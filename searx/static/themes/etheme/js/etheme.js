@@ -42,6 +42,41 @@ function build_image(images) {
   return res;
 }
 
+function setUpDarkModetoggle() {
+
+  var isDarkMode = $('html').hasClass('dark-mode');
+  var darkModeSwitch = $('.nav_dark-mode input');
+
+  darkModeSwitch.attr("checked", isDarkMode);
+  darkModeSwitch.change(function() {
+    setEThemeStyle(this.checked);
+  });
+}
+
+function setEThemeStyle(isDarkMode) {
+
+  $('html').toggleClass('dark-mode', isDarkMode);
+
+  var ethemeStyle = isDarkMode ? 'dark' : 'light';
+  var options = {
+    method:'PATCH'
+  };
+  fetch('/preferences/etheme-style/' + ethemeStyle, options)
+  .then(function(_) {
+    
+  })
+  .catch(function(err) {
+    console.log('Error while setting etheme style', err);
+  });
+}
+
+function setUpSelectors() {
+  $('select:not([data-hide-search])').select2();
+  $('select[data-hide-search]').select2({
+    minimumResultsForSearch: Infinity,
+  });
+}
+
 $(document).ready(function(){
   function configure_image_view(target, view_url) {
     document.getElementById("image_view_image").src = view_url;
@@ -97,4 +132,7 @@ $(document).ready(function(){
         }
       });
   }
+
+  setUpDarkModetoggle();
+  setUpSelectors();
 });

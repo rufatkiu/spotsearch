@@ -90,14 +90,6 @@ npm_packages() {
     cd -- "$BASE_DIR"
     npm install less@2.7 less-plugin-clean-css grunt-cli
 
-    echo '[!] install NPM packages for oscar theme'
-    cd -- "$BASE_DIR/searx/static/themes/oscar"
-    npm install
-
-    echo '[!] install NPM packages for simple theme'
-    cd -- "$BASE_DIR/searx/static/themes/simple"
-    npm install
-
     echo '[!] install NPM packages for etheme theme'
     cd -- "$BASE_DIR/searx/static/themes/etheme"
     npm install
