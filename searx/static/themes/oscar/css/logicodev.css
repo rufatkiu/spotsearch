@@ -175,13 +175,38 @@ input[type=checkbox]:not(:checked) + .label_hide_if_checked + .label_hide_if_not
 }
 .result-images {
   float: left !important;
-  width: 24%;
-  margin: 0.5%;
+  margin: 0;
+  padding: 0;
 }
 .result-images a {
   display: block;
   width: 100%;
   background-size: cover;
+}
+.result-images a .img-thumbnail {
+  border: none !important;
+  padding: 0;
+}
+.result-images a:hover,
+.result-images a:focus {
+  outline: 0;
+}
+.result-images a:hover .img-thumbnail,
+.result-images a:focus .img-thumbnail {
+  box-shadow: 5px 5px 15px 0px black;
+}
+.result-images.js a .img-thumbnail {
+  max-height: inherit;
+  min-height: inherit;
+}
+.result-images:not(.js) {
+  width: 25%;
+  padding: 3px 13px 13px 3px;
+}
+.result-images:not(.js) a .img-thumbnail {
+  margin: 0;
+  max-height: 128px;
+  min-height: 128px;
 }
 .img-thumbnail {
   margin: 5px;
@@ -314,6 +339,10 @@ input[type=checkbox]:not(:checked) + .label_hide_if_checked + .label_hide_if_not
   width: 100%;
   text-align: center;
   margin-bottom: 0px;
+  cursor: pointer;
+}
+.infobox .infobox_toggle:hover {
+  background: #DDD;
 }
 .infobox .infobox_checkbox ~ .infobox_body {
   max-height: 300px;
@@ -409,6 +438,8 @@ input[type=checkbox]:not(:checked) + .label_hide_if_checked + .label_hide_if_not
   border: #888 1px solid;
   color: #666;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAQAAACR313BAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAABFkAAARZAVnbJUkAAAAHdElNRQfgBxgLDwB20OFsAAAAbElEQVQY073OsQ3CMAAEwJMYwJGnsAehpoXJItltBkmcdZBYgIIiQoLglnz3ui+eP+bk5uneteTMZJa6OJuIqvYzSJoqwqBq8gdmTTW86/dghxAUq4xsVYT9laBYXCw93Aajh7GPEF23t4fkBYevGFTANkPRAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE2LTA3LTI0VDExOjU1OjU4KzAyOjAwRFqFOQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNi0wNy0yNFQxMToxNTowMCswMjowMP7RDgQAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC) 96% no-repeat;
+  padding-right: 26px;
+  text-overflow: ellipsis;
 }
 .custom-select-rtl {
   background-position-x: 4%;
@@ -990,6 +1021,14 @@ ul.nav li a {
   color: #C5C8C6 !important;
   background: #1d1f21 !important;
   border-color: #111 !important;
+}
+.panel-footer {
+  color: #C5C8C6 !important;
+  background: #282a2e !important;
+  border-top: 1px solid #111 !important;
+}
+.infobox_toggle:hover {
+  background: #3d3f43 !important;
 }
 p.btn.btn-default {
   background: none;
