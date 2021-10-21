@@ -11,20 +11,17 @@ services:
 
 python:
   stage: check
-  before_script:
-    - ./manage.sh update_dev_packages
   script:
-    - make test.pep8
-    - make test.pylint
+    - ./manage test.pep8
+    - ./manage test.pylint
 
 build:web:
   stage: build
   before_script:
-    - ./manage.sh npm_packages
-    - ./manage.sh update_dev_packages
+    - ./manage node.env
   script:
-    - ./manage.sh locales
-    - make V=1 themes.etheme
+    - ./manage themes.etheme
+    - ./manage babel.compile
 
 .build:docker:
   stage: build
@@ -56,10 +53,8 @@ build:docker:tags:
 
 test:unit:
   stage: test
-  before_script:
-    - ./manage.sh update_dev_packages
   script:
-    - make test.coverage
+    - ./manage test.coverage
   coverage: '/TOTAL.*\s+(\d+%)$/'
 
 .deploy:template:

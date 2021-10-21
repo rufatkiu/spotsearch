@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 import  sys, os
-from sphinx_build_tools import load_sphinx_config
 from pallets_sphinx_themes import ProjectLink
 
 from searx import brand
@@ -10,7 +10,7 @@ from searx.version import VERSION_STRING
 # Project --------------------------------------------------------------
 
 project = u'searx'
-copyright = u'2015-2020, Adam Tauber, Noémi Ványi'
+copyright = u'2015-2021, Adam Tauber, Noémi Ványi'
 author = u'Adam Tauber'
 release, version = VERSION_STRING, VERSION_STRING
 highlight_language = 'none'
@@ -101,6 +101,7 @@ imgmath_font_size = 14
 
 html_theme_options = {"index_sidebar_logo": True}
 html_context = {"project_links": [] }
+html_context["project_links"].append(ProjectLink("Blog", "blog/index.html"))
 if brand.GIT_URL:
     html_context["project_links"].append(ProjectLink("Source", brand.GIT_URL))
 if brand.WIKI_URL:
@@ -128,9 +129,3 @@ html_show_sourcelink = False
 latex_documents = [
     (master_doc, "searx-{}.tex".format(VERSION_STRING), html_title, author, "manual")
 ]
-
-# ------------------------------------------------------------------------------
-# Since loadConfig overwrites settings from the global namespace, it has to be
-# the last statement in the conf.py file
-# ------------------------------------------------------------------------------
-load_sphinx_config(globals())

@@ -14,6 +14,7 @@ suggestion_xpath = ''
 results_xpath = ''
 cached_xpath = ''
 cached_url = ''
+soft_max_redirects = 0
 
 # parameters for engines with paging support
 #
@@ -33,6 +34,7 @@ def request(query, params):
 
     params['url'] = search_url.format(**fp)
     params['query'] = query
+    params['soft_max_redirects'] = soft_max_redirects
 
     return params
 
@@ -46,7 +48,7 @@ def response(resp):
         for result in eval_xpath_list(dom, results_xpath):
             url = extract_url(eval_xpath_list(result, url_xpath, min_len=1), search_url)
             title = extract_text(eval_xpath_list(result, title_xpath, min_len=1))
-            content = extract_text(eval_xpath_list(result, content_xpath, min_len=1))
+            content = extract_text(eval_xpath_list(result, content_xpath))
             tmp_result = {'url': url, 'title': title, 'content': content}
 
             # add thumbnail if available
