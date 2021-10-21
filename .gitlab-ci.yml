@@ -11,9 +11,8 @@ services:
 
 python:
   stage: check
-  before_script:
-    - ./manage.sh update_dev_packages
   script:
+    - make install
     - make test.pep8
     - make test.pylint
 
