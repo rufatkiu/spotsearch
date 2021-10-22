@@ -303,10 +303,9 @@ def get_current_theme_folder_name(override=None):
 
     if override and (override in themes_folder_name or override == '__common__'):
         return override
-    theme_name = request.args.get('theme', request.preferences.get_value('theme'))
-    if theme_name not in themes_folder_name:
-        theme_name = default_theme
-    return theme_name
+    
+    # We only support etheme
+    return 'etheme'
 
 
 def get_result_template(theme, template_name):
@@ -898,6 +897,8 @@ def preferences():
     locked_preferences = list()
     if 'preferences' in settings and 'lock' in settings['preferences']:
         locked_preferences = settings['preferences']['lock']
+
+    print(themes)
 
     return render('preferences.html',
                   selected_categories=get_selected_categories(request.preferences, request.form),
