@@ -18,6 +18,7 @@ python:
 build:web:
   stage: build
   before_script:
+    - which npm
     - ./manage node.env
   script:
     - ./manage themes.etheme
