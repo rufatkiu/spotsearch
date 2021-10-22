@@ -302,10 +302,8 @@ def get_current_theme_folder_name(override=None):
     3. settings"""
 
     if override and (override in themes_folder_name or override == '__common__'):
-        return override
-    
-    # We only support etheme
-    return 'etheme'
+        return override    
+    return 'etheme' # We only support etheme
 
 
 def get_result_template(theme, template_name):
