@@ -3,14 +3,19 @@
 import json
 from urllib.parse import ParseResult
 from mock import Mock
-from searx import webapp
 from searx.testing import SearxTestCase
 from searx.search import Search
+import searx.engines
 
 
 class ViewsTestCase(SearxTestCase):
 
     def setUp(self):
+        # skip init function (no external HTTP request)
+        self.setattr4test(searx.engines, 'initialize_engines', searx.engines.load_engines)
+
+        from searx import webapp  # pylint disable=import-outside-toplevel
+
         webapp.app.config['TESTING'] = True  # to get better error messages
         self.app = webapp.app.test_client()
 
@@ -183,6 +188,11 @@ class ViewsTestCase(SearxTestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b'<h1>About <a href="/">searx</a></h1>', result.data)
 
+    def test_health(self):
+        result = self.app.get('/healthz')
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(b'OK', result.data)
+
     def test_preferences(self):
         result = self.app.get('/preferences')
         self.assertEqual(result.status_code, 200)
@@ -215,8 +225,7 @@ class ViewsTestCase(SearxTestCase):
 
     def test_stats(self):
         result = self.app.get('/stats')
-        self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<h1>Engine stats</h1>', result.data)
+        self.assertEqual(result.status_code, 404)
 
     def test_robots_txt(self):
         result = self.app.get('/robots.txt')

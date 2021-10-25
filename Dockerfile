@@ -3,7 +3,6 @@ FROM registry.gitlab.e.foundation:5000/e/cloud/my-spot/env as builder
 COPY . /src/
 RUN pip install --force-reinstall --prefix /install /src
 
-
 FROM python:3.9-slim
 LABEL maintainer="spot <https://gitlab.e.foundation/e/cloud/my-spot/>"
 LABEL description="A privacy-respecting, hackable metasearch engine."

@@ -179,7 +179,7 @@ class SearchLanguageSetting(EnumStringSetting):
         if data not in self.choices and data != self.value:  # pylint: disable=no-member
             # hack to give some backwards compatibility with old language cookies
             data = str(data).replace('_', '-')
-            lang = data.split('-')[0]
+            lang = data.split('-', maxsplit=1)[0]
             # pylint: disable=no-member
             if data in self.choices:
                 pass
@@ -284,7 +284,7 @@ class EnginesSetting(SwitchableSetting):
         transformed_choices = []
         for engine_name, engine in self.choices.items():  # pylint: disable=no-member,access-member-before-definition
             for category in engine.categories:
-                transformed_choice = dict()
+                transformed_choice = {}
                 transformed_choice['default_on'] = not engine.disabled
                 transformed_choice['id'] = '{}__{}'.format(engine_name, category)
                 transformed_choices.append(transformed_choice)
@@ -295,7 +295,7 @@ class EnginesSetting(SwitchableSetting):
 
     def transform_values(self, values):
         if len(values) == 1 and next(iter(values)) == '':
-            return list()
+            return []
         transformed_values = []
         for value in values:
             engine, category = value.split('__')
@@ -310,7 +310,7 @@ class PluginsSetting(SwitchableSetting):
         super()._post_init()
         transformed_choices = []
         for plugin in self.choices:  # pylint: disable=access-member-before-definition
-            transformed_choice = dict()
+            transformed_choice = {}
             transformed_choice['default_on'] = plugin.default_on
             transformed_choice['id'] = plugin.id
             transformed_choices.append(transformed_choice)
@@ -392,7 +392,7 @@ class Preferences:
                 }
             ),
             'doi_resolver': MultipleChoiceSetting(
-                ['oadoi.org'],
+                [settings['default_doi_resolver'], ],
                 is_locked('doi_resolver'),
                 choices=DOI_RESOLVERS
             ),
@@ -443,8 +443,8 @@ class Preferences:
         """parse (base64) preferences from request (``flask.request.form['preferences']``)"""
         decoded_data = decompress(urlsafe_b64decode(input_data.encode()))
         dict_data = {}
-        for x, y in parse_qs(decoded_data).items():
-            dict_data[x.decode()] = y[0].decode()
+        for x, y in parse_qs(decoded_data.decode()).items():
+            dict_data[x] = y[0]
         self.parse_dict(dict_data)
 
     def parse_dict(self, input_data):
@@ -509,7 +509,7 @@ class Preferences:
         """Save cookie in the HTTP reponse obect
         """
         for user_setting_name, user_setting in self.key_value_settings.items():
-            if self.key_value_settings[user_setting_name].locked:
+            if user_setting.locked:
                 continue
             user_setting.save(user_setting_name, resp)
         self.engines.save(resp)
