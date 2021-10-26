@@ -133,20 +133,20 @@
     
   }
 
-
   .search_categories, #categories {
     text-transform: capitalize;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     position: relative;
     flex: 100%;
+    gap: @spacing_large;
+    height: 80%;
   
     label {
       flex-basis: auto;
       font-size: @fontsize_small;
       font-weight: normal;
-      margin-right: @spacing_large;
       cursor: pointer;
     }
   
@@ -208,7 +208,6 @@
 
       #time_and_lang { 
         display: flex;
-        margin-left: @spacing_xx-large;
         > * { width: auto; }
       }
     }
