@@ -754,17 +754,18 @@ input:checked + .slider:before {
 #search_form #categories {
   text-transform: capitalize;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   position: relative;
   flex: 100%;
+  gap: 16px;
+  height: 80%;
 }
 #search_form .search_categories label,
 #search_form #categories label {
   flex-basis: auto;
   font-size: 14px;
   font-weight: normal;
-  margin-right: 16px;
   cursor: pointer;
 }
 #search_form .search_categories input[type="checkbox"]:checked + label,
@@ -835,7 +836,6 @@ input:checked + .slider:before {
   }
   #search_form #search_params #time_and_lang {
     display: flex;
-    margin-left: 32px;
   }
   #search_form #search_params #time_and_lang > * {
     width: auto;
@@ -978,6 +978,7 @@ input:checked + .slider:before {
 .result .external-link {
   font-size: 14px;
   color: var(--color-success);
+  word-break: break-word;
 }
 .result .extra-info {
   color: var(--text-muted-normal-alpha);
