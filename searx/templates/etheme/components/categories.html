@@ -26,6 +26,12 @@
                 {% endfor %}
             </div>
         </div>
+
+        <span id="time_and_lang">
+            {% set flat_lang_selector = True %}
+            {% include 'etheme/components/languages.html' %}
+            {% include 'etheme/components/time-range.html' %}
+        </span>
     </div>
     
 </div>
