@@ -95,7 +95,7 @@ deploy:spot.eeo.one.backend1:
     MORTY_PORT: 8089
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND1_HOST - $BACKEND1_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot && git stash && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - docker-compose up -d --build
     - docker-compose restart filtron
     - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot 
@@ -136,7 +136,7 @@ deploy:spot.eeo.one.backend2:
     MORTY_PORT: 8089
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND2_HOST - $BACKEND2_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot && git stash && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - docker-compose up -d --build
     - docker-compose restart filtron
     - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot 
