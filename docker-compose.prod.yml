@@ -56,14 +56,15 @@ services:
     restart: always
     depends_on: 
       - spot-nginx
-    command: -listen :3000 -rules /etc/filtron/rules.json -target spot-nginx
+      - morty
     networks:
       - ${INTERNAL_NETWORK_NAME}
       - spot-wireguarded
     ports:
       - ${WIREGUARD_IP}:${FILTRON_PORT}:3000
     volumes:
-      - ./etc/filtron/rules.json:/etc/filtron/rules.json
+      - ./etc/filtron/rules.json:/etc/filtron/rules.json:rw
+    entrypoint: ["/usr/local/filtron/filtron", "--rules", "/etc/filtron/rules.json", "-listen", "3000", "-target", "spot-nginx"]
 
   morty:
     image: dalf/morty:latest
