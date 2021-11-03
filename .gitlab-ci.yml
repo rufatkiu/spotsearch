@@ -95,9 +95,7 @@ deploy:spot.eeo.one.backend1:
     MORTY_PORT: 8089
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND1_HOST - $BACKEND1_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot && git stash && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - docker-compose up -d --build
-    - docker-compose restart filtron
+    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_MORTY_HOSTNAME=proxy.spot.ecloud.global/SPOT_MORTY_HOSTNAME=$SPOT_MORTY_HOSTNAME/g' .env 
@@ -110,7 +108,8 @@ deploy:spot.eeo.one.backend1:
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env"
+      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.eeo.one.backend2:
   extends: .deploy:template
@@ -136,9 +135,7 @@ deploy:spot.eeo.one.backend2:
     MORTY_PORT: 8089
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND2_HOST - $BACKEND2_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot && git stash && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - docker-compose up -d --build
-    - docker-compose restart filtron
+    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_MORTY_HOSTNAME=proxy.spot.ecloud.global/SPOT_MORTY_HOSTNAME=$SPOT_MORTY_HOSTNAME/g' .env 
@@ -151,8 +148,8 @@ deploy:spot.eeo.one.backend2:
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env"
-
+      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
+      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
 
 deploy:spot.ecloud.global.backend1:
   extends: .deploy:template
@@ -177,10 +174,7 @@ deploy:spot.ecloud.global.backend1:
     MORTY_PORT: 8099
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND1_HOST - $BACKEND1_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/production-spot && git stash && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - docker-compose pull
-    - docker-compose up -d
-    - docker-compose restart filtron
+    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/production-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/production-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_MORTY_HOSTNAME=proxy.spot.ecloud.global/SPOT_MORTY_HOSTNAME=$SPOT_MORTY_HOSTNAME/g' .env 
@@ -193,7 +187,8 @@ deploy:spot.ecloud.global.backend1:
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env"
+      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.ecloud.global.backend2:
   extends: .deploy:template
@@ -218,10 +213,7 @@ deploy:spot.ecloud.global.backend2:
     MORTY_PORT: 8099
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND2_HOST - $BACKEND2_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/production-spot && git stash && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - docker-compose pull
-    - docker-compose up -d
-    - docker-compose restart filtron
+    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/production-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/production-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_MORTY_HOSTNAME=proxy.spot.ecloud.global/SPOT_MORTY_HOSTNAME=$SPOT_MORTY_HOSTNAME/g' .env 
@@ -234,5 +226,6 @@ deploy:spot.ecloud.global.backend2:
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env"
+      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
