@@ -241,7 +241,6 @@ engines:
   - name : bing
     engine : bing
     shortcut : bi
-    disabled : True
 
   - name : bing images
     engine : bing_images
@@ -555,7 +554,6 @@ engines:
   - name : google
     engine : google
     shortcut : go
-    disabled : True
     use_mobile_ui: false
     # additional_tests:
     #   android: *test_android
@@ -992,7 +990,6 @@ engines:
     engine : qwant
     shortcut : qw
     categories : general
-    disabled : True
     additional_tests:
       rosebud: *test_rosebud
 
@@ -1498,13 +1495,13 @@ engines:
     shortcut: nvr
     engine: xpath
     paging : True
+    disabled : True
     search_url : https://search.naver.com/search.naver?where=webkr&sm=osp_hty&ie=UTF-8&query={query}&start={pageno}
     url_xpath : //a[@class="link_tit"]/@href
     title_xpath : //a[@class="link_tit"]
     content_xpath : //a[@class="total_dsc"]/div
     first_page_num : 1
     page_size : 10
-    disabled : True
     about:
       website: https://www.naver.com/
       wikidata_id: Q485639
@@ -1618,6 +1615,7 @@ engines:
     shortcut: brave
     engine: xpath
     paging: false
+    disabled: True
     search_url: https://search.brave.com/search?q={query}
     url_xpath: //div[@class="snippet fdb"]/a/@href
     title_xpath: //span[@class="snippet-title"]
