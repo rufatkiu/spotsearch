@@ -109,7 +109,7 @@ deploy:spot.eeo.one.backend1:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d --build"
 
 deploy:spot.eeo.one.backend2:
   extends: .deploy:template
@@ -149,7 +149,7 @@ deploy:spot.eeo.one.backend2:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
+      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d --build"
 
 deploy:spot.ecloud.global.backend1:
   extends: .deploy:template
