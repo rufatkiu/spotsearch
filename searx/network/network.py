@@ -229,7 +229,7 @@ def initialize(settings_engines=None, settings_outgoing=None):
         # from https://github.com/psf/requests/blob/8c211a96cdbe9fe320d63d9e1ae15c5c07e179f8/requests/models.py#L55
         'max_redirects': settings_outgoing.get('max_redirects', 30),
         #
-        'retries': settings_outgoing.get('retries', 0),
+        'retries': settings_outgoing.get('retries', 3),
         'retry_on_http_error': None,
     }
 
