@@ -292,6 +292,9 @@ node.env() {
         PATH="$(npm bin):$PATH"
         export PATH
 
+        build_msg INSTALL "update npm version"
+        npm install npm@6.14.4
+
         build_msg INSTALL "npm install $NPM_PACKAGES"
         # shellcheck disable=SC2086
         npm install $NPM_PACKAGES
