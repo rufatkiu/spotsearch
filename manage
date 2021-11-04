@@ -13,6 +13,7 @@ source_dot_config
 
 PY_SETUP_EXTRAS='[test]'
 NPM_PACKAGES="less@2.7 less-plugin-clean-css grunt-cli"
+NPM_VERSION="6.14.5"
 GECKODRIVER_VERSION="v0.28.0"
 # SPHINXOPTS=
 
@@ -281,18 +282,24 @@ gecko.driver() {
     dump_return $?
 }
 
+node.update() {
+
+    which npm &> /dev/null || die 1 'node.env - npm is not found!'
+
+    build_msg INFO "npm version $(npm --version)"
+
+    build_msg UPDATE "npm $NPM_VERSION"
+    npm install npm@$NPM_VERSION -g
+
+}
+
 node.env() {
     local err=0
     pushd "${REPO_ROOT}" &> /dev/null
     # shellcheck disable=SC2230
     which npm &> /dev/null || die 1 'node.env - npm is not found!'
 
-    build_msg INSTALL "npm version $(npm --version)"
-
-    build_msg INSTALL "update npm version"
-    npm install npm@6.14.4 -g
-
-    build_msg INSTALL "npm version $(npm --version)"
+    build_msg INFO "npm version $(npm --version)"
     (   set -e
         # shellcheck disable=SC2030
         PATH="$(npm bin):$PATH"
