@@ -18,6 +18,7 @@ python:
 build:web:
   stage: build
   before_script:
+    - ./manage node.clean
     - ./manage node.env
   script:
     - ./manage themes.etheme
