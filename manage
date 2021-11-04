@@ -292,6 +292,8 @@ node.env() {
         PATH="$(npm bin):$PATH"
         export PATH
 
+        build_msg INSTALL "npm version $(npm --version)"
+
         build_msg INSTALL "npm install $NPM_PACKAGES"
         # shellcheck disable=SC2086
         npm install $NPM_PACKAGES
