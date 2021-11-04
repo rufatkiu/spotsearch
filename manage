@@ -291,12 +291,6 @@ node.env() {
         # shellcheck disable=SC2030
         PATH="$(npm bin):$PATH"
         export PATH
-        build_msg INSTALL "npm version $(npm --version)"
-
-        build_msg INSTALL "update npm version"
-        npm install npm@6.14.4 -g
-
-        build_msg INSTALL "npm version $(npm --version)"
 
         build_msg INSTALL "npm install $NPM_PACKAGES"
         # shellcheck disable=SC2086
@@ -331,6 +325,14 @@ node.clean() {
        ./searx/static/themes/simple/node_modules \
        ./searx/static/themes/etheme/package-lock.json \
        ./searx/static/themes/etheme/node_modules 
+
+    build_msg INSTALL "npm version $(npm --version)"
+
+    build_msg INSTALL "update npm version"
+    npm install npm@6.14.4 -g
+
+    build_msg INSTALL "npm version $(npm --version)"
+
     dump_return $?
 }
 
