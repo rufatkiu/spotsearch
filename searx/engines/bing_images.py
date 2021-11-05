@@ -6,6 +6,7 @@
 from urllib.parse import urlencode
 from lxml import html
 from json import loads
+from random import randrange
 from searx.utils import match_language
 
 from searx.engines.bing import language_aliases
@@ -59,8 +60,12 @@ def request(query, params):
 
     language = match_language(params['language'], supported_languages, language_aliases).lower()
 
+    HV = randrange(1e10, 1e11)
+    WTS = randrange(1e11, 1e12)
+
     params['cookies']['SRCHHPGUSR'] = \
-        'ADLT=' + safesearch_types.get(params['safesearch'], 'DEMOTE')
+        f'SRCHLANG=en&BRW=XW&BRH=M&CW=1848&CH=984&DPR=1&UTC=-180&DM=1&HV={HV}&WTS={WTS}&ADLT=' \
+        + safesearch_types.get(params['safesearch'], 'DEMOTE')
 
     params['cookies']['_EDGE_S'] = 'mkt=' + language +\
         '&ui=' + language + '&F=1'
