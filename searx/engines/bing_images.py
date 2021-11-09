@@ -71,7 +71,6 @@ def request(query, params):
 
     params['cookies']['_EDGE_S'] = 'mkt=' + language +\
         '&ui=' + language + '&F=1'
-    
     params['cookies']['_IDET'] = 'MIExp=0'
     params['cookies']['MMCA'] = 'ID=B361EE82CAB9425EB0EE47B5E80DF8C1'
     params['cookies']['BCP'] = 'AD=1&AL=1&SM=1'
