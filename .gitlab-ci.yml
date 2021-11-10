@@ -23,6 +23,8 @@ build:web:
   script:
     - ./manage themes.etheme
     - ./manage babel.compile
+  only:
+    - master  
 
 .build:docker:
   stage: build
