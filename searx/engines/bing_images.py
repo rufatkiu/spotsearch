@@ -67,7 +67,7 @@ def request(query, params):
 
     params['cookies']['SRCHHPGUSR'] = \
         f'SRCHLANG={language}&BRW=XW&BRH=M&CW={CW}&CH={CH}&DPR=1&UTC=-180&DM=1&HV={HV}&WTS={WTS}&ADLT=' \
-        + safesearch_types.get(params['safesearch'], 'DEMOTE')
+        + 'STRICT'
 
     params['cookies']['_EDGE_S'] = 'mkt=' + language +\
         '&ui=' + language + '&F=1'
