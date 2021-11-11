@@ -23,8 +23,6 @@ build:web:
   script:
     - ./manage themes.etheme
     - ./manage babel.compile
-  only:
-    - master  
 
 .build:docker:
   stage: build
@@ -39,10 +37,8 @@ build:web:
     - docker build -t $CI_REGISTRY_IMAGE/nginx -f nginx.Dockerfile .
     - docker push $CI_REGISTRY_IMAGE/nginx
 
-build:docker:master:
+build:docker:
   extends: .build:docker
-  only:
-    - master
 
 build:docker:tags:
   extends: .build:docker
@@ -98,7 +94,7 @@ deploy:spot.eeo.one.backend1:
     MORTY_PORT: 8089
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND1_HOST - $BACKEND1_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/ && rm -rf staging-spot && git clone --single-branch --branch $CI_COMMIT_REF_NAME https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.e.foundation/e/cloud/my-spot.git staging-spot && cd staging-spot && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_MORTY_HOSTNAME=proxy.spot.ecloud.global/SPOT_MORTY_HOSTNAME=$SPOT_MORTY_HOSTNAME/g' .env 
@@ -112,7 +108,7 @@ deploy:spot.eeo.one.backend1:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d --build"
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.eeo.one.backend2:
   extends: .deploy:template
@@ -138,7 +134,7 @@ deploy:spot.eeo.one.backend2:
     MORTY_PORT: 8089
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND2_HOST - $BACKEND2_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/ && rm -rf staging-spot && git clone --single-branch --branch $CI_COMMIT_REF_NAME https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.e.foundation/e/cloud/my-spot.git staging-spot && cd staging-spot && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_MORTY_HOSTNAME=proxy.spot.ecloud.global/SPOT_MORTY_HOSTNAME=$SPOT_MORTY_HOSTNAME/g' .env 
@@ -152,7 +148,7 @@ deploy:spot.eeo.one.backend2:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d --build"
+      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
 
 deploy:spot.ecloud.global.backend1:
   extends: .deploy:template
