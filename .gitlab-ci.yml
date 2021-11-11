@@ -32,15 +32,13 @@ build:web:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t $CI_REGISTRY_IMAGE .
-    - docker push $CI_REGISTRY_IMAGE
-    - docker build -t $CI_REGISTRY_IMAGE/nginx -f nginx.Dockerfile .
-    - docker push $CI_REGISTRY_IMAGE/nginx
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    - docker build -t $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG -f nginx.Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG
 
-build:docker:master:
+build:docker:
   extends: .build:docker
-  only:
-    - master
 
 build:docker:tags:
   extends: .build:docker
@@ -110,7 +108,7 @@ deploy:spot.eeo.one.backend1:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d --build"
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.eeo.one.backend2:
   extends: .deploy:template
@@ -150,7 +148,7 @@ deploy:spot.eeo.one.backend2:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d --build"
+      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
 
 deploy:spot.ecloud.global.backend1:
   extends: .deploy:template
