@@ -6,6 +6,7 @@
 from urllib.parse import urlencode
 from lxml import html
 from json import loads
+from random import randrange
 from searx.utils import match_language
 
 from searx.engines.bing import language_aliases
@@ -57,13 +58,29 @@ def request(query, params):
         count=number_of_results,
         first=offset)
 
-    language = match_language(params['language'], supported_languages, language_aliases).lower()
+    language = match_language(params['language'], supported_languages, language_aliases, 'en').lower()
+
+    HV = randrange(1e10, 1e11)
+    WTS = randrange(1e11, 1e12)
+    CW = randrange(1e4, 1e5)
+    CH = randrange(1e3, 1e5)
 
     params['cookies']['SRCHHPGUSR'] = \
-        'ADLT=' + safesearch_types.get(params['safesearch'], 'DEMOTE')
+        f'SRCHLANG={language}&BRW=XW&BRH=M&CW={CW}&CH={CH}&DPR=1&UTC=-180&DM=1&HV={HV}&WTS={WTS}&ADLT=' \
+        + 'STRICT'
 
     params['cookies']['_EDGE_S'] = 'mkt=' + language +\
         '&ui=' + language + '&F=1'
+    params['cookies']['_IDET'] = 'MIExp=0'
+    params['cookies']['MMCA'] = 'ID=B361EE82CAB9425EB0EE47B5E80DF8C1'
+    params['cookies']['BCP'] = 'AD=1&AL=1&SM=1'
+    params['cookies']['_SS'] = 'SID=3208F62E63AF6F2F047CE6C462866EF2&R=0&RB=0&GB=0&RG=0&RP=0'
+    params['cookies']['SRCHUID'] = 'V=2&GUID=EC79C7475528483B98FBE3F045357F18&dmnchg=1'
+    params['cookies']['MUID'] = '11635A5F5EAA6FD83B3F4AB55F836EFF'
+    params['cookies']['SRCHD'] = 'AF=IRPRST'
+    params['cookies']['MUIDB'] = '11635A5F5EAA6FD83B3F4AB55F836EFF'
+    params['cookies']['_EDGE_V'] = '1'
+    params['cookies']['SUID'] = 'M'
 
     params['url'] = base_url + search_path
     if params['time_range'] in time_range_dict:
