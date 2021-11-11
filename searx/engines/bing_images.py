@@ -120,4 +120,13 @@ def response(resp):
         except:
             continue
 
+    results.append({'template': 'images.html',
+                    'url': 'https://duckduckgo.com/assets/logo_homepage.normal.v108.svg',
+                    'thumbnail_src': 'https://duckduckgo.com/assets/logo_homepage.normal.v108.svg',
+                    'img_src': 'https://duckduckgo.com/assets/logo_homepage.normal.v108.svg',
+                    'content': '',
+                    'title': 'DDG image',
+                    'source': 'https://duckduckgo.com/',
+                    'img_format': '640 x 480 · svg'})
+
     return results
