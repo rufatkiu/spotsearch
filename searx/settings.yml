@@ -14,7 +14,7 @@ brand:
     twitter_url: https://twitter.com/Searx_engine
 
 search:
-    safe_search : 0 # Filter results. 0: None, 1: Moderate, 2: Strict
+    safe_search : 1 # Filter results. 0: None, 1: Moderate, 2: Strict
     autocomplete : "duckduckgo" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "wikipedia" - leave blank to turn it off by default
     default_lang : "" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
     ban_time_on_fail : 5 # ban time in seconds after engine errors
@@ -241,12 +241,10 @@ engines:
   - name : bing
     engine : bing
     shortcut : bi
-    disabled : True
 
   - name : bing images
     engine : bing_images
     shortcut : bii
-    disabled: True
 
   - name : bing news
     engine : bing_news
@@ -303,6 +301,7 @@ engines:
     engine : ccengine
     categories : images
     shortcut : cce
+    disabled : True
 
 # - name : core.ac.uk
 #   engine : core
@@ -344,6 +343,7 @@ engines:
     engine : deviantart
     shortcut : da
     timeout : 3.0
+    disabled : True
 
   - name : ddg definitions
     engine : duckduckgo_definitions
@@ -457,6 +457,7 @@ engines:
   - name : flickr
     categories : images
     shortcut : fl
+    disabled : True
 # You can use the engine using the official stable API, but you need an API key
 # See : https://www.flickr.com/services/apps/create/
 #    engine : flickr
@@ -555,7 +556,6 @@ engines:
   - name : google
     engine : google
     shortcut : go
-    disabled : True
     use_mobile_ui: false
     # additional_tests:
     #   android: *test_android
@@ -772,6 +772,7 @@ engines:
     engine : loc
     shortcut : loc
     categories : images
+    disabled : True
 
   - name : lobste.rs
     engine : xpath
@@ -992,7 +993,6 @@ engines:
     engine : qwant
     shortcut : qw
     categories : general
-    disabled : True
     additional_tests:
       rosebud: *test_rosebud
 
@@ -1498,13 +1498,13 @@ engines:
     shortcut: nvr
     engine: xpath
     paging : True
+    disabled : True
     search_url : https://search.naver.com/search.naver?where=webkr&sm=osp_hty&ie=UTF-8&query={query}&start={pageno}
     url_xpath : //a[@class="link_tit"]/@href
     title_xpath : //a[@class="link_tit"]
     content_xpath : //a[@class="total_dsc"]/div
     first_page_num : 1
     page_size : 10
-    disabled : True
     about:
       website: https://www.naver.com/
       wikidata_id: Q485639
@@ -1618,6 +1618,7 @@ engines:
     shortcut: brave
     engine: xpath
     paging: false
+    disabled: True
     search_url: https://search.brave.com/search?q={query}
     url_xpath: //div[@class="snippet fdb"]/a/@href
     title_xpath: //span[@class="snippet-title"]
