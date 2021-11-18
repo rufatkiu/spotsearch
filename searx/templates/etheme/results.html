@@ -131,7 +131,7 @@
                 <h4 class="panel-title">{{ _('Suggestions') }}</h4>
                 <p>
                     {% for suggestion in suggestions %}
-                    {{ search_link(suggestion, suggestion, method) }}
+                    {{ search_link(suggestion.title, suggestion.url, method) }}
                     {% endfor %}
                 </p>
             </div>
