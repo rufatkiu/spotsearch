@@ -739,7 +739,7 @@ def search():
                                },
                                result_container.corrections))
     #
-    return render(
+    rendered_page = render(
         'results.html',
         results=results,
         q=request.form['q'],
@@ -762,6 +762,10 @@ def search():
         favicons=global_favicons[themes_folder_name.index(get_current_theme_folder_name())],
         timeout_limit=request.form.get('timeout_limit', None)
     )
+    resp = make_response(rendered_page)
+    if request.form.get('preferences'):
+        request.preferences.save(resp)
+    return resp
 
 
 def __get_translated_errors(unresponsive_engines):
