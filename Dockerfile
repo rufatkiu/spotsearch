@@ -15,4 +15,4 @@ COPY --from=builder /install/ /usr/local/
 EXPOSE 80
 STOPSIGNAL SIGINT
 
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:80", "--pythonpath", "/usr/local/lib/python3.9/site-packages", "searx.webapp:app"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:80", "--access-logfile", "/var/log/gunicorn/access.log", "--error-logfile", "/var/log/gunicorn/access.log", "--pythonpath", "/usr/local/lib/python3.9/site-packages", "searx.webapp:app"]
