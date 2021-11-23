@@ -19,6 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    logging: *default-logging
     restart: unless-stopped
     environment:
       SEARX_SECRET: "${SEARX_SECRET}"
@@ -30,19 +31,16 @@ services:
       SEARX_UI_DEFAULT_THEME: "${SEARX_UI_DEFAULT_THEME}"
       GUNICORN_LOGGER: 1
       GUNICORN_LEVEL: INFO
-    volumes: 
-      - /var/log/containers/spot:/var/log/gunicorn
 
   spot-nginx:
     image: registry.gitlab.e.foundation:5000/e/cloud/my-spot/nginx:${SPOT_NGINX_DOCKER_TAG}
     build:
       context: .
       dockerfile: nginx.Dockerfile
+    logging: *default-logging
     restart: unless-stopped
     environment:
       SEARX_MORTY_URL: "${SEARX_MORTY_URL}"
-    volumes: 
-      - /var/log/containers/nginx:/var/log/nginx
 
   filtron:
     image: dalf/filtron:latest
