@@ -50,7 +50,7 @@ services:
     environment:
       SEARX_MORTY_URL: "${SEARX_MORTY_URL}"
     volumes: 
-      - /var/log/containers/${LOG_DIRECTORY}/nginx:/var/log/gunicorn
+      - /var/log/containers/${LOG_DIRECTORY}/nginx:/var/log/nginx
 
   filtron:
     image: dalf/filtron:latest
