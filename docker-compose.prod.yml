@@ -36,7 +36,7 @@ services:
       GUNICORN_LOGGER: 1
       GUNICORN_LEVEL: INFO
     volumes: 
-      - /var/log/containers/spot/app:/var/log/gunicorn
+      - /var/log/containers/${LOG_DIRECTORY}/app:/var/log/gunicorn
 
   spot-nginx:
     image: registry.gitlab.e.foundation:5000/e/cloud/my-spot/nginx:${SPOT_NGINX_DOCKER_TAG}
@@ -50,7 +50,7 @@ services:
     environment:
       SEARX_MORTY_URL: "${SEARX_MORTY_URL}"
     volumes: 
-      - /var/log/containers/spot/nginx:/var/log/gunicorn
+      - /var/log/containers/${LOG_DIRECTORY}/nginx:/var/log/gunicorn
 
   filtron:
     image: dalf/filtron:latest

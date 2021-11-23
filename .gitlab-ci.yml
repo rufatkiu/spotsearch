@@ -187,6 +187,7 @@ deploy:spot.ecloud.global.backend1:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
+      && sed -i 's/LOG_DIRECTORY=staging-spot/LOG_DIRECTORY=production-spot/g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.ecloud.global.backend2:
@@ -226,5 +227,6 @@ deploy:spot.ecloud.global.backend2:
       && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
+      && sed -i 's/LOG_DIRECTORY=staging-spot/LOG_DIRECTORY=production-spot/g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
