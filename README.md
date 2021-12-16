@@ -57,12 +57,10 @@ Then go to http://localhost:8088.
 
 ### For developer
 
-You can directly run spot, with a python command inside a docker container which
-contains all dependencies. After running the docker-compose stack you can stop
-the default spot service and run the debug one with Flask server.
+You can only run spot, with a python command inside a docker container which
+contains all dependencies.
 
 ```
-docker-compose rm -sf spot
-docker run -it --rm -v $(pwd):/ws -w /ws --hostname spot --network=my-spot_default --env-file .env registry.gitlab.e.foundation:5000/e/cloud/my-spot/env bash
+docker run -it --rm -v $(pwd):/ws -w /ws -e SEARX_UI_DEFAULT_THEME=etheme -p 8088:80 registry.gitlab.e.foundation:5000/e/cloud/my-spot/env bash
 PYTHONPATH=$(pwd) SEARX_DEBUG=1 python -X dev searx/webapp.py
 ```

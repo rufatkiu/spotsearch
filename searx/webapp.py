@@ -1154,6 +1154,7 @@ def run():
     app.run(
         debug=searx_debug,
         use_debugger=searx_debug,
+        load_dotenv=False,
         port=settings['server']['port'],
         host=settings['server']['bind_address'],
         threaded=True,
