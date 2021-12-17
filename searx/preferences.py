@@ -216,6 +216,25 @@ class MapSetting(Setting):
             resp.set_cookie(name, self.key, max_age=COOKIE_MAX_AGE)
 
 
+class BoolSetting(Setting):
+    def parse(self, data):
+        if data == '1' or data == 'true':
+            data = True
+        if data == '0' or data == '' or data == 'false':
+            data = False
+
+        if not isinstance(data, bool):
+            raise ValidationException('Expected a bool value, got "{}" ({})'.format(data, type(data)))
+        self.value = data
+
+    def save(self, name, resp):
+        """Save cookie ``name`` in the HTTP reponse object
+        """
+        state = 'false'
+        if self.value == True:
+            state = 'true'
+        resp.set_cookie(name, state, max_age=COOKIE_MAX_AGE)
+
 class SwitchableSetting(Setting):
     """ Base class for settings that can be turned on && off"""
 
@@ -347,17 +366,22 @@ class Preferences:
                 is_locked('autocomplete'),
                 choices=list(autocomplete.backends.keys()) + ['']
             ),
-            'image_proxy': MapSetting(
+            'image_proxy': BoolSetting(
                 settings['server'].get('image_proxy', False),
                 is_locked('image_proxy'),
-                map={
-                    '': settings['server'].get('image_proxy', 0),
-                    '0': False,
-                    '1': True,
-                    'True': True,
-                    'False': False
-                }
+                bool=settings['search'].get('image_proxy', False)
             ),
+            # 'image_proxy': MapSetting(
+            #     settings['server'].get('image_proxy', False),
+            #     is_locked('image_proxy'),
+            #     map={
+            #         '': settings['search'].get('image_proxy', False),
+            #         '0': False,
+            #         '1': True,
+            #         'True': True,
+            #         'False': False
+            #     }
+            # ),
             'method': EnumStringSetting(
                 settings['server'].get('method', 'POST'),
                 is_locked('method'),
