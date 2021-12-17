@@ -217,10 +217,11 @@ class MapSetting(Setting):
 
 
 class BoolSetting(Setting):
+    """Setting of a value that has to be either ON or OFF"""
     def parse(self, data):
-        if data == '1' or data == 'true':
+        if data in ('1', 'true'):
             data = True
-        if data == '0' or data == '' or data == 'false':
+        if data in ('0', '', 'false'):
             data = False
 
         if not isinstance(data, bool):
@@ -231,7 +232,7 @@ class BoolSetting(Setting):
         """Save cookie ``name`` in the HTTP reponse object
         """
         state = 'false'
-        if self.value == True:
+        if self.value is True:
             state = 'true'
         resp.set_cookie(name, state, max_age=COOKIE_MAX_AGE)
 
