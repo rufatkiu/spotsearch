@@ -219,9 +219,9 @@ class MapSetting(Setting):
 class BoolSetting(Setting):
     """Setting of a value that has to be either ON or OFF"""
     def parse(self, data):
-        if data in ('1', 'true'):
+        if data in ('1', 'true', 'True'):
             data = True
-        if data in ('0', '', 'false'):
+        if data in ('0', '', 'false', 'False'):
             data = False
 
         if not isinstance(data, bool):
