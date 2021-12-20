@@ -58,7 +58,7 @@
                 {% call preferences_item(image_proxy_info, image_proxy_label, rtl) %}
                     <select class="form-control custom-select" name='image_proxy' data-hide-search>
                         <option value="1" {% if image_proxy  %}selected="selected"{% endif %}>{{ _('Enabled') }}</option>
-                        <option value="" {% if not image_proxy %}selected="selected"{% endif %}>{{ _('Disabled')}}</option>
+                        <option value="0" {% if not image_proxy %}selected="selected"{% endif %}>{{ _('Disabled')}}</option>
                     </select>
                 {% endcall %}
 
