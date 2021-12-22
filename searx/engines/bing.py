@@ -31,6 +31,11 @@ language_aliases = {'zh-CN': 'zh-CHS', 'zh-TW': 'zh-CHT', 'zh-HK': 'zh-CHT'}
 base_url = 'https://www.bing.com/'
 search_string = 'search?{query}&first={offset}'
 
+# safesearch definitions
+safesearch_types = {2: 'STRICT',
+                    1: 'DEMOTE',
+                    0: 'OFF'}
+
 
 def _get_offset_from_pageno(pageno):
     return (pageno - 1) * 10 + 1
@@ -52,6 +57,25 @@ def request(query, params):
         offset=offset)
 
     params['url'] = base_url + search_path
+
+    safesearch_value = safesearch_types.get(params['safesearch'], 'DEMOTE')
+
+    params['cookies'] = {
+        'SUID': 'M',
+        'MUID': '3F25FB51B96768F432B2EA44B81B6980',
+        'MUIDB': '3F25FB51B96768F432B2EA44B81B6980',
+        '_EDGE_V': '1',
+        'SRCHD': 'AF=NOFORM',
+        'SRCHUID': 'V=2&GUID=EC616793C71B437DAA4F508DF5133DEE&dmnchg=1',
+        '_HPVN': 'CS=eyJQbiI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiUCJ9LCJTYyI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiSCJ9LCJReiI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiVCJ9LCJBcCI6dHJ1ZSwiTXV0ZSI6dHJ1ZSwiTGFkIjoiMjAyMS0xMi0yMlQwMDowMDowMFoiLCJJb3RkIjowLCJHd2IiOjAsIkRmdCI6bnVsbCwiTXZzIjowLCJGbHQiOjAsIkltcCI6Mn0=',
+        '_SS': 'SID=2347483D1B9D6F77147D59281AE16ED5&R=0&RB=0&GB=0&RG=0&RP=0',
+        'ipv6': 'hit=1640126600313&t=4',
+        '_EDGE_S': 'F=1&SID=2347483D1B9D6F77147D59281AE16ED5&mkt=pt-br',
+        'SRCHUSR': 'DOB=20211221&T=1640122998000&TPC=1640123002000',
+        'BCP': 'AD=1&AL=1&SM=1',
+        '_RwBf': 'ilt=6&ihpd=1&ispd=2&rc=0&rb=0&gb=0&rg=0&pc=0&mtu=0&rbb=0&g=0&cid=&v=6&l=2021-12-21T08:00:00.0000000Z&lft=00010101&aof=0&o=2&p=&c=&t=0&s=0001-01-01T00:00:00.0000000+00:00&ts=2021-12-21T21:43:40.1584505+00:00&rwred=0',
+        'SRCHHPGUSR': f'SRCHLANG=en&BRW=XW&BRH=T&CW=1920&CH=1011&SW=1920&SH=1080&DPR=1&UTC=-180&DM=1&HV=1640123020&WTS=63775719814&NEWWND=0&NRSLT=-1&LSL=0&AS=1&ADLT={safesearch_value}&NNT=1&HAP=0&VSRO=1',
+    }
 
     return params
 
