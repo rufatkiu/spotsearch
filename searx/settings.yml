@@ -415,6 +415,10 @@ engines:
     engine : duckduckgo
     shortcut : ddg
 
+  - name : duckduckgo (lite)
+    engine : duckduckgo_lite
+    shortcut : ddgl
+
   - name : duckduckgo images
     engine : duckduckgo_images
     shortcut : ddi
