@@ -23,6 +23,7 @@ categories = ['general']
 paging = False
 supported_languages_url = 'https://duckduckgo.com/util/u172.js'
 time_range_support = True
+safesearch = True
 
 language_aliases = {
     'ar-SA': 'ar-XA',
@@ -35,7 +36,7 @@ language_aliases = {
 }
 
 # search-url
-url = 'https://html.duckduckgo.com/html/?q={}'
+url = 'https://duckduckgo.com/?q={}'
 url_ping = 'https://duckduckgo.com/t/sl_h'
 time_range_dict = {'day': 'd',
                    'week': 'w',
@@ -67,9 +68,18 @@ def request(query, params):
         return params
 
     params['url'] = url.format(query)
-    params['method'] = 'POST'
+    params['method'] = 'GET'
     params['data']['q'] = query
     params['data']['b'] = ''
+
+    safesearch_ddg_value = None
+    if params['safesearch'] == 0:
+        safesearch_ddg_value = -2 # OFF
+    if params['safesearch'] == 2:
+        safesearch_ddg_value = 1 # STRICT
+
+    if safesearch_ddg_value != None:
+        params['cookies']['p'] = str(safesearch_ddg_value)
 
     region_code = get_region_code(params['language'], supported_languages)
     if region_code:
@@ -90,15 +100,14 @@ def response(resp):
 
     # parse the response
     results = []
+
     doc = fromstring(resp.text)
-    
+
     titles = eval_xpath(doc, title_xpath)
     contents = eval_xpath(doc, content_xpath)
-    urls  = eval_xpath(doc, url_xpath)
+    urls = eval_xpath(doc, url_xpath)
 
     for title, content, url in zip(titles, contents, urls):
-        print(extract_text(content))
-
         results.append({'title': extract_text(title),
                         'content': extract_text(content),
                         'url': url})
