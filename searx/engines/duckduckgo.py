@@ -74,11 +74,11 @@ def request(query, params):
 
     safesearch_ddg_value = None
     if params['safesearch'] == 0:
-        safesearch_ddg_value = -2 # OFF
+        safesearch_ddg_value = -2  # OFF
     if params['safesearch'] == 2:
-        safesearch_ddg_value = 1 # STRICT
+        safesearch_ddg_value = 1  # STRICT
 
-    if safesearch_ddg_value != None:
+    if safesearch_ddg_value is not None:
         params['cookies']['p'] = str(safesearch_ddg_value)
 
     region_code = get_region_code(params['language'], supported_languages)
