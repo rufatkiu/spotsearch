@@ -7,6 +7,7 @@ import re
 from urllib.parse import urlencode
 from lxml import html
 from searx import logger
+from random import randrange
 from searx.utils import eval_xpath, extract_text, match_language
 
 logger = logger.getChild('bing engine')
@@ -58,24 +59,28 @@ def request(query, params):
 
     params['url'] = base_url + search_path
 
-    safesearch_value = safesearch_types.get(params['safesearch'], 'DEMOTE')
+    language = match_language(params['language'], supported_languages, language_aliases, 'en').lower()
 
-    params['cookies'] = {
-        'SUID': 'M',
-        'MUID': '3F25FB51B96768F432B2EA44B81B6980',
-        'MUIDB': '3F25FB51B96768F432B2EA44B81B6980',
-        '_EDGE_V': '1',
-        'SRCHD': 'AF=NOFORM',
-        'SRCHUID': 'V=2&GUID=EC616793C71B437DAA4F508DF5133DEE&dmnchg=1',
-        '_HPVN': 'CS=eyJQbiI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiUCJ9LCJTYyI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiSCJ9LCJReiI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiVCJ9LCJBcCI6dHJ1ZSwiTXV0ZSI6dHJ1ZSwiTGFkIjoiMjAyMS0xMi0yMlQwMDowMDowMFoiLCJJb3RkIjowLCJHd2IiOjAsIkRmdCI6bnVsbCwiTXZzIjowLCJGbHQiOjAsIkltcCI6Mn0=',
-        '_SS': 'SID=2347483D1B9D6F77147D59281AE16ED5&R=0&RB=0&GB=0&RG=0&RP=0',
-        'ipv6': 'hit=1640126600313&t=4',
-        '_EDGE_S': 'F=1&SID=2347483D1B9D6F77147D59281AE16ED5&mkt=pt-br',
-        'SRCHUSR': 'DOB=20211221&T=1640122998000&TPC=1640123002000',
-        'BCP': 'AD=1&AL=1&SM=1',
-        '_RwBf': 'ilt=6&ihpd=1&ispd=2&rc=0&rb=0&gb=0&rg=0&pc=0&mtu=0&rbb=0&g=0&cid=&v=6&l=2021-12-21T08:00:00.0000000Z&lft=00010101&aof=0&o=2&p=&c=&t=0&s=0001-01-01T00:00:00.0000000+00:00&ts=2021-12-21T21:43:40.1584505+00:00&rwred=0',
-        'SRCHHPGUSR': f'SRCHLANG=en&BRW=XW&BRH=T&CW=1920&CH=1011&SW=1920&SH=1080&DPR=1&UTC=-180&DM=1&HV=1640123020&WTS=63775719814&NEWWND=0&NRSLT=-1&LSL=0&AS=1&ADLT={safesearch_value}&NNT=1&HAP=0&VSRO=1',
-    }
+    HV = randrange(1e10, 1e11)
+    WTS = randrange(1e11, 1e12)
+    CW = randrange(1e4, 1e5)
+    CH = randrange(1e3, 1e5)
+
+    params['cookies']['SRCHHPGUSR'] = \
+        f'SRCHLANG={language}&BRW=XW&BRH=M&CW={CW}&CH={CH}&DPR=1&UTC=-180&DM=1&HV={HV}&WTS={WTS}&ADLT=' \
+        + safesearch_types.get(params['safesearch'], 'DEMOTE')
+    params['cookies']['_EDGE_S'] = 'mkt=' + language +\
+        '&ui=' + language + '&F=1'
+    params['cookies']['_IDET'] = 'MIExp=0'
+    params['cookies']['MMCA'] = 'ID=B361EE82CAB9425EB0EE47B5E80DF8C1'
+    params['cookies']['BCP'] = 'AD=1&AL=1&SM=1'
+    params['cookies']['_SS'] = 'SID=3208F62E63AF6F2F047CE6C462866EF2&R=0&RB=0&GB=0&RG=0&RP=0'
+    params['cookies']['SRCHUID'] = 'V=2&GUID=EC79C7475528483B98FBE3F045357F18&dmnchg=1'
+    params['cookies']['MUID'] = '11635A5F5EAA6FD83B3F4AB55F836EFF'
+    params['cookies']['SRCHD'] = 'AF=IRPRST'
+    params['cookies']['MUIDB'] = '11635A5F5EAA6FD83B3F4AB55F836EFF'
+    params['cookies']['_EDGE_V'] = '1'
+    params['cookies']['SUID'] = 'M'
 
     return params
 
