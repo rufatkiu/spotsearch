@@ -900,11 +900,10 @@ def preferences():
     if 'preferences' in settings and 'lock' in settings['preferences']:
         locked_preferences = settings['preferences']['lock']
 
-    print(themes)
-
     return render('preferences.html',
                   selected_categories=get_selected_categories(request.preferences, request.form),
                   all_categories=_get_ordered_categories(),
+                  categories=_get_ordered_categories(),
                   locales=settings['locales'],
                   current_locale=request.preferences.get_value("locale"),
                   image_proxy=image_proxy,
