@@ -2,7 +2,7 @@
 """
 Raise exception for an HTTP response is an error.
 """
-from searx.exceptions import (SearxEngineCaptchaException, SearxEngineTooManyRequestsException,
+from searx.exceptions import (SearxEngineAPIException, SearxEngineCaptchaException, SearxEngineTooManyRequestsException,
                               SearxEngineAccessDeniedException)
 
 
@@ -63,4 +63,7 @@ def raise_for_httperror(resp):
                                                    suspended_time=3600 * 24)
         if resp.status_code == 429:
             raise SearxEngineTooManyRequestsException()
+        if resp.status_code == 404:
+            message = f'(404) Resource not found for "{resp.url.host}". Are you sure the API endpoint is valid?'
+            raise SearxEngineAPIException(message)
         resp.raise_for_status()

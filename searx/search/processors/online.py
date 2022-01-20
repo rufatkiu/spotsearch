@@ -15,6 +15,7 @@ from searx.exceptions import (SearxEngineAccessDeniedException, SearxEngineCaptc
 from searx.metrology.error_recorder import record_exception, record_error
 
 from searx.search.processors.abstract import EngineProcessor
+from urllib.parse import urlparse
 
 
 logger = logger.getChild('search.processor.online')
@@ -175,9 +176,11 @@ class OnlineProcessor(EngineProcessor):
             elif (issubclass(e.__class__, (httpx.HTTPError, httpx.StreamError))):
                 result_container.add_unresponsive_engine(self.engine_name, 'HTTP error')
                 # other requests exception
+                response_url = urlparse(str(e.response.url))
                 logger.exception("engine {0} : requests exception"
-                                 "(search duration : {1} s, timeout: {2} s) : {3}"
-                                 .format(self.engine_name, engine_time, timeout_limit, e))
+                                 "(search duration : {1} s, timeout: {2} s) : "
+                                 "Status code {3} while requesting {4}"
+                                 .format(self.engine_name, engine_time, timeout_limit, e.response.status_code, response_url.hostname))
                 http_exception = True
             elif (issubclass(e.__class__, SearxEngineCaptchaException)):
                 result_container.add_unresponsive_engine(self.engine_name, 'CAPTCHA required')
