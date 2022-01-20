@@ -177,10 +177,12 @@ class OnlineProcessor(EngineProcessor):
                 result_container.add_unresponsive_engine(self.engine_name, 'HTTP error')
                 # other requests exception
                 response_url = urlparse(str(e.response.url))
+                status_code = e.response.status_code
+                hostname = response_url.hostname
                 logger.exception("engine {0} : requests exception"
                                  "(search duration : {1} s, timeout: {2} s) : "
                                  "Status code {3} while requesting {4}"
-                                 .format(self.engine_name, engine_time, timeout_limit, e.response.status_code, response_url.hostname))
+                                 .format(self.engine_name, engine_time, timeout_limit, status_code, hostname))
                 http_exception = True
             elif (issubclass(e.__class__, SearxEngineCaptchaException)):
                 result_container.add_unresponsive_engine(self.engine_name, 'CAPTCHA required')
