@@ -9,7 +9,6 @@ from searx.testing import SearxTestCase
 
 
 class TestNetwork(SearxTestCase):
-
     def setUp(self):
         initialize()
 
@@ -51,23 +50,23 @@ class TestNetwork(SearxTestCase):
         network = Network(proxies='http://localhost:1337')
         self.assertEqual(next(network._proxies_cycle), (('all://', 'http://localhost:1337'),))
 
-        network = Network(proxies={
-            'https': 'http://localhost:1337',
-            'http': 'http://localhost:1338'
-        })
-        self.assertEqual(next(network._proxies_cycle),
-                         (('https://', 'http://localhost:1337'), ('http://', 'http://localhost:1338')))
-        self.assertEqual(next(network._proxies_cycle),
-                         (('https://', 'http://localhost:1337'), ('http://', 'http://localhost:1338')))
+        network = Network(proxies={'https': 'http://localhost:1337', 'http': 'http://localhost:1338'})
+        self.assertEqual(
+            next(network._proxies_cycle), (('https://', 'http://localhost:1337'), ('http://', 'http://localhost:1338'))
+        )
+        self.assertEqual(
+            next(network._proxies_cycle), (('https://', 'http://localhost:1337'), ('http://', 'http://localhost:1338'))
+        )
 
-        network = Network(proxies={
-            'https': ['http://localhost:1337', 'http://localhost:1339'],
-            'http': 'http://localhost:1338'
-        })
-        self.assertEqual(next(network._proxies_cycle),
-                         (('https://', 'http://localhost:1337'), ('http://', 'http://localhost:1338')))
-        self.assertEqual(next(network._proxies_cycle),
-                         (('https://', 'http://localhost:1339'), ('http://', 'http://localhost:1338')))
+        network = Network(
+            proxies={'https': ['http://localhost:1337', 'http://localhost:1339'], 'http': 'http://localhost:1338'}
+        )
+        self.assertEqual(
+            next(network._proxies_cycle), (('https://', 'http://localhost:1337'), ('http://', 'http://localhost:1338'))
+        )
+        self.assertEqual(
+            next(network._proxies_cycle), (('https://', 'http://localhost:1339'), ('http://', 'http://localhost:1338'))
+        )
 
         with self.assertRaises(ValueError):
             Network(proxies=1)
@@ -77,25 +76,27 @@ class TestNetwork(SearxTestCase):
             'verify': True,
             'max_redirects': 5,
             'timeout': 2,
+            'allow_redirects': True,
         }
-        kwargs_client = Network.get_kwargs_clients(kwargs)
+        kwargs_client = Network.extract_kwargs_clients(kwargs)
 
         self.assertEqual(len(kwargs_client), 2)
-        self.assertEqual(len(kwargs), 1)
+        self.assertEqual(len(kwargs), 2)
 
         self.assertEqual(kwargs['timeout'], 2)
+        self.assertEqual(kwargs['follow_redirects'], True)
 
         self.assertTrue(kwargs_client['verify'])
         self.assertEqual(kwargs_client['max_redirects'], 5)
 
     async def test_get_client(self):
         network = Network(verify=True)
-        client1 = network.get_client()
-        client2 = network.get_client(verify=True)
-        client3 = network.get_client(max_redirects=10)
-        client4 = network.get_client(verify=True)
-        client5 = network.get_client(verify=False)
-        client6 = network.get_client(max_redirects=10)
+        client1 = await network.get_client()
+        client2 = await network.get_client(verify=True)
+        client3 = await network.get_client(max_redirects=10)
+        client4 = await network.get_client(verify=True)
+        client5 = await network.get_client(verify=False)
+        client6 = await network.get_client(max_redirects=10)
 
         self.assertEqual(client1, client2)
         self.assertEqual(client1, client4)
@@ -107,7 +108,7 @@ class TestNetwork(SearxTestCase):
 
     async def test_aclose(self):
         network = Network(verify=True)
-        network.get_client()
+        await network.get_client()
         await network.aclose()
 
     async def test_request(self):
@@ -134,6 +135,7 @@ class TestNetworkRequestRetries(SearxTestCase):
                 first = False
                 return httpx.Response(status_code=403, text=TestNetworkRequestRetries.TEXT)
             return httpx.Response(status_code=200, text=TestNetworkRequestRetries.TEXT)
+
         return get_response
 
     async def test_retries_ok(self):
@@ -206,12 +208,13 @@ class TestNetworkStreamRetries(SearxTestCase):
                 first = False
                 raise httpx.RequestError('fake exception', request=None)
             return httpx.Response(status_code=200, text=TestNetworkStreamRetries.TEXT)
+
         return stream
 
     async def test_retries_ok(self):
         with patch.object(httpx.AsyncClient, 'stream', new=TestNetworkStreamRetries.get_response_exception_then_200()):
             network = Network(enable_http=True, retries=1, retry_on_http_error=403)
-            response = network.stream('GET', 'https://example.com/')
+            response = await network.stream('GET', 'https://example.com/')
             self.assertEqual(response.text, TestNetworkStreamRetries.TEXT)
             await network.aclose()
 
@@ -219,7 +222,7 @@ class TestNetworkStreamRetries(SearxTestCase):
         with patch.object(httpx.AsyncClient, 'stream', new=TestNetworkStreamRetries.get_response_exception_then_200()):
             network = Network(enable_http=True, retries=0, retry_on_http_error=403)
             with self.assertRaises(httpx.RequestError):
-                network.stream('GET', 'https://example.com/')
+                await network.stream('GET', 'https://example.com/')
             await network.aclose()
 
     async def test_retries_exception(self):
@@ -234,6 +237,6 @@ class TestNetworkStreamRetries(SearxTestCase):
 
         with patch.object(httpx.AsyncClient, 'stream', new=stream):
             network = Network(enable_http=True, retries=0, retry_on_http_error=403)
-            response = network.stream('GET', 'https://example.com/')
+            response = await network.stream('GET', 'https://example.com/')
             self.assertEqual(response.status_code, 403)
             await network.aclose()
