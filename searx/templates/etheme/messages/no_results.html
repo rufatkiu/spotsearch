@@ -9,6 +9,8 @@
 <div id="unresponsive_engines" class="content-small-centered">
     <section>
         <p>{{ _('Some engines are not working as expected!') }}</p>
+        <p>{{ _('Debug info') }}</p>
+        <p><strong> {{ _('Node : ') }} {{ node_name }}</strong></p>
         <pre>
 {% for engine_name, error_type in unresponsive_engines %}
 - {{ engine_name }} ({{ error_type }}){% if not loop.last %}<br/>{% endif %}

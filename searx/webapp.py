@@ -754,6 +754,7 @@ def search():
         engine_data=result_container.engine_data,
         paging=result_container.paging,
         unresponsive_engines=__get_translated_errors(result_container.unresponsive_engines),
+        node_name=__get_node_name(),
         current_language=match_language(search_query.lang,
                                         LANGUAGE_CODES,
                                         fallback=request.preferences.get_value("language")),
@@ -776,6 +777,10 @@ def __get_translated_errors(unresponsive_engines):
             error_msg = "{} {}".format(error_msg, unresponsive_engine[2])
         translated_errors.add((unresponsive_engine[0], error_msg))
     return translated_errors
+
+
+def __get_node_name():
+    return os.getenv("NODE_NAME", None)
 
 
 @app.route('/about', methods=['GET'])
