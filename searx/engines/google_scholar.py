@@ -66,7 +66,7 @@ def time_range_url(params):
     # as_ylo=2016&as_yhi=2019
     ret_val = ''
     if params['time_range'] in time_range_dict:
-        ret_val= urlencode({'as_ylo': datetime.now().year -1 })
+        ret_val = urlencode({'as_ylo': datetime.now().year - 1})
     return '&' + ret_val
 
 
@@ -82,29 +82,34 @@ def request(query, params):
 
         params, supported_languages, language_aliases, False
     )
+    logger.debug("HTTP header Accept-Language --> %s", lang_info['headers']['Accept-Language'])
+
     # subdomain is: scholar.google.xy
     lang_info['subdomain'] = lang_info['subdomain'].replace("www.", "scholar.")
 
-    query_url = 'https://'+ lang_info['subdomain'] + '/scholar' + "?" + urlencode({
-        'q':  query,
-        **lang_info['params'],
-        'ie': "utf8",
-        'oe':  "utf8",
-        'start' : offset,
-    })
-
-    query_url += time_range_url(params)
-
-    logger.debug("query_url --> %s", query_url)
-    params['url'] = query_url
-
-    logger.debug("HTTP header Accept-Language --> %s", lang_info.get('Accept-Language'))
-    params['headers'].update(lang_info['headers'])
-    params['headers']['Accept'] = (
-        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    query_url = (
+        'https://'
+        + lang_info['subdomain']
+        + '/scholar'
+        + "?"
+        + urlencode(
+            {
+                'q': query,
+                **lang_info['params'],
+                'ie': "utf8",
+                'oe': "utf8",
+                'start': offset,
+            }
+        )
     )
 
-    #params['google_subdomain'] = subdomain
+    query_url += time_range_url(params)
+    params['url'] = query_url
+
+    params['headers'].update(lang_info['headers'])
+    params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+
+    # params['google_subdomain'] = subdomain
     return params
 
 def response(resp):
@@ -139,11 +144,13 @@ def response(resp):
         if pub_type:
             title = title + " " + pub_type
 
-        results.append({
-            'url':      url,
-            'title':    title,
-            'content':  content,
-        })
+        results.append(
+            {
+                'url': url,
+                'title': title,
+                'content': content,
+            }
+        )
 
     # parse suggestion
     for suggestion in eval_xpath(dom, '//div[contains(@class, "gs_qsuggest_wrap")]//li//a'):

@@ -1,14 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """Google (Web)
-
 For detailed description of the *REST-full* API see: `Query Parameter
 Definitions`_.
-
 .. _Query Parameter Definitions:
    https://developers.google.com/custom-search/docs/xml_results#WebSearch_Query_Parameter_Definitions
 """
 
-# pylint: disable=invalid-name, missing-function-docstring
+# pylint: disable=invalid-name, missing-function-docstring, too-many-branches
 
 from urllib.parse import urlencode
 from lxml import html
@@ -108,8 +106,9 @@ filter_mapping = {
 # specific xpath variables
 # ------------------------
 
-# google results are grouped into <div class="g" ../>
-results_xpath = '//div[@class="g"]'
+# google results are grouped into <div class="g ..." ../>
+results_xpath = '//div[@id="search"]//div[contains(@class, "g ")]'
+results_xpath_mobile_ui = '//div[contains(@class, "g ")]'
 
 # google *sections* are no usual *results*, we ignore them
 g_section_with_header = './g-section-with-header'
@@ -121,8 +120,8 @@ title_xpath = './/h3[1]'
 # href=...>
 href_xpath = './/div[@class="yuRUbf"]//a/@href'
 
-# in the result group there is <div class="IsZvec" ../> containing he *content*
-content_xpath = './/div[@class="IsZvec"]'
+# in the result group there is <div class="VwiC3b ..." ../> containing the *content*
+content_xpath = './/div[contains(@class, "VwiC3b")]'
 
 # Suggestions are links placed in a *card-section*, we extract only the text
 # from the links not the links itself.
@@ -134,113 +133,42 @@ spelling_suggestion_xpath = '//div[@class="med"]/p/a'
 
 
 def get_lang_info(params, lang_list, custom_aliases, supported_any_language):
-    """Composing various language properties for the google engines.
-
-    This function is called by the various google engines (google itself,
-    google-images, -news, -scholar, -videos).
-
-    :param dict param: request parameters of the engine
-
-    :param list lang_list: list of supported languages of the engine
-        :py:obj:`ENGINES_LANGUAGES[engine-name] <searx.data.ENGINES_LANGUAGES>`
-
-    :param dict lang_list: custom aliases for non standard language codes
-        (used when calling :py:func:`searx.utils.match_language)
-
-    :param bool supported_any_language: When a language is not specified, the
-        language interpretation is left up to Google to decide how the search
-        results should be delivered.  This argument is ``True`` for the google
-        engine and ``False`` for the other engines (google-images, -news,
-        -scholar, -videos).
-
-    :rtype: dict
-    :returns:
-        Py-Dictionary with the key/value pairs:
-
-        language:
-            Return value from :py:func:`searx.utils.match_language
-
-        country:
-            The country code (e.g. US, AT, CA, FR, DE ..)
-
-        subdomain:
-            Google subdomain :py:obj:`google_domains` that fits to the country
-            code.
-
-        params:
-            Py-Dictionary with additional request arguments (can be passed to
-            :py:func:`urllib.parse.urlencode`).
-
-        headers:
-            Py-Dictionary with additional HTTP headers (can be passed to
-            request's headers)
-    """
-    ret_val = {
-        'language' : None,
-        'country' : None,
-        'subdomain' : None,
-        'params' : {},
-        'headers' : {},
-    }
-
-    # language ...
+    ret_val = {}
 
     _lang = params['language']
     _any_language = _lang.lower() == 'all'
     if _any_language:
         _lang = 'en-US'
+
     language = match_language(_lang, lang_list, custom_aliases)
     ret_val['language'] = language
 
-    # country ...
-
+    # the requested language from params (en, en-US, de, de-AT, fr, fr-CA, ...)
     _l = _lang.split('-')
+
+    # the country code (US, AT, CA)
     if len(_l) == 2:
         country = _l[1]
     else:
         country = _l[0].upper()
         if country == 'EN':
             country = 'US'
+
     ret_val['country'] = country
 
-    # subdomain ...
+    # the combination (en-US, en-EN, de-DE, de-AU, fr-FR, fr-FR)
+    lang_country = '%s-%s' % (language, country)
 
+    # subdomain
     ret_val['subdomain']  = 'www.' + google_domains.get(country.upper(), 'google.com')
 
-    # params & headers
-
-    lang_country = '%s-%s' % (language, country)  # (en-US, en-EN, de-DE, de-AU, fr-FR ..)
-
-    # hl parameter:
-    #   https://developers.google.com/custom-search/docs/xml_results#hlsp The
-    # Interface Language:
-    #   https://developers.google.com/custom-search/docs/xml_results_appendices#interfaceLanguages
-
-    ret_val['params']['hl'] = lang_list.get(lang_country, language)
-
-    # lr parameter:
-    #   The lr (language restrict) parameter restricts search results to
-    #   documents written in a particular language.
-    #   https://developers.google.com/custom-search/docs/xml_results#lrsp
-    #   Language Collection Values:
-    #   https://developers.google.com/custom-search/docs/xml_results_appendices#languageCollections
+    ret_val['params'] = {}
+    ret_val['headers'] = {}
 
     if _any_language and supported_any_language:
-
-        # interpretation is left up to Google (based on whoogle)
-        #
-        # - add parameter ``source=lnt``
-        # - don't use parameter ``lr``
-        # - don't add a ``Accept-Language`` HTTP header.
-
+        # based on whoogle
         ret_val['params']['source'] = 'lnt'
-
     else:
-
-        # restricts search results to documents written in a particular
-        # language.
-        ret_val['params']['lr'] = "lang_" + lang_country if lang_country in lang_list else language
-
         # Accept-Language: fr-CH, fr;q=0.8, en;q=0.6, *;q=0.5
         ret_val['headers']['Accept-Language'] = ','.join([
             lang_country,
@@ -249,6 +177,18 @@ def get_lang_info(params, lang_list, custom_aliases, supported_any_language):
             '*;q=0.5',
         ])
 
+        # lr parameter:
+        #   https://developers.google.com/custom-search/docs/xml_results#lrsp
+        # Language Collection Values:
+        #   https://developers.google.com/custom-search/docs/xml_results_appendices#languageCollections
+        ret_val['params']['lr'] = "lang_" + lang_country if lang_country in lang_list else language
+
+    ret_val['params']['hl'] = lang_country if lang_country in lang_list else language
+
+    # hl parameter:
+    #   https://developers.google.com/custom-search/docs/xml_results#hlsp The
+    # Interface Language:
+    #   https://developers.google.com/custom-search/docs/xml_results_appendices#interfaceLanguages
     return ret_val
 
 def detect_google_sorry(resp):
@@ -287,8 +227,11 @@ def request(query, params):
         query_url += '&' + urlencode({'tbs': 'qdr:' + time_range_dict[params['time_range']]})
     if params['safesearch']:
         query_url += '&' + urlencode({'safe': filter_mapping[params['safesearch']]})
+
+    logger.debug("query_url --> %s", query_url)
     params['url'] = query_url
 
+    logger.debug("HTTP header Accept-Language --> %s", lang_info.get('Accept-Language'))
     params['headers'].update(lang_info['headers'])
     if use_mobile_ui:
         params['headers']['Accept'] = '*/*'
@@ -330,7 +273,12 @@ def response(resp):
                 logger.error(e, exc_info=True)
 
     # parse results
-    for result in eval_xpath_list(dom, results_xpath):
+
+    _results_xpath = results_xpath
+    if use_mobile_ui:
+        _results_xpath = results_xpath_mobile_ui
+
+    for result in eval_xpath_list(dom, _results_xpath):
 
         # google *sections*
         if extract_text(eval_xpath(result, g_section_with_header)):
@@ -341,24 +289,27 @@ def response(resp):
             title_tag = eval_xpath_getindex(result, title_xpath, 0, default=None)
             if title_tag is None:
                 # this not one of the common google results *section*
-                logger.debug('ingoring <div class="g" ../> section: missing title')
+                logger.debug('ingoring item from the result_xpath list: missing title')
                 continue
             title = extract_text(title_tag)
             url = eval_xpath_getindex(result, href_xpath, 0, None)
             if url is None:
                 continue
             content = extract_text(eval_xpath_getindex(result, content_xpath, 0, default=None), allow_none=True)
+            if content is None:
+                logger.debug('ingoring item from the result_xpath list: missing content of title "%s"', title)
+                continue
+
+            logger.debug('add link to results: %s', title)
+
             results.append({
                 'url': url,
                 'title': title,
                 'content': content
             })
+
         except Exception as e:  # pylint: disable=broad-except
             logger.error(e, exc_info=True)
-            # from lxml import etree
-            # logger.debug(etree.tostring(result, pretty_print=True))
-            # import pdb
-            # pdb.set_trace()
             continue
 
     # parse suggestion
