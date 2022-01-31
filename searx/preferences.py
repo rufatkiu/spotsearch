@@ -347,6 +347,17 @@ class Preferences:
                 is_locked('autocomplete'),
                 choices=list(autocomplete.backends.keys()) + ['']
             ),
+            'show_source': MapSetting(
+                settings['ui'].get('show_source', True),
+                is_locked('show_source'),
+                map={
+                    '': settings['ui'].get('show_source', True),
+                    '0': False,
+                    '1': True,
+                    'True': True,
+                    'False': False
+                }
+            ),
             'image_proxy': MapSetting(
                 settings['server'].get('image_proxy', False),
                 is_locked('image_proxy'),

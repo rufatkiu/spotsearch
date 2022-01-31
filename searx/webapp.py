@@ -761,7 +761,8 @@ def search():
         base_url=get_base_url(),
         theme=get_current_theme_folder_name(),
         favicons=global_favicons[themes_folder_name.index(get_current_theme_folder_name())],
-        timeout_limit=request.form.get('timeout_limit', None)
+        timeout_limit=request.form.get('timeout_limit', None),
+        show_source=request.preferences.get_value('show_source')
     )
     resp = make_response(rendered_page)
     if request.form.get('preferences'):
@@ -912,6 +913,7 @@ def preferences():
                   locales=settings['locales'],
                   current_locale=request.preferences.get_value("locale"),
                   image_proxy=image_proxy,
+                  show_source=request.preferences.get_value("show_source"),
                   engines_by_category=engines_by_category,
                   stats=stats,
                   answerers=[{'info': a.self_info(), 'keywords': a.keywords} for a in answerers],

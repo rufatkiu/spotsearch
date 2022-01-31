@@ -53,6 +53,15 @@
                     </select>
                 {% endcall %}
 
+                {% set showsource_label = _('Show source') %}
+                {% set showsource_info = _('Show source engine') %}
+                {% call preferences_item(showsource_info, showsource_label, rtl) %}
+                    <select class="form-control custom-select" name='show_source' data-hide-search>
+                        <option value="1" {% if show_source  %}selected="selected"{% endif %}>{{ _('Enabled') }}</option>
+                        <option value="0" {% if not show_source %}selected="selected"{% endif %}>{{ _('Disabled')}}</option>
+                    </select>
+                {% endcall %}
+
                 {% set image_proxy_label = _('Image proxy') %}
                 {% set image_proxy_info = _('Proxying image results through searx') %}
                 {% call preferences_item(image_proxy_info, image_proxy_label, rtl) %}

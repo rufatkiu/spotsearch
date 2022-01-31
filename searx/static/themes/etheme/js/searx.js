@@ -110,7 +110,7 @@ $(document).ready(function(){
     /**
      * focus element if class="autofocus" and id="q"
      */
-    $('#q.autofocus').focus();
+   $('.autofocus').focus();
 
     /**
      * Empty search bar when click on reset button

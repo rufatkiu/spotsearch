@@ -38,6 +38,7 @@ server:
 
 ui:
     static_path : "" # Custom static path - leave it blank if you didn't change
+    show_source: True
     templates_path : "" # Custom templates path - leave it blank if you didn't change
     default_theme : oscar # ui theme
     default_locale : "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
