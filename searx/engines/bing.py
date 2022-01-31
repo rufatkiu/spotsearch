@@ -29,7 +29,7 @@ language_aliases = {'zh-CN': 'zh-CHS', 'zh-TW': 'zh-CHT', 'zh-HK': 'zh-CHT'}
 
 # search-url
 base_url = 'https://www.bing.com/'
-search_string = 'search?{query}&first={offset}'
+search_string = 'search?{query}&first={offset}&go=Search&qs=ds&form=QBRE'
 
 
 def _get_offset_from_pageno(pageno):
