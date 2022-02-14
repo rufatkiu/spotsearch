@@ -8,6 +8,7 @@ from json import loads
 from searx.utils import extract_text, match_language, eval_xpath
 from searx import logger
 import re
+import httpx
 
 logger = logger.getChild('ddg engine')
 # about
@@ -26,7 +27,7 @@ paging = False
 supported_languages_url = 'https://duckduckgo.com/util/u172.js'
 time_range_support = True
 safesearch = True
-VQD_REGEX = r"vqd='(\d+-\d+-\d+)'/";
+VQD_REGEX = r"vqd='(\d+-\d+-\d+)'";
 language_aliases = {
     'ar-SA': 'ar-XA',
     'es-419': 'es-XL',
@@ -57,8 +58,10 @@ def get_region_code(lang, lang_list=None):
     # country code goes first
     return lang_parts[1].lower() + '-' + lang_parts[0].lower()
 
-# def get_vqd(query):
-#     resp = requests.get
+def get_vqd(query):
+    resp = httpx.get(f"https://duckduckgo.com/?q={query}&ia=web")
+    resp = re.findall(VQD_REGEX, resp.text)
+    return resp[0]
 
 def request(query, params):
     if params['time_range'] is not None and params['time_range'] not in time_range_dict:
@@ -66,8 +69,7 @@ def request(query, params):
 
     params['method'] = 'GET'
 
-    logger.debug(params)
-
+    vqd = get_vqd(query)
     query_dict = {
         "q": query,
         't': 'D',
@@ -78,7 +80,7 @@ def request(query, params):
         'ct': 'US',
         'ss_mkt': get_region_code(params["language"]),
         'df': params['time_range'],
-        'vqd' : "3-126340648549743517691069464246778236175-203846832012815914858366468471688211061",
+        'vqd' : vqd,
         'ex': -2,
         'sp': '1',
         'bpa': '1',
@@ -115,7 +117,6 @@ def request(query, params):
     params['allow_redirects'] = False
     params["data"] = query_dict
     params["url"] = url
-    logger.debug(params)
     return params
 
 
@@ -149,8 +150,6 @@ def response(resp):
     #     # append correction
     #     results.append({'correction': extract_text(correction)})
 
-    # return results
-    logger.debug(results)
     return results
 
 
