@@ -53,6 +53,7 @@ time_range_dict = {'day': 'd',
                    'month': 'm',
                    'year': 'y'}
 
+
 # match query's language to a region code that duckduckgo will accept
 def get_region_code(lang, lang_list=None):
     if lang == 'all':
@@ -64,10 +65,6 @@ def get_region_code(lang, lang_list=None):
     # country code goes first
     return lang_parts[1].lower() + '-' + lang_parts[0].lower()
 
-def get_vqd(query):
-    resp = httpx.get(f"https://duckduckgo.com/?q={query}&ia=web")
-    resp = re.findall(VQD_REGEX, resp.text)
-    return resp[0]
 
 def get_vqd(query):
     resp = httpx.get(f"https://duckduckgo.com/?q={query}&ia=web")
