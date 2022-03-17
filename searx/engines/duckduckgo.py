@@ -22,8 +22,9 @@ about = {
 
 # engine dependent config
 categories = ['general']
-paging = False
+paging = True
 supported_languages_url = 'https://duckduckgo.com/util/u172.js'
+number_of_results = 10
 time_range_support = True
 safesearch = True
 VQD_REGEX = r"vqd='(\d+-\d+-\d+)'"
@@ -86,7 +87,7 @@ def request(query, params):
         't': 'D',
         'l': params["language"],
         'kl': get_region_code(params["language"]),
-        's': 0,
+        's': (params['pageno'] - 1) * number_of_results,
         'dl': 'en',
         'ct': 'US',
         'ss_mkt': get_region_code(params["language"]),
