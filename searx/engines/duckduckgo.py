@@ -41,13 +41,6 @@ language_aliases = {
 
 # search-url
 url = 'https://links.duckduckgo.com/d.js?'
-
-url_ping = 'https://duckduckgo.com/t/sl_h'
-time_range_dict = {'day': 'd',
-                   'week': 'w',
-                   'month': 'm',
-                   'year': 'y'}
-
 url_ping = 'https://duckduckgo.com/t/sl_h'
 time_range_dict = {'day': 'd',
                    'week': 'w',
@@ -74,8 +67,6 @@ def get_vqd(query, headers):
 
 
 def request(query, params):
-    if params['time_range'] is not None and params['time_range'] not in time_range_dict:
-        return params
 
     params['method'] = 'GET'
 
@@ -128,6 +119,9 @@ def request(query, params):
     params['allow_redirects'] = False
     params["data"] = query_dict
     params['cookies']['kl'] =  params["data"]["kl"]
+    if params['time_range'] in time_range_dict:
+        params['data']['df'] = time_range_dict[params['time_range']]
+        params['cookies']['df'] = time_range_dict[params['time_range']]
     params["url"] = url + urlencode(params["data"])
     return params
 
