@@ -71,7 +71,7 @@ def request(query, params):
     params['method'] = 'GET'
 
     vqd = get_vqd(query, params["headers"])
-    dl,ct = match_language(params["language"], supported_languages, language_aliases, 'wt-WT').split("-")
+    dl, ct = match_language(params["language"], supported_languages, language_aliases, 'wt-WT').split("-")
     query_dict = {
         "q": query,
         't': 'D',
@@ -118,7 +118,7 @@ def request(query, params):
 
     params['allow_redirects'] = False
     params["data"] = query_dict
-    params['cookies']['kl'] =  params["data"]["kl"]
+    params['cookies']['kl'] = params["data"]["kl"]
     if params['time_range'] in time_range_dict:
         params['data']['df'] = time_range_dict[params['time_range']]
         params['cookies']['df'] = time_range_dict[params['time_range']]
@@ -145,7 +145,7 @@ def response(resp):
         if ((only_result.get("da") is not None and only_result.get("t") == 'EOF') or
                 only_result.get('a') is not None or only_result.get('d') == 'google.com search'):
             return
-    
+
     for search_result in search_data:
         if 'n' in search_result:
             continue
