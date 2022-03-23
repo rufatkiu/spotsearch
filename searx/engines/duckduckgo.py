@@ -4,10 +4,11 @@
 """
 
 from json import loads
-from searx.utils import extract_text, match_language
+from urllib.parse import urlencode
+from searx.utils import match_language, HTMLTextExtractor
 from searx import logger
 import re
-import httpx
+from searx.network import get
 
 logger = logger.getChild('ddg engine')
 # about
@@ -66,8 +67,8 @@ def get_region_code(lang, lang_list=None):
     return lang_parts[1].lower() + '-' + lang_parts[0].lower()
 
 
-def get_vqd(query):
-    resp = httpx.get(f"https://duckduckgo.com/?q={query}&ia=web")
+def get_vqd(query, headers):
+    resp = get(f"https://duckduckgo.com/?q={query}&ia=web", headers=headers)
     resp = re.findall(VQD_REGEX, resp.text)
     return resp[0]
 
@@ -78,16 +79,17 @@ def request(query, params):
 
     params['method'] = 'GET'
 
-    vqd = get_vqd(query)
+    vqd = get_vqd(query, params["headers"])
+    dl,ct = match_language(params["language"], supported_languages, language_aliases, 'wt-WT').split("-")
     query_dict = {
         "q": query,
         't': 'D',
         'l': params["language"],
-        'kl': get_region_code(params["language"]),
+        'kl': f"{ct}-{dl}",
         's': (params['pageno'] - 1) * number_of_results,
-        'dl': 'en',
-        'ct': 'US',
-        'ss_mkt': get_region_code(params["language"]),
+        'dl': dl,
+        'ct': ct,
+        'ss_mkt': get_region_code(params["language"], supported_languages),
         'df': params['time_range'],
         'vqd': vqd,
         'ex': -2,
@@ -125,7 +127,8 @@ def request(query, params):
 
     params['allow_redirects'] = False
     params["data"] = query_dict
-    params["url"] = url
+    params['cookies']['kl'] =  params["data"]["kl"]
+    params["url"] = url + urlencode(params["data"])
     return params
 
 
@@ -138,19 +141,24 @@ def response(resp):
     results = []
 
     data = re.findall(r"DDG\.pageLayout\.load\('d',(\[.+\])\);DDG\.duckbar\.load\('images'", str(resp.text))
-    search_data = loads(data[0].replace('/\t/g', '    '))
+    try:
+        search_data = loads(data[0].replace('/\t/g', '    '))
+    except IndexError:
+        return
 
     if len(search_data) == 1 and ('n' not in search_data[0]):
         only_result = search_data[0]
         if ((only_result.get("da") is not None and only_result.get("t") == 'EOF') or
                 only_result.get('a') is not None or only_result.get('d') == 'google.com search'):
             return
-
+    
     for search_result in search_data:
         if 'n' in search_result:
             continue
+        html2text = HTMLTextExtractor()
+        html2text.feed(search_result.get('a'))
         results.append({'title': search_result.get("t"),
-                        'content': extract_text(search_result.get('a')),
+                        'content': html2text.get_text(),
                         'url': search_result.get('u')})
     return results
 
