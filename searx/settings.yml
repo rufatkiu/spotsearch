@@ -418,6 +418,7 @@ engines:
   - name : duckduckgo (lite)
     engine : duckduckgo_lite
     shortcut : ddgl
+    disabled : True
 
   - name : duckduckgo images
     engine : duckduckgo_images
