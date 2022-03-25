@@ -397,6 +397,10 @@ def render(template_name, override_theme=None, **kwargs):
 
     kwargs['searx_version'] = VERSION_STRING
 
+    kwargs['year'] = datetime.today().year
+
+    kwargs['repo_url'] = settings['brand']['git_url']
+
     kwargs['method'] = request.preferences.get_value('method')
 
     kwargs['safesearch'] = str(request.preferences.get_value('safesearch'))

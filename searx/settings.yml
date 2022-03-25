@@ -5,13 +5,13 @@ general:
     enable_stats: False # activate /stats page - note: it may leak usage data
 
 brand:
-    git_url: https://github.com/searx/searx
+    git_url: https://gitlab.e.foundation/e/infra/spot
     git_branch: master
-    issue_url: https://github.com/searx/searx/issues
+    issue_url: https://gitlab.e.foundation/e/infra/spot/issues
     docs_url: https://searx.github.io/searx
     public_instances: https://searx.space
-    wiki_url: https://github.com/searx/searx/wiki
-    twitter_url: https://twitter.com/Searx_engine
+    wiki_url: https://gitlab.e.foundation/e/infra/spot/wiki
+    twitter_url: https://twitter.com/e_mydata
 
 search:
     safe_search : 1 # Filter results. 0: None, 1: Moderate, 2: Strict
