@@ -61,6 +61,6 @@ You can only run spot, with a python command inside a docker container which
 contains all dependencies.
 
 ```
-docker run -it --rm -v $(pwd):/ws -w /ws -e SEARX_UI_DEFAULT_THEME=etheme -p 8088:80 registry.gitlab.e.foundation:5000/e/cloud/my-spot/env bash
+docker run -it --rm -v $(pwd):/ws -w /ws -e SEARX_UI_DEFAULT_THEME=etheme -p 8088:80 registry.gitlab.e.foundation/e/infra/spot/env bash
 PYTHONPATH=$(pwd) SEARX_DEBUG=1 python -X dev searx/webapp.py
 ```
