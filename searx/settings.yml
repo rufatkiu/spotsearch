@@ -341,7 +341,7 @@ engines:
     engine : currency_convert
     categories : general
     shortcut : cc
-    disabled: True
+    disabled: False
 
   - name : deezer
     engine : deezer

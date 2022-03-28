@@ -39,9 +39,9 @@ def response(resp):
     answer = '{0} {1} = {2} {3}, 1 {1} ({5}) = {4} {3} ({6})'.format(
         resp.search_params['amount'],
         resp.search_params['from'],
-        resp.search_params['amount'] * conversion_rate,
+        round(resp.search_params['amount'] * conversion_rate, 2),
         resp.search_params['to'],
-        conversion_rate,
+        round(conversion_rate, 2),
         resp.search_params['from_name'],
         resp.search_params['to_name'],
     )
