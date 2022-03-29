@@ -1,3 +1,4 @@
+from decimal import DivisionByZero
 from searx import logger
 import math
 
@@ -21,10 +22,20 @@ def post_search(request, search):
             if name not in ALLOWED_NAMES:
                 return False
         code = eval(code, {"__builtins__": {}}, ALLOWED_NAMES)
-        if type(code) != str:
+        if type(code) in (int, float):
             search.result_container.answers.clear()
-            search.result_container.answers['Result'] = {'answer': code}
-    except Exception:
+            answer = "The value of {} is {}".format(search.search_query.query, code)
+            search.result_container.answers[answer] =  {'answer': str(answer)}
+    except (DivisionByZero, OverflowError) as e:
+        logger.debug(e)
+        search.result_container.answers[f'Please recheck the above query: {e}'] =  {'answer': None}
+        return False
+    except (SyntaxError, NameError, TypeError) as e:
+        logger.debug(e)
+        search.result_container.answers[f'Please recheck syntax of above query'] =  {'answer': None}
+        return False
+    except Exception as e:
+        logger.debug(e)
         return False
     return True
 
