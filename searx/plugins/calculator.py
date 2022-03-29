@@ -1,10 +1,10 @@
-from decimal import DivisionByZero
 from searx import logger
 import math
 
 name = "Calculator"
+# TODO: translate the following line
 description = 'This plugin extends the suggestions with the word "example"'
-default_on = False 
+default_on = True 
 logger = logger.getChild("calculator")
 ALLOWED_NAMES = {
     k: v for k, v in math.__dict__.items() if not k.startswith("__")
@@ -24,14 +24,17 @@ def post_search(request, search):
         code = eval(code, {"__builtins__": {}}, ALLOWED_NAMES)
         if type(code) in (int, float):
             search.result_container.answers.clear()
+            # TODO: translate the following line
             answer = "The value of {} is {}".format(search.search_query.query, code)
             search.result_container.answers[answer] =  {'answer': str(answer)}
-    except (DivisionByZero, OverflowError) as e:
+    except (ZeroDivisionError, OverflowError, ValueError, FloatingPointError, MemoryError) as e:
         logger.debug(e)
+        # TODO: translate the following line
         search.result_container.answers[f'Please recheck the above query: {e}'] =  {'answer': None}
         return False
     except (SyntaxError, NameError, TypeError) as e:
         logger.debug(e)
+        # TODO: translate the following line
         search.result_container.answers[f'Please recheck syntax of above query'] =  {'answer': None}
         return False
     except Exception as e:
