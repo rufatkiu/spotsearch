@@ -24,19 +24,26 @@ def post_search(request, search):
     if search.search_query.pageno > 1:
         return True
     try:
+        query = search.search_query.query.lower()
+        query = query.replace("x", "*")
+
+        # Not going to compute if no numbers are present
+        if not any(i.isdigit() for i in query):
+            return True
+
         # Not going to compute the result if the query is too big
-        if len(search.search_query.query) > 20:
+        if len(query) > 30:
             return True
         
         # Not going to compute the result if the query is not within permissible range
-        if is_really_big(search.search_query.query):
+        if is_really_big(query):
             raise OverflowError
-        
-        code = evaluate(search.search_query.query).item()
+
+        code = evaluate(query).item()
         if type(code) in (int, float):
             search.result_container.answers.clear()
             # TODO: translate the following line
-            answer = "The value of {} is {}".format(search.search_query.query, code)
+            answer = "The value of {} is {}".format(query, code)
             search.result_container.answers[answer] = {'answer': str(answer)}
     except (ZeroDivisionError, ValueError, FloatingPointError, MemoryError) as e:
         logger.debug(e)
