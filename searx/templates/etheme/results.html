@@ -26,9 +26,9 @@
             {% endif %}
 
             {% if answers %}
-            {% for answer in answers %}
+            {% for answer, value in answers.items() %}
             <div class="result well">
-                <span>{{ answer }}</span>
+                <span>{{ answer }} : {{ value['answer'] }}</span>
             </div>
             {% endfor %}
             {% endif %}

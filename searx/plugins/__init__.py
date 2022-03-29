@@ -29,6 +29,7 @@ logger = logger.getChild('plugins')
 from searx.plugins import (oa_doi_rewrite,
                            ahmia_filter,
                            hash_plugin,
+                           calculator,
                            https_rewrite,
                            infinite_scroll,
                            self_info,
@@ -175,6 +176,7 @@ plugins.register(search_on_category_select)
 plugins.register(tracker_url_remover)
 plugins.register(vim_hotkeys)
 plugins.register(rest_api)
+plugins.register(calculator)
 # load external plugins
 if 'plugins' in settings:
     plugins.register(*settings['plugins'], external=True)
