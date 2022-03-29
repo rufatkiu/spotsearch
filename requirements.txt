@@ -16,4 +16,5 @@ langdetect==1.0.9
 setproctitle==1.2.2
 redis==3.4.1
 ring==0.7.3
+werkzeug==2.0.3
 
