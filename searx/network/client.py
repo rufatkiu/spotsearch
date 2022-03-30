@@ -7,20 +7,13 @@ import logging
 from ssl import SSLContext
 import threading
 from typing import Any, Dict
+import uvloop
 
 import httpx
 from httpx_socks import AsyncProxyTransport
 from python_socks import parse_proxy_url, ProxyConnectionError, ProxyTimeoutError, ProxyError
 
 from searx import logger
-
-# Optional uvloop (support Python 3.6)
-try:
-    import uvloop
-except ImportError:
-    pass
-else:
-    uvloop.install()
 
 
 logger = logger.getChild('searx.network.client')
@@ -106,25 +99,21 @@ def get_transport(verify, http2, local_address, proxy_url, limit, retries):
     )
 
 
-def new_client(
-    # pylint: disable=too-many-arguments
-    enable_http,
-    verify,
-    enable_http2,
-    max_connections,
-    max_keepalive_connections,
-    keepalive_expiry,
-    proxies,
-    local_address,
-    retries,
-    max_redirects,
-    hook_log_response,
-):
-    limit = httpx.Limits(
-        max_connections=max_connections,
-        max_keepalive_connections=max_keepalive_connections,
-        keepalive_expiry=keepalive_expiry,
-    )
+def iter_proxies(proxies):
+    # https://www.python-httpx.org/compatibility/#proxy-keys
+    if isinstance(proxies, str):
+        yield 'all://', proxies
+    elif isinstance(proxies, dict):
+        for pattern, proxy_url in proxies.items():
+            yield pattern, proxy_url
+
+
+def new_client(enable_http, verify, enable_http2,
+               max_connections, max_keepalive_connections, keepalive_expiry,
+               proxies, local_address, retries, max_redirects, hook_log_response):
+    limit = httpx.Limits(max_connections=max_connections,
+                         max_keepalive_connections=max_keepalive_connections,
+                         keepalive_expiry=keepalive_expiry)
     # See https://www.python-httpx.org/advanced/#routing
     mounts = {}
     for pattern, proxy_url in proxies.items():
@@ -141,17 +130,10 @@ def new_client(
         mounts['http://'] = AsyncHTTPTransportNoHttp()
 
     transport = get_transport(verify, enable_http2, local_address, None, limit, retries)
-
     event_hooks = None
     if hook_log_response:
         event_hooks = {'response': [hook_log_response]}
-
-    return httpx.AsyncClient(
-        transport=transport,
-        mounts=mounts,
-        max_redirects=max_redirects,
-        event_hooks=event_hooks,
-    )
+    return httpx.AsyncClient(transport=transport, mounts=mounts, max_redirects=max_redirects, event_hooks=event_hooks)
 
 
 def get_loop():
