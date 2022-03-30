@@ -34,7 +34,7 @@ def post_search(request, search):
         # Not going to compute the result if the query is too big
         if len(query) > 30:
             return True
-        
+
         # Not going to compute the result if the query is not within permissible range
         if is_really_big(query):
             raise OverflowError
