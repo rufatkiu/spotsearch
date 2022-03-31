@@ -43,7 +43,7 @@ python:
   rules:
     - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == push'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success
   script:
     - ./manage test.pep8
@@ -56,7 +56,7 @@ build:web:
       when: never
     - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == push'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success  
   before_script:
     - ./manage node.update
@@ -86,7 +86,7 @@ build:docker:
       when: never
     - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == push'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success
   extends: .build:docker
 
@@ -109,7 +109,7 @@ test:unit:
       when: never
     - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == push'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success
   script:
     - ./manage test.coverage
@@ -137,7 +137,7 @@ deploy:spot.eeo.one.backend1:
       when: never
     - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == push'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success
   environment:
     name: eeo1
@@ -185,7 +185,7 @@ deploy:spot.eeo.one.backend2:
       when: never
     - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == push'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
       when: on_success
   environment:
     name: eeo2
