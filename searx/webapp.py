@@ -94,7 +94,7 @@ from searx.plugins import plugins
 from searx.plugins.oa_doi_rewrite import get_doi_resolver
 from searx.preferences import Preferences, ValidationException, LANGUAGE_CODES
 from searx.answerers import answerers
-from searx.network import set_context_network_name, stream as http_stream
+from searx.network import stream as http_stream, set_context_network_name
 from searx.answerers import ask
 from searx.metrology.error_recorder import errors_per_engines
 from searx.settings_loader import get_default_settings_path
@@ -154,7 +154,7 @@ werkzeug_reloader = flask_run_development or (searx_debug and __name__ == "__mai
 # initialize the engines except on the first run of the werkzeug server.
 if not werkzeug_reloader\
    or (werkzeug_reloader and os.environ.get("WERKZEUG_RUN_MAIN") == "true"):
-    search_initialize(enable_checker=True)
+    search_initialize(enable_checker=True, check_network=True)
 
 babel = Babel(app)
 
@@ -965,7 +965,15 @@ def image_proxy():
             'DNT': '1',
         }
         set_context_network_name('image_proxy')
-        resp, stream = http_stream(method='GET', url=url, headers=request_headers)
+        stream = http_stream(
+            method='GET',
+            url=url,
+            headers=request_headers,
+            timeout=settings['outgoing']['request_timeout'],
+            follow_redirects=True,
+            max_redirects=20)
+
+        resp = next(stream)
         content_length = resp.headers.get('Content-Length')
         if content_length and content_length.isdigit() and int(content_length) > maximum_size:
             return 'Max size', 400
@@ -993,22 +1001,22 @@ def image_proxy():
             except httpx.HTTPError:
                 logger.exception('HTTP error on closing')
 
-    def close_stream():
-        nonlocal resp, stream
-        try:
-            resp.close()
-            del resp
-            del stream
-        except httpx.HTTPError as e:
-            logger.debug('Exception while closing response', e)
-
     try:
-        headers = dict_subset(resp.headers, {'Content-Type', 'Content-Encoding', 'Content-Length', 'Length'})
-        response = Response(stream, mimetype=resp.headers['Content-Type'], headers=headers, direct_passthrough=True)
-        response.call_on_close(close_stream)
-        return response
+        headers = dict_subset(
+            resp.headers,
+            {'Content-Type', 'Content-Encoding', 'Content-Length', 'Length'}
+        )
+
+        def forward_chunk():
+            total_length = 0
+            for chunk in stream:
+                total_length += len(chunk)
+                if total_length > maximum_size:
+                    break
+                yield chunk
+
+        return Response(forward_chunk(), mimetype=resp.headers['Content-Type'], headers=headers)
     except httpx.HTTPError:
-        close_stream()
         return '', 400
 
 
@@ -1180,6 +1188,13 @@ def run():
             get_default_settings_path()
         ],
     )
+
+
+def patch_application(app):
+    # serve pages with HTTP/1.1
+    WSGIRequestHandler.protocol_version = "HTTP/{}".format(settings['server']['http_protocol_version'])
+    # patch app to handle non root url-s behind proxy & wsgi
+    app.wsgi_app = ReverseProxyPathFix(ProxyFix(app.wsgi_app))
 
 
 class ReverseProxyPathFix:
