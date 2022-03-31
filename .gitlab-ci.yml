@@ -13,8 +13,8 @@ services:
 searx:
   stage: update-from-upstream
   image: registry.gitlab.e.foundation/e/tools/docker-tools:latest
-  rules:
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule/ && $CI_COMMIT_REF_NAME == $LOCAL_BRANCH'
+  only:
+    - schedules
   variables:
     GIT_STRATEGY: none
     CI_PROJECT_SSH_URL: git@gitlab.e.foundation:$CI_PROJECT_PATH
