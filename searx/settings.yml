@@ -109,7 +109,7 @@ outgoing: # communication with search engines
 # uncomment below section if you want to configure which plugin is enabled by default
 #
 enabled_plugins:
-  - "calculator"
+  - "Calculator"
 #   - ...
 
 # Example to rewrite hostnames in external links
