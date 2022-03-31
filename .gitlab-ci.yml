@@ -41,9 +41,9 @@ searx:
 python:
   stage: check
   rules:
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger/'
+    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /push|merge_request_event/'
+    - if: '$CI_PIPELINE_SOURCE == push'
       when: on_success
   script:
     - ./manage test.pep8
@@ -54,9 +54,9 @@ build:web:
   rules:
     - if: '$CI_COMMIT_TAG'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger/'
+    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /push|merge_request_event/'
+    - if: '$CI_PIPELINE_SOURCE == push'
       when: on_success  
   before_script:
     - ./manage node.update
@@ -84,9 +84,9 @@ build:docker:
   rules:
     - if: '$CI_COMMIT_TAG'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger/'
+    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /push|merge_request_event/'
+    - if: '$CI_PIPELINE_SOURCE == push'
       when: on_success
   extends: .build:docker
 
@@ -107,9 +107,9 @@ test:unit:
   rules:
     - if: '$CI_COMMIT_TAG'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger/'
+    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /push|merge_request_event/'
+    - if: '$CI_PIPELINE_SOURCE == push'
       when: on_success
   script:
     - ./manage test.coverage
@@ -135,9 +135,9 @@ deploy:spot.eeo.one.backend1:
   rules:
     - if: '$CI_COMMIT_TAG'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger/'
+    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /push|merge_request_event/'
+    - if: '$CI_PIPELINE_SOURCE == push'
       when: on_success
   environment:
     name: eeo1
@@ -183,9 +183,9 @@ deploy:spot.eeo.one.backend2:
   rules:
     - if: '$CI_COMMIT_TAG'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger/'
+    - if: '$CI_PIPELINE_SOURCE =~ /schedule|web|api|trigger|merge_request_event/'
       when: never
-    - if: '$CI_PIPELINE_SOURCE =~ /push|merge_request_event/'
+    - if: '$CI_PIPELINE_SOURCE == push'
       when: on_success
   environment:
     name: eeo2
