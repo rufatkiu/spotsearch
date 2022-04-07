@@ -35,8 +35,6 @@
   --color-main-text: #60686f;
   --color-primary: #1f6ed7;
   --color-delete: #e06572;
-  --color-currency-value: #777777;
-
 }
 .container-padding,
 nav {
@@ -998,11 +996,23 @@ input:checked + .slider:before {
 .result.result-torrent {
   margin-bottom: 32px;
 }
-.result .currency {
+.result .currency-value {
   font-family: 'Noto Sans';
+  color: var(--color-currency-value);
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
+}
+.result .currency-info {
+  font-family: 'Noto Sans';
+  color: var(--color-currency-value);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 3;
+  font-size: 18px;
+}
+.source {
+  margin-left: 15%;
 }
 .result.result-images {
   display: inline;

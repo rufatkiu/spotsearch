@@ -40,11 +40,16 @@ def response(resp):
     url = 'https://duckduckgo.com/js/spice/currency/1/{0}/{1}'.format(
         resp.search_params['from'].upper(), resp.search_params['to'])
 
+    source_url = 'https://www.xe.com/currencyconverter/convert/?Amount=1&From={0}&To={1}'.format(
+        resp.search_params['from'], resp.search_params['to']
+    )
+
     results.append({'template': 'currency.html',
                     'amount': resp.search_params['amount'],
                     'from': resp.search_params['from'],
                     'to': resp.search_params['to'],
                     'value': round(resp.search_params['amount'] * conversion_rate, 2),
                     'conversion_rate': round(conversion_rate, 2),
+                    'source_url' : source_url,
                     'url': url})
     return results
