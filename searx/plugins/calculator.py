@@ -1,9 +1,10 @@
 from searx import logger
 from numexpr import evaluate
+from flask_babel import gettext
 
-name = "Calculator"
-# TODO: translate the following line
-description = 'This plugin extends results when the query is a mathematical expression'
+
+name = gettext('Calculator')
+description = gettext('This plugin extends results when the query is a mathematical expression')
 default_on = True
 logger = logger.getChild("calculator")
 
@@ -22,48 +23,42 @@ def is_really_big(query):
 
 def post_search(request, search):
     if search.search_query.pageno > 1:
-        return True
+        return
     try:
         query = search.search_query.query.lower()
         query = query.replace("x", "*")
 
+        # Not going to compute if only one number is present
+        try:
+            x = int(query) or float(query)
+            return
+        except ValueError:
+            pass
+
         # Not going to compute if no numbers are present
         if not any(i.isdigit() for i in query):
-            return True
+            return
 
         # Not going to compute the result if the query is too big
         if len(query) > 30:
-            return True
+            return
 
         # Not going to compute the result if the query is not within permissible range
         if is_really_big(query):
             raise OverflowError
 
-        code = evaluate(query).item()
-        if type(code) in (int, float):
+        value = evaluate(query).item()
+        if type(value) in (int, float):
             search.result_container.answers.clear()
-            # TODO: translate the following line
-            answer = "The value of {} is {}".format(query, code)
-            search.result_container.answers[answer] = {'answer': str(answer)}
-    except (ZeroDivisionError, ValueError, FloatingPointError, MemoryError) as e:
-        logger.debug(e)
-        # TODO: translate the following line
-        search.result_container.answers[f'Please recheck the above query: {e}'] = {'answer': None}
-        return False
-    except OverflowError as e:
-        logger.debug(e)
-        # TODO: translate the following line
-        search.result_container.answers[f'Please recheck the above query: Too big to compute {e}'] = {'answer': None}
-        return False
-    except (SyntaxError, NameError, TypeError) as e:
-        logger.debug(e)
-        # TODO: translate the following line
-        search.result_container.answers[f'Please recheck syntax of above query'] = {'answer': None}
-        return False
+            answer = "{} = {}".format(query, value)
+            search.result_container.answers[answer] = {'answer': answer, 'calculator': True}
+    except (ZeroDivisionError, ValueError, FloatingPointError, MemoryError, OverflowError) as e:
+        answer = gettext('Error')
+        search.result_container.answers[answer] = {'answer': answer, 'calculator': True}
     except Exception as e:
         logger.debug(e)
-        return False
-    return True
+
+    return
 
 
 check_if_loaded()
