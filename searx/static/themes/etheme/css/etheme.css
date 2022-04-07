@@ -1002,17 +1002,20 @@ input:checked + .slider:before {
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
+  padding-bottom: 15px;
 }
 .result .currency-info {
   font-family: 'Noto Sans';
   color: var(--color-currency-value);
   font-style: normal;
   font-weight: 400;
-  line-height: 3;
   font-size: 18px;
 }
+.conversion {
+  margin-right: 15%;
+}
 .source {
-  margin-left: 15%;
+  display: inline-block;
 }
 .result.result-images {
   display: inline;

@@ -6,7 +6,7 @@
 
 <div class="result currency-info">
     {% if result.value %}
-    <span>
+    <span class="conversion">
         1 {{ result.from|safe }} = {{ result.conversion_rate|safe }} {{ result.to|safe}}
     </span>
     <span class="source">
