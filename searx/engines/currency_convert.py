@@ -50,6 +50,6 @@ def response(resp):
                     'to': resp.search_params['to'],
                     'value': round(resp.search_params['amount'] * conversion_rate, 2),
                     'conversion_rate': round(conversion_rate, 2),
-                    'source_url' : source_url,
+                    'source_url': source_url,
                     'url': url})
     return results
