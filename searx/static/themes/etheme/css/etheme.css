@@ -992,6 +992,11 @@ input:checked + .slider:before {
 .result .code-block pre {
   white-space: pre-wrap;
 }
+.result-calculator {
+  font-size: 30px;
+  font-family: 'Noto Sans';
+  font-weight: 700;
+}
 .result.result-default,
 .result.result-torrent {
   margin-bottom: 32px;
