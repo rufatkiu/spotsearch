@@ -36,19 +36,15 @@ def response(resp):
         conversion_rate = float(json.loads(json_resp)['conversion']['converted-amount'])
     except:
         return results
-    answer = '{0} {1} = {2} {3}, 1 {1} ({5}) = {4} {3} ({6})'.format(
-        resp.search_params['amount'],
-        resp.search_params['from'],
-        round(resp.search_params['amount'] * conversion_rate, 2),
-        resp.search_params['to'],
-        round(conversion_rate, 2),
-        resp.search_params['from_name'],
-        resp.search_params['to_name'],
-    )
 
     url = 'https://duckduckgo.com/js/spice/currency/1/{0}/{1}'.format(
         resp.search_params['from'].upper(), resp.search_params['to'])
 
-    results.append({'answer': answer, 'url': url})
-
+    results.append({'template': 'currency.html',
+                    'amount': resp.search_params['amount'],
+                    'from': resp.search_params['from'],
+                    'to': resp.search_params['to'],
+                    'value': round(resp.search_params['amount'] * conversion_rate, 2),
+                    'conversion_rate': round(conversion_rate, 2),
+                    'url': url})
     return results

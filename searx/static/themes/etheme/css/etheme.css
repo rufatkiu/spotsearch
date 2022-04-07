@@ -35,6 +35,8 @@
   --color-main-text: #60686f;
   --color-primary: #1f6ed7;
   --color-delete: #e06572;
+  --color-currency-value: #777777;
+
 }
 .container-padding,
 nav {
@@ -731,7 +733,7 @@ input:checked + .slider:before {
   justify-content: space-between;
   font-size: 14px;
   padding-bottom: 16px;
-  padding-top: 16px;
+  padding-top: 24px;
   padding-left: 24px;
   padding-right: 24px;
 }
@@ -995,6 +997,12 @@ input:checked + .slider:before {
 .result.result-default,
 .result.result-torrent {
   margin-bottom: 32px;
+}
+.result .currency {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
 }
 .result.result-images {
   display: inline;
