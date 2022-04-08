@@ -13,8 +13,11 @@ import h2.exceptions
 from .network import get_network, initialize, check_network_configuration
 from .client import get_loop
 from .raise_for_httperror import raise_for_httperror
+<<<<<<< HEAD
 from searx import settings
 from .cache import redis_cache
+=======
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 
 
 THREADLOCAL = threading.local()
@@ -102,10 +105,16 @@ def request(method, url, **kwargs):
     return response
 
 
+<<<<<<< HEAD
 if "redis_host" not in settings["server"]:
     def get(url, **kwargs):
         kwargs.setdefault('follow_redirects', True)
         return request('get', url, **kwargs)
+=======
+def get(url, **kwargs):
+    kwargs.setdefault('follow_redirects', True)
+    return request('get', url, **kwargs)
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 
 
 def options(url, **kwargs):

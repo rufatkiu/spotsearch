@@ -26,7 +26,10 @@ dist/
 local/
 gh-pages/
 searx.egg-info/
+<<<<<<< HEAD
 
 *.eggs
+=======
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 .env
 geckodriver.log

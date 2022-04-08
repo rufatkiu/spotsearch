@@ -6,7 +6,10 @@ import asyncio
 import logging
 from ssl import SSLContext
 import threading
+<<<<<<< HEAD
 from typing import Any, Dict
+=======
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 import uvloop
 
 import httpx
@@ -16,7 +19,11 @@ from python_socks import parse_proxy_url, ProxyConnectionError, ProxyTimeoutErro
 from searx import logger
 
 
+<<<<<<< HEAD
 logger = logger.getChild('searx.network.client')
+=======
+logger = logger.getChild('searx.http.client')
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 LOOP = None
 SSLCONTEXTS: Dict[Any, SSLContext] = {}
 TRANSPORT_KWARGS = {

@@ -945,6 +945,11 @@ def _is_selected_language_supported(engine, preferences):
 @app.route('/image_proxy', methods=['GET'])
 def image_proxy():
     # pylint: disable=too-many-return-statements, too-many-branches
+<<<<<<< HEAD
+=======
+
+    url = request.args.get('url')
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 
     url = request.args.get('url')
     if not url:

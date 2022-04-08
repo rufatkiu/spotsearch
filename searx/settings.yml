@@ -19,7 +19,11 @@ search:
     default_lang : "" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
     ban_time_on_fail : 5 # ban time in seconds after engine errors
     max_ban_time_on_fail : 120 # max ban time in seconds after engine errors
+<<<<<<< HEAD
     prefer_configured_language: True # increase weight of results in configured language in ranking
+=======
+    prefer_configured_language: False # increase weight of results in confiugred language in ranking
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 
 server:
     port : 80
@@ -424,6 +428,13 @@ engines:
     engine : duckduckgo_images
     shortcut : ddi
     timeout: 3.0
+
+  - name : tineye
+    engine : tineye
+    shortcut : tin
+    paging : True
+    timeout : 9.0
+    disabled : True
 
   - name : tineye
     engine : tineye
@@ -937,6 +948,26 @@ engines:
     engine : openstreetmap
     shortcut : osm
     disabled : True
+
+#  - name : prowlarr
+#    engine : prowlarr
+#    shortcut : prow
+#    categories : files
+#    enable_http : True
+#    api_key : ''
+#    indexer_ids : 5 # comma separated list of indexer ids
+#    search_categories : '' # comma separated list of categories
+#    search_type : search
+#    base_url: http://localhost:9696/api/v1/search?
+#    timeout : 50.0
+#    disabled : True,
+#    about :
+#      website : https://wiki.servarr.com/prowlarr
+#      wikidata_id : None
+#      official_api_documentation : https://wiki.servarr.com/prowlarr/search
+#      use_official_api : true
+#      require_api_key : true
+#      results : JSON
 
 #  - name : prowlarr
 #    engine : prowlarr
@@ -1672,8 +1703,12 @@ engines:
   - name: onesearch
     shortcut: onesearch
     engine: onesearch
+<<<<<<< HEAD
     paging: true
     categories: general
+=======
+    disabled: True
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
     about:
       website: https://www.onesearch.com/
       wikidata_id: None

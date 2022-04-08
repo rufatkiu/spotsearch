@@ -13,7 +13,10 @@ source_dot_config
 
 PY_SETUP_EXTRAS='[test]'
 NPM_PACKAGES="less@2.7 less-plugin-clean-css grunt-cli"
+<<<<<<< HEAD
 NPM_VERSION="6.14.5"
+=======
+>>>>>>> 03eb9c2461194b81ce978253aceaab587cca975f
 GECKODRIVER_VERSION="v0.30.0"
 # SPHINXOPTS=
 
