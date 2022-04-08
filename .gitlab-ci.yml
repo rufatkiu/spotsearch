@@ -35,7 +35,9 @@ searx:
   script:
     - git fetch origin
     - git checkout $CI_COMMIT_REF_NAME
-    - git merge origin/$UPSTREAM_BRANCH
+    - git remote add upstream $UPSTREAM_REPO
+    - git pull upstream/$UPSTREAM_BRANCH
+    - git merge upstream/$UPSTREAM_BRANCH
     - git push
 
 python:
