@@ -40,8 +40,8 @@ def get_user_settings_path():
         # enviroment variable SEARX_SETTINGS_PATH
         return check_settings_yml(environ['SEARX_SETTINGS_PATH'])
 
-    # if not, get it from searx code base or last solution from /etc/searx
-    return check_settings_yml('/etc/searx/settings.yml')
+    # if not, get it from /etc/searx, or last resort the codebase
+    return check_settings_yml('/etc/searx/settings.yml') or check_settings_yml('settings.yml')
 
 
 def update_dict(default_dict, user_dict):
@@ -112,8 +112,16 @@ def is_use_default_settings(user_settings):
 def load_settings(load_user_setttings=True):
     default_settings_path = get_default_settings_path()
     user_settings_path = get_user_settings_path()
+
+    # no user settings
     if user_settings_path is None or not load_user_setttings:
-        # no user settings
+        if default_settings_path is None:
+            raise SearxSettingsException(
+                'missing default settings.yml file and there is no user configured file.\n'
+                'Please create a configuration file and put it under the root of searx or in /etc/searx or'
+                'configure the path in SEARX_SETTINGS_PATH.',
+                None,
+            )
         return (load_yaml(default_settings_path),
                 'load the default settings from {}'.format(default_settings_path))
 

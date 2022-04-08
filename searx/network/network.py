@@ -308,18 +308,19 @@ def initialize(settings_engines=None, settings_outgoing=None):
     settings_outgoing = settings_outgoing or settings['outgoing']
 
     # default parameters for AsyncHTTPTransport
+    # see https://github.com/encode/httpx/blob/e05a5372eb6172287458b37447c30f650047e1b8/httpx/_transports/default.py#L108-L121  # nopep8
     default_params = {
         'enable_http': False,
         'verify': True,
-        'enable_http2': settings_outgoing['enable_http2'],
-        'max_connections': settings_outgoing['pool_connections'],
-        'max_keepalive_connections': settings_outgoing['pool_maxsize'],
-        'keepalive_expiry': settings_outgoing['keepalive_expiry'],
-        'local_addresses': settings_outgoing['source_ips'],
-        'using_tor_proxy': settings_outgoing['using_tor_proxy'],
-        'proxies': settings_outgoing['proxies'],
-        'max_redirects': settings_outgoing['max_redirects'],
-        'retries': settings_outgoing['retries'],
+        'enable_http2': settings_outgoing.get('enable_http2', True),
+        'max_connections': settings_outgoing.get('pool_connections', 100),
+        'max_keepalive_connections': settings_outgoing.get('pool_maxsize', 10),
+        'keepalive_expiry': settings_outgoing.get('keepalive_expiry', 5.0),
+        'local_addresses': settings_outgoing.get('source_ips', []),
+        'using_tor_proxy': settings_outgoing.get('using_tor_proxy', False),
+        'proxies': settings_outgoing.get('proxies', None),
+        'max_redirects': settings_outgoing.get('max_redirects', 30),
+        'retries': settings_outgoing.get('retries', 0),
         'retry_on_http_error': None,
     }
 
@@ -350,7 +351,7 @@ def initialize(settings_engines=None, settings_outgoing=None):
     NETWORKS['ipv6'] = new_network({'local_addresses': '::'}, logger_name='ipv6')
 
     # define networks from outgoing.networks
-    for network_name, network in settings_outgoing['networks'].items():
+    for network_name, network in settings_outgoing.get('networks', {}).items():
         NETWORKS[network_name] = new_network(network, logger_name=network_name)
 
     # define networks from engines.[i].network (except references)

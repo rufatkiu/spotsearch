@@ -731,7 +731,7 @@ input:checked + .slider:before {
   justify-content: space-between;
   font-size: 14px;
   padding-bottom: 16px;
-  padding-top: 16px;
+  padding-top: 24px;
   padding-left: 24px;
   padding-right: 24px;
 }
@@ -1000,6 +1000,27 @@ input:checked + .slider:before {
 .result.result-default,
 .result.result-torrent {
   margin-bottom: 32px;
+}
+.result .currency-value {
+  font-family: 'Noto Sans';
+  color: var(--color-currency-value);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  padding-bottom: 15px;
+}
+.result .currency-info {
+  font-family: 'Noto Sans';
+  color: var(--color-currency-value);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+}
+.conversion {
+  margin-right: 15%;
+}
+.source {
+  display: inline-block;
 }
 .result.result-images {
   display: inline;
