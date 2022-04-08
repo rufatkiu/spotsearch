@@ -1,0 +1,16 @@
+<div class="result currency-value">
+    <span>
+        {% if result.value %}{{ result.value|safe }} {{ result.to|safe}} {% endif %}
+    </span>
+</div>
+
+<div class="result currency-info">
+    {% if result.value %}
+    <span class="conversion">
+        1 {{ result.from|safe }} = {{ result.conversion_rate|safe }} {{ result.to|safe}}
+    </span>
+    <span class="source">
+        {{ _('Source') }}: <a href="{{ result.source_url }}" target="_blank">XE Currency</a>
+    </span>
+    {% endif %}
+</div>
