@@ -35,7 +35,7 @@ searx:
     - git fetch origin
     - git checkout $CI_COMMIT_REF_NAME
     - git remote add upstream $UPSTREAM_REPO
-    - git pull upstream $UPSTREAM_BRANCH
+    - git pull upstream $UPSTREAM_BRANCH || true
     - git add .
     - git commit -m "sync changes from upstream"
     - git push origin $CI_COMMIT_REF_NAME
