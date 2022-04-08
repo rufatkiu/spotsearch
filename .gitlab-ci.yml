@@ -28,7 +28,6 @@ searx:
     - chmod 644 ~/.ssh/known_hosts
     - git config --global user.email $GITLAB_USER_EMAIL
     - git config --global user.name "$GITLAB_USER_NAME"
-    - cd $CI_BUILD_DIR
     - rm -rf $CI_PROJECT_DIR
     - git clone $CI_PROJECT_SSH_URL $CI_PROJECT_DIR
     - cd $CI_PROJECT_DIR
@@ -36,9 +35,11 @@ searx:
     - git fetch origin
     - git checkout $CI_COMMIT_REF_NAME
     - git remote add upstream $UPSTREAM_REPO
-    - git pull upstream/$UPSTREAM_BRANCH
-    - git merge upstream/$UPSTREAM_BRANCH
-    - git push
+    - git pull upstream $UPSTREAM_BRANCH
+    - git add .
+    - git commit -m "sync changes from upstream"
+    - git push origin $CI_COMMIT_REF_NAME
+    - curl -X POST "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests" --header "TOKEN:$CI_JOB_TOKEN" --header "Content-Type:application/json" --data "{'title':'test MR from curl', 'source_branch':'sync-upstream', 'target_branch':'fix-preferences', 'assignee_id':$MR_ASSIGNEE_ID}"
 
 python:
   stage: check
