@@ -108,8 +108,8 @@ outgoing: # communication with search engines
 
 # uncomment below section if you want to configure which plugin is enabled by default
 #
-# enabled_plugins:
-#   - "HTTPS rewrite"
+enabled_plugins:
+  - "Calculator"
 #   - ...
 
 # Example to rewrite hostnames in external links
