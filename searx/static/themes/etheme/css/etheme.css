@@ -21,6 +21,8 @@
   --menu-icon-color: #222;
   --color-dashboard-panels: #f2f2f2;
   --color-dashboard-background-plain: #d2d2d2;
+  --color-answer-value: #777777;
+  --color-answer-info: #979797;
   --text-muted-normal-alpha: rgba(0, 0, 0, 0.4);
   --input-border-color: rgba(0, 0, 0, 0.24);
   --input-text-color: black;
@@ -992,24 +994,30 @@ input:checked + .slider:before {
 .result .code-block pre {
   white-space: pre-wrap;
 }
+.result-calculator {
+  font-size: 30px;
+  color: var(--color-answer-value);
+  font-weight: 700;
+}
 .result.result-default,
 .result.result-torrent {
   margin-bottom: 32px;
 }
 .result .currency-value {
-  font-family: 'Noto Sans';
-  color: var(--color-currency-value);
+  color: var(--color-answer-value);
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
   padding-bottom: 15px;
 }
 .result .currency-info {
-  font-family: 'Noto Sans';
-  color: var(--color-currency-value);
+  color: var(--color-answer-value);
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
+}
+.well {
+  padding-top: 10px;
 }
 .conversion {
   margin-right: 15%;

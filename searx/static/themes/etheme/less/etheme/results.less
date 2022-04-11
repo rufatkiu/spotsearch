@@ -132,14 +132,17 @@
     }
   }
 }
-
+.result-calculator {
+  font-size: @fontsize_xxx-large;
+  color: var(--color-answer-value);
+  font-weight: 700;
+}
 .result.result-default, .result.result-torrent {
   margin-bottom: @spacing_xx-large;
 }
 
 .result .currency-value {
-  font-family: 'Noto Sans';
-  color: var(--color-currency-value);
+  color: var(--color-answer-value);
   font-style: normal;
   font-weight: 700;
   font-size: @fontsize_xxx-large;
@@ -147,12 +150,16 @@
 }
 
 .result .currency-info {
-  font-family: 'Noto Sans';
-  color: var(--color-currency-value);
+  color: var(--color-answer-value);
   font-style: normal;
   font-weight: 400;
   font-size: @fontsize_large;
 }
+
+.well {
+  padding-top: 10px;
+}
+
 .conversion {
   margin-right: 15%;
 }
