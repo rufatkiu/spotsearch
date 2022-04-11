@@ -4,7 +4,7 @@
   <Description>a privacy-respecting, hackable metasearch engine</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image>{{ url_for('static', filename='img/favicon.png', _external=True) }}</Image>
-  <LongName>searx metasearch</LongName>
+  <LongName>Spot</LongName>
   {% if opensearch_method == 'get' %}
     <Url rel="results" type="text/html" method="get" template="{{ url_for('search', _external=True) }}?q={searchTerms}"/>
   {% else %}
