@@ -27,6 +27,7 @@ def post_search(request, search):
         unmodified_query = query
         query = query.replace("x", "*")
         query = query.replace("^", "**")
+        query = query.replace("%", "*0.01")
 
         # Not going to compute if only one number is present
         try:
