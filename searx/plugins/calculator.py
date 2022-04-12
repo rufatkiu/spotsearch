@@ -18,6 +18,7 @@ def check_if_loaded():
 def calculate(query):
     return evaluate(query).item()
 
+
 def post_search(request, search):
     if search.search_query.pageno > 1:
         return
