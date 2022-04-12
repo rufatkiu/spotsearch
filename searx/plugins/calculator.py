@@ -47,10 +47,10 @@ def post_search(request, search):
         if type(value) in (int, float):
             search.result_container.answers.clear()
             answer = "{} = {}".format(unmodified_query, value)
-            search.result_container.answers[answer] = {'answer': answer, 'calculator': True}
+            search.result_container.answers['calculator'] = {'answer': answer, 'calculator': True}
     except (ZeroDivisionError, ValueError, FloatingPointError, MemoryError, OverflowError, TimeoutError) as e:
         answer = gettext('Error')
-        search.result_container.answers[answer] = {'answer': answer, 'calculator': True}
+        search.result_container.answers['calculator'] = {'answer': answer, 'calculator': True}
     except Exception as e:
         logger.debug(e)
 
