@@ -159,29 +159,29 @@ class CalculatorPluginTest(SearxTestCase):
         # False addition test
         search = get_search_mock(query='2+2', pageno=1)
         store.call(store.plugins, 'post_search', request, search)
-        self.assertFalse('4' not 
-                        in search.result_container.answers['calculator']['answer'])
+        self.assertFalse('4' not
+                         in search.result_container.answers['calculator']['answer'])
 
         # no result test
         search = get_search_mock(query='2+2', pageno=2)
         store.call(store.plugins, 'post_search', request, search)
-        self.assertFalse('calculator' 
-                        in search.result_container.answers)
+        self.assertFalse('calculator'
+                         in search.result_container.answers)
 
         # no result test
         search = get_search_mock(query='2+2/sdf', pageno=1)
         store.call(store.plugins, 'post_search', request, search)
-        self.assertFalse('calculator' 
-                        in search.result_container.answers)
+        self.assertFalse('calculator'
+                         in search.result_container.answers)
 
         # error result test
         search = get_search_mock(query='2+2/0', pageno=1)
         store.call(store.plugins, 'post_search', request, search)
-        self.assertTrue('Error' 
+        self.assertTrue('Error'
                         in search.result_container.answers['calculator']['answer'])
 
         # error result test
         search = get_search_mock(query='2**999999999**99999999', pageno=1)
         store.call(store.plugins, 'post_search', request, search)
-        self.assertTrue('Error' 
+        self.assertTrue('Error'
                         in search.result_container.answers['calculator']['answer'])
