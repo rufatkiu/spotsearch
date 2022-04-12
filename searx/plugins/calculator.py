@@ -25,6 +25,8 @@ def post_search(request, search):
     try:
         query = search.search_query.query.lower()
         unmodified_query = query
+
+        # Replace all frequently used substitutes
         query = query.replace("x", "*")
         query = query.replace("^", "**")
         query = query.replace("%", "*0.01")
@@ -43,6 +45,10 @@ def post_search(request, search):
         # Not going to compute the result if the query is too big
         if len(query) > 30:
             return
+
+        # Multiply by float to upcast all numbers to floats
+        # https://numexpr.readthedocs.io/projects/NumExpr3/en/latest/user_guide.html#casting-rules
+        query += "*1.0"
 
         value = calculate(query)
         if type(value) in (int, float):
