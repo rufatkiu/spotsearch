@@ -29,7 +29,7 @@ def post_search(request, search):
         # Replace all frequently used substitutes
         query = query.replace("x", "*")
         query = query.replace("^", "**")
-        query = query.replace("%", "*0.01")
+        query = query.replace("%", "*(0.01)*")
 
         # Not going to compute if only one number is present
         try:
