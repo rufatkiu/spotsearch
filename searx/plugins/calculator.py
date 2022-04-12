@@ -27,6 +27,7 @@ def post_search(request, search):
     try:
         query = search.search_query.query.lower()
         query = query.replace("x", "*")
+        query = query.replace("^", "**")
 
         # Not going to compute if only one number is present
         try:
