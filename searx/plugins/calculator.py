@@ -26,6 +26,7 @@ def post_search(request, search):
         return
     try:
         query = search.search_query.query.lower()
+        unmodified_query = query
         query = query.replace("x", "*")
         query = query.replace("^", "**")
 
@@ -51,7 +52,7 @@ def post_search(request, search):
         value = evaluate(query).item()
         if type(value) in (int, float):
             search.result_container.answers.clear()
-            answer = "{} = {}".format(query, value)
+            answer = "{} = {}".format(unmodified_query, value)
             search.result_container.answers[answer] = {'answer': answer, 'calculator': True}
     except (ZeroDivisionError, ValueError, FloatingPointError, MemoryError, OverflowError) as e:
         answer = gettext('Error')
