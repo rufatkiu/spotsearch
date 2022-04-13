@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-12 20:07+0530\n"
+"POT-Creation-Date: 2022-04-12 20:38+0530\n"
 "PO-Revision-Date: 2020-10-01 03:46+0000\n"
 "Last-Translator: Xosé M. <correo@xmgz.eu>\n"
 "Language: gl\n"
@@ -1279,4 +1279,104 @@ msgstr "Respostas"
 
 #~ msgid "Loading..."
 #~ msgstr "Cargando..."
+
+#~ msgid "Spot is a fork of"
+#~ msgstr ""
+
+#~ msgid "which is a"
+#~ msgstr ""
+
+#~ msgid "aggregating the results of other"
+#~ msgstr ""
+
+#~ msgid "while not storing information about its users."
+#~ msgstr ""
+
+#~ msgid "More about Spot..."
+#~ msgstr ""
+
+#~ msgid "Why use Spot?"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Spot may not offer you as "
+#~ "personalised results as Google, but it"
+#~ " doesn't generate a profile about "
+#~ "you."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Spot doesn't care about what you "
+#~ "search for, never shares anything with"
+#~ " a third party, and it can't be"
+#~ " used to compromise you."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Spot is free software, the code is"
+#~ " 100% open and you can help to"
+#~ " make it better.  See more on"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you do care about privacy, want"
+#~ " to be a conscious user, or "
+#~ "otherwise believe in digital freedom, "
+#~ "make Spot your default search engine "
+#~ "or run it on your own server"
+#~ msgstr ""
+
+#~ msgid "Technical details - How does it work?"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It provides basic privacy by mixing "
+#~ "your queries with searches on other\n"
+#~ ""
+#~ "      platforms without storing search "
+#~ "data. Queries are made using a "
+#~ "POST request\n"
+#~ "      on every browser (except "
+#~ "Chromium-based browsers*).  Therefore they "
+#~ "show up \n"
+#~ "      in neither our logs, nor "
+#~ "your url history. In the case of"
+#~ " Chromium-based\n"
+#~ "      browser users there is an "
+#~ "exception: Spot uses the search bar "
+#~ "to perform GET\n"
+#~ "      requests.\n"
+#~ "      \n"
+#~ "      Spot can be added to your"
+#~ " browser's search bar; moreover, it "
+#~ "can be set as\n"
+#~ "      the default search engine."
+#~ msgstr ""
+
+#~ msgid "How to set as the default search engine?"
+#~ msgstr ""
+
+#~ msgid "Spot supports"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "For more information on changing your"
+#~ " default search engine, see your "
+#~ "browser's documentation:"
+#~ msgstr ""
+
+#~ msgid "only add websites that the user navigates to without a path."
+#~ msgstr ""
+
+#~ msgid "How can I make it my own?"
+#~ msgstr ""
+
+#~ msgid "Spot appreciates your concern regarding logs, so take the code from the"
+#~ msgstr ""
+
+#~ msgid "original Spot project"
+#~ msgstr ""
+
+#~ msgid "and run it yourself!"
+#~ msgstr ""
 

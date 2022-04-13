@@ -1,13 +1,13 @@
 <div{% if rtl %} dir="ltr"{% endif %}>
-  <h1>About <a href="{{ url_for('index') }}">Spot</a></h1>
+  <h1>{{ _('About') }} <a href="{{ url_for('index') }}">Spot</a></h1>
 
   <p>
-    Spot is a fork of <a href="https://github.com/searx/searx">searx</a> which is a <a href="https://en.wikipedia.org/wiki/Metasearch_engine">metasearch engine</a>,
-    aggregating the results of other <a href="{{ url_for('preferences') }}">search engines</a>
-    while not storing information about its users.
+    {{ _('Spot is a fork of') }} <a href="https://github.com/searx/searx">searx</a> {{ _('which is a') }} <a href="https://en.wikipedia.org/wiki/Metasearch_engine">metasearch engine</a>,
+    {{ _('aggregating the results of other') }} <a href="{{ url_for('preferences') }}">search engines</a>
+    {{ _('while not storing information about its users.') }}
   </p>
 
-  <p>More about Spot...</p>
+  <p>{{ _('More about Spot...') }}</p>
 
   <ul>
     <li><a href="https://gitlab.e.foundation/e/infra/spot">Gitlab</a></li>
@@ -18,36 +18,31 @@
 
   <hr />
 
-  <h2>Why use Spot?</h2>
+  <h2>{{ _('Why use Spot?') }}</h2>
 
   <ul>
     <li>
-      Spot may not offer you as personalised results as Google, but it doesn't
-      generate a profile about you.
+      {{ _("Spot may not offer you as personalised results as Google, but it doesn't generate a profile about you.") }}
     </li>
     <li>
-      Spot doesn't care about what you search for, never shares anything with a
-      third party, and it can't be used to compromise you.
+      {{ _("Spot doesn't care about what you search for, never shares anything with a third party, and it can't be used to compromise you.") }}
     </li>
     <li>
-      Spot is free software, the code is 100% open and you can help to make it
-      better.  See more on <a href="https://gitlab.e.foundation/e/infra/spot">gitlab</a>.
+      {{ _("Spot is free software, the code is 100% open and you can help to make it better.  See more on") }} <a href="https://gitlab.e.foundation/e/infra/spot">gitlab</a>.
     </li>
   </ul>
 
   <p>
-    If you do care about privacy, want to be a conscious user, or otherwise
-    believe in digital freedom, make Spot your default search engine or run it
-    on your own server
+    {{ _("If you do care about privacy, want to be a conscious user, or otherwise believe in digital freedom, make Spot your default search engine or run it on your own server") }}
   </p>
 
-  <h2>Technical details - How does it work?</h2>
+  <h2>{{ _('Technical details - How does it work?') }}</h2>
 
   <p>
     Spot is a <a href="https://en.wikipedia.org/wiki/Metasearch_engine">metasearch engine</a>,
     inspired by the <a href="https://beniz.github.io/seeks/">seeks project</a>.
 
-    It provides basic privacy by mixing your queries with searches on other
+    {{ _("""It provides basic privacy by mixing your queries with searches on other
     platforms without storing search data. Queries are made using a POST request
     on every browser (except Chromium-based browsers*).  Therefore they show up 
     in neither our logs, nor your url history. In the case of Chromium-based
@@ -55,32 +50,29 @@
     requests.
     
     Spot can be added to your browser's search bar; moreover, it can be set as
-    the default search engine.
+    the default search engine.""") }}
   </p>
 
-  <h2 id='add to browser'>How to set as the default search engine?</h2>
+  <h2 id='add to browser'>{{ _('How to set as the default search engine?') }}</h2>
 
   <p>
-    Spot supports <a href="https://github.com/dewitt/opensearch/blob/master/opensearch-1-1-draft-6.md">OpenSearch</a>.
-    For more information on changing your default search engine, see your browser's documentation:
+    {{ _('Spot supports') }} <a href="https://github.com/dewitt/opensearch/blob/master/opensearch-1-1-draft-6.md">OpenSearch</a>.
+    {{ _("For more information on changing your default search engine, see your browser's documentation:") }}
   </p>
 
   <ul>
     <li><a href="https://support.mozilla.org/en-US/kb/add-or-remove-search-engine-firefox">Firefox</a></li>
     <li><a href="https://support.microsoft.com/en-us/help/4028574/microsoft-edge-change-the-default-search-engine">Microsoft Edge</a></li>
-    <li>Chromium-based browsers <a href="https://www.chromium.org/tab-to-search">only add websites that the user navigates to without a path.</a>
+    <li>Chromium-based browsers <a href="https://www.chromium.org/tab-to-search">{{ _('only add websites that the user navigates to without a path.') }}</a>
   </ul>
 
 
-  <h2>How can I make it my own?</h2>
+  <h2>{{ _('How can I make it my own?') }}</h2>
 
   <p>
-    Spot appreciates your concern regarding logs, so take the
-    code from the <a href="https://gitlab.e.foundation/e/infra/spot">original Spot project</a> and
-    run it yourself!
+    {{ _('Spot appreciates your concern regarding logs, so take the code from the') }} <a href="https://gitlab.e.foundation/e/infra/spot">{{ _('original Spot project') }}</a> {{ _('and run it yourself!') }}
   </p>
  
 
  
 </div>
-{% include "__common__/aboutextend.html" ignore missing %}
