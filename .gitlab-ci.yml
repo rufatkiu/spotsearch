@@ -114,6 +114,8 @@ deploy:spot.eeo.one.backend1:
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
       && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
+      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
+      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
@@ -157,6 +159,8 @@ deploy:spot.eeo.one.backend2:
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
       && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
+      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
+      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
 
@@ -199,6 +203,8 @@ deploy:spot.ecloud.global.backend1:
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
       && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
+      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
+      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
@@ -241,6 +247,8 @@ deploy:spot.ecloud.global.backend2:
       && sed -i 's/MORTY_PORT=8089/MORTY_PORT=$MORTY_PORT/g' .env
       && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
       && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
+      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
+      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
