@@ -103,6 +103,26 @@ from searx.settings_loader import get_default_settings_path
 from werkzeug.serving import WSGIRequestHandler
 WSGIRequestHandler.protocol_version = "HTTP/{}".format(settings['server'].get('http_protocol_version', '1.0'))
 
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+sentry_sdk.init(
+    dsn=os.getenv("SENTRY_DSN"),
+    integrations=[FlaskIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=os.getenv("SENTRY_TRACES_SAMPLE_RATE", 1.0),
+
+    # By default the SDK will try to use the SENTRY_RELEASE
+    # environment variable, or infer a git commit
+    # SHA as release, however you may want to set
+    # something more human-readable.
+    release="spot@{}".format(os.getenv("SPOT_HOSTNAME")),
+)
+
+
 # check secret_key
 if not searx_debug and settings['server']['secret_key'] == 'ultrasecretkey':
     logger.error('server.secret_key is not changed. Please use something else instead of ultrasecretkey.')
