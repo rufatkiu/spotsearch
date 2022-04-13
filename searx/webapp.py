@@ -110,6 +110,7 @@ sentry_sdk.init(
     dsn=os.getenv("SENTRY_DSN"),
     integrations=[FlaskIntegration()],
     environment=os.getenv("ENVIRONMENT_NAME"),
+    server_name=os.getenv("ENVIRONMENT_NAME"),
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
@@ -120,7 +121,7 @@ sentry_sdk.init(
     # environment variable, or infer a git commit
     # SHA as release, however you may want to set
     # something more human-readable.
-    # release="spot@{}".format(os.getenv("ENVIRONMENT_NAME")),
+    release="spot@{}".format(os.getenv("ENVIRONMENT_NAME")),
 )
 
 
