@@ -17,7 +17,6 @@ along with searx. If not, see < http://www.gnu.org/licenses/ >.
 (C) 2013- by Adam Tauber, <asciimoo@gmail.com>
 '''
 
-from posix import environ
 import sys
 if sys.version_info[0] < 3:
     print('\033[1;31m Python2 is no longer supported\033[0m')
