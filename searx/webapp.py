@@ -17,6 +17,7 @@ along with searx. If not, see < http://www.gnu.org/licenses/ >.
 (C) 2013- by Adam Tauber, <asciimoo@gmail.com>
 '''
 
+from posix import environ
 import sys
 if sys.version_info[0] < 3:
     print('\033[1;31m Python2 is no longer supported\033[0m')
@@ -109,17 +110,18 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 sentry_sdk.init(
     dsn=os.getenv("SENTRY_DSN"),
     integrations=[FlaskIntegration()],
+    environment=os.getenv("ENVIRONMENT_NAME"),
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production.
-    traces_sample_rate=os.getenv("SENTRY_TRACES_SAMPLE_RATE", 1.0),
+    traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", 1.0)),
 
     # By default the SDK will try to use the SENTRY_RELEASE
     # environment variable, or infer a git commit
     # SHA as release, however you may want to set
     # something more human-readable.
-    release="spot@{}".format(os.getenv("SPOT_HOSTNAME")),
+    # release="spot@{}".format(os.getenv("ENVIRONMENT_NAME")),
 )
 
 
