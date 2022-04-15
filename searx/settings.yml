@@ -111,6 +111,8 @@ outgoing: # communication with search engines
 enabled_plugins:
   - "Calculator"
   - "Search on category select"
+  - "Tracker URL remover"
+  - "HTTPS rewrite"
 #   - ...
 
 # Example to rewrite hostnames in external links
