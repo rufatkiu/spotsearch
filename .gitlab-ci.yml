@@ -36,8 +36,6 @@ build:web:
     - docker tag $CI_REGISTRY_IMAGE/env base-env-image
     - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    - docker build -t $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG -f nginx.Dockerfile .
-    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG
 
 build:docker:
   extends: .build:docker
@@ -49,8 +47,6 @@ build:docker:tags:
     - docker tag $CI_REGISTRY_IMAGE/env base-env-image
     - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    - docker build -t $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG -f nginx.Dockerfile .
-    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG
   only:
     - tags
 
@@ -89,7 +85,6 @@ deploy:spot.eeo.one.backend1:
     SEARX_PROXY_HTTPS: http://proxy01.ecloud.global:1099
     COMPOSE_PROJECT_NAME: staging-spot
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    SPOT_NGINX_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
     WIREGUARD_IP: ${BACKEND1_WG_IP}
     NODE_NAME: ${NODE_NAME}
     INTERNAL_NETWORK_NAME: staging-spot-default
@@ -100,7 +95,6 @@ deploy:spot.eeo.one.backend1:
     - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SPOT_NGINX_DOCKER_TAG=latest/SPOT_NGINX_DOCKER_TAG=$SPOT_NGINX_DOCKER_TAG/g' .env 
       && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
       && sed -i 's/proxy01.ecloud.global/proxy01.ecloud.global/g' .env
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
@@ -125,7 +119,6 @@ deploy:spot.eeo.one.backend2:
     SEARX_PROXY_HTTPS: http://proxy02.ecloud.global:1099
     COMPOSE_PROJECT_NAME: staging-spot
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    SPOT_NGINX_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
     WIREGUARD_IP: ${BACKEND2_WG_IP}
     INTERNAL_NETWORK_NAME: staging-spot-default
     NODE_NAME: ${NODE_NAME}
@@ -136,7 +129,6 @@ deploy:spot.eeo.one.backend2:
     - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SPOT_NGINX_DOCKER_TAG=latest/SPOT_NGINX_DOCKER_TAG=$SPOT_NGINX_DOCKER_TAG/g' .env 
       && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
       && sed -i 's/proxy01.ecloud.global/proxy02.ecloud.global/g' .env
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
@@ -160,7 +152,6 @@ deploy:spot.ecloud.global.backend1:
     SEARX_PROXY_HTTPS: http://proxy01.ecloud.global:1099
     COMPOSE_PROJECT_NAME: production-spot
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    SPOT_NGINX_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
     WIREGUARD_IP: ${BACKEND1_WG_IP}
     INTERNAL_NETWORK_NAME: spot-default
     NODE_NAME: ${NODE_NAME}
@@ -171,7 +162,6 @@ deploy:spot.ecloud.global.backend1:
     - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/production-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SPOT_NGINX_DOCKER_TAG=latest/SPOT_NGINX_DOCKER_TAG=$SPOT_NGINX_DOCKER_TAG/g' .env 
       && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
       && sed -i 's/proxy01.ecloud.global/proxy01.ecloud.global/g' .env
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
@@ -195,7 +185,6 @@ deploy:spot.ecloud.global.backend2:
     SEARX_PROXY_HTTPS: http://proxy02.ecloud.global:1099
     COMPOSE_PROJECT_NAME: production-spot
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    SPOT_NGINX_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
     WIREGUARD_IP: ${BACKEND2_WG_IP}
     INTERNAL_NETWORK_NAME: spot-default
     NODE_NAME: ${NODE_NAME}
@@ -206,7 +195,6 @@ deploy:spot.ecloud.global.backend2:
     - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/production-spot 
       && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
       && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SPOT_NGINX_DOCKER_TAG=latest/SPOT_NGINX_DOCKER_TAG=$SPOT_NGINX_DOCKER_TAG/g' .env 
       && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
       && sed -i 's/proxy01.ecloud.global/proxy02.ecloud.global/g' .env
       && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
