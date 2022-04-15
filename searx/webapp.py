@@ -662,6 +662,12 @@ def search():
         if 'url' in result:
             result['pretty_url'] = prettify_url(result['url'])
 
+        if 'thumbnail_src' in result:
+            result['thumbnail_src'] = image_proxify(result['thumbnail_src'])
+
+        if 'img_src' in result:
+            result['img_src'] = image_proxify(result['img_src'])
+
         # TODO, check if timezone is calculated right
         if result.get('publishedDate'):  # do not try to get a date from an empty string or a None type
             try:  # test if publishedDate >= 1900 (datetime module bug)
