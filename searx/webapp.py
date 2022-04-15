@@ -662,6 +662,9 @@ def search():
         if 'url' in result:
             result['pretty_url'] = prettify_url(result['url'])
 
+        if 'thumbnail' in result:
+            result['thumbnail'] = image_proxify(result['thumbnail'])
+
         if 'thumbnail_src' in result:
             result['thumbnail_src'] = image_proxify(result['thumbnail_src'])
 
