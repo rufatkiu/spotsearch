@@ -7,7 +7,7 @@
     },
     {
         "name": "IP limit, all paths except image proxy",
-        "filters": ["Param:url", "Path=^(!/|/image_proxy)$"],
+        "filters": ["Param:url", "Path=^(!image_proxy)$"],
         "interval": 3,
         "limit": 25,
         "aggregations": ["Header:X-Forwarded-For"],
@@ -18,7 +18,7 @@
     },
     {
         "name": "useragent limit, all paths except image_proxy",
-        "filters": ["Param:url", "Path=^(!/|/image_proxy)$"],
+        "filters": ["Param:url", "Path=^(!image_proxy)$"],
         "interval": 30,
         "limit": 200,
         "aggregations": ["Header:X-Forwarded-For", "Header:User-Agent"],
