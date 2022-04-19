@@ -26,6 +26,7 @@ dist/
 local/
 gh-pages/
 searx.egg-info/
+spot.egg-info/
 
 *.eggs
 .env
