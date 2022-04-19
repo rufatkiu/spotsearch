@@ -35,6 +35,9 @@ services:
       GUNICORN_LOGGER: 1
       GUNICORN_LEVEL: INFO
       NODE_NAME: "${NODE_NAME}"
+      SENTRY_DSN: "${SENTRY_DSN}"
+      SENTRY_TRACES_SAMPLE_RATE: "${SENTRY_TRACES_SAMPLE_RATE}"
+      ENVIRONMENT_NAME: "${ENVIRONMENT_NAME}"
 
   spot-nginx:
     image: nginx:1.21
