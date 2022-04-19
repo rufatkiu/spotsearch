@@ -27,12 +27,16 @@ categories = ['general']
 paging = True
 
 # search-url
-URL = 'https://www.onesearch.com/yhs/search;?p=%s&b=%d'
+URL = 'https://www.onesearch.com/yhs/search;?p=%s&b=%d&intl=%s'
 
 
 def request(query, params):
+    try:
+        region = params['language'].split('-')[-1]
+    except:
+        region = 'us'
     starting_from = (params['pageno'] * 10) - 9
-    params['url'] = URL % (query, starting_from)
+    params['url'] = URL % (query, starting_from, region.lower())
     return params
 
 
