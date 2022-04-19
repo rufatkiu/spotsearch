@@ -110,6 +110,9 @@ outgoing: # communication with search engines
 #
 enabled_plugins:
   - "Calculator"
+  - "Search on category select"
+  - "Tracker URL remover"
+  - "HTTPS rewrite"
 #   - ...
 
 # Example to rewrite hostnames in external links
@@ -1278,6 +1281,7 @@ engines:
   - name : dailymotion
     engine : dailymotion
     shortcut : dm
+    disabled : True
 
   - name : vimeo
     engine : vimeo
@@ -1582,6 +1586,7 @@ engines:
   - name : mediathekviewweb
     engine : mediathekviewweb
     shortcut : mvw
+    disabled : True
 
   - name : kaufland
     shortcut : kauf

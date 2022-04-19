@@ -25,7 +25,7 @@
             </div>
             {% endif %}
 
-            {% if answers -%}
+            {% if answers and 'general' in selected_categories -%}
             {%- for answer in answers.values() %}
             <div class="result well">
               {% if answer.url %}

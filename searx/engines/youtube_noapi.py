@@ -26,7 +26,7 @@ time_range_support = True
 
 # search-url
 base_url = 'https://www.youtube.com/results'
-search_url = base_url + '?search_query={query}&page={page}'
+search_url = base_url + '?search_query={query}&page={page}&gl={region}&hl={lang}'
 time_range_url = '&sp=EgII{time_range}%253D%253D'
 # the key seems to be constant
 next_page_url = 'https://www.youtube.com/youtubei/v1/search?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
@@ -44,8 +44,12 @@ base_youtube_url = 'https://www.youtube.com/watch?v='
 
 # do search-request
 def request(query, params):
+    try:
+        lang, region = params['language'].split('-')
+    except:
+        region = 'us'
     if not params['engine_data'].get('next_page_token'):
-        params['url'] = search_url.format(query=quote_plus(query), page=params['pageno'])
+        params['url'] = search_url.format(query=quote_plus(query), page=params['pageno'], region=region, lang=lang)
         if params['time_range'] in time_range_dict:
             params['url'] += time_range_url.format(time_range=time_range_dict[params['time_range']])
     else:
@@ -58,6 +62,8 @@ def request(query, params):
         params['headers']['Content-Type'] = 'application/json'
 
     params['headers']['Cookie'] = "CONSENT=YES+cb.%s-17-p0.en+F+941;" % datetime.now().strftime("%Y%m%d")
+    params['headers']['Cookie'] = f"PERF=gl={region}&hl={lang}"
+
     return params
 
 
