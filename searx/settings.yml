@@ -1281,6 +1281,7 @@ engines:
   - name : dailymotion
     engine : dailymotion
     shortcut : dm
+    disabled : True
 
   - name : vimeo
     engine : vimeo
@@ -1585,6 +1586,7 @@ engines:
   - name : mediathekviewweb
     engine : mediathekviewweb
     shortcut : mvw
+    disabled : True
 
   - name : kaufland
     shortcut : kauf
