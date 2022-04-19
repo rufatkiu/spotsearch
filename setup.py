@@ -34,7 +34,7 @@ setup(
         'License :: OSI Approved :: GNU Affero General Public License v3'
     ],
     keywords='metasearch searchengine search web http',
-    author='ECORP SAS',
+    author='E FOUNDATION',
     author_email='dev@e.email',
     license='GNU Affero General Public License',
     packages=find_packages(exclude=["tests*", "searx_extra"]),

@@ -103,26 +103,29 @@ from searx.settings_loader import get_default_settings_path
 from werkzeug.serving import WSGIRequestHandler
 WSGIRequestHandler.protocol_version = "HTTP/{}".format(settings['server'].get('http_protocol_version', '1.0'))
 
-import sentry_sdk
-from sentry_sdk.integrations.flask import FlaskIntegration
 
-sentry_sdk.init(
-    dsn=os.getenv("SENTRY_DSN"),
-    integrations=[FlaskIntegration()],
-    environment=os.getenv("ENVIRONMENT_NAME"),
-    server_name=os.getenv("ENVIRONMENT_NAME"),
+# Enable sentry only if SENTRY_DSN variable is set
+if os.getenv('SENTRY_DSN', None) is not None:
+    import sentry_sdk
+    from sentry_sdk.integrations.flask import FlaskIntegration
 
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", 1.0)),
+    sentry_sdk.init(
+        dsn=os.getenv("SENTRY_DSN"),
+        integrations=[FlaskIntegration()],
+        environment=os.getenv("ENVIRONMENT_NAME"),
+        server_name=os.getenv("ENVIRONMENT_NAME"),
 
-    # By default the SDK will try to use the SENTRY_RELEASE
-    # environment variable, or infer a git commit
-    # SHA as release, however you may want to set
-    # something more human-readable.
-    release="spot@{}".format(os.getenv("ENVIRONMENT_NAME")),
-)
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", 1.0)),
+
+        # By default the SDK will try to use the SENTRY_RELEASE
+        # environment variable, or infer a git commit
+        # SHA as release, however you may want to set
+        # something more human-readable.
+        release="spot@{}".format(os.getenv("ENVIRONMENT_NAME")),
+    )
 
 
 # check secret_key
