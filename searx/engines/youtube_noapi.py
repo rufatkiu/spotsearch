@@ -47,6 +47,7 @@ def request(query, params):
     try:
         lang, region = params['language'].split('-')
     except:
+        lang = 'en'
         region = 'us'
     if not params['engine_data'].get('next_page_token'):
         params['url'] = search_url.format(query=quote_plus(query), page=params['pageno'], region=region, lang=lang)
