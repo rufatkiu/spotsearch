@@ -368,6 +368,9 @@ def proxify(url):
 
 def image_proxify(url):
 
+    if not isinstance(url, str):
+        return None
+
     if url.startswith('//'):
         url = 'https:' + url
 
@@ -1008,6 +1011,8 @@ def image_proxy():
             max_redirects=20)
 
         resp = next(stream)
+        if resp is None:
+            return '', 400
         content_length = resp.headers.get('Content-Length')
         if content_length and content_length.isdigit() and int(content_length) > maximum_size:
             return 'Max size', 400
