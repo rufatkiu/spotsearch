@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-19 23:43+0530\n"
+"POT-Creation-Date: 2022-04-20 11:20+0530\n"
 "PO-Revision-Date: 2020-07-09 13:10+0000\n"
 "Last-Translator: Adam Tauber <asciimoo@gmail.com>\n"
 "Language: bo\n"
@@ -259,6 +259,116 @@ msgstr ""
 "Navigate search results with Vim-like hotkeys (JavaScript required). "
 "Press \"h\" key on main or result page to get help."
 
+#: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
+msgid "About"
+msgstr ""
+
+#: searx/templates/__common__/about.html:5
+msgid "Spot is a fork of"
+msgstr ""
+
+#: searx/templates/__common__/about.html:5
+msgid "which is a"
+msgstr ""
+
+#: searx/templates/__common__/about.html:6
+msgid "aggregating the results of other"
+msgstr ""
+
+#: searx/templates/__common__/about.html:7
+msgid "while not storing information about its users."
+msgstr ""
+
+#: searx/templates/__common__/about.html:10
+msgid "More about Spot..."
+msgstr ""
+
+#: searx/templates/__common__/about.html:21
+msgid "Why use Spot?"
+msgstr ""
+
+#: searx/templates/__common__/about.html:25
+msgid ""
+"Spot may not offer you as personalised results as Google, but it doesn't "
+"generate a profile about you."
+msgstr ""
+
+#: searx/templates/__common__/about.html:28
+msgid ""
+"Spot doesn't care about what you search for, never shares anything with a"
+" third party, and it can't be used to compromise you."
+msgstr ""
+
+#: searx/templates/__common__/about.html:31
+#, python-format
+msgid ""
+"Spot is free software, the code is 100%% open and you can help to make it"
+" better.  See more on"
+msgstr ""
+
+#: searx/templates/__common__/about.html:36
+msgid ""
+"If you do care about privacy, want to be a conscious user, or otherwise "
+"believe in digital freedom, make Spot your default search engine or run "
+"it on your own server"
+msgstr ""
+
+#: searx/templates/__common__/about.html:39
+msgid "Technical details - How does it work?"
+msgstr ""
+
+#: searx/templates/__common__/about.html:45
+msgid ""
+"It provides basic privacy by mixing your queries with searches on other\n"
+"    platforms without storing search data. Queries are made using a POST "
+"request\n"
+"    on every browser (except Chromium-based browsers*).  Therefore they "
+"show up \n"
+"    in neither our logs, nor your url history. In the case of Chromium-"
+"based\n"
+"    browser users there is an exception: Spot uses the search bar to "
+"perform GET\n"
+"    requests.\n"
+"    \n"
+"    Spot can be added to your browser's search bar; moreover, it can be "
+"set as\n"
+"    the default search engine."
+msgstr ""
+
+#: searx/templates/__common__/about.html:56
+msgid "How to set as the default search engine?"
+msgstr ""
+
+#: searx/templates/__common__/about.html:59
+msgid "Spot supports"
+msgstr ""
+
+#: searx/templates/__common__/about.html:60
+msgid ""
+"For more information on changing your default search engine, see your "
+"browser's documentation:"
+msgstr ""
+
+#: searx/templates/__common__/about.html:66
+msgid "only add websites that the user navigates to without a path."
+msgstr ""
+
+#: searx/templates/__common__/about.html:70
+msgid "How can I make it my own?"
+msgstr ""
+
+#: searx/templates/__common__/about.html:73
+msgid "Spot appreciates your concern regarding logs, so take the code from the"
+msgstr ""
+
+#: searx/templates/__common__/about.html:73
+msgid "original Spot project"
+msgstr ""
+
+#: searx/templates/__common__/about.html:73
+msgid "and run it yourself!"
+msgstr ""
+
 #: searx/templates/etheme/404.html:7 searx/templates/oscar/404.html:4
 #: searx/templates/simple/404.html:4
 msgid "Page not found"
@@ -292,10 +402,6 @@ msgstr ""
 #: searx/templates/simple/base.html:53
 msgid "Powered by"
 msgstr "བཟོ་སྐུན་པ་ནི"
-
-#: searx/templates/etheme/base.html:97
-msgid "About"
-msgstr ""
 
 #: searx/templates/etheme/base.html:98 searx/templates/etheme/privacy.html:7
 #: searx/templates/simple/preferences.html:226
