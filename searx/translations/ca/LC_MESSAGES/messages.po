@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-04-20 07:43+0000\n"
+"PO-Revision-Date: 2022-04-20 08:53+0000\n"
 "Last-Translator: Nivesh Krishna <nivesh@e.email>\n"
 "Language-Team: Catalan <https://i18n.e.foundation/projects/e/spot/ca/>\n"
 "Language: ca\n"
@@ -265,7 +265,7 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 #: searx/templates/__common__/about.html:5
 msgid "Spot is a fork of"
