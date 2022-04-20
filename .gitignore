@@ -25,7 +25,7 @@ build/
 dist/
 local/
 gh-pages/
-searx.egg-info/
+*.egg-info/
 
 *.eggs
 .env
