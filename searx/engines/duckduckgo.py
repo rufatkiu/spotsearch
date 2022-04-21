@@ -30,6 +30,15 @@ time_range_support = True
 safesearch = True
 VQD_REGEX = r"vqd='(\d+-\d+-\d+)'"
 language_aliases = {
+    'ca-ES': 'ct-ca',
+    'de-AT': 'de-de',
+    'de-CH': 'de-de',
+    'es-AR': 'es-es',
+    'es-CL': 'es-es',
+    'es-MX': 'es-es',
+    'fr-BE': 'be-fr',
+    'fr-CA': 'ca-fr',
+    'fr-CH': 'ch-fr',
     'ar-SA': 'ar-XA',
     'es-419': 'es-XL',
     'ja': 'jp-JP',
