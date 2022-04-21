@@ -423,7 +423,9 @@ def render(template_name, override_theme=None, **kwargs):
     if locale in rtl_locales and 'rtl' not in kwargs:
         kwargs['rtl'] = True
 
-    kwargs['searx_version'] = VERSION_STRING
+    kwargs['spot_version'] = VERSION_STRING
+
+    kwargs['searx_version'] = settings.get('brand').get('searx_version')
 
     kwargs['year'] = datetime.today().year
 

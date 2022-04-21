@@ -17,10 +17,11 @@ with open('requirements-dev.txt') as f:
 
 setup(
     name='spot',
-    version=VERSION_STRING,
     description="A privacy-respecting, hackable metasearch engine",
     long_description=long_description,
     url=brand.DOCS_URL,
+    use_scm_version={"tag_regex": r"^(?:[\w-]+-)?(?P<version>[vV]?\d+(?:\.\d+){0,2}.*)$"},
+    setup_requires=['setuptools_scm'],
     project_urls={
         "Code": brand.GIT_URL,
         "Issue tracker": brand.ISSUE_URL

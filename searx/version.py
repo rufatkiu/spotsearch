@@ -19,12 +19,12 @@ along with searx. If not, see < http://www.gnu.org/licenses/ >.
 from pkg_resources import get_distribution, DistributionNotFound
 
 try:
-    VERSION_STRING = get_distribution("searx").version
+    VERSION_STRING = get_distribution("spot").version
 except DistributionNotFound:
     VERSION_STRING = "0.0.0"
 
 try:
-    SEARX_VERSION, METADATA_VERSION = VERSION_STRING.split("+")
+    SPOT_VERSION, METADATA_VERSION = VERSION_STRING.split("+")
 except ValueError:
-    SEARX_VERSION = VERSION_STRING
+    SPOT_VERSION = VERSION_STRING
     METADATA_VERSION = ""

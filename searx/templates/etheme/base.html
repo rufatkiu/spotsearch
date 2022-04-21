@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" {% if rtl %} dir="rtl" {% endif %} class="{{ etheme_style }}">
 <head>
-    {% set version = searx_version.split('+') %}
+    {% set version = spot_version.split('+') %}
     <meta charset="UTF-8" />
     <meta name="description" content="spot ecloud global, powered by searx" />
     <meta name="keywords" content="spot, ecloud, searx, search, search engine, metasearch, meta search" />
@@ -91,8 +91,8 @@
         <p class="text-muted">
             <small>
                 e Foundation 2018-{{ year }},
-                {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version[1] }}<br/>
-                An open-source metasearch engine forked from <a href="https://searx.github.io/searx/">Searx</a> {{ version[0] }}.
+                {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version[0] }}<br/>
+                An open-source metasearch engine forked from <a href="https://searx.github.io/searx/">Searx</a> {{ searx_version }}.
                 <span class="links">
                     <a href="{{url_for('about')}}">{{ _('About') }}</a>
                     <a href="https://e.foundation/legal-notice-privacy">{{ _('Privacy') }}</a>
