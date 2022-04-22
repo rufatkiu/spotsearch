@@ -30,6 +30,15 @@ time_range_support = True
 safesearch = True
 VQD_REGEX = r"vqd='(\d+-\d+-\d+)'"
 language_aliases = {
+    'ca-ES': 'ct-ca',
+    'de-AT': 'de-de',
+    'de-CH': 'de-de',
+    'es-AR': 'es-es',
+    'es-CL': 'es-es',
+    'es-MX': 'es-es',
+    'fr-BE': 'be-fr',
+    'fr-CA': 'ca-fr',
+    'fr-CH': 'ch-fr',
     'ar-SA': 'ar-XA',
     'es-419': 'es-XL',
     'ja': 'jp-JP',
@@ -75,7 +84,7 @@ def request(query, params):
     query_dict = {
         "q": query,
         't': 'D',
-        'l': params["language"],
+        'l': f"{dl}-{ct}",
         'kl': f"{ct}-{dl}",
         's': (params['pageno'] - 1) * number_of_results,
         'dl': dl,
@@ -149,10 +158,15 @@ def response(resp):
     for search_result in search_data:
         if 'n' in search_result:
             continue
-        html2text = HTMLTextExtractor()
-        html2text.feed(search_result.get('a'))
-        results.append({'title': search_result.get("t"),
-                        'content': html2text.get_text(),
+
+        title = HTMLTextExtractor()
+        title.feed(search_result.get('t'))
+
+        content = HTMLTextExtractor()
+        content.feed(search_result.get('a'))
+
+        results.append({'title': title.get_text(),
+                        'content': content.get_text(),
                         'url': search_result.get('u')})
     return results
 
