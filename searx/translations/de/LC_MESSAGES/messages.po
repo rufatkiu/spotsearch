@@ -19,18 +19,18 @@
 # Thomas Pointhuber, 2016-2017
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2020-09-10 17:09+0000\n"
-"Last-Translator: NeoCode <amecus79@gmail.com>\n"
+"PO-Revision-Date: 2022-04-26 11:59+0000\n"
+"Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
+"Language-Team: German <https://i18n.e.foundation/projects/e/spot/de/>\n"
 "Language: de\n"
-"Language-Team: German "
-"(http://www.transifex.com/asciimoo/searx/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -71,7 +71,7 @@ msgstr "Karte"
 
 #: searx/webapp.py:200
 msgid "onions"
-msgstr ""
+msgstr "Zwiebel"
 
 #: searx/webapp.py:201
 msgid "science"
@@ -161,23 +161,25 @@ msgstr "Keine Zusammenfassung für die Veröffentlichung verfügbar."
 #: searx/engines/qwant.py:200
 #: searx/templates/etheme/result_templates/currency.html:13
 msgid "Source"
-msgstr ""
+msgstr "Quelle"
 
 #: searx/engines/qwant.py:202
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: searx/plugins/calculator.py:6
 msgid "Calculator"
-msgstr ""
+msgstr "Rechner"
 
 #: searx/plugins/calculator.py:7
 msgid "This plugin extends results when the query is a mathematical expression"
 msgstr ""
+"Dieses Plug-in erweitert die Ergebnisse, wenn die Anfrage eine mathematische "
+"Formel ist"
 
 #: searx/plugins/calculator.py:59
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
@@ -189,7 +191,7 @@ msgstr ""
 
 #: searx/plugins/hostname_replace.py:7
 msgid "Hostname replace"
-msgstr ""
+msgstr "Hostnamen-Ersetzung"
 
 #: searx/plugins/hostname_replace.py:8
 msgid "Rewrite result hostnames"
@@ -278,11 +280,11 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: searx/templates/__common__/about.html:5
 msgid "Spot is a fork of"
-msgstr ""
+msgstr "Spot ist eine Abänderung von"
 
 #: searx/templates/__common__/about.html:5
 msgid "which is a"
@@ -298,17 +300,19 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:10
 msgid "More about Spot..."
-msgstr ""
+msgstr "Mehr Information über Spot …"
 
 #: searx/templates/__common__/about.html:21
 msgid "Why use Spot?"
-msgstr ""
+msgstr "Warum Spot benutzen?"
 
 #: searx/templates/__common__/about.html:25
 msgid ""
 "Spot may not offer you as personalised results as Google, but it doesn't "
 "generate a profile about you."
 msgstr ""
+"Spot ergibt vielleicht nicht so personalisierte Ergebnisse wie Google, aber "
+"es erstellt kein Profil über dich."
 
 #: searx/templates/__common__/about.html:28
 msgid ""
@@ -322,6 +326,8 @@ msgid ""
 "Spot is free software, the code is 100%% open and you can help to make it"
 " better.  See more on"
 msgstr ""
+"Spot ist freie Software, der Programmiercode ist 100%% einsehbar und du "
+"kannst sogar helfen, ihn zu verbessern. Siehe mehr unter"
 
 #: searx/templates/__common__/about.html:36
 msgid ""
@@ -332,7 +338,7 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:39
 msgid "Technical details - How does it work?"
-msgstr ""
+msgstr "Technische Details - Wie funktioniert das?"
 
 #: searx/templates/__common__/about.html:45
 msgid ""
@@ -1401,4 +1407,3 @@ msgstr "Antworten"
 
 #~ msgid "Loading..."
 #~ msgstr "Lade..."
-
