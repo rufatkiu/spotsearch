@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-04-26 11:59+0000\n"
+"PO-Revision-Date: 2022-04-30 03:12+0000\n"
 "Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/e/spot/de/>\n"
 "Language: de\n"
@@ -784,22 +784,22 @@ msgstr ""
 
 #: searx/templates/etheme/results.html:19
 msgid "Did you mean:"
-msgstr ""
+msgstr "Meintest du:"
 
 #: searx/templates/etheme/results.html:79
 msgid "Images"
-msgstr ""
+msgstr "Bilder"
 
 #: searx/templates/etheme/components/categories.html:17
 #: searx/templates/etheme/components/categories.html:19
 #: searx/templates/etheme/results.html:80
 #: searx/templates/etheme/results.html:87
 msgid "More"
-msgstr ""
+msgstr "Mehr"
 
 #: searx/templates/etheme/results.html:86
 msgid "Videos"
-msgstr ""
+msgstr "Videos"
 
 #: searx/templates/etheme/results.html:109
 #: searx/templates/oscar/results.html:160
@@ -823,19 +823,19 @@ msgstr "Vorschläge"
 #: searx/templates/etheme/components/categories.html:18
 #: searx/templates/etheme/components/categories.html:20
 msgid "Less"
-msgstr ""
+msgstr "Weniger"
 
 #: searx/templates/etheme/components/infobox.html:42
 msgid "More information:"
-msgstr ""
+msgstr "Mehr Information:"
 
 #: searx/templates/etheme/components/navbar.html:5
 msgid "mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: searx/templates/etheme/components/navbar.html:6
 msgid "drive"
-msgstr ""
+msgstr "Speicher"
 
 #: searx/templates/etheme/components/time-range.html:3
 #: searx/templates/oscar/time-range.html:5
@@ -879,35 +879,35 @@ msgstr "Derzeit sind keine Cookies gespeichert."
 
 #: searx/templates/etheme/messages/no_results.html:3
 msgid "Sorry, no results found!"
-msgstr ""
+msgstr "Entschuldigung, aber es wurde nichts gefunden!"
 
 #: searx/templates/etheme/messages/no_results.html:11
 msgid "Some engines are not working as expected!"
-msgstr ""
+msgstr "Einige Suchmaschinen arbeiten nicht wie erwartet!"
 
 #: searx/templates/etheme/messages/no_results.html:12
 msgid "Debug info"
-msgstr ""
+msgstr "Fehlersuche-Info"
 
 #: searx/templates/etheme/messages/no_results.html:13
 msgid "Node : "
-msgstr ""
+msgstr "Knoten: "
 
 #: searx/templates/etheme/messages/no_results.html:22
 msgid "Please, try the following."
-msgstr ""
+msgstr "Bitte versuche Folgendes:"
 
 #: searx/templates/etheme/messages/no_results.html:24
 msgid "Search again later"
-msgstr ""
+msgstr "Suche später noch einmal"
 
 #: searx/templates/etheme/messages/no_results.html:25
 msgid "Try another query"
-msgstr ""
+msgstr "Versuche eine andere Suchanfrage"
 
 #: searx/templates/etheme/messages/no_results.html:26
 msgid "Report this problem"
-msgstr ""
+msgstr "Melde das Problem"
 
 #: searx/templates/etheme/messages/save_settings_successfull.html:5
 #: searx/templates/etheme/messages/unknow_error.html:5
@@ -987,11 +987,11 @@ msgstr "Dateigröße"
 
 #: searx/templates/etheme/result_templates/torrent.html:29
 msgid "Files"
-msgstr ""
+msgstr "Dateien"
 
 #: searx/templates/etheme/result_templates/video_torrent.html:7
 msgid "torrent"
-msgstr ""
+msgstr "Torrent"
 
 #: searx/templates/oscar/advanced.html:4
 msgid "Advanced settings"
@@ -1040,7 +1040,7 @@ msgstr "Erlauben"
 #: searx/templates/oscar/preferences.html:9
 #: searx/templates/simple/preferences.html:27
 msgid "No HTTPS"
-msgstr ""
+msgstr "Kein HTTPS"
 
 #: searx/templates/oscar/preferences.html:44
 #: searx/templates/oscar/preferences.html:46
@@ -1075,11 +1075,12 @@ msgstr "ändere das Aussehen von searx"
 
 #: searx/templates/oscar/preferences.html:153
 msgid "Show advanced settings"
-msgstr ""
+msgstr "Zeige erweiterte Einstellungen"
 
 #: searx/templates/oscar/preferences.html:154
 msgid "Show advanced settings panel in the home page by default"
 msgstr ""
+"Zeige die erweiterte Einstellung-Seitenleiste auf der Startseite als Standard"
 
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
@@ -1276,15 +1277,15 @@ msgstr "Autor"
 
 #: searx/templates/oscar/result_templates/files.html:35
 msgid "Filename"
-msgstr ""
+msgstr "Dateiname"
 
 #: searx/templates/oscar/result_templates/files.html:46
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: searx/templates/oscar/result_templates/files.html:48
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: searx/templates/oscar/result_templates/images.html:27
 msgid "Get image"
@@ -1297,15 +1298,15 @@ msgstr "Seite besuchen"
 #: searx/templates/oscar/result_templates/map.html:26
 #: searx/templates/simple/result_templates/map.html:11
 msgid "address"
-msgstr ""
+msgstr "Adresse"
 
 #: searx/templates/oscar/result_templates/products.html:14
 msgid "Has stock"
-msgstr ""
+msgstr "Auf Lager"
 
 #: searx/templates/oscar/result_templates/products.html:14
 msgid "Out of stock"
-msgstr ""
+msgstr "Nicht auf Lager"
 
 #: searx/templates/oscar/result_templates/torrent.html:6
 #: searx/templates/simple/result_templates/torrent.html:9
