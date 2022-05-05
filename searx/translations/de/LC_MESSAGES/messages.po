@@ -22,9 +22,9 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-04-30 03:12+0000\n"
+"PO-Revision-Date: 2022-05-06 10:07+0000\n"
 "Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
-"Language-Team: German <https://i18n.e.foundation/projects/e/spot/de/>\n"
+"Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -186,8 +186,9 @@ msgid "Converts strings to different hash digests."
 msgstr ""
 
 #: searx/plugins/hash_plugin.py:49
+#, fuzzy
 msgid "hash digest"
-msgstr ""
+msgstr "hash digest"
 
 #: searx/plugins/hostname_replace.py:7
 msgid "Hostname replace"
@@ -319,6 +320,8 @@ msgid ""
 "Spot doesn't care about what you search for, never shares anything with a"
 " third party, and it can't be used to compromise you."
 msgstr ""
+"Spot interessiert sich nicht für deine Suchanfragen, teilt niemals etwas mit "
+"Drittparteien, und kann nicht verwendet werden, um dich zu gefährden."
 
 #: searx/templates/__common__/about.html:31
 #, python-format
@@ -335,6 +338,9 @@ msgid ""
 "believe in digital freedom, make Spot your default search engine or run "
 "it on your own server"
 msgstr ""
+"Wenn dir Datenschutz am Herzen liegt, ein bewusster Benutzer bist und auch "
+"an digitale Freiheit glaubst, dann mache Spot zu deiner Standard-"
+"Suchmaschine oder lass es auf deinem eigenen Server laufen"
 
 #: searx/templates/__common__/about.html:39
 msgid "Technical details - How does it work?"
@@ -360,17 +366,19 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:56
 msgid "How to set as the default search engine?"
-msgstr ""
+msgstr "Wie stellt man Spot als Standard-Suchmaschine ein?"
 
 #: searx/templates/__common__/about.html:59
 msgid "Spot supports"
-msgstr ""
+msgstr "Spot unterstützt"
 
 #: searx/templates/__common__/about.html:60
 msgid ""
 "For more information on changing your default search engine, see your "
 "browser's documentation:"
 msgstr ""
+"Für mehr Informationen über den Wechsel von Standard-Suchmaschinen schaue "
+"bitte in die Hilfe deines Browsers:"
 
 #: searx/templates/__common__/about.html:66
 msgid "only add websites that the user navigates to without a path."
@@ -415,11 +423,11 @@ msgstr "Über uns"
 
 #: searx/templates/etheme/base.html:80
 msgid "view file"
-msgstr ""
+msgstr "Datei ansehen"
 
 #: searx/templates/etheme/base.html:81
 msgid "view source"
-msgstr ""
+msgstr "Quelle ansehen"
 
 #: searx/templates/etheme/base.html:94 searx/templates/oscar/base.html:85
 #: searx/templates/simple/base.html:53
@@ -649,11 +657,11 @@ msgstr "Aus"
 
 #: searx/templates/etheme/preferences.html:110
 msgid "No safe search"
-msgstr ""
+msgstr "Keine sichere Suche"
 
 #: searx/templates/etheme/preferences.html:111
 msgid "Slow"
-msgstr ""
+msgstr "Langsam"
 
 #: searx/templates/etheme/preferences.html:126
 #: searx/templates/oscar/preferences.html:25
@@ -721,7 +729,7 @@ msgstr "Suchmaschinen"
 
 #: searx/templates/etheme/preferences.html:186
 msgid "Advanced"
-msgstr ""
+msgstr "Fortgeschritten"
 
 #: searx/templates/etheme/preferences.html:207
 #: searx/templates/oscar/preferences.html:361
@@ -780,7 +788,7 @@ msgstr "Zurücksetzen"
 
 #: searx/templates/etheme/privacy.html:2
 msgid "Privacy policy"
-msgstr ""
+msgstr "Datenschutz-Bestimmungen"
 
 #: searx/templates/etheme/results.html:19
 msgid "Did you mean:"
