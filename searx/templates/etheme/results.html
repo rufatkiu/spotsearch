@@ -154,13 +154,11 @@
         
         const exp = new RegExp(".*?(\\d+(?:\\.\\d+)?)\s?([^.0-9]+) (?:in|to) ([^.0-9]+)", "i");
         let m = q.match(exp)
-        
-        let value = null
         let answer_section = null
         if (m) {
             try {
-                value = math.evaluate(m[1] + m[2] + " to " + m[3])
-                info = math.evaluate(1 + m[2] + " to " + m[3])
+                let value = math.evaluate(m[1] + m[2] + " to " + m[3])
+                let info = math.evaluate(1 + m[2] + " to " + m[3])
                 answer_section = `
                 <div class="result conversion-value">
                     <span>
@@ -180,7 +178,16 @@
             
         } else {
             try {
-                value = math.evaluate(q)    
+                let value = math.evaluate(q)
+                if (typeof(value) === "number" || typeof(value) === "object") {
+                    answer_section = `
+                    <div class="result conversion-value">
+                        <span>
+                            ${q} = ${value}
+                        </span>
+                    </div>
+                    `
+                }
             } catch (error) {
                 // pass exception here
                 // nothing to do
@@ -188,21 +195,14 @@
             
         }
 
-        // For calculator, math.eval returns a number
-        if (typeof(value) === "number") {
-            answer_section = `
-            <div class="result conversion-value">
-                <span>
-                    ${q} = ${value}
-                </span>
-            </div>
-            `
-        }
         document.getElementById('unit_conversions').innerHTML = answer_section
         
         // Do not show currency when conversions is active
         if (answer_section) {
-            document.getElementById('currency').remove()
+            let currency = document.getElementById('currency')
+            if (currency) {
+                currency.remove()
+            }
         }
 
     </script>
