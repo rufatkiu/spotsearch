@@ -25,11 +25,6 @@
             </div>
             {% endif %}
 
-            <!-- Empty div for unit conversions -->
-            <div class="result" id="unit_conversions">
-         
-            </div>
-
             {% if answers and 'general' in selected_categories -%}
             {%- for answer in answers.values() %}
             <div class="result well">
@@ -75,8 +70,11 @@
 
 
                 <div id="results" {% if use_gallery_layout %} class="{{selected_categories[0]}}-gallery" {% endif %}>
-                    {{ put_results(results[:3], True) }}
                     {% if pageno == 1 and 'general' in selected_categories %}
+                        <!-- Empty div for unit conversions -->
+                        <div class="result" id="unit_conversions">
+                        </div>
+                        {{ put_results(results[:3], True) }}
                       <div class='first-page-media-results'>
                         <div class='header'>
                           <b class="title">{{_("Images")}}</b>
