@@ -73,6 +73,7 @@
                     {% if pageno == 1 and 'general' in selected_categories %}
                         <!-- Empty div for unit conversions -->
                         <div class="result" id="unit_conversions">
+                            <script src="{{ url_for('static', filename='js/math.min.js') }}"></script>
                         </div>
                         {{ put_results(results[:3], True) }}
                       <div class='first-page-media-results'>
