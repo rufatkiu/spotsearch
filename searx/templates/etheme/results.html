@@ -152,7 +152,7 @@
     <script>
         let q = {{ q | tojson }}
         
-        const exp = new RegExp(".*?(\\d+(?:\\.\\d+)?) ([^.0-9]+) (?:in|to) ([^.0-9]+)", "i");
+        const exp = new RegExp(".*?(\\d+(?:\\.\\d+)?)\s?([^.0-9]+) (?:in|to) ([^.0-9]+)", "i");
         let m = q.match(exp)
         
         let value = null
@@ -199,6 +199,11 @@
             `
         }
         document.getElementById('unit_conversions').innerHTML = answer_section
+        
+        // Do not show currency when conversions is active
+        if (answer_section) {
+            document.getElementById('currency').remove()
+        }
 
     </script>
 
