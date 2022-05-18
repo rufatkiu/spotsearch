@@ -110,7 +110,6 @@ outgoing: # communication with search engines
 # uncomment below section if you want to configure which plugin is enabled by default
 #
 enabled_plugins:
-  - "Calculator"
   - "Search on category select"
   - "Tracker URL remover"
   - "HTTPS rewrite"
@@ -363,7 +362,7 @@ engines:
     engine : duckduckgo_definitions
     shortcut : ddd
     weight : 2
-    disabled : True
+    disabled : False
     tests: *tests_infobox
 
 # cloudflare protected

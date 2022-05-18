@@ -269,7 +269,7 @@ def response(resp):
     # results --> number_of_results
         if not use_mobile_ui:
             try:
-                _txt = eval_xpath_getindex(dom, '//div[@id="result-stats"]//text()', 0)
+                _txt = eval_xpath_getindex(dom, '//div[@id="result-stats"]//text()', 0, 0)
                 _digit = ''.join([n for n in _txt if n.isdigit()])
                 number_of_results = int(_digit)
                 results.append({'number_of_results': number_of_results})

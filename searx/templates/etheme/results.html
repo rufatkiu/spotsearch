@@ -25,13 +25,16 @@
             </div>
             {% endif %}
 
+            <!-- Empty div for unit conversions -->
+            <div class="result" id="unit_conversions">
+         
+            </div>
+
             {% if answers and 'general' in selected_categories -%}
             {%- for answer in answers.values() %}
             <div class="result well">
               {% if answer.url %}
                 <a href="{{ answer.url }}">{{ answer.answer }}</a>
-              {% elif answer.calculator %}
-                <span class="result-calculator">{{ answer.answer }}</span>
               {% else %}
                 <span>{{ answer.answer }}</span>
               {% endif %}
@@ -146,4 +149,58 @@
 
 
     </div>
+
+    <script>
+        let q = {{ q | tojson }}
+        
+        const exp = new RegExp(".*?(\\d+(?:\\.\\d+)?) ([^.0-9]+) (?:in|to) ([^.0-9]+)", "i");
+        let m = q.match(exp)
+        
+        let value = null
+        let answer_section = null
+        if (m) {
+            try {
+                value = math.evaluate(m[1] + m[2] + " to " + m[3])
+                info = math.evaluate(1 + m[2] + " to " + m[3])
+                answer_section = `
+                <div class="result conversion-value">
+                    <span>
+                        ${value}
+                    </span>
+                </div>
+                <div class="result conversion-info">
+                    <span class="conversion">
+                        1 ${m[2]} = ${info}
+                    </span>
+                </div>
+                `
+            } catch (error) {
+                // pass exception here
+                // nothing to do
+            }
+            
+        } else {
+            try {
+                value = math.evaluate(q)    
+            } catch (error) {
+                // pass exception here
+                // nothing to do
+            }
+            
+        }
+
+        // For calculator, math.eval returns a number
+        if (typeof(value) === "number") {
+            answer_section = `
+            <div class="result conversion-value">
+                <span>
+                    ${q} = ${value}
+                </span>
+            </div>
+            `
+        }
+        document.getElementById('unit_conversions').innerHTML = answer_section
+
+    </script>
+
 {% endblock %}

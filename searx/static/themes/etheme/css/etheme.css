@@ -994,23 +994,18 @@ input:checked + .slider:before {
 .result .code-block pre {
   white-space: pre-wrap;
 }
-.result-calculator {
-  font-size: 30px;
-  color: var(--color-answer-value);
-  font-weight: 700;
-}
 .result.result-default,
 .result.result-torrent {
   margin-bottom: 32px;
 }
-.result .currency-value {
+.result .conversion-value {
   color: var(--color-answer-value);
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
   padding-bottom: 15px;
 }
-.result .currency-info {
+.result .conversion-info {
   color: var(--color-answer-value);
   font-style: normal;
   font-weight: 400;

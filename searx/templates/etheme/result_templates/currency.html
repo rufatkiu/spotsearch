@@ -1,10 +1,10 @@
-<div class="result currency-value">
+<div class="result conversion-value">
     <span>
         {% if result.value %}{{ result.value|safe }} {{ result.to|safe}} {% endif %}
     </span>
 </div>
 
-<div class="result currency-info">
+<div class="result conversion-info">
     {% if result.value %}
     <span class="conversion">
         1 {{ result.from|safe }} = {{ result.conversion_rate|safe }} {{ result.to|safe}}
