@@ -362,7 +362,7 @@ engines:
     engine : duckduckgo_definitions
     shortcut : ddd
     weight : 2
-    disabled : False
+    disabled : True
     tests: *tests_infobox
 
 # cloudflare protected
