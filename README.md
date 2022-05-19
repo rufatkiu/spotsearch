@@ -17,26 +17,32 @@ Spot was forked from searx: read [documentation](https://asciimoo.github.io/sear
 6 services are used for production:
 
 * [filtron](https://github.com/asciimoo/filtron) as reverse HTTP proxy to filter requests by different rules.
-* [morty](https://github.com/asciimoo/morty) as proxy to serve thumbnails.
 * [nginx](https://www.nginx.com/) as http server to serve static files.
 * Spot the meta search engine.
-* [tor](https://www.torproject.org) as open network that helps you defend against traffic analysis.
 * [redis](https://redis.io/) as memory storage to cache http requests
 
 
 ```mermaid
 graph TD
   A(reverse proxy) --> |http://localhost:8088| B(filtron)
-  A(reverse proxy) --> |https://localhost:8089| C(morty)
-  C --> |image link| C
-  B --> D(nginx)
-  D --> |static file| D
-  D --> |API| E(spot)
-  E --> H(tor1)
-  E --> I(tor2)
-  E --> J(torN)
-  E --> |cache| K(redis)
+  B --> C(nginx)
+  C --> |static file| C
+  C --> |API| D(spot)
+  D --> E(proxy service)
+  D --> |cache| F(redis)
+  E --> G(search engine)
+  E --> H(search engine)
+  E --> I(search engine)
 ```
+
+
+## Conversion Engine
+
+Spot uses [mathjs](https://mathjs.org/index.html) to perform arithmetic operations on the query. It also supports conversion of units
+and can perform arithmetic operations on units. Supported units and operations can be found [here](https://mathjs.org/docs/datatypes/units.html#reference)
+
+
+Spot also supports currency conversion though [xe](https://xe.com/) API.
 
 ## Getting Started
 

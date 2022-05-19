@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "grunt-cli": "^1.4.3",
+    "less": "2.7",
+    "less-plugin-clean-css": "^1.5.1",
+    "mathjs": "^10.5.3"
+  }
+}
