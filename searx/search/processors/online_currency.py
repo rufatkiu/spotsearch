@@ -7,7 +7,7 @@ from searx.data import CURRENCIES
 from .online import OnlineProcessor
 
 
-parser_re = re.compile('.*?(\\d+(?:\\.\\d+)?)\s?([^.0-9]+) (?:in|to|en|dans|nel|pour|para|zu) ([^.0-9]+)', re.I)
+parser_re = re.compile('.*?(\\d+(?:\\.\\d+)?)\s?([^.0-9]+) (?:in|to|en|dans|nel|pour|para|zu|a) ([^.0-9]+)', re.I)
 
 
 def normalize_name(name):
