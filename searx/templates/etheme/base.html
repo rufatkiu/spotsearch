@@ -19,12 +19,12 @@
     {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %}{{ instance_name }}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme.min.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme-dark.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css', v=version[0]) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme.min.css', v=version[0]) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme-dark.min.css', v=version[0]) }}" type="text/css" />
 
     {% for css in styles %}
-        <link rel="stylesheet" href="{{ url_for('static', filename=css) }}" type="text/css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename=css, v=version[0]) }}" type="text/css" />
     {% endfor %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -102,16 +102,16 @@
     </footer>
 
 
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/etheme.min.js') }}"></script>
-    {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>{% endif %}
-    <script src="{{ url_for('static', filename='js/searx.min.js') }}"
+    <script src="{{ url_for('static', filename='js/jquery.min.js', v=version[0]) }}"></script>
+    <script src="{{ url_for('static', filename='js/select2.min.js', v=version[0]) }}"></script>
+    <script src="{{ url_for('static', filename='js/etheme.min.js', v=version[0]) }}"></script>
+    {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js', v=version[0]) }}"></script>{% endif %}
+    <script src="{{ url_for('static', filename='js/searx.min.js', v=version[0]) }}"
             data-method="{{ method or 'POST' }}"
             data-autocompleter="{% if autocomplete %}true{% else %}false{% endif %}"
             data-translations="{{ translations }}"></script>
     {% for script in scripts %}
-    <script src="{{ url_for('static', filename=script) }}"></script>
+    <script src="{{ url_for('static', filename=script, v=version[0]) }}"></script>
     {% endfor %}
 </body>
 </html>
