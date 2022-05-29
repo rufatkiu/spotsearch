@@ -63,7 +63,8 @@ function setEThemeStyle(isDarkMode) {
   };
   fetch('/preferences/etheme-style/' + ethemeStyle, options)
   .then(function(_) {
-    
+    document.getElementById('logo_inline').src = "/static/themes/etheme/img/logo-"+ ethemeStyle + '@2x.svg';    
+    document.getElementById('logo_block').src = "/static/themes/etheme/img/logo-"+ ethemeStyle + '@2x.svg';    
   })
   .catch(function(err) {
     console.log('Error while setting etheme style', err);
