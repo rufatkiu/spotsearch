@@ -175,10 +175,10 @@ a {
   margin: auto;
 }
 #index img {
-  width: 300px;
+  width: 400px;
   display: block;
   margin: auto;
-  margin-top: 64px;
+  margin-top: 180px;
   margin-bottom: 64px;
 }
 #index img#logo_inline {
@@ -193,7 +193,7 @@ a {
 @media screen and (max-height: 600px) and (orientation: landscape) {
   #index img {
     width: 70vmin;
-    margin-top: 32px;
+    margin-top: 100px;
     display: none;
   }
   #index img#logo_inline {
