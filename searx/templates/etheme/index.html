@@ -9,8 +9,8 @@
 {% endif %}
 
 <div id="index">
-    <img src="{{ url_for('static', filename='img/logo_searx_a.png') }}" alt="/e/ logo" />
-    <img id="logo_inline" src="{{ url_for('static', filename='img/logo_searx_a.png') }}" alt="/e/ logo" />
+    <img id="logo_block" src="{{ url_for('static', filename='img/logo-'+ preferences.get_value('etheme-style') +'@2x.svg') }}" alt="Murena logo" />
+    <img id="logo_inline" src="{{ url_for('static', filename='img/logo-'+ preferences.get_value('etheme-style') +'@2x.svg') }}" alt="Murena logo" />
     {% include 'etheme/components/search.html' %}
 </div>
 {% endblock %}
