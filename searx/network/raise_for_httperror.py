@@ -62,6 +62,7 @@ def raise_for_httperror(resp):
             raise SearxEngineAccessDeniedException(message='HTTP error ' + str(resp.status_code),
                                                    suspended_time=3600 * 24)
         # No need to ban the engine for 1 hour because of IP rotation
-        # if resp.status_code == 429:
-        #     raise SearxEngineTooManyRequestsException()
+        if resp.status_code == 429:
+            return
+            # raise SearxEngineTooManyRequestsException()
         resp.raise_for_status()
