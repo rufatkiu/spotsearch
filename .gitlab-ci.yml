@@ -5,18 +5,61 @@ stages:
  - build
  - test
  - deploy
+ - update-from-upstream
 
 services:  
   - docker:20.10-dind 
 
+searx:
+  stage: update-from-upstream
+  image: registry.gitlab.e.foundation/e/tools/docker-tools:latest
+  only:
+    - schedules
+  variables:
+    GIT_STRATEGY: none
+    CI_PROJECT_SSH_URL: git@gitlab.e.foundation:$CI_PROJECT_PATH
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "${SSH_E_ROBOT_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "${SSH_KNOWN_HOSTS}" > /root/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - git config --global user.email $GITLAB_USER_EMAIL
+    - git config --global user.name "$GITLAB_USER_NAME"
+    - rm -rf $CI_PROJECT_DIR
+    - git clone $CI_PROJECT_SSH_URL $CI_PROJECT_DIR
+    - cd $CI_PROJECT_DIR
+  script:
+    - git fetch origin
+    - BRANCH_NAME=$(date +%F-%H%M)-searx
+    - git checkout -b $BRANCH_NAME
+    - git remote add upstream $UPSTREAM_REPO
+    - git pull upstream $UPSTREAM_BRANCH || true
+    - git add .
+    - git commit -m "sync changes from upstream"
+    - git push origin $BRANCH_NAME
+    - curl -X POST "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests" --header "TOKEN:$CI_JOB_TOKEN" --header "Content-Type:application/json" --data "{'title':'test MR from curl', 'source_branch':$BRANCH_NAME, 'target_branch':'fix-preferences', 'assignee_id':$MR_ASSIGNEE_ID}"
+
 python:
   stage: check
+  only:
+    - tags
+    - branches
+  except:
+    - schedules
   script:
     - ./manage test.pep8
     - ./manage test.pylint
 
 build:web:
   stage: build
+  only:
+    - tags
+    - branches
+  except:
+    - schedules
   before_script:
     - ./manage node.update
     - ./manage node.env
@@ -38,6 +81,11 @@ build:web:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 build:docker:
+  only:
+    - tags
+    - branches
+  except:
+    - schedules
   extends: .build:docker
 
 build:docker:tags:
@@ -52,6 +100,11 @@ build:docker:tags:
 
 test:unit:
   stage: test
+  only:
+    - tags
+    - branches
+  except:
+    - schedules
   script:
     - ./manage test.coverage
   coverage: '/TOTAL.*\s+(\d+%)$/'
@@ -75,6 +128,8 @@ deploy:spot.eeo.one.backend1:
   when: manual
   only:
     - branches
+  except:
+    - schedules
   environment:
     name: eeo1
     url: https://spot.eeo.one
@@ -112,6 +167,8 @@ deploy:spot.eeo.one.backend2:
   when: manual
   only:
     - branches
+  except:
+    - schedules
   environment:
     name: eeo2
     url: https://spot.eeo.one
