@@ -46,7 +46,7 @@ searx:
     - git add .
     - git commit -m "sync changes from upstream"
     - git push origin $BRANCH_NAME
-    - curl -X POST "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests" --header "TOKEN:$CI_JOB_TOKEN" --header "Content-Type:application/json" --data "{'title':'test MR from curl', 'source_branch':$BRANCH_NAME, 'target_branch':'master', 'assignee_id':$MR_ASSIGNEE_ID}"
+    - curl -X POST "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests" --header "TOKEN:$CI_JOB_TOKEN" --header "Content-Type:application/json" --data '{ "title":"Sync changes from searx","source_branch":$BRANCH_NAME,"target_branch":"master","assignee_id":$MR_ASSIGNEE_ID}'
 
 python:
   stage: check
