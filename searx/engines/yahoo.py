@@ -135,15 +135,14 @@ def response(resp):
         content = eval_xpath_getindex(
             result, './/div[contains(@class, "compText")]', 0, default=''
         )
-        if content:
-            content = extract_text(content)
+        content = extract_text(content, allow_none=True)
 
         # append result
         results.append({'url': url,
                         'title': title,
                         'content': content})
 
-    for suggestion in eval_xpath_list(dom, '//div[contains(@class, "AlsoTry")]'):
+    for suggestion in eval_xpath_list(dom, '//div[contains(@class, "AlsoTry")]//table//a'):
         # append suggestion
         results.append({'suggestion': extract_text(suggestion)})
 
