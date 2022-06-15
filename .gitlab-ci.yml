@@ -37,6 +37,12 @@ searx:
     - git checkout -b $BRANCH_NAME
     - git remote add upstream $UPSTREAM_REPO
     - git pull upstream $UPSTREAM_BRANCH || true
+    - if ! (git diff --exit-code > /dev/null) || ! (git diff --exit-code > /dev/null) || ! [[ -z "$(git status --porcelain)" ]] ; then
+         echo "Changes detected, committing to origin/$BRANCH_NAME..."
+      else
+        echo "Everything is up to date, nothing to commit"
+        exit 0
+      fi
     - git add .
     - git commit -m "sync changes from upstream"
     - git push origin $BRANCH_NAME
