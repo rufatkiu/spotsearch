@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Installer for Searx package."""
+# Test auto sync
 
 from setuptools import setup
 from setuptools import find_packages
