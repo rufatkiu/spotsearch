@@ -310,10 +310,11 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name: openverse
-    engine: openverse
-    categories: images
-    shortcut: opv
+  - name : ccengine
+    engine : ccengine
+    categories : images
+    shortcut : cce
+    disabled : True
 
 # - name : core.ac.uk
 #   engine : core
@@ -962,26 +963,6 @@ engines:
 #      require_api_key : true
 #      results : JSON
 
-#  - name : prowlarr
-#    engine : prowlarr
-#    shortcut : prow
-#    categories : files
-#    enable_http : True
-#    api_key : ''
-#    indexer_ids : 5 # comma separated list of indexer ids
-#    search_categories : '' # comma separated list of categories
-#    search_type : search
-#    base_url: http://localhost:9696/api/v1/search?
-#    timeout : 50.0
-#    disabled : True,
-#    about :
-#      website : https://wiki.servarr.com/prowlarr
-#      wikidata_id : None
-#      official_api_documentation : https://wiki.servarr.com/prowlarr/search
-#      use_official_api : true
-#      require_api_key : true
-#      results : JSON
-
   - name : openrepos
     engine : xpath
     paging : True
@@ -1251,12 +1232,6 @@ engines:
     categories : onions
     enable_http : True
     shortcut : tch
-
-  - name : tvmaze
-    engine : tvmaze
-    timeout : 5.0
-    shortcut : tm
-    disabled : true
 
 # maybe in a fun category
 #  - name : uncyclopedia
@@ -1686,10 +1661,9 @@ engines:
   - name: brave
     shortcut: brave
     engine: xpath
-    paging: true
+    paging: false
     disabled: True
-    first_page_num: 0
-    search_url: https://search.brave.com/search?q={query}&offset={pageno}&spellcheck=1
+    search_url: https://search.brave.com/search?q={query}
     url_xpath: //div[@class="snippet fdb"]/a/@href
     title_xpath: //span[@class="snippet-title"]
     content_xpath: //p[1][@class="snippet-description"]
