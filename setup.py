@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 """Installer for Spot package."""
+=======
+"""Installer for Searx package."""
+# Test auto sync
+>>>>>>> b44b21747f7cf1d8d6aca5ca749809826df6c4f7
 
 from setuptools import setup
 from setuptools import find_packages
