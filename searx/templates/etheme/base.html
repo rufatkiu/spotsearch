@@ -90,13 +90,13 @@
         {% endblock %}
         <p class="text-muted">
             <small>
-                e Foundation 2018-{{ year }},
-                {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version[0] }}<br/>
-                An open-source metasearch engine forked from <a href="https://searx.github.io/searx/">Searx</a> {{ searx_version }}.
                 <span class="links">
                     <a href="{{url_for('about')}}">{{ _('About') }}</a>
                     <a href="https://e.foundation/legal-notice-privacy">{{ _('Privacy') }}</a>
-                </span>
+                </span></br>
+                e Foundation 2018-{{ year }},
+                {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version[0] }}<br/>
+                An open-source metasearch engine forked from <a href="https://searx.github.io/searx/">Searx</a>
             </small>
         </p>
     </footer>
