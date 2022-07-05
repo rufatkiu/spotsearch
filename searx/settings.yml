@@ -12,7 +12,6 @@ brand:
     public_instances: https://searx.space
     wiki_url: https://gitlab.e.foundation/e/infra/spot/wiki
     twitter_url: https://twitter.com/e_mydata
-    searx_version: 1.0.0
 
 search:
     safe_search : 1 # Filter results. 0: None, 1: Moderate, 2: Strict

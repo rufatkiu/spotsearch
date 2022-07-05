@@ -425,8 +425,6 @@ def render(template_name, override_theme=None, **kwargs):
 
     kwargs['spot_version'] = VERSION_STRING
 
-    kwargs['searx_version'] = settings.get('brand').get('searx_version')
-
     kwargs['year'] = datetime.today().year
 
     kwargs['repo_url'] = settings['brand']['git_url']
