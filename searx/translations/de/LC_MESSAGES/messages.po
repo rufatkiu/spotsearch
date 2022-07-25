@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-07-25 16:43+0000\n"
+"PO-Revision-Date: 2022-07-25 16:44+0000\n"
 "Last-Translator: T. M. <murgo@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
@@ -397,6 +397,7 @@ msgstr ""
 #: searx/templates/__common__/about.html:66
 msgid "only add websites that the user navigates to without a path."
 msgstr ""
+"nur Websites hinzufügen, zu denen der Benutzer ohne Pfadangabe navigiert."
 
 #: searx/templates/__common__/about.html:70
 msgid "How can I make it my own?"
