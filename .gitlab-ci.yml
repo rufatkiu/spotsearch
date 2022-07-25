@@ -70,17 +70,18 @@ test:unit:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE/env
 
-deploy:spot.eeo.one.backend1:
+deploy:spot.murenatest.io.backend1:
   extends: .deploy:template
   when: manual
   only:
     - branches
   environment:
     name: eeo1
-    url: https://spot.eeo.one
+    deployment_tier: staging
+    url: https://spot.murenatest.io
   variables:
     DOCKER_HOST: ssh://${SSH_USER}@${BACKEND1_HOST}
-    SPOT_HOSTNAME: spot.eeo.one
+    SPOT_HOSTNAME: spot.murenatest.io
     SEARX_PROXY_HTTP: http://proxy01.ecloud.global:1099
     SEARX_PROXY_HTTPS: http://proxy01.ecloud.global:1099
     COMPOSE_PROJECT_NAME: staging-spot
@@ -107,17 +108,18 @@ deploy:spot.eeo.one.backend1:
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
-deploy:spot.eeo.one.backend2:
+deploy:spot.murenatest.io.backend2:
   extends: .deploy:template
   when: manual
   only:
     - branches
   environment:
     name: eeo2
-    url: https://spot.eeo.one
+    deployment_tier: staging
+    url: https://spot.murenatest.io
   variables:
     DOCKER_HOST: ssh://${SSH_USER}@${BACKEND2_HOST}
-    SPOT_HOSTNAME: spot.eeo.one
+    SPOT_HOSTNAME: spot.murenatest.io
     SEARX_PROXY_HTTP: http://proxy02.ecloud.global:1099
     SEARX_PROXY_HTTPS: http://proxy02.ecloud.global:1099
     COMPOSE_PROJECT_NAME: staging-spot
@@ -144,16 +146,17 @@ deploy:spot.eeo.one.backend2:
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
 
-deploy:spot.ecloud.global.backend1:
+deploy:spot.murena.io.backend1:
   extends: .deploy:template
   only:
     - tags
   environment:
     name: ecloud1
-    url: https://spot.ecloud.global
+    deployment_tier: production
+    url: https://spot.murena.io
   variables:
     DOCKER_HOST: ssh://${SSH_USER}@${BACKEND1_HOST}
-    SPOT_HOSTNAME: spot.ecloud.global
+    SPOT_HOSTNAME: spot.murena.io
     SEARX_PROXY_HTTP: http://proxy01.ecloud.global:1099
     SEARX_PROXY_HTTPS: http://proxy01.ecloud.global:1099
     COMPOSE_PROJECT_NAME: production-spot
@@ -180,16 +183,17 @@ deploy:spot.ecloud.global.backend1:
       && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
-deploy:spot.ecloud.global.backend2:
+deploy:spot.murena.io.backend2:
   extends: .deploy:template
   only:
     - tags
   environment:
     name: ecloud2
-    url: https://spot.ecloud.global
+    deployment_tier: production
+    url: https://spot.murena.io
   variables:
     DOCKER_HOST: ssh://${SSH_USER}@${BACKEND2_HOST}
-    SPOT_HOSTNAME: spot.ecloud.global
+    SPOT_HOSTNAME: spot.murena.io
     SEARX_PROXY_HTTP: http://proxy02.ecloud.global:1099
     SEARX_PROXY_HTTPS: http://proxy02.ecloud.global:1099
     COMPOSE_PROJECT_NAME: production-spot
