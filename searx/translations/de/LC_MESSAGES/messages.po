@@ -401,15 +401,17 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:70
 msgid "How can I make it my own?"
-msgstr ""
+msgstr "Wie kann ich es selber hosten?"
 
 #: searx/templates/__common__/about.html:73
 msgid "Spot appreciates your concern regarding logs, so take the code from the"
 msgstr ""
+"Spot schätzt Ihr Anliegen bezüglich der Logs, also nehmen Sie den Code aus "
+"dem"
 
 #: searx/templates/__common__/about.html:73
 msgid "original Spot project"
-msgstr ""
+msgstr "originalen Spot-Projekt."
 
 #: searx/templates/__common__/about.html:73
 msgid "and run it yourself!"
