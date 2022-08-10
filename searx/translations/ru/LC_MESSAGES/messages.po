@@ -42,7 +42,7 @@ msgstr "музыка"
 
 #: searx/webapp.py:194
 msgid "social media"
-msgstr "социальные сети"
+msgstr "соцсети"
 
 #: searx/webapp.py:195
 msgid "images"

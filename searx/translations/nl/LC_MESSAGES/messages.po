@@ -4,7 +4,7 @@
 #
 # Translators:
 # André Koot <meneer@tken.net>, 2014-2018,2020
-# Issa1552 <fairfull.playing@gmail.com>, 2020
+# Issa1552 <fairfull.playing@gmail.com>, 2020-2021
 # Nathan Follens, 2015-2018
 # Rejo Zenger <rejo@zenger.nl>, 2016-2017
 msgid ""
@@ -990,7 +990,7 @@ msgstr "Broncode"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr "Probleem tracker"
+msgstr "Probleemtracker"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10

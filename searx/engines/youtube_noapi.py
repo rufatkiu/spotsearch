@@ -3,10 +3,10 @@
  Youtube (Videos)
 """
 
-from datetime import datetime
 from functools import reduce
 from json import loads, dumps
 from urllib.parse import quote_plus
+from random import random
 
 # about
 about = {
@@ -49,6 +49,7 @@ def request(query, params):
     except:
         lang = 'en'
         region = 'us'
+    params['cookies']['CONSENT'] = "PENDING+" + str(random() * 100)
     if not params['engine_data'].get('next_page_token'):
         params['url'] = search_url.format(query=quote_plus(query), page=params['pageno'], region=region, lang=lang)
         if params['time_range'] in time_range_dict:
