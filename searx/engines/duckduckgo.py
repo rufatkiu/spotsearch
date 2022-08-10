@@ -13,7 +13,7 @@ from searx.network import get
 logger = logger.getChild('ddg engine')
 # about
 about = {
-    "website": 'https://lite.duckduckgo.com/lite',
+    "website": 'https://duckduckgo.com/',
     "wikidata_id": 'Q12805',
     "official_api_documentation": 'https://duckduckgo.com/api',
     "use_official_api": False,
@@ -22,11 +22,13 @@ about = {
 }
 
 # engine dependent config
-categories = ['general', 'web']
+categories = ['general']
 paging = True
-supported_languages_url = 'https://duckduckgo.com/util/u588.js'
+supported_languages_url = 'https://duckduckgo.com/util/u172.js'
+number_of_results = 10
 time_range_support = True
-
+safesearch = True
+VQD_REGEX = r"vqd='(\d+-\d+-\d+)'"
 language_aliases = {
     'ca-ES': 'ct-ca',
     'de-AT': 'de-de',
@@ -43,14 +45,16 @@ language_aliases = {
     'ko': 'kr-KR',
     'sl-SI': 'sl-SL',
     'zh-TW': 'tzh-TW',
-    'zh-HK': 'tzh-HK',
+    'zh-HK': 'tzh-HK'
 }
 
-time_range_dict = {'day': 'd', 'week': 'w', 'month': 'm', 'year': 'y'}
-
 # search-url
-url = 'https://lite.duckduckgo.com/lite'
-url_ping = 'https://duckduckgo.com/t/sl_l'
+url = 'https://links.duckduckgo.com/d.js?'
+url_ping = 'https://duckduckgo.com/t/sl_h'
+time_range_dict = {'day': 'd',
+                   'week': 'w',
+                   'month': 'm',
+                   'year': 'y'}
 
 
 # match query's language to a region code that duckduckgo will accept
@@ -65,16 +69,15 @@ def get_region_code(lang, lang_list=None):
     return lang_parts[1].lower() + '-' + lang_parts[0].lower()
 
 
+def get_vqd(query, headers):
+    resp = get(f"https://duckduckgo.com/?q={query}&ia=web", headers=headers)
+    resp = re.findall(VQD_REGEX, resp.text)
+    return resp[0]
+
+
 def request(query, params):
 
-    params['url'] = url
-    params['method'] = 'POST'
-
-    params['data']['q'] = query
-
-    # The API is not documented, so we do some reverse engineering and emulate
-    # what https://lite.duckduckgo.com/lite/ does when you press "next Page"
-    # link again and again ..
+    params['method'] = 'GET'
 
     vqd = get_vqd(query, params["headers"])
     dl, ct = match_language(params["language"], supported_languages, language_aliases, 'wt-WT').split("-")
@@ -134,40 +137,17 @@ def request(query, params):
 
 # get response from search-request
 def response(resp):
-
-    headers_ping = dict_subset(resp.request.headers, ['User-Agent', 'Accept-Encoding', 'Accept', 'Cookie'])
-    get(url_ping, headers=headers_ping)
-
     if resp.status_code == 303:
         return []
 
+    # parse the response
     results = []
-    doc = fromstring(resp.text)
 
-    result_table = eval_xpath(doc, '//html/body/form/div[@class="filters"]/table')
-    if not len(result_table) >= 3:
-        # no more results
-        return []
-    result_table = result_table[2]
-
-    tr_rows = eval_xpath(result_table, './/tr')
-
-    # In the last <tr> is the form of the 'previous/next page' links
-    tr_rows = tr_rows[:-1]
-
-    len_tr_rows = len(tr_rows)
-    offset = 0
-
-    while len_tr_rows >= offset + 4:
-
-        # assemble table rows we need to scrap
-        tr_title = tr_rows[offset]
-        tr_content = tr_rows[offset + 1]
-        offset += 4
-
-        # ignore sponsored Adds <tr class="result-sponsored">
-        if tr_content.get('class') == 'result-sponsored':
-            continue
+    data = re.findall(r"DDG\.pageLayout\.load\('d',(\[.+\])\);DDG\.duckbar\.load\('images'", str(resp.text))
+    try:
+        search_data = loads(data[0].replace('/\t/g', '    '))
+    except IndexError:
+        return
 
     if len(search_data) == 1 and ('n' not in search_data[0]):
         only_result = search_data[0]
@@ -175,8 +155,8 @@ def response(resp):
                 only_result.get('a') is not None or only_result.get('d') == 'google.com search'):
             return
 
-        td_content = eval_xpath_getindex(tr_content, './/td[@class="result-snippet"]', 0, None)
-        if td_content is None:
+    for search_result in search_data:
+        if 'n' in search_result:
             continue
 
         title = HTMLTextExtractor()
@@ -197,7 +177,7 @@ def _fetch_supported_languages(resp):
     # response is a js file with regions as an embedded object
     response_page = resp.text
     response_page = response_page[response_page.find('regions:{') + 8:]
-    response_page = response_page[: response_page.find('}') + 1]
+    response_page = response_page[:response_page.find('}') + 1]
 
     regions_json = loads(response_page)
     supported_languages = map((lambda x: x[3:] + '-' + x[:2].upper()), regions_json.keys())
