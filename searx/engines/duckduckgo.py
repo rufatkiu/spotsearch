@@ -8,7 +8,7 @@ from urllib.parse import urlencode
 from searx.utils import match_language, HTMLTextExtractor
 from searx import logger
 import re
-from searx.network import get
+from searx.poolrequests import get
 
 logger = logger.getChild('ddg engine')
 # about
