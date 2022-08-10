@@ -225,10 +225,10 @@ class SwitchableSetting(Setting):
         if not hasattr(self, 'choices'):
             raise MissingArgumentException('missing argument: choices')
 
-    def transform_form_items(self, items):  # pylint: disable=missing-function-docstring
+    def transform_form_items(self, items):  # pylint: disable=missing-function-docstring,no-self-use
         return items
 
-    def transform_values(self, values):   # pylint: disable=missing-function-docstring
+    def transform_values(self, values):   # pylint: disable=missing-function-docstring,no-self-use
         return values
 
     def parse_cookie(self, data):   # pylint: disable=missing-function-docstring
