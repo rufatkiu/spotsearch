@@ -4,6 +4,7 @@
 #
 # Translators:
 # Adam Tauber <asciimoo@gmail.com>, 2017
+# André Marcelo Alvarenga <alvarenga@kde.org>, 2022
 # C. E., 2020
 # C. E., 2018
 # Gabriel Nunes <gabriel.hkr@gmail.com>, 2017
@@ -517,7 +518,7 @@ msgstr "Qual idioma padrão para pesquisar?"
 #: searx/templates/oscar/preferences.html:62
 #: searx/templates/simple/preferences.html:155
 msgid "Interface language"
-msgstr "Idioma da interface "
+msgstr "Idioma da interface"
 
 #: searx/templates/etheme/preferences.html:36
 #: searx/templates/oscar/preferences.html:63
@@ -553,7 +554,7 @@ msgstr "Usar proxy para resultado de imagens exibidas através do searx"
 #: searx/templates/oscar/preferences.html:91
 #: searx/templates/simple/preferences.html:244
 msgid "Enabled"
-msgstr "Habilitado "
+msgstr "Habilitado"
 
 #: searx/templates/etheme/preferences.html:61
 #: searx/templates/oscar/preferences.html:92
@@ -986,7 +987,7 @@ msgstr "um mecanismo de metabusca que respeita a sua privacidade"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr "Código fonte"
+msgstr "Código-fonte"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
@@ -1328,7 +1329,7 @@ msgstr "Serviço de busca usado atualmente"
 
 #: searx/templates/simple/preferences.html:123
 msgid "Supports selected language"
-msgstr "Suporta a língua selecionada"
+msgstr "Suporta o idioma selecionado"
 
 #: searx/templates/simple/preferences.html:152
 msgid "User interface"

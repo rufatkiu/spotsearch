@@ -22,6 +22,7 @@ Definitions`_.  Not all parameters can be appied.
 
 import re
 from urllib.parse import urlencode
+from random import random
 from lxml import html
 
 from searx import logger
@@ -123,21 +124,14 @@ def request(query, params):
         params, supported_languages, language_aliases, False
     )
 
-    query_url = (
-        'https://'
-        + lang_info['subdomain']
-        + '/search'
-        + "?"
-        + urlencode(
-            {
-                'q': query,
-                'tbm': "vid",
-                **lang_info['params'],
-                'ie': "utf8",
-                'oe': "utf8",
-            }
-        )
-    )
+    query_url = 'https://' + lang_info['subdomain'] + '/search' + "?" + urlencode({
+        'q':   query,
+        'tbm': "vid",
+        **lang_info['params'],
+        'ucbcb': 1,
+        'ie': "utf8",
+        'oe': "utf8",
+    })
 
     if params['time_range'] in time_range_dict:
         query_url += '&' + urlencode({'tbs': 'qdr:' + time_range_dict[params['time_range']]})
@@ -145,6 +139,8 @@ def request(query, params):
         query_url += '&' + urlencode({'safe': filter_mapping[params['safesearch']]})
     params['url'] = query_url
 
+    logger.debug("HTTP header Accept-Language --> %s", lang_info.get('Accept-Language'))
+    params['cookies']['CONSENT'] = "PENDING+" + str(random()*100)
     params['headers'].update(lang_info['headers'])
     params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
     return params

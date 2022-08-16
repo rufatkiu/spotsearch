@@ -14,8 +14,7 @@ from searx.utils import (
     extract_text,
     match_language,
 )
-from searx.network import get
-
+from searx.poolrequests import get
 # about
 about = {
     "website": 'https://lite.duckduckgo.com/lite',

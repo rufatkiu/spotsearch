@@ -143,7 +143,7 @@ msgstr ""
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (OBSOLETE)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -1064,34 +1064,22 @@ msgstr "利用可能な場合(プラグインが必要)、オープンアクセ�
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "エンジントークン"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
-msgstr ""
+msgstr "プライベートエンジンのアクセストークン"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
-msgstr ""
+msgstr "すべてを許可する"
 
 #: searx/templates/oscar/preferences.html:203
 msgid "Disable all"
 msgstr ""
 
-#: searx/templates/oscar/preferences.html:218
-#: searx/templates/oscar/preferences.html:232
-#: searx/templates/simple/preferences.html:121
-msgid "Engine name"
-msgstr "検索エンジン名"
-
-#: searx/templates/oscar/preferences.html:219
-#: searx/templates/oscar/preferences.html:231
-#: searx/templates/simple/preferences.html:122
-msgid "Shortcut"
-msgstr "ショートカット"
-
-#: searx/templates/oscar/preferences.html:220
-#: searx/templates/oscar/preferences.html:230
+#: searx/templates/oscar/preferences.html:179
+#: searx/templates/oscar/preferences.html:189
 msgid "Selected language"
 msgstr "選択された言語"
 
@@ -1150,7 +1138,7 @@ msgstr "ダウンロードするファイル形式"
 
 #: searx/templates/oscar/results.html:88
 msgid "RSS subscription"
-msgstr ""
+msgstr "RSS登録"
 
 #: searx/templates/oscar/results.html:95
 msgid "Search results"
@@ -1171,11 +1159,11 @@ msgstr "検索を開始"
 #: searx/templates/oscar/search_full.html:12
 #: searx/templates/simple/search.html:5
 msgid "Clear search"
-msgstr ""
+msgstr "検索のクリア"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 #: searx/templates/oscar/stats.html:2
 msgid "stats"
@@ -1298,7 +1286,7 @@ msgstr "動画を隠す"
 
 #: searx/templates/oscar/result_templates/videos.html:20
 msgid "Length"
-msgstr ""
+msgstr "長さ"
 
 #: searx/templates/simple/categories.html:6
 msgid "Click on the magnifier to perform search"
