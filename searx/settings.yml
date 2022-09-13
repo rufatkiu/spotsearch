@@ -311,7 +311,7 @@ engines:
     engine: openverse
     categories: images
     shortcut: opv
-    disable: True
+    disabled: True
 
 # - name : core.ac.uk
 #   engine : core
