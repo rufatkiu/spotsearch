@@ -412,7 +412,7 @@ engines:
   - name: wikidata
     engine: wikidata
     shortcut: wd
-    timeout: 3.0
+    timeout: 6.0
     weight: 2
     tests: *tests_infobox
 
@@ -589,6 +589,7 @@ engines:
   - name : google images
     engine : google_images
     shortcut : goi
+    timeout: 6.0
     # additional_tests:
     #   android: *test_android
     #   dali:
@@ -741,17 +742,9 @@ engines:
 
   - name : invidious
     engine : invidious
-    base_url :
-      - https://invidious.tube/
-      - https://invidious.snopyta.org/
+    base_url : https://invidious.weblibre.org/
     shortcut: iv
     timeout : 5.0
-    disabled : True
-
-  - name: kickass
-    engine : kickass
-    shortcut : kc
-    timeout : 4.0
     disabled : True
 
   - name : library genesis
