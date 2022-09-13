@@ -71,11 +71,11 @@ ui:
 #    key : !!binary "your_morty_proxy_key"
 
 outgoing: # communication with search engines
-    request_timeout : 6.0 # default timeout in seconds, can be override by engine
+    request_timeout : 3.0 # default timeout in seconds, can be override by engine
     # max_request_timeout: 10.0 # the maximum timeout in seconds
     useragent_suffix : "" # suffix of searx_useragent, could contain informations like an email address to the administrator
-    pool_connections : 100 # The maximum number of concurrent connections that may be established.
-    pool_maxsize : 20 # Allow the connection pool to maintain keep-alive connections below this point.
+    pool_connections : 200 # The maximum number of concurrent connections that may be established.
+    pool_maxsize : 40 # Allow the connection pool to maintain keep-alive connections below this point.
     enable_http2: True  # See https://www.python-httpx.org/http2/
     keepalive_expiry: 5.0
     source_ips: []
@@ -233,7 +233,6 @@ engines:
     engine : wikipedia
     shortcut : wp
     base_url : 'https://{language}.wikipedia.org/'
-    disabled: True
 
     #The fulltext and title parameter is necessary for Wikimini because sometimes it will not show the results and redirect instead
   - name: wikimini
@@ -290,11 +289,6 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name : btdigg
-    engine : btdigg
-    shortcut : bt
-    disabled : True
-
   - name : ccc-tv
     engine : xpath
     paging : False
@@ -317,6 +311,7 @@ engines:
     engine: openverse
     categories: images
     shortcut: opv
+    disabled: True
 
 # - name : core.ac.uk
 #   engine : core
@@ -374,10 +369,6 @@ engines:
 #    timeout : 6.0
 #    disabled : True
 
-  - name : digg
-    engine : digg
-    shortcut : dg
-
   - name : erowid
     engine : xpath
     paging : True
@@ -418,10 +409,11 @@ engines:
 #    #show_metadata: False
 #    disabled : True
 
-  - name : wikidata
-    engine : wikidata
-    shortcut : wd
-    weight : 2
+  - name: wikidata
+    engine: wikidata
+    shortcut: wd
+    timeout: 3.0
+    weight: 2
     tests: *tests_infobox
 
   - name : duckduckgo
@@ -469,12 +461,6 @@ engines:
       use_official_api: false
       require_api_key: false
       results: HTML
-
-  - name : ebay
-    engine : ebay
-    shortcut : eb
-    disabled : True
-    timeout: 5
 
   - name : 1x
     engine : www1x
