@@ -254,5 +254,5 @@ def _fetch_supported_languages(resp):
         for lang in langs['langs']:
             lang_code = "{lang}-{country}".format(lang=lang, country=country)
             supported_languages.append(lang_code)
-            
+
     return supported_languages
