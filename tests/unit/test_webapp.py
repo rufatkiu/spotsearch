@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import json
 from urllib.parse import ParseResult
 from mock import Mock
 from searx.testing import SearxTestCase
@@ -116,7 +115,6 @@ class ViewsTestCase(SearxTestCase):
             result.data
         )
 
-    
     def test_index_rss(self):
         result = self.app.post('/', data={'q': 'test', 'format': 'rss'})
         self.assertEqual(result.status_code, 308)
