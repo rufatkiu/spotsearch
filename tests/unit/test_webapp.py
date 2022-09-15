@@ -98,14 +98,6 @@ class ViewsTestCase(SearxTestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b'<span class="instance pull-left"><a href="/">Spot</a></span>', result.data)
 
-    def test_search_empty_json(self):
-        result = self.app.post('/search', data={'q': '', 'format': 'json'})
-        self.assertEqual(result.status_code, 400)
-
-    def test_search_empty_csv(self):
-        result = self.app.post('/search', data={'q': '', 'format': 'csv'})
-        self.assertEqual(result.status_code, 400)
-
     def test_search_empty_rss(self):
         result = self.app.post('/search', data={'q': '', 'format': 'rss'})
         self.assertEqual(result.status_code, 400)
@@ -124,33 +116,7 @@ class ViewsTestCase(SearxTestCase):
             result.data
         )
 
-    def test_index_json(self):
-        result = self.app.post('/', data={'q': 'test', 'format': 'json'})
-        self.assertEqual(result.status_code, 308)
-
-    def test_search_json(self):
-        result = self.app.post('/search', data={'q': 'test', 'format': 'json'})
-        result_dict = json.loads(result.data.decode())
-
-        self.assertEqual('test', result_dict['query'])
-        self.assertEqual(len(result_dict['results']), 2)
-        self.assertEqual(result_dict['results'][0]['content'], 'first test content')
-        self.assertEqual(result_dict['results'][0]['url'], 'http://first.test.xyz')
-
-    def test_index_csv(self):
-        result = self.app.post('/', data={'q': 'test', 'format': 'csv'})
-        self.assertEqual(result.status_code, 308)
-
-    def test_search_csv(self):
-        result = self.app.post('/search', data={'q': 'test', 'format': 'csv'})
-
-        self.assertEqual(
-            b'title,url,content,host,engine,score,type\r\n'
-            b'First Test,http://first.test.xyz,first test content,first.test.xyz,startpage,,result\r\n'  # noqa
-            b'Second Test,http://second.test.xyz,second test content,second.test.xyz,youtube,,result\r\n',  # noqa
-            result.data
-        )
-
+    
     def test_index_rss(self):
         result = self.app.post('/', data={'q': 'test', 'format': 'rss'})
         self.assertEqual(result.status_code, 308)
