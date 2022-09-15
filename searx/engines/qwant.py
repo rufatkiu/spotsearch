@@ -93,6 +93,8 @@ def request(query, params):
             supported_languages,
             language_aliases,
         )
+        if language not in supported_languages:
+            language = 'en-US'
         params['url'] += '&locale=' + language.replace('-', '_')
 
     params['raise_for_httperror'] = False
