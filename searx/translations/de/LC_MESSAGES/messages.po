@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-07-26 17:24+0000\n"
-"Last-Translator: T. M. <murgo@e.email>\n"
+"PO-Revision-Date: 2022-10-15 19:39+0000\n"
+"Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -247,7 +247,7 @@ msgstr ""
 
 #: searx/plugins/self_info.py:19
 msgid "Self Informations"
-msgstr ""
+msgstr "Selbst-Informationen"
 
 #: searx/plugins/self_info.py:20
 msgid ""
