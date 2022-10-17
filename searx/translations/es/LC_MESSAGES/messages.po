@@ -17,18 +17,18 @@
 # wefwefew ewfewfewf <nnnedmz0d@moakt.ws>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2020-10-17 14:13+0000\n"
-"Last-Translator: novales35 <guillermocebollero@gmail.com>\n"
+"PO-Revision-Date: 2022-10-18 17:39+0000\n"
+"Last-Translator: Juan Sánchez <j.sanchez@e.email>\n"
+"Language-Team: Spanish <https://i18n.e.foundation/projects/ecloud/spot/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish "
-"(http://www.transifex.com/asciimoo/searx/language/es/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -53,7 +53,7 @@ msgstr "Imágenes"
 
 #: searx/webapp.py:196
 msgid "videos"
-msgstr "Vídeos"
+msgstr "Videos"
 
 #: searx/webapp.py:197
 msgid "it"
@@ -81,11 +81,11 @@ msgstr "Ningún artículo encontrado"
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
-msgstr "Parámetros incorrectos, por favor, cambia tus preferencias"
+msgstr "Parámetros incorrectos, por favor cambia tus preferencias"
 
 #: searx/webapp.py:524
 msgid "Invalid settings"
-msgstr "Ajustes no válidos"
+msgstr "Ajustes inválidos"
 
 #: searx/webapp.py:589 searx/webapp.py:659
 msgid "search error"
@@ -101,7 +101,7 @@ msgstr "hace {hours} hora(s) y {minutes} minuto(s)"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
-msgstr "Generador de valores aleaorios"
+msgstr "Generador de valores aleatorios"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
@@ -109,19 +109,19 @@ msgstr "Generar varios valores aleatorios"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
-msgstr "Funciones de estadística"
+msgstr "Funciones estadísticas"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
-msgstr "Computar {functions} de parámetros"
+msgstr "Calcula {funciones} de los argumentos"
 
 #: searx/engines/__init__.py:251
 msgid "Engine time (sec)"
-msgstr "Motor de tiempo (seg)"
+msgstr "Tiempo del motor (seg)"
 
 #: searx/engines/__init__.py:255
 msgid "Page loads (sec)"
-msgstr "Tiempo de carga (segundos)"
+msgstr "Carga de páginas (seg.)"
 
 #: searx/engines/__init__.py:259 searx/templates/oscar/results.html:27
 #: searx/templates/simple/results.html:40
@@ -146,48 +146,50 @@ msgstr "Obtener indicaciones"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (OBSOLETE)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "Esta entrada la ha sustituido"
+msgstr "Esta entrada ha sido reemplazada por"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
-msgstr "No hay resúmenes disponibles para esta publicación."
+msgstr "No hay resumen disponible para esta publicación."
 
 #: searx/engines/qwant.py:200
 #: searx/templates/etheme/result_templates/currency.html:13
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
 
 #: searx/engines/qwant.py:202
 msgid "Channel"
-msgstr ""
+msgstr "Canál"
 
 #: searx/plugins/calculator.py:6
 msgid "Calculator"
-msgstr ""
+msgstr "Calculadora"
 
 #: searx/plugins/calculator.py:7
 msgid "This plugin extends results when the query is a mathematical expression"
 msgstr ""
+"Este plugin amplía los resultados cuando la consulta es una expresión "
+"matemática"
 
 #: searx/plugins/calculator.py:59
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
-msgstr ""
+msgstr "Convierte las cadenas en diferentes compendios hash."
 
 #: searx/plugins/hash_plugin.py:49
 msgid "hash digest"
-msgstr ""
+msgstr "Compendios hash"
 
 #: searx/plugins/hostname_replace.py:7
 msgid "Hostname replace"
-msgstr ""
+msgstr "Sustituir el nombre de host"
 
 #: searx/plugins/hostname_replace.py:8
 msgid "Rewrite result hostnames"
@@ -1397,4 +1399,3 @@ msgstr "Respuestas"
 
 #~ msgid "Loading..."
 #~ msgstr "Cargando..."
-
