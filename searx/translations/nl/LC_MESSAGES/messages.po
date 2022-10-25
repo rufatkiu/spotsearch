@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-07-04 19:24+0000\n"
+"PO-Revision-Date: 2022-10-26 20:56+0000\n"
 "Last-Translator: Edoardo Regni <eregni@pm.me>\n"
 "Language-Team: Dutch <https://i18n.e.foundation/projects/ecloud/spot/nl/>\n"
 "Language: nl\n"
@@ -778,7 +778,7 @@ msgstr ""
 #: searx/templates/etheme/results.html:80
 #: searx/templates/etheme/results.html:87
 msgid "More"
-msgstr ""
+msgstr "Meer"
 
 #: searx/templates/etheme/results.html:86
 msgid "Videos"
