@@ -619,7 +619,7 @@ def search():
 
     # output_format
     output_format = request.form.get('format', 'html')
-    if output_format not in ['html', 'rss']:
+    if output_format not in ['html', 'json', 'csv', 'rss']:
         output_format = 'html'
 
     # check if there is query (not None and not an empty string)
