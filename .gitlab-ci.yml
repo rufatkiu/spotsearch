@@ -75,6 +75,7 @@ deploy:spot.murenatest.io.backend1:
   when: manual
   only:
     - /^dev\/.*$/
+    - main
   environment:
     name: eeo1
     deployment_tier: staging
@@ -95,6 +96,7 @@ deploy:spot.murenatest.io.backend2:
   when: manual
   only:
     - /^dev\/.*$/
+    - main
   environment:
     name: eeo2
     deployment_tier: staging
