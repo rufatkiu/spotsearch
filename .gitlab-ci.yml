@@ -74,77 +74,41 @@ deploy:spot.murenatest.io.backend1:
   extends: .deploy:template
   when: manual
   only:
-    - branches
+    - /^dev\/.*$/
   environment:
     name: eeo1
     deployment_tier: staging
     url: https://spot.murenatest.io
   variables:
-    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND1_HOST}
-    SPOT_HOSTNAME: spot.murenatest.io
-    SEARX_PROXY_HTTP: http://proxy01.ecloud.global:1099
-    SEARX_PROXY_HTTPS: http://proxy01.ecloud.global:1099
-    COMPOSE_PROJECT_NAME: staging-spot
+    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND_HOST}
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    WIREGUARD_IP: ${BACKEND1_WG_IP}
-    NODE_NAME: ${NODE_NAME}
-    INTERNAL_NETWORK_NAME: staging-spot-default
-    FILTRON_PORT: 8088
   script:
-    - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND1_HOST - $BACKEND1_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/staging-spot 
-      && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
-      && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
-      && sed -i 's/proxy01.ecloud.global/proxy01.ecloud.global/g' .env
-      && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
-      && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
-      && sed -i 's/ENVIRONMENT_NAME=prod/ENVIRONMENT_NAME=$ENVIRONMENT_NAME/g' .env
-      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
-      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
-      && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
+    - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_COMMIT_REF_NAME && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - scp $ENV_FILE $SSH_USER@$BACKEND_HOST:$DEPLOYMENT_PATH/.env
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH
+      && sed -i 's/SPOT_DOCKER_TAG=master/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.murenatest.io.backend2:
   extends: .deploy:template
   when: manual
   only:
-    - branches
+    - /^dev\/.*$/
   environment:
     name: eeo2
     deployment_tier: staging
     url: https://spot.murenatest.io
   variables:
-    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND2_HOST}
-    SPOT_HOSTNAME: spot.murenatest.io
-    SEARX_PROXY_HTTP: http://proxy02.ecloud.global:1099
-    SEARX_PROXY_HTTPS: http://proxy02.ecloud.global:1099
-    COMPOSE_PROJECT_NAME: staging-spot
+    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND_HOST}
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    WIREGUARD_IP: ${BACKEND2_WG_IP}
-    INTERNAL_NETWORK_NAME: staging-spot-default
-    NODE_NAME: ${NODE_NAME}
-    FILTRON_PORT: 8088
   script:
-    - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND2_HOST - $BACKEND2_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/staging-spot 
-      && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
-      && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
-      && sed -i 's/proxy01.ecloud.global/proxy02.ecloud.global/g' .env
-      && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
-      && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
-      && sed -i 's/ENVIRONMENT_NAME=prod/ENVIRONMENT_NAME=$ENVIRONMENT_NAME/g' .env
-      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
-      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
-      && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
-      && docker-compose pull && docker-compose stop filtron && sleep 5 && docker-compose up -d"
+    - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_COMMIT_REF_NAME && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - scp $ENV_FILE $SSH_USER@$BACKEND_HOST:$DEPLOYMENT_PATH/.env
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH
+      && sed -i 's/SPOT_DOCKER_TAG=master/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
+      && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.murena.io.backend1:
   extends: .deploy:template
@@ -155,32 +119,14 @@ deploy:spot.murena.io.backend1:
     deployment_tier: production
     url: https://spot.murena.io
   variables:
-    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND1_HOST}
-    SPOT_HOSTNAME: spot.murena.io
-    SEARX_PROXY_HTTP: http://proxy01.ecloud.global:1099
-    SEARX_PROXY_HTTPS: http://proxy01.ecloud.global:1099
-    COMPOSE_PROJECT_NAME: production-spot
+    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND_HOST}
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    WIREGUARD_IP: ${BACKEND1_WG_IP}
-    INTERNAL_NETWORK_NAME: spot-default
-    NODE_NAME: ${NODE_NAME}
-    FILTRON_PORT: 8098
   script:
-    - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND1_HOST - $BACKEND1_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/production-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - ssh $SSH_USER@$BACKEND1_HOST "cd /mnt/repo-base/production-spot 
-      && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
-      && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
-      && sed -i 's/proxy01.ecloud.global/proxy01.ecloud.global/g' .env
-      && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
-      && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
-      && sed -i 's/ENVIRONMENT_NAME=prod/ENVIRONMENT_NAME=$ENVIRONMENT_NAME/g' .env
-      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
-      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
-      && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
+    - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_COMMIT_REF_NAME && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - scp $ENV_FILE $SSH_USER@$BACKEND_HOST:$DEPLOYMENT_PATH/.env
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH
+      && sed -i 's/SPOT_DOCKER_TAG=master/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
 deploy:spot.murena.io.backend2:
@@ -192,31 +138,13 @@ deploy:spot.murena.io.backend2:
     deployment_tier: production
     url: https://spot.murena.io
   variables:
-    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND2_HOST}
-    SPOT_HOSTNAME: spot.murena.io
-    SEARX_PROXY_HTTP: http://proxy02.ecloud.global:1099
-    SEARX_PROXY_HTTPS: http://proxy02.ecloud.global:1099
-    COMPOSE_PROJECT_NAME: production-spot
+    DOCKER_HOST: ssh://${SSH_USER}@${BACKEND_HOST}
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
-    WIREGUARD_IP: ${BACKEND2_WG_IP}
-    INTERNAL_NETWORK_NAME: spot-default
-    NODE_NAME: ${NODE_NAME}
-    FILTRON_PORT: 8098
   script:
-    - echo "Deploying to $CI_ENVIRONMENT_NAME ($SSH_USER@$BACKEND2_HOST - $BACKEND2_WG_IP - $WIREGUARD_IP)" 
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/production-spot && git reset --hard && git clean -xfdf && git pull && rm .env && mv .env.prod .env && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
-    - ssh $SSH_USER@$BACKEND2_HOST "cd /mnt/repo-base/production-spot 
-      && sed -i 's/SPOT_HOSTNAME=spot.ecloud.global/SPOT_HOSTNAME=$SPOT_HOSTNAME/g' .env 
-      && sed -i 's/SPOT_DOCKER_TAG=latest/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
-      && sed -i 's/SECRET2BEREPLACED/$SEARX_SECRET/g' .env
-      && sed -i 's/proxy01.ecloud.global/proxy02.ecloud.global/g' .env
-      && sed -i 's/WIREGUARD_IP=127.0.0.1/WIREGUARD_IP=$WIREGUARD_IP/g' .env 
-      && sed -i 's/FILTRON_PORT=8088/FILTRON_PORT=$FILTRON_PORT/g' .env
-      && sed -i 's/INTERNAL_NETWORK_NAME=default/INTERNAL_NETWORK_NAME=$INTERNAL_NETWORK_NAME/g' .env
-      && sed -i 's/NODE_NAME=spot11/NODE_NAME=$NODE_NAME/g' .env
-      && sed -i 's/ENVIRONMENT_NAME=prod/ENVIRONMENT_NAME=$ENVIRONMENT_NAME/g' .env
-      && sed -i 's|SENTRY_DSN=public_key:gitlab.com|SENTRY_DSN=$SENTRY_DSN|g' .env
-      && sed -i 's|SENTRY_TRACES_SAMPLE_RATE=1.0|SENTRY_TRACES_SAMPLE_RATE=$SENTRY_TRACES_SAMPLE_RATE|g' .env
-      && sed -i 's|CI_REGISTRY_IMAGE=image|CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE|g' .env
+    - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_COMMIT_REF_NAME && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - scp $ENV_FILE $SSH_USER@$BACKEND_HOST:$DEPLOYMENT_PATH/.env
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH
+      && sed -i 's/SPOT_DOCKER_TAG=master/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
       && docker-compose pull && docker-compose stop filtron && sleep 2 && docker-compose up -d"
 
