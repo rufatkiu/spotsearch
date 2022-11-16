@@ -75,7 +75,7 @@ deploy:spot.murenatest.io.backend1:
   when: manual
   only:
     - /^dev\/.*$/
-    - master
+    - $CI_DEFAULT_BRANCH
   environment:
     name: eeo1
     deployment_tier: staging
@@ -96,7 +96,7 @@ deploy:spot.murenatest.io.backend2:
   when: manual
   only:
     - /^dev\/.*$/
-    - master
+    - $CI_DEFAULT_BRANCH
   environment:
     name: eeo2
     deployment_tier: staging
@@ -125,7 +125,7 @@ deploy:spot.murena.io.backend1:
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
   script:
     - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
-    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_COMMIT_REF_NAME && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_DEFAULT_BRANCH && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - scp $ENV_FILE $SSH_USER@$BACKEND_HOST:$DEPLOYMENT_PATH/.env
     - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH
       && sed -i 's/SPOT_DOCKER_TAG=master/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
@@ -144,7 +144,7 @@ deploy:spot.murena.io.backend2:
     SPOT_DOCKER_TAG: ${CI_COMMIT_REF_SLUG}
   script:
     - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
-    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_COMMIT_REF_NAME && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
+    - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH && git stash && git fetch && git checkout $CI_DEFAULT_BRANCH && rm .env .env.prod && rm docker-compose.yml && mv docker-compose.prod.yml docker-compose.yml"
     - scp $ENV_FILE $SSH_USER@$BACKEND_HOST:$DEPLOYMENT_PATH/.env
     - ssh $SSH_USER@$BACKEND_HOST "cd $DEPLOYMENT_PATH
       && sed -i 's/SPOT_DOCKER_TAG=master/SPOT_DOCKER_TAG=$SPOT_DOCKER_TAG/g' .env 
