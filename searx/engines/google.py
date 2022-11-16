@@ -242,6 +242,7 @@ def get_lang_info(params, lang_list, custom_aliases, supported_any_language):
 
 
 def detect_google_sorry(resp):
+    """Detect when ratelimited"""
     if resp.url == 'sorry.google.com' or resp.url.startswith('/sorry'):
         raise SearxEngineCaptchaException()
 
@@ -251,6 +252,7 @@ def request(query, params):
 
     offset = (params['pageno'] - 1) * 10
 
+    # pylint: disable=undefined-variable
     lang_info = get_lang_info(params, supported_languages, language_aliases, True)
 
     additional_parameters = {}
@@ -292,8 +294,6 @@ def request(query, params):
     else:
         params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
 
-    logger.debug(params)
-    logger.debug(query_url)
     return params
 
 
