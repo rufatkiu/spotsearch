@@ -110,7 +110,9 @@ def load_engine(engine_data):
             sys.exit(1)
 
     # assign supported languages from json file
-    if engine_data['engine'] in ENGINES_LANGUAGES:
+    if engine_data['name'] in ENGINES_LANGUAGES:
+        setattr(engine, 'supported_languages', ENGINES_LANGUAGES[engine_data['name']])
+    elif engine_data['engine'] in ENGINES_LANGUAGES:
         setattr(engine, 'supported_languages', ENGINES_LANGUAGES[engine_data['engine']])
 
     # find custom aliases for non standard language codes
