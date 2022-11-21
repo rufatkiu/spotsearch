@@ -69,7 +69,7 @@
                 {%- endmacro %}
 
 
-                <div id="results" {% if use_gallery_layout %} class="{{selected_categories[0]}}-gallery" {% endif %}>
+                <div id="main_results" {% if use_gallery_layout %} class="{{selected_categories[0]}}-gallery" {% endif %}>
                     {% if pageno == 1 and 'general' in selected_categories %}
                         <!-- Empty div for unit conversions -->
                         <div class="result" id="unit_conversions">
