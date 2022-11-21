@@ -85,7 +85,7 @@ $(document).ready(function(){
     document.getElementById("image_view_url_link").href = target.dataset.url;
   }
 
-  $("#results").on("click", ".result.result-images", function (event) {
+  $("#main_results").on("click", ".result.result-images", function (event) {
     event.preventDefault();
     var target = event.target;
     var view_url = target.src;
@@ -108,7 +108,7 @@ $(document).ready(function(){
     document.body.classList.remove("lock");
   });
 
-  if ($("#results").has(".first-page-media-results").length) {
+  if ($("#main_results").has(".first-page-media-results").length) {
     var headers = {"headers": { "Content-Type": "application/json"}};
     var query_params = $.param({
       "format": "json",
