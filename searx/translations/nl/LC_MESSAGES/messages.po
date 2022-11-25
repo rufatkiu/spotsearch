@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-10-26 20:56+0000\n"
+"PO-Revision-Date: 2022-11-26 23:09+0000\n"
 "Last-Translator: Edoardo Regni <eregni@pm.me>\n"
 "Language-Team: Dutch <https://i18n.e.foundation/projects/ecloud/spot/nl/>\n"
 "Language: nl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.14.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -566,7 +566,7 @@ msgstr "Uitgeschakeld"
 #: searx/templates/simple/preferences.html:81
 #: searx/templates/simple/preferences.html:124
 msgid "SafeSearch"
-msgstr "SafeSearch"
+msgstr "Veilig zoeken (Safesearch)"
 
 #: searx/templates/etheme/preferences.html:66
 #: searx/templates/oscar/preferences.html:110
@@ -1212,7 +1212,7 @@ msgstr "Het lijkt erop dat je searx voor de eerste keer gebruikt."
 
 #: searx/templates/oscar/messages/no_data_available.html:4
 msgid "There is currently no data available. "
-msgstr "Er zijn momenteel geen gegevens beschikbaar."
+msgstr "Er zijn momenteel geen gegevens beschikbaar. "
 
 #: searx/templates/oscar/messages/no_results.html:4
 #: searx/templates/simple/messages/no_results.html:4
