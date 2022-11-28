@@ -24,7 +24,7 @@ except DistributionNotFound:
     VERSION_STRING = "0.0.0"
 
 try:
-    SPOT_VERSION, METADATA_VERSION = VERSION_STRING.split("+")
+    METADATA_VERSION, SPOT_VERSION = VERSION_STRING.split("-")
 except ValueError:
     SPOT_VERSION = VERSION_STRING
     METADATA_VERSION = ""
