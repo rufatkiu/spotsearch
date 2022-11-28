@@ -8,23 +8,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" {% if rtl %} dir="rtl" {% endif %} class="{{ etheme_style }}">
 <head>
-    {% set version = spot_version %}
     <meta charset="UTF-8" />
     <meta name="description" content="spot ecloud global, powered by searx" />
     <meta name="keywords" content="spot, ecloud, searx, search, search engine, metasearch, meta search" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="searx/{{ version[0] }}">
+    <meta name="generator" content="searx/{{ version }}">
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1.0, user-scalable=1" />
     {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %}{{ instance_name }}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css', v=version[0]) }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme.min.css', v=version[0]) }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme-dark.min.css', v=version[0]) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css', v=version) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme.min.css', v=version) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/etheme-dark.min.css', v=version) }}" type="text/css" />
 
     {% for css in styles %}
-        <link rel="stylesheet" href="{{ url_for('static', filename=css, v=version[0]) }}" type="text/css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename=css, v=version) }}" type="text/css" />
     {% endfor %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -95,23 +94,23 @@
                     <a href="https://e.foundation/legal-notice-privacy">{{ _('Privacy') }}</a>
                 </span></br>
                 e Foundation 2018-{{ year }},
-                {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version[0] }}<br/>
+                {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version }}<br/>
                 An open-source metasearch engine forked from <a href="https://searx.github.io/searx/">Searx</a>
             </small>
         </p>
     </footer>
 
 
-    <script src="{{ url_for('static', filename='js/jquery.min.js', v=version[0]) }}"></script>
-    <script src="{{ url_for('static', filename='js/select2.min.js', v=version[0]) }}"></script>
-    <script src="{{ url_for('static', filename='js/etheme.min.js', v=version[0]) }}"></script>
-    {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js', v=version[0]) }}"></script>{% endif %}
-    <script src="{{ url_for('static', filename='js/searx.min.js', v=version[0]) }}"
+    <script src="{{ url_for('static', filename='js/jquery.min.js', v=version) }}"></script>
+    <script src="{{ url_for('static', filename='js/select2.min.js', v=version) }}"></script>
+    <script src="{{ url_for('static', filename='js/etheme.min.js', v=version) }}"></script>
+    {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js', v=version) }}"></script>{% endif %}
+    <script src="{{ url_for('static', filename='js/searx.min.js', v=version) }}"
             data-method="{{ method or 'POST' }}"
             data-autocompleter="{% if autocomplete %}true{% else %}false{% endif %}"
             data-translations="{{ translations }}"></script>
     {% for script in scripts %}
-    <script src="{{ url_for('static', filename=script, v=version[0]) }}"></script>
+    <script src="{{ url_for('static', filename=script, v=version) }}"></script>
     {% endfor %}
 </body>
 </html>
