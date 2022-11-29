@@ -1161,7 +1161,7 @@ def config():
         'autocomplete': settings['search']['autocomplete'],
         'safe_search': settings['search']['safe_search'],
         'default_theme': settings['ui']['default_theme'],
-        'version': VERSION_STRING,
+        'version': VERSION_TAG,
         'brand': {
             'CONTACT_URL': brand.CONTACT_URL,
             'GIT_URL': brand.GIT_URL,
