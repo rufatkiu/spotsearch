@@ -3,7 +3,7 @@
 
 from setuptools import setup
 from setuptools import find_packages
-from searx.version import VERSION_STRING
+from searx.version import VERSION_TAG
 from searx import brand
 
 with open('README.md', encoding='utf-8') as f:
@@ -17,11 +17,11 @@ with open('requirements-dev.txt') as f:
 
 setup(
     name='spot',
+    python_requires=">=3.7",
+    version=VERSION_TAG,
     description="A privacy-respecting, hackable metasearch engine",
     long_description=long_description,
     url=brand.DOCS_URL,
-    use_scm_version={"tag_regex": r"^(?:[\w-]+-)?(?P<version>[vV]?\d+(?:\.\d+){0,2}.*)$"},
-    setup_requires=['setuptools_scm'],
     project_urls={
         "Code": brand.GIT_URL,
         "Issue tracker": brand.ISSUE_URL
@@ -35,8 +35,8 @@ setup(
         'License :: OSI Approved :: GNU Affero General Public License v3'
     ],
     keywords='metasearch searchengine search web http',
-    author='E FOUNDATION',
-    author_email='dev@e.email',
+    author='MURENA SAS',
+    author_email='dev@murena.io',
     license='GNU Affero General Public License',
     packages=find_packages(exclude=["tests*", "searx_extra"]),
     zip_safe=False,
@@ -57,6 +57,8 @@ setup(
             '../requirements.txt',
             '../requirements-dev.txt',
             'data/*',
+            'info/*',
+            'info/*/*',
             'plugins/*/*',
             'static/*.*',
             'static/*/*.*',
@@ -65,6 +67,9 @@ setup(
             'static/*/*/*/*/*.*',
             'templates/*/*.*',
             'templates/*/*/*.*',
+            'tests/*',
+            'tests/*/*',
+            'tests/*/*/*',
             'translations/*/*/*'
         ],
     },
