@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-10-15 19:39+0000\n"
-"Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
+"PO-Revision-Date: 2022-12-13 14:29+0000\n"
+"Last-Translator: T. M. <murgo@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.14.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -226,11 +226,11 @@ msgstr ""
 
 #: searx/plugins/rest_api.py:8
 msgid "Rest API"
-msgstr ""
+msgstr "Rest-API"
 
 #: searx/plugins/rest_api.py:9
 msgid "Update REST API"
-msgstr ""
+msgstr "REST API aktualisieren"
 
 #: searx/plugins/search_on_category_select.py:18
 msgid "Search on category select"
