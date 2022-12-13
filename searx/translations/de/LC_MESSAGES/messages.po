@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-12-13 14:30+0000\n"
+"PO-Revision-Date: 2022-12-13 14:31+0000\n"
 "Last-Translator: T. M. <murgo@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
@@ -297,7 +297,7 @@ msgstr "Aggregation der Ergebnisse anderer"
 
 #: searx/templates/__common__/about.html:7
 msgid "while not storing information about its users."
-msgstr ""
+msgstr "wobei keinerlei Informationen über die Nutzer gesammelt werden."
 
 #: searx/templates/__common__/about.html:10
 msgid "More about Spot..."
