@@ -1,4 +1,4 @@
-image: $CI_REGISTRY_IMAGE/env:latest
+image: ubuntu:20.04
 
 stages:
  - check
@@ -17,9 +17,8 @@ python:
 
 build:web:
   stage: build
-  before_script:
-    - ./manage node.env
   script:
+    - ./manage node.env
     - ./manage themes.etheme
     - ./manage babel.compile
 
