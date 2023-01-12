@@ -1,4 +1,4 @@
-'''
+"""
 searx is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +14,7 @@ along with searx. If not, see < http://www.gnu.org/licenses/ >.
 
 (C) 2015 by Adam Tauber, <asciimoo@gmail.com>
 (C) 2018, 2020 by Vaclav Zouzalik
-'''
+"""
 
 from flask_babel import gettext
 import hashlib
@@ -23,11 +23,11 @@ import re
 name = "Hash plugin"
 description = gettext("Converts strings to different hash digests.")
 default_on = True
-preference_section = 'query'
-query_keywords = ['md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512']
-query_examples = 'sha512 The quick brown fox jumps over the lazy dog'
+preference_section = "query"
+query_keywords = ["md5", "sha1", "sha224", "sha256", "sha384", "sha512"]
+query_examples = "sha512 The quick brown fox jumps over the lazy dog"
 
-parser_re = re.compile('(md5|sha1|sha224|sha256|sha384|sha512) (.*)', re.I)
+parser_re = re.compile("(md5|sha1|sha224|sha256|sha384|sha512) (.*)", re.I)
 
 
 def post_search(request, search):
@@ -48,10 +48,10 @@ def post_search(request, search):
     f = hashlib.new(function.lower())
 
     # make digest from the given string
-    f.update(string.encode('utf-8').strip())
-    answer = function + " " + gettext('hash digest') + ": " + f.hexdigest()
+    f.update(string.encode("utf-8").strip())
+    answer = function + " " + gettext("hash digest") + ": " + f.hexdigest()
 
     # print result
     search.result_container.answers.clear()
-    search.result_container.answers['hash'] = {'answer': answer}
+    search.result_container.answers["hash"] = {"answer": answer}
     return True

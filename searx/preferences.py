@@ -21,7 +21,7 @@ from searx.engines import OTHER_CATEGORY
 
 
 COOKIE_MAX_AGE = 60 * 60 * 24 * 365 * 5  # 5 years
-DOI_RESOLVERS = list(settings['doi_resolvers'])
+DOI_RESOLVERS = list(settings["doi_resolvers"])
 
 
 class ValidationException(Exception):
@@ -95,11 +95,11 @@ class MultipleChoiceSetting(Setting):
 
     def parse(self, data: str):
         """Parse and validate ``data`` and store the result at ``self.value``"""
-        if data == '':
+        if data == "":
             self.value = []
             return
 
-        elements = data.split(',')
+        elements = data.split(",")
         self._validate_selections(elements)
         self.value = elements
 
@@ -114,7 +114,7 @@ class MultipleChoiceSetting(Setting):
 
     def save(self, name: str, resp: flask.Response):
         """Save cookie ``name`` in the HTTP response object"""
-        resp.set_cookie(name, ','.join(self.value), max_age=COOKIE_MAX_AGE)
+        resp.set_cookie(name, ",".join(self.value), max_age=COOKIE_MAX_AGE)
 
 
 class SetSetting(Setting):
@@ -126,15 +126,15 @@ class SetSetting(Setting):
 
     def get_value(self):
         """Returns a string with comma separated values."""
-        return ','.join(self.values)
+        return ",".join(self.values)
 
     def parse(self, data: str):
         """Parse and validate ``data`` and store the result at ``self.value``"""
-        if data == '':
+        if data == "":
             self.values = set()
             return
 
-        elements = data.split(',')
+        elements = data.split(",")
         for element in elements:
             self.values.add(element)
 
@@ -142,27 +142,27 @@ class SetSetting(Setting):
         if self.locked:
             return
 
-        elements = data.split(',')
+        elements = data.split(",")
         self.values = set(elements)
 
     def save(self, name: str, resp: flask.Response):
         """Save cookie ``name`` in the HTTP response object"""
-        resp.set_cookie(name, ','.join(self.values), max_age=COOKIE_MAX_AGE)
+        resp.set_cookie(name, ",".join(self.values), max_age=COOKIE_MAX_AGE)
 
 
 class SearchLanguageSetting(EnumStringSetting):
     """Available choices may change, so user's value may not be in choices anymore"""
 
     def _validate_selection(self, selection):
-        if selection != '' and not VALID_LANGUAGE_CODE.match(selection):
+        if selection != "" and not VALID_LANGUAGE_CODE.match(selection):
             raise ValidationException('Invalid language code: "{0}"'.format(selection))
 
     def parse(self, data: str):
         """Parse and validate ``data`` and store the result at ``self.value``"""
         if data not in self.choices and data != self.value:
             # hack to give some backwards compatibility with old language cookies
-            data = str(data).replace('_', '-')
-            lang = data.split('-', maxsplit=1)[0]
+            data = str(data).replace("_", "-")
+            lang = data.split("-", maxsplit=1)[0]
             if data in self.choices:
                 pass
             elif lang in self.choices:
@@ -181,19 +181,19 @@ class MapSetting(Setting):
         self.map = map
 
         if self.value not in self.map.values():
-            raise ValidationException('Invalid default value')
+            raise ValidationException("Invalid default value")
 
     def parse(self, data: str):
         """Parse and validate ``data`` and store the result at ``self.value``"""
 
         if data not in self.map:
-            raise ValidationException('Invalid choice: {0}'.format(data))
+            raise ValidationException("Invalid choice: {0}".format(data))
         self.value = self.map[data]
         self.key = data  # pylint: disable=attribute-defined-outside-init
 
     def save(self, name: str, resp: flask.Response):
         """Save cookie ``name`` in the HTTP response object"""
-        if hasattr(self, 'key'):
+        if hasattr(self, "key"):
             resp.set_cookie(name, self.key, max_age=COOKIE_MAX_AGE)
 
 
@@ -213,11 +213,11 @@ class BooleanChoices:
         return values
 
     def parse_cookie(self, data_disabled: str, data_enabled: str):
-        for disabled in data_disabled.split(','):
+        for disabled in data_disabled.split(","):
             if disabled in self.choices:
                 self.choices[disabled] = False
 
-        for enabled in data_enabled.split(','):
+        for enabled in data_enabled.split(","):
             if enabled in self.choices:
                 self.choices[enabled] = True
 
@@ -241,8 +241,16 @@ class BooleanChoices:
         """Save cookie in the HTTP response object"""
         disabled_changed = (k for k in self.disabled if self.default_choices[k])
         enabled_changed = (k for k in self.enabled if not self.default_choices[k])
-        resp.set_cookie('disabled_{0}'.format(self.name), ','.join(disabled_changed), max_age=COOKIE_MAX_AGE)
-        resp.set_cookie('enabled_{0}'.format(self.name), ','.join(enabled_changed), max_age=COOKIE_MAX_AGE)
+        resp.set_cookie(
+            "disabled_{0}".format(self.name),
+            ",".join(disabled_changed),
+            max_age=COOKIE_MAX_AGE,
+        )
+        resp.set_cookie(
+            "enabled_{0}".format(self.name),
+            ",".join(enabled_changed),
+            max_age=COOKIE_MAX_AGE,
+        )
 
     def get_disabled(self):
         return self.transform_values(list(self.disabled))
@@ -258,20 +266,20 @@ class EnginesSetting(BooleanChoices):
         choices = {}
         for engine in engines:
             for category in engine.categories:
-                if not category in list(settings['categories_as_tabs'].keys()) + [OTHER_CATEGORY]:
+                if not category in list(settings["categories_as_tabs"].keys()) + [OTHER_CATEGORY]:
                     continue
-                choices['{}__{}'.format(engine.name, category)] = not engine.disabled
+                choices["{}__{}".format(engine.name, category)] = not engine.disabled
         super().__init__(default_value, choices)
 
     def transform_form_items(self, items):
-        return [item[len('engine_') :].replace('_', ' ').replace('  ', '__') for item in items]
+        return [item[len("engine_") :].replace("_", " ").replace("  ", "__") for item in items]
 
     def transform_values(self, values):
-        if len(values) == 1 and next(iter(values)) == '':
+        if len(values) == 1 and next(iter(values)) == "":
             return []
         transformed_values = []
         for value in values:
-            engine, category = value.split('__')
+            engine, category = value.split("__")
             transformed_values.append((engine, category))
         return transformed_values
 
@@ -283,13 +291,19 @@ class PluginsSetting(BooleanChoices):
         super().__init__(default_value, {plugin.id: plugin.default_on for plugin in plugins})
 
     def transform_form_items(self, items):
-        return [item[len('plugin_') :] for item in items]
+        return [item[len("plugin_") :] for item in items]
 
 
 class Preferences:
     """Validates and saves preferences to cookies"""
 
-    def __init__(self, themes: List[str], categories: List[str], engines: Dict[str, Engine], plugins: Iterable[Plugin]):
+    def __init__(
+        self,
+        themes: List[str],
+        categories: List[str],
+        engines: Dict[str, Engine],
+        plugins: Iterable[Plugin],
+    ):
         super().__init__()
 
         self.key_value_settings: Dict[str, Setting] = {
@@ -314,19 +328,9 @@ class Preferences:
                 locked=is_locked('autocomplete'),
                 choices=list(autocomplete.backends.keys()) + ['']
             ),
-            'autofocus': MapSetting(
-                settings['ui'].get('autofocus', True),
-                is_locked('autofocus'),
-                map={
-                    '0': False,
-                    '1': True,
-                    'False': False,
-                    'True': True
-                }
-            ),
             'archive_today': MapSetting(
                 settings['ui'].get('archive_today', True),
-                is_locked('archive_today'),
+                locked=is_locked('archive_today'),
                 map={
                     '0': False,
                     '1': True,
@@ -366,7 +370,7 @@ class Preferences:
             ),
             'etheme-style': EnumStringSetting(
                 settings['ui'].get('theme_args', {}).get('ethemestyle', 'light'),
-                is_locked('etheme-style'),
+                locked=is_locked('etheme-style'),
                 choices=['', 'light', 'dark']),
             'results_on_new_tab': MapSetting(
                 settings['ui']['results_on_new_tab'],
@@ -434,9 +438,9 @@ class Preferences:
             # fmt: on
         }
 
-        self.engines = EnginesSetting('engines', engines=engines.values())
-        self.plugins = PluginsSetting('plugins', plugins=plugins)
-        self.tokens = SetSetting('tokens')
+        self.engines = EnginesSetting("engines", engines=engines.values())
+        self.plugins = PluginsSetting("plugins", plugins=plugins)
+        self.tokens = SetSetting("tokens")
         self.unknown_params: Dict[str, str] = {}
 
     def get_as_url_params(self):
@@ -446,17 +450,17 @@ class Preferences:
             if v.locked:
                 continue
             if isinstance(v, MultipleChoiceSetting):
-                settings_kv[k] = ','.join(v.get_value())
+                settings_kv[k] = ",".join(v.get_value())
             else:
                 settings_kv[k] = v.get_value()
 
-        settings_kv['disabled_engines'] = ','.join(self.engines.disabled)
-        settings_kv['enabled_engines'] = ','.join(self.engines.enabled)
+        settings_kv["disabled_engines"] = ",".join(self.engines.disabled)
+        settings_kv["enabled_engines"] = ",".join(self.engines.enabled)
 
-        settings_kv['disabled_plugins'] = ','.join(self.plugins.disabled)
-        settings_kv['enabled_plugins'] = ','.join(self.plugins.enabled)
+        settings_kv["disabled_plugins"] = ",".join(self.plugins.disabled)
+        settings_kv["enabled_plugins"] = ",".join(self.plugins.enabled)
 
-        settings_kv['tokens'] = ','.join(self.tokens.values)
+        settings_kv["tokens"] = ",".join(self.tokens.values)
 
         return urlsafe_b64encode(compress(urlencode(settings_kv).encode())).decode()
 
@@ -464,27 +468,33 @@ class Preferences:
         """parse (base64) preferences from request (``flask.request.form['preferences']``)"""
         bin_data = decompress(urlsafe_b64decode(input_data))
         dict_data = {}
-        for x, y in parse_qs(bin_data.decode('ascii'), keep_blank_values=True).items():
+        for x, y in parse_qs(bin_data.decode("ascii"), keep_blank_values=True).items():
             dict_data[x] = y[0]
         self.parse_dict(dict_data)
 
     def parse_dict(self, input_data: Dict[str, str]):
         """parse preferences from request (``flask.request.form``)"""
         for user_setting_name, user_setting in input_data.items():
-            if user_setting_name == 'theme' and user_setting == 'eelo': # Fix theme name for old cookies
-                user_setting = settings['ui'].get('default_theme', 'oscar')
+            if user_setting_name == "theme" and user_setting == "eelo":  # Fix theme name for old cookies
+                user_setting = settings["ui"].get("default_theme", "etheme")
             if user_setting_name in self.key_value_settings:
                 if self.key_value_settings[user_setting_name].locked:
                     continue
                 self.key_value_settings[user_setting_name].parse(user_setting)
-            elif user_setting_name == 'disabled_engines':
-                self.engines.parse_cookie(input_data.get('disabled_engines', ''), input_data.get('enabled_engines', ''))
-            elif user_setting_name == 'disabled_plugins':
-                self.plugins.parse_cookie(input_data.get('disabled_plugins', ''), input_data.get('enabled_plugins', ''))
-            elif user_setting_name == 'tokens':
+            elif user_setting_name == "disabled_engines":
+                self.engines.parse_cookie(
+                    input_data.get("disabled_engines", ""),
+                    input_data.get("enabled_engines", ""),
+                )
+            elif user_setting_name == "disabled_plugins":
+                self.plugins.parse_cookie(
+                    input_data.get("disabled_plugins", ""),
+                    input_data.get("enabled_plugins", ""),
+                )
+            elif user_setting_name == "tokens":
                 self.tokens.parse(user_setting)
             elif not any(
-                user_setting_name.startswith(x) for x in ['enabled_', 'disabled_', 'engine_', 'category_', 'plugin_']
+                user_setting_name.startswith(x) for x in ["enabled_", "disabled_", "engine_", "category_", "plugin_"]
             ):
                 self.unknown_params[user_setting_name] = user_setting
 
@@ -496,17 +506,17 @@ class Preferences:
         for user_setting_name, user_setting in input_data.items():
             if user_setting_name in self.key_value_settings:
                 self.key_value_settings[user_setting_name].parse(user_setting)
-            elif user_setting_name.startswith('engine_'):
+            elif user_setting_name.startswith("engine_"):
                 disabled_engines.append(user_setting_name)
-            elif user_setting_name.startswith('category_'):
-                enabled_categories.append(user_setting_name[len('category_') :])
-            elif user_setting_name.startswith('plugin_'):
+            elif user_setting_name.startswith("category_"):
+                enabled_categories.append(user_setting_name[len("category_") :])
+            elif user_setting_name.startswith("plugin_"):
                 disabled_plugins.append(user_setting_name)
-            elif user_setting_name == 'tokens':
+            elif user_setting_name == "tokens":
                 self.tokens.parse_form(user_setting)
             else:
                 self.unknown_params[user_setting_name] = user_setting
-        self.key_value_settings['categories'].parse_form(enabled_categories)
+        self.key_value_settings["categories"].parse_form(enabled_categories)
         self.engines.parse_form(disabled_engines)
         self.plugins.parse_form(disabled_plugins)
 
@@ -529,14 +539,14 @@ class Preferences:
             user_setting.save(user_setting_name, resp)
         self.engines.save(resp)
         self.plugins.save(resp)
-        self.tokens.save('tokens', resp)
+        self.tokens.save("tokens", resp)
         for k, v in self.unknown_params.items():
             resp.set_cookie(k, v, max_age=COOKIE_MAX_AGE)
         return resp
 
     def validate_token(self, engine):
         valid = True
-        if hasattr(engine, 'tokens') and engine.tokens:
+        if hasattr(engine, "tokens") and engine.tokens:
             valid = False
             for token in self.tokens.values:
                 if token in engine.tokens:
@@ -548,8 +558,8 @@ class Preferences:
 
 def is_locked(setting_name: str):
     """Checks if a given setting name is locked by settings.yml"""
-    if 'preferences' not in settings:
+    if "preferences" not in settings:
         return False
-    if 'lock' not in settings['preferences']:
+    if "lock" not in settings["preferences"]:
         return False
-    return setting_name in settings['preferences']['lock']
+    return setting_name in settings["preferences"]["lock"]

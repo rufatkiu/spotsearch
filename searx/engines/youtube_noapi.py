@@ -11,58 +11,64 @@ from datetime import datetime
 
 # about
 about = {
-    "website": 'https://www.youtube.com/',
-    "wikidata_id": 'Q866',
-    "official_api_documentation": 'https://developers.google.com/youtube/v3/docs/search/list?apix=true',
+    "website": "https://www.youtube.com/",
+    "wikidata_id": "Q866",
+    "official_api_documentation": "https://developers.google.com/youtube/v3/docs/search/list?apix=true",
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 # engine dependent config
-categories = ['videos', 'music']
+categories = ["videos", "music"]
 paging = True
 language_support = False
 time_range_support = True
 
 # search-url
-base_url = 'https://www.youtube.com/results'
-search_url = base_url + '?search_query={query}&page={page}&gl={region}&hl={lang}'
-time_range_url = '&sp=EgII{time_range}%253D%253D'
+base_url = "https://www.youtube.com/results"
+search_url = base_url + "?search_query={query}&page={page}&gl={region}&hl={lang}"
+time_range_url = "&sp=EgII{time_range}%253D%253D"
 # the key seems to be constant
-next_page_url = 'https://www.youtube.com/youtubei/v1/search?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
-time_range_dict = {'day': 'Ag', 'week': 'Aw', 'month': 'BA', 'year': 'BQ'}
+next_page_url = "https://www.youtube.com/youtubei/v1/search?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8"
+time_range_dict = {"day": "Ag", "week": "Aw", "month": "BA", "year": "BQ"}
 
-base_youtube_url = 'https://www.youtube.com/watch?v='
+base_youtube_url = "https://www.youtube.com/watch?v="
 
 
 # do search-request
 def request(query, params):
-    params['cookies']['CONSENT'] = "YES+"
-    if not params['engine_data'].get('next_page_token'):
-        params['url'] = search_url.format(query=quote_plus(query), page=params['pageno'], region=region, lang=lang)
-        if params['time_range'] in time_range_dict:
-            params['url'] += time_range_url.format(time_range=time_range_dict[params['time_range']])
+    try:
+        lang, region = params["language"].split("-")
+    except:
+        lang = "en"
+        region = "us"
+    params["cookies"]["CONSENT"] = "PENDING+" + str(random() * 100)
+
+    if not params["engine_data"].get("next_page_token"):
+        params["url"] = search_url.format(query=quote_plus(query), page=params["pageno"], region=region, lang=lang)
+        if params["time_range"] in time_range_dict:
+            params["url"] += time_range_url.format(time_range=time_range_dict[params["time_range"]])
     else:
-        params['url'] = next_page_url
-        params['method'] = 'POST'
-        params['data'] = dumps(
+        params["url"] = next_page_url
+        params["method"] = "POST"
+        params["data"] = dumps(
             {
-                'context': {"client": {"clientName": "WEB", "clientVersion": "2.20210310.12.01"}},
-                'continuation': params['engine_data']['next_page_token'],
+                "context": {"client": {"clientName": "WEB", "clientVersion": "2.20210310.12.01"}},
+                "continuation": params["engine_data"]["next_page_token"],
             }
         )
-        params['headers']['Content-Type'] = 'application/json'
+        params["headers"]["Content-Type"] = "application/json"
 
-    params['headers']['Cookie'] = "CONSENT=YES+cb.%s-17-p0.en+F+941;" % datetime.now().strftime("%Y%m%d")
-    params['headers']['Cookie'] = f"PERF=gl={region}&hl={lang}"
+    params["headers"]["Cookie"] = "CONSENT=YES+cb.%s-17-p0.en+F+941;" % datetime.now().strftime("%Y%m%d")
+    params["headers"]["Cookie"] = f"PERF=gl={region}&hl={lang}"
 
     return params
 
 
 # get response from search-request
 def response(resp):
-    if resp.search_params.get('engine_data'):
+    if resp.search_params.get("engine_data"):
         return parse_next_page_response(resp.text)
     return parse_first_page_response(resp.text)
 
@@ -71,34 +77,34 @@ def parse_next_page_response(response_text):
     results = []
     result_json = loads(response_text)
     for section in (
-        result_json['onResponseReceivedCommands'][0]
-        .get('appendContinuationItemsAction')['continuationItems'][0]
-        .get('itemSectionRenderer')['contents']
+        result_json["onResponseReceivedCommands"][0]
+        .get("appendContinuationItemsAction")["continuationItems"][0]
+        .get("itemSectionRenderer")["contents"]
     ):
-        if 'videoRenderer' not in section:
+        if "videoRenderer" not in section:
             continue
-        section = section['videoRenderer']
+        section = section["videoRenderer"]
         content = "-"
-        if 'descriptionSnippet' in section:
-            content = ' '.join(x['text'] for x in section['descriptionSnippet']['runs'])
+        if "descriptionSnippet" in section:
+            content = " ".join(x["text"] for x in section["descriptionSnippet"]["runs"])
         results.append(
             {
-                'url': base_youtube_url + section['videoId'],
-                'title': ' '.join(x['text'] for x in section['title']['runs']),
-                'content': content,
-                'author': section['ownerText']['runs'][0]['text'],
-                'length': section['lengthText']['simpleText'],
-                'template': 'videos.html',
-                'iframe_src': 'https://www.youtube-nocookie.com/embed/' + section['videoId'],
-                'thumbnail': section['thumbnail']['thumbnails'][-1]['url'],
+                "url": base_youtube_url + section["videoId"],
+                "title": " ".join(x["text"] for x in section["title"]["runs"]),
+                "content": content,
+                "author": section["ownerText"]["runs"][0]["text"],
+                "length": section["lengthText"]["simpleText"],
+                "template": "videos.html",
+                "iframe_src": "https://www.youtube-nocookie.com/embed/" + section["videoId"],
+                "thumbnail": section["thumbnail"]["thumbnails"][-1]["url"],
             }
         )
     try:
         token = (
-            result_json['onResponseReceivedCommands'][0]
-            .get('appendContinuationItemsAction')['continuationItems'][1]
-            .get('continuationItemRenderer')['continuationEndpoint']
-            .get('continuationCommand')['token']
+            result_json["onResponseReceivedCommands"][0]
+            .get("appendContinuationItemsAction")["continuationItems"][1]
+            .get("continuationItemRenderer")["continuationEndpoint"]
+            .get("continuationCommand")["token"]
         )
         results.append(
             {
@@ -114,15 +120,15 @@ def parse_next_page_response(response_text):
 
 def parse_first_page_response(response_text):
     results = []
-    results_data = response_text[response_text.find('ytInitialData') :]
-    results_data = results_data[results_data.find('{') : results_data.find(';</script>')]
+    results_data = response_text[response_text.find("ytInitialData") :]
+    results_data = results_data[results_data.find("{") : results_data.find(";</script>")]
     results_json = loads(results_data) if results_data else {}
     sections = (
-        results_json.get('contents', {})
-        .get('twoColumnSearchResultsRenderer', {})
-        .get('primaryContents', {})
-        .get('sectionListRenderer', {})
-        .get('contents', [])
+        results_json.get("contents", {})
+        .get("twoColumnSearchResultsRenderer", {})
+        .get("primaryContents", {})
+        .get("sectionListRenderer", {})
+        .get("contents", [])
     )
 
     for section in sections:
@@ -140,28 +146,28 @@ def parse_first_page_response(response_text):
                         "key": "next_page_token",
                     }
                 )
-        for video_container in section.get('itemSectionRenderer', {}).get('contents', []):
-            video = video_container.get('videoRenderer', {})
-            videoid = video.get('videoId')
+        for video_container in section.get("itemSectionRenderer", {}).get("contents", []):
+            video = video_container.get("videoRenderer", {})
+            videoid = video.get("videoId")
             if videoid is not None:
                 url = base_youtube_url + videoid
-                thumbnail = 'https://i.ytimg.com/vi/' + videoid + '/hqdefault.jpg'
-                title = get_text_from_json(video.get('title', {}))
-                content = get_text_from_json(video.get('descriptionSnippet', {}))
-                author = get_text_from_json(video.get('ownerText', {}))
-                length = get_text_from_json(video.get('lengthText', {}))
+                thumbnail = "https://i.ytimg.com/vi/" + videoid + "/hqdefault.jpg"
+                title = get_text_from_json(video.get("title", {}))
+                content = get_text_from_json(video.get("descriptionSnippet", {}))
+                author = get_text_from_json(video.get("ownerText", {}))
+                length = get_text_from_json(video.get("lengthText", {}))
 
                 # append result
                 results.append(
                     {
-                        'url': url,
-                        'title': title,
-                        'content': content,
-                        'author': author,
-                        'length': length,
-                        'template': 'videos.html',
-                        'iframe_src': 'https://www.youtube-nocookie.com/embed/' + videoid,
-                        'thumbnail': thumbnail,
+                        "url": url,
+                        "title": title,
+                        "content": content,
+                        "author": author,
+                        "length": length,
+                        "template": "videos.html",
+                        "iframe_src": "https://www.youtube-nocookie.com/embed/" + videoid,
+                        "thumbnail": thumbnail,
                     }
                 )
 
@@ -170,7 +176,7 @@ def parse_first_page_response(response_text):
 
 
 def get_text_from_json(element):
-    if 'runs' in element:
-        return reduce(lambda a, b: a + b.get('text', ''), element.get('runs'), '')
+    if "runs" in element:
+        return reduce(lambda a, b: a + b.get("text", ""), element.get("runs"), "")
     else:
-        return element.get('simpleText', '')
+        return element.get("simpleText", "")

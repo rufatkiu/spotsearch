@@ -12,7 +12,7 @@ services:
 python:
   stage: check
   script:
-    - ./manage test.pep8
+    - ./manage test.black
     - ./manage test.pylint
 
 build:web:

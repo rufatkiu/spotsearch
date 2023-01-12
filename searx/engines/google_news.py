@@ -17,7 +17,6 @@ import binascii
 import re
 from urllib.parse import urlencode
 from base64 import b64decode
-from random import random
 from lxml import html
 
 from searx.utils import (
@@ -42,26 +41,26 @@ from searx.engines.google import (
 
 # about
 about = {
-    "website": 'https://news.google.com',
-    "wikidata_id": 'Q12020',
-    "official_api_documentation": 'https://developers.google.com/custom-search',
+    "website": "https://news.google.com",
+    "wikidata_id": "Q12020",
+    "official_api_documentation": "https://developers.google.com/custom-search",
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 # compared to other google engines google-news has a different time range
 # support.  The time range is included in the search term.
 time_range_dict = {
-    'day': 'when:1d',
-    'week': 'when:7d',
-    'month': 'when:1m',
-    'year': 'when:1y',
+    "day": "when:1d",
+    "week": "when:7d",
+    "month": "when:1m",
+    "year": "when:1y",
 }
 
 # engine dependent config
 
-categories = ['news']
+categories = ["news"]
 paging = False
 use_locale_domain = True
 time_range_support = True
@@ -80,32 +79,40 @@ def request(query, params):
     lang_info = get_lang_info(params, supported_languages, language_aliases, False)
 
     # google news has only one domain
-    lang_info['subdomain'] = 'news.google.com'
+    lang_info["subdomain"] = "news.google.com"
 
-    ceid = "%s:%s" % (lang_info['country'], lang_info['language'])
+    ceid = "%s:%s" % (lang_info["country"], lang_info["language"])
 
     # google news redirects en to en-US
-    if lang_info['params']['hl'] == 'en':
-        lang_info['params']['hl'] = 'en-US'
+    if lang_info["params"]["hl"] == "en":
+        lang_info["params"]["hl"] = "en-US"
 
     # Very special to google-news compared to other google engines, the time
     # range is included in the search term.
-    if params['time_range']:
-        query += ' ' + time_range_dict[params['time_range']]
+    if params["time_range"]:
+        query += " " + time_range_dict[params["time_range"]]
 
     query_url = (
-        'https://'
-        + lang_info['subdomain']
-        + '/search'
+        "https://"
+        + lang_info["subdomain"]
+        + "/search"
         + "?"
-        + urlencode({'q': query, **lang_info['params'], 'ie': "utf8", 'oe': "utf8", 'gl': lang_info['country']})
-        + ('&ceid=%s' % ceid)
+        + urlencode(
+            {
+                "q": query,
+                **lang_info["params"],
+                "ie": "utf8",
+                "oe": "utf8",
+                "gl": lang_info["country"],
+            }
+        )
+        + ("&ceid=%s" % ceid)
     )  # ceid includes a ':' character which must not be urlencoded
-    params['url'] = query_url
+    params["url"] = query_url
 
-    params['cookies']['CONSENT'] = "YES+"
-    params['headers'].update(lang_info['headers'])
-    params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    params["cookies"]["CONSENT"] = "YES+"
+    params["headers"].update(lang_info["headers"])
+    params["headers"]["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 
     return params
 
@@ -130,14 +137,14 @@ def response(resp):
         #      href="./articles/CAIiENu3nGS...?hl=en-US&amp;gl=US&amp;ceid=US%3Aen"
         #      ... />
 
-        jslog = eval_xpath_getindex(result, './article/a/@jslog', 0)
-        url = re.findall('http[^;]*', jslog)
+        jslog = eval_xpath_getindex(result, "./article/a/@jslog", 0)
+        url = re.findall("http[^;]*", jslog)
         if url:
             url = url[0]
         else:
             # The real URL is base64 encoded in the json attribute:
             # jslog="95014; 5:W251bGwsbnVsbCxudW...giXQ==; track:click"
-            jslog = jslog.split(";")[1].split(':')[1].strip()
+            jslog = jslog.split(";")[1].split(":")[1].strip()
             try:
                 padding = (4 - (len(jslog) % 4)) * "="
                 jslog = b64decode(jslog + padding)
@@ -149,27 +156,27 @@ def response(resp):
             url = re.findall('http[^;"]*', str(jslog))[0]
 
         # the first <h3> tag in the <article> contains the title of the link
-        title = extract_text(eval_xpath(result, './article/h3[1]'))
+        title = extract_text(eval_xpath(result, "./article/h3[1]"))
 
         # The pub_date is mostly a string like 'yesertday', not a real
         # timezone date or time.  Therefore we can't use publishedDate.
-        pub_date = extract_text(eval_xpath(result, './article/div[1]/div[1]/time'))
-        pub_origin = extract_text(eval_xpath(result, './article/div[1]/div[1]/a'))
+        pub_date = extract_text(eval_xpath(result, "./article/div[1]/div[1]/time"))
+        pub_origin = extract_text(eval_xpath(result, "./article/div[1]/div[1]/a"))
 
-        content = ' / '.join([x for x in [pub_origin, pub_date] if x])
+        content = " / ".join([x for x in [pub_origin, pub_date] if x])
 
         # The image URL is located in a preceding sibling <img> tag, e.g.:
         # "https://lh3.googleusercontent.com/DjhQh7DMszk.....z=-p-h100-w100"
         # These URL are long but not personalized (double checked via tor).
 
-        img_src = extract_text(result.xpath('preceding-sibling::a/figure/img/@src'))
+        img_src = extract_text(result.xpath("preceding-sibling::a/figure/img/@src"))
 
         results.append(
             {
-                'url': url,
-                'title': title,
-                'content': content,
-                'img_src': img_src,
+                "url": url,
+                "title": title,
+                "content": content,
+                "img_src": img_src,
             }
         )
 

@@ -7,7 +7,7 @@ import babel
 class EngineRef:
     """Reference by names to an engine and category"""
 
-    __slots__ = 'name', 'category'
+    __slots__ = "name", "category"
 
     def __init__(self, name: str, category: str):
         self.name = name
@@ -27,23 +27,23 @@ class SearchQuery:
     """container for all the search parameters (query, language, etc...)"""
 
     __slots__ = (
-        'query',
-        'engineref_list',
-        'lang',
-        'locale',
-        'safesearch',
-        'pageno',
-        'time_range',
-        'timeout_limit',
-        'external_bang',
-        'engine_data',
+        "query",
+        "engineref_list",
+        "lang",
+        "locale",
+        "safesearch",
+        "pageno",
+        "time_range",
+        "timeout_limit",
+        "external_bang",
+        "engine_data",
     )
 
     def __init__(
         self,
         query: str,
         engineref_list: typing.List[EngineRef],
-        lang: str = 'all',
+        lang: str = "all",
         safesearch: int = 0,
         pageno: int = 1,
         time_range: typing.Optional[str] = None,
@@ -64,7 +64,7 @@ class SearchQuery:
         self.locale = None
         if self.lang:
             try:
-                self.locale = babel.Locale.parse(self.lang, sep='-')
+                self.locale = babel.Locale.parse(self.lang, sep="-")
             except babel.core.UnknownLocaleError:
                 pass
 

@@ -8,16 +8,16 @@ import re
 from .online import OnlineProcessor
 
 re_search_urls = {
-    'http': re.compile(r'https?:\/\/[^ ]*'),
-    'ftp': re.compile(r'ftps?:\/\/[^ ]*'),
-    'data:image': re.compile('data:image/[^; ]*;base64,[^ ]*'),
+    "http": re.compile(r"https?:\/\/[^ ]*"),
+    "ftp": re.compile(r"ftps?:\/\/[^ ]*"),
+    "data:image": re.compile("data:image/[^; ]*;base64,[^ ]*"),
 }
 
 
 class OnlineUrlSearchProcessor(OnlineProcessor):
     """Processor class used by ``online_url_search`` engines."""
 
-    engine_type = 'online_url_search'
+    engine_type = "online_url_search"
 
     def get_params(self, search_query, engine_category):
         """Returns a set of *request params* or ``None`` if search query does not match
@@ -41,5 +41,5 @@ class OnlineUrlSearchProcessor(OnlineProcessor):
         if not url_match:
             return None
 
-        params['search_urls'] = search_urls
+        params["search_urls"] = search_urls
         return params

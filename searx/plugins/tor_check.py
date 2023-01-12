@@ -23,22 +23,22 @@ from searx.network import get
 default_on = False
 
 name = gettext("Tor check plugin")
-'''Translated name of the plugin'''
+"""Translated name of the plugin"""
 
 description = gettext(
     "This plugin checks if the address of the request is a TOR exit node, and"
     " informs the user if it is, like check.torproject.org but from searxng."
 )
-'''Translated description of the plugin.'''
+"""Translated description of the plugin."""
 
-preference_section = 'query'
-'''The preference section where the plugin is shown.'''
+preference_section = "query"
+"""The preference section where the plugin is shown."""
 
-query_keywords = ['tor-check']
-'''Query keywords shown in the preferences.'''
+query_keywords = ["tor-check"]
+"""Query keywords shown in the preferences."""
 
-query_examples = ''
-'''Query examples shown in the preferences.'''
+query_examples = ""
+"""Query examples shown in the preferences."""
 
 # Regex for exit node addresses in the list.
 reg = re.compile(r"(?<=ExitAddress )\S+")

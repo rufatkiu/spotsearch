@@ -10,36 +10,36 @@ from searx.utils import extract_text, eval_xpath, eval_xpath_list, eval_xpath_ge
 
 # about
 about = {
-    "website": 'https://www.ina.fr/',
-    "wikidata_id": 'Q1665109',
+    "website": "https://www.ina.fr/",
+    "wikidata_id": "Q1665109",
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
-    "language": 'fr',
+    "results": "HTML",
+    "language": "fr",
 }
 
 # engine dependent config
-categories = ['videos']
+categories = ["videos"]
 paging = True
 page_size = 12
 
 # search-url
-base_url = 'https://www.ina.fr'
-search_url = base_url + '/ajax/recherche?{query}&espace=1&sort=pertinence&order=desc&offset={start}&modified=size'
+base_url = "https://www.ina.fr"
+search_url = base_url + "/ajax/recherche?{query}&espace=1&sort=pertinence&order=desc&offset={start}&modified=size"
 
 # specific xpath variables
 results_xpath = '//div[@id="searchHits"]/div'
-url_xpath = './/a/@href'
+url_xpath = ".//a/@href"
 title_xpath = './/div[contains(@class,"title-bloc-small")]'
 content_xpath = './/div[contains(@class,"sous-titre-fonction")]'
-thumbnail_xpath = './/img/@data-src'
+thumbnail_xpath = ".//img/@data-src"
 publishedDate_xpath = './/div[contains(@class,"dateAgenda")]'
 
 
 # do search-request
 def request(query, params):
-    params['url'] = search_url.format(start=params['pageno'] * page_size, query=urlencode({'q': query}))
+    params["url"] = search_url.format(start=params["pageno"] * page_size, query=urlencode({"q": query}))
     return params
 
 
@@ -63,11 +63,11 @@ def response(resp):
         # append result
         results.append(
             {
-                'url': url,
-                'title': title,
-                'content': content,
-                'template': 'videos.html',
-                'thumbnail': thumbnail,
+                "url": url,
+                "title": title,
+                "content": content,
+                "template": "videos.html",
+                "thumbnail": thumbnail,
             }
         )
 

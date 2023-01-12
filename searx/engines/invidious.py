@@ -10,12 +10,12 @@ from dateutil import parser
 
 # about
 about = {
-    "website": 'https://api.invidious.io/',
-    "wikidata_id": 'Q79343316',
-    "official_api_documentation": 'https://github.com/iv-org/documentation/blob/master/API.md',
+    "website": "https://api.invidious.io/",
+    "wikidata_id": "Q79343316",
+    "official_api_documentation": "https://github.com/iv-org/documentation/blob/master/API.md",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 # engine dependent config
@@ -24,7 +24,7 @@ paging = True
 time_range_support = True
 
 # base_url can be overwritten by a list of URLs in the settings.yml
-base_url = 'https://vid.puffyan.us'
+base_url = "https://vid.puffyan.us"
 
 
 def request(query, params):
@@ -58,7 +58,7 @@ def response(resp):
     results = []
 
     search_results = resp.json()
-    base_invidious_url = resp.search_params['base_url'] + "/watch?v="
+    base_invidious_url = resp.search_params["base_url"] + "/watch?v="
 
     for result in search_results:
         rtype = result.get("type", None)
@@ -87,11 +87,11 @@ def response(resp):
                     "url": url,
                     "title": result.get("title", ""),
                     "content": result.get("description", ""),
-                    'length': length,
+                    "length": length,
                     "template": "videos.html",
                     "author": result.get("author"),
                     "publishedDate": publishedDate,
-                    "iframe_src": resp.search_params['base_url'] + '/embed/' + videoid,
+                    "iframe_src": resp.search_params["base_url"] + "/embed/" + videoid,
                     "thumbnail": thumbnail,
                 }
             )

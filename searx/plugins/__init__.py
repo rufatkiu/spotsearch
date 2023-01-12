@@ -177,7 +177,7 @@ def load_plugin(plugin_module_name, external):
 
 def load_and_initialize_plugin(plugin_module_name, external, init_args):
     plugin = load_plugin(plugin_module_name, external)
-    if plugin and hasattr(plugin, 'init'):
+    if plugin and hasattr(plugin, "init"):
         try:
             return plugin if plugin.init(*init_args) else None
         except Exception:  # pylint: disable=broad-except
@@ -221,7 +221,7 @@ def plugin_module_names():
         yield (__name__ + "." + module.name, False)
         yield_plugins.add(module.name)
     # external plugins
-    for module_name in settings['plugins']:
+    for module_name in settings["plugins"]:
         if module_name not in yield_plugins:
             yield (module_name, True)
             yield_plugins.add(module_name)

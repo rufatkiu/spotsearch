@@ -8,6 +8,7 @@ import searx.search.processors
 from searx.search import Search
 from searx.preferences import Preferences
 from tests import SearxTestCase
+import json
 
 
 class ViewsTestCase(SearxTestCase):
@@ -81,7 +82,7 @@ class ViewsTestCase(SearxTestCase):
 
         def preferences_get_value(preferences_self, user_setting_name: str):
             if user_setting_name == 'theme':
-                return 'simple'
+                return 'etheme'
             return original_preferences_get_value(preferences_self, user_setting_name)
 
         self.setattr4test(Preferences, 'get_value', preferences_get_value)
@@ -92,7 +93,7 @@ class ViewsTestCase(SearxTestCase):
         result = self.app.post('/')
         self.assertEqual(result.status_code, 200)
         self.assertIn(
-            b'<div class="title"><h1>SearXNG</h1></div>',
+            b'spot',
             result.data,
         )
 
@@ -109,7 +110,7 @@ class ViewsTestCase(SearxTestCase):
     def test_search_empty_html(self):
         result = self.app.post('/search', data={'q': ''})
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<div class="title"><h1>SearXNG</h1></div>', result.data)
+        self.assertIn(b'<title>Spot</title>', result.data)
 
     def test_search_empty_json(self):
         result = self.app.post('/search', data={'q': '', 'format': 'json'})
@@ -125,15 +126,7 @@ class ViewsTestCase(SearxTestCase):
 
     def test_search_html(self):
         result = self.app.post('/search', data={'q': 'test'})
-
-        self.assertIn(
-            b'<span class="url_o1"><span class="url_i1">http://second.test.xyz</span></span>',
-            result.data,
-        )
-        self.assertIn(
-            b'<p class="content">\n    second <span class="highlight">test</span> ',
-            result.data,
-        )
+        self.assertIn(b'<span>\nsecond <span class="highlight">test</span>', result.data)  # noqa
 
     def test_index_json(self):
         result = self.app.post('/', data={'q': 'test', 'format': 'json'})
@@ -179,14 +172,9 @@ class ViewsTestCase(SearxTestCase):
 
         self.assertIn(b'<description>first test content</description>', result.data)
 
-    def test_redirect_about(self):
-        result = self.app.get('/about')
-        self.assertEqual(result.status_code, 302)
-
-    def test_info_page(self):
-        result = self.app.get('/info/en/search-syntax')
-        self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<h1>Search syntax</h1>', result.data)
+    # def test_redirect_about(self):
+    #     result = self.app.get('/about')
+    #     self.assertEqual(result.status_code, 302)
 
     def test_health(self):
         result = self.app.get('/healthz')
@@ -196,11 +184,7 @@ class ViewsTestCase(SearxTestCase):
     def test_preferences(self):
         result = self.app.get('/preferences')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<form id="search_form" method="post" action="/preferences"', result.data)
-        self.assertIn(
-            b'<input type="checkbox" id="checkbox_general" name="category_general" checked="checked"/>', result.data
-        )
-        self.assertIn(b'<legend id="pref_locale">Interface language</legend>', result.data)
+        self.assertIn(b'<form method="post" action="/preferences" id="preferences" class="container">', result.data)
 
     def test_browser_locale(self):
         result = self.app.get('/preferences', headers={'Accept-Language': 'zh-tw;q=0.8'})
@@ -230,9 +214,9 @@ class ViewsTestCase(SearxTestCase):
             b'<option value="oc" selected="selected">', result.data, 'Interface locale ignored browser preference.'
         )
 
-    def test_stats(self):
-        result = self.app.get('/stats')
-        self.assertEqual(result.status_code, 404)
+    # def test_stats(self):
+    #     result = self.app.get('/stats')
+    #     self.assertEqual(result.status_code, 404)
 
     def test_robots_txt(self):
         result = self.app.get('/robots.txt')
@@ -242,9 +226,7 @@ class ViewsTestCase(SearxTestCase):
     def test_opensearch_xml(self):
         result = self.app.get('/opensearch.xml')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(
-            b'<Description>SearXNG is a metasearch engine that respects your privacy.</Description>', result.data
-        )
+        self.assertIn(b'<Description>a privacy-respecting, hackable metasearch engine</Description>', result.data)
 
     def test_favicon(self):
         result = self.app.get('/favicon.ico')

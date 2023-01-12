@@ -8,7 +8,7 @@
 # the engine
 import psycopg2  # pyright: ignore # pylint: disable=import-error
 
-engine_type = 'offline'
+engine_type = "offline"
 host = "127.0.0.1"
 port = "5432"
 database = ""
@@ -17,18 +17,18 @@ password = ""
 query_str = ""
 limit = 10
 paging = True
-result_template = 'key-value.html'
+result_template = "key-value.html"
 _connection = None
 
 
 def init(engine_settings):
     global _connection  # pylint: disable=global-statement
 
-    if 'query_str' not in engine_settings:
-        raise ValueError('query_str cannot be empty')
+    if "query_str" not in engine_settings:
+        raise ValueError("query_str cannot be empty")
 
-    if not engine_settings['query_str'].lower().startswith('select '):
-        raise ValueError('only SELECT query is supported')
+    if not engine_settings["query_str"].lower().startswith("select "):
+        raise ValueError("only SELECT query is supported")
 
     _connection = psycopg2.connect(
         database=database,
@@ -40,8 +40,8 @@ def init(engine_settings):
 
 
 def search(query, params):
-    query_params = {'query': query}
-    query_to_run = query_str + ' LIMIT {0} OFFSET {1}'.format(limit, (params['pageno'] - 1) * limit)
+    query_params = {"query": query}
+    query_to_run = query_str + " LIMIT {0} OFFSET {1}".format(limit, (params["pageno"] - 1) * limit)
 
     with _connection:
         with _connection.cursor() as cur:
@@ -58,7 +58,7 @@ def _fetch_results(cur):
 
         for res in cur:
             result = dict(zip(titles, map(str, res)))
-            result['template'] = result_template
+            result["template"] = result_template
             results.append(result)
 
     # no results to fetch

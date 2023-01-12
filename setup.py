@@ -4,7 +4,6 @@
 from setuptools import setup
 from setuptools import find_packages
 from searx.version import VERSION_TAG
-from searx import brand
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
@@ -21,11 +20,6 @@ setup(
     version=VERSION_TAG,
     description="A privacy-respecting, hackable metasearch engine",
     long_description=long_description,
-    url=get_setting('brand.docs_url'),
-    project_urls={
-        "Code": GIT_URL,
-        "Issue tracker": get_setting('brand.issue_url')
-    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python",

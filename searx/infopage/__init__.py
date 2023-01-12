@@ -19,7 +19,7 @@ Usage in a Flask app route:
 
 """
 
-__all__ = ['InfoPage', 'InfoPageSet']
+__all__ = ["InfoPage", "InfoPageSet"]
 
 import os
 import os.path
@@ -37,7 +37,7 @@ from ..version import GIT_URL
 from ..locales import LOCALE_NAMES
 
 
-logger = logging.getLogger('searx.infopage')
+logger = logging.getLogger("searx.infopage")
 _INFO_FOLDER = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -50,7 +50,7 @@ class InfoPage:
     @cached_property
     def raw_content(self):
         """Raw content of the page (without any jinja rendering)"""
-        with open(self.fname, 'r', encoding='utf-8') as f:
+        with open(self.fname, "r", encoding="utf-8") as f:
             return f.read()
 
     @cached_property
@@ -64,9 +64,9 @@ class InfoPage:
     def title(self):
         """Title of the content (without any markup)"""
         t = ""
-        for l in self.raw_content.split('\n'):
-            if l.startswith('# '):
-                t = l.strip('# ')
+        for l in self.raw_content.split("\n"):
+            if l.startswith("# "):
+                t = l.strip("# ")
         return t
 
     @cached_property
@@ -89,19 +89,22 @@ class InfoPage:
             return "[%s](%s)" % (name, url)
 
         def _md_search(query):
-            url = '%s?q=%s' % (url_for('search', _external=True), urllib.parse.quote(query))
-            return '[%s](%s)' % (query, url)
+            url = "%s?q=%s" % (
+                url_for("search", _external=True),
+                urllib.parse.quote(query),
+            )
+            return "[%s](%s)" % (query, url)
 
         ctx = {}
-        ctx['GIT_URL'] = GIT_URL
-        ctx['get_setting'] = get_setting
-        ctx['link'] = _md_link
-        ctx['search'] = _md_search
+        ctx["GIT_URL"] = GIT_URL
+        ctx["get_setting"] = get_setting
+        ctx["link"] = _md_link
+        ctx["search"] = _md_search
 
         return ctx
 
     def __repr__(self):
-        return f'<{self.__class__.__name__} fname={self.fname!r}>'
+        return f"<{self.__class__.__name__} fname={self.fname!r}>"
 
 
 class InfoPageSet:  # pylint: disable=too-few-public-methods
@@ -115,7 +118,9 @@ class InfoPageSet:  # pylint: disable=too-few-public-methods
     """
 
     def __init__(
-        self, page_class: typing.Optional[typing.Type[InfoPage]] = None, info_folder: typing.Optional[str] = None
+        self,
+        page_class: typing.Optional[typing.Type[InfoPage]] = None,
+        info_folder: typing.Optional[str] = None,
     ):
         self.page_class = page_class or InfoPage
         self.folder: str = info_folder or _INFO_FOLDER
@@ -123,18 +128,18 @@ class InfoPageSet:  # pylint: disable=too-few-public-methods
 
         self.CACHE: typing.Dict[tuple, typing.Optional[InfoPage]] = {}
 
-        self.locale_default: str = 'en'
+        self.locale_default: str = "en"
         """default language"""
 
         self.locales: typing.List[str] = [
-            locale.replace('_', '-') for locale in os.listdir(_INFO_FOLDER) if locale.replace('_', '-') in LOCALE_NAMES
+            locale.replace("_", "-") for locale in os.listdir(_INFO_FOLDER) if locale.replace("_", "-") in LOCALE_NAMES
         ]
         """list of supported languages (aka locales)"""
 
         self.toc: typing.List[str] = [
-            'search-syntax',
-            'about',
-            'donate',
+            "search-syntax",
+            "about",
+            "donate",
         ]
         """list of articles in the online documentation"""
 
@@ -163,9 +168,9 @@ class InfoPageSet:  # pylint: disable=too-few-public-methods
 
         # not yet instantiated
 
-        fname = os.path.join(self.folder, locale.replace('-', '_'), pagename) + '.md'
+        fname = os.path.join(self.folder, locale.replace("-", "_"), pagename) + ".md"
         if not os.path.exists(fname):
-            logger.info('file %s does not exists', fname)
+            logger.info("file %s does not exists", fname)
             self.CACHE[cache_key] = None
             return None
 

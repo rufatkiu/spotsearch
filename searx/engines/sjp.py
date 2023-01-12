@@ -10,24 +10,24 @@ from searx import logger
 from searx.utils import extract_text
 from searx.network import raise_for_httperror
 
-logger = logger.getChild('sjp engine')
+logger = logger.getChild("sjp engine")
 
 # about
 about = {
-    "website": 'https://sjp.pwn.pl',
-    "wikidata_id": 'Q55117369',
+    "website": "https://sjp.pwn.pl",
+    "wikidata_id": "Q55117369",
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
-    "language": 'pl',
+    "results": "HTML",
+    "language": "pl",
 }
 
-categories = ['dictionaries']
+categories = ["dictionaries"]
 paging = False
 
-URL = 'https://sjp.pwn.pl'
-SEARCH_URL = URL + '/szukaj/{query}.html'
+URL = "https://sjp.pwn.pl"
+SEARCH_URL = URL + "/szukaj/{query}.html"
 
 word_xpath = '//div[@class="query"]'
 dict_xpath = [
@@ -38,7 +38,7 @@ dict_xpath = [
 
 
 def request(query, params):
-    params['url'] = SEARCH_URL.format(query=query)
+    params["url"] = SEARCH_URL.format(query=query)
     logger.debug(f"query_url --> {params['url']}")
     return params
 
@@ -61,22 +61,22 @@ def response(resp):
                 if def_item.xpath('./div[@class="znacz"]'):
                     sub_defs = []
                     for def_sub_item in def_item.xpath('./div[@class="znacz"]'):
-                        def_sub_text = extract_text(def_sub_item).lstrip('0123456789. ')
+                        def_sub_text = extract_text(def_sub_item).lstrip("0123456789. ")
                         sub_defs.append(def_sub_text)
                     src_defs.append((word, sub_defs))
                 else:
                     def_text = extract_text(def_item).strip()
-                    def_link = def_item.xpath('./span/a/@href')
-                    if 'doroszewski' in def_link[0]:
+                    def_link = def_item.xpath("./span/a/@href")
+                    if "doroszewski" in def_link[0]:
                         def_text = f"<a href='{def_link[0]}'>{def_text}</a>"
-                    src_defs.append((def_text, ''))
+                    src_defs.append((def_text, ""))
 
             definitions.append((src_text, src_defs))
 
     if not definitions:
         return results
 
-    infobox = ''
+    infobox = ""
     for src in definitions:
         infobox += f"<div><small>{src[0]}</small>"
         infobox += "<ul>"
@@ -91,8 +91,8 @@ def response(resp):
 
     results.append(
         {
-            'infobox': word,
-            'content': infobox,
+            "infobox": word,
+            "content": infobox,
         }
     )
 

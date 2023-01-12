@@ -21,10 +21,16 @@ from searx.redisdb import client as get_redis_client
 from searx.redislib import lua_script_storage
 
 
-logger = logging.getLogger('searx.search.checker')
+logger = logging.getLogger("searx.search.checker")
 
 
-def scheduler_function(start_after_from: int, start_after_to: int, every_from: int, every_to: int, callback: Callable):
+def scheduler_function(
+    start_after_from: int,
+    start_after_to: int,
+    every_from: int,
+    every_to: int,
+    callback: Callable,
+):
     """Run the checker periodically. The function never returns.
 
     Parameters:

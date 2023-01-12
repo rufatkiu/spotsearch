@@ -6,13 +6,13 @@
 """
 
 __all__ = [
-    'EngineProcessor',
-    'OfflineProcessor',
-    'OnlineProcessor',
-    'OnlineDictionaryProcessor',
-    'OnlineCurrencyProcessor',
-    'OnlineUrlSearchProcessor',
-    'PROCESSORS',
+    "EngineProcessor",
+    "OfflineProcessor",
+    "OnlineProcessor",
+    "OnlineDictionaryProcessor",
+    "OnlineCurrencyProcessor",
+    "OnlineUrlSearchProcessor",
+    "PROCESSORS",
 ]
 
 import threading
@@ -28,7 +28,7 @@ from .online_currency import OnlineCurrencyProcessor
 from .online_url_search import OnlineUrlSearchProcessor
 from .abstract import EngineProcessor
 
-logger = logger.getChild('search.processors')
+logger = logger.getChild("search.processors")
 PROCESSORS: Dict[str, EngineProcessor] = {}
 """Cache request processores, stored by *engine-name* (:py:func:`initialize`)"""
 
@@ -49,7 +49,7 @@ def get_processor_class(engine_type):
 
 def get_processor(engine, engine_name):
     """Return processor instance that fits to ``engine.engine.type``)"""
-    engine_type = getattr(engine, 'engine_type', 'online')
+    engine_type = getattr(engine, "engine_type", "online")
     processor_class = get_processor_class(engine_type)
     if processor_class:
         return processor_class(engine, engine_name)
@@ -69,12 +69,12 @@ def initialize_processor(processor):
 def initialize(engine_list):
     """Initialize all engines and store a processor for each engine in :py:obj:`PROCESSORS`."""
     for engine_data in engine_list:
-        engine_name = engine_data['name']
+        engine_name = engine_data["name"]
         engine = engines.engines.get(engine_name)
         if engine:
             processor = get_processor(engine, engine_name)
             initialize_processor(processor)
             if processor is None:
-                engine.logger.error('Error get processor for engine %s', engine_name)
+                engine.logger.error("Error get processor for engine %s", engine_name)
             else:
                 PROCESSORS[engine_name] = processor

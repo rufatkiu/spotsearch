@@ -9,15 +9,32 @@ import importlib
 import importlib.util
 import types
 
-from typing import Optional, Union, Any, Set, List, Dict, MutableMapping, Tuple, Callable
+from typing import (
+    Optional,
+    Union,
+    Any,
+    Set,
+    List,
+    Dict,
+    MutableMapping,
+    Tuple,
+    Callable,
+)
 from numbers import Number
 from os.path import splitext, join
 from random import choice
 from html.parser import HTMLParser
-from urllib.parse import urljoin, urlparse, urlunparse
+from urllib.parse import urljoin, urlparse
 
 from lxml import html
-from lxml.etree import ElementBase, XPath, XPathError, XPathSyntaxError, _ElementStringResult, _ElementUnicodeResult
+from lxml.etree import (
+    ElementBase,
+    XPath,
+    XPathError,
+    XPathSyntaxError,
+    _ElementStringResult,
+    _ElementUnicodeResult,
+)
 from babel.core import get_global
 
 
@@ -29,22 +46,22 @@ from searx.exceptions import SearxXPathSyntaxException, SearxEngineXPathExceptio
 from searx import logger
 
 
-logger = logger.getChild('utils')
+logger = logger.getChild("utils")
 
 XPathSpecType = Union[str, XPath]
 
-_BLOCKED_TAGS = ('script', 'style')
+_BLOCKED_TAGS = ("script", "style")
 
-_ECMA_UNESCAPE4_RE = re.compile(r'%u([0-9a-fA-F]{4})', re.UNICODE)
-_ECMA_UNESCAPE2_RE = re.compile(r'%([0-9a-fA-F]{2})', re.UNICODE)
+_ECMA_UNESCAPE4_RE = re.compile(r"%u([0-9a-fA-F]{4})", re.UNICODE)
+_ECMA_UNESCAPE2_RE = re.compile(r"%([0-9a-fA-F]{2})", re.UNICODE)
 
 _STORAGE_UNIT_VALUE: Dict[str, int] = {
-    'TB': 1024 * 1024 * 1024 * 1024,
-    'GB': 1024 * 1024 * 1024,
-    'MB': 1024 * 1024,
-    'TiB': 1000 * 1000 * 1000 * 1000,
-    'MiB': 1000 * 1000,
-    'KiB': 1000,
+    "TB": 1024 * 1024 * 1024 * 1024,
+    "GB": 1024 * 1024 * 1024,
+    "MB": 1024 * 1024,
+    "TiB": 1000 * 1000 * 1000 * 1000,
+    "MiB": 1000 * 1000,
+    "KiB": 1000,
 }
 
 _XPATH_CACHE: Dict[str, XPath] = {}
@@ -64,8 +81,8 @@ _NOTSET = _NotSetClass()
 
 def searx_useragent() -> str:
     """Return the searx User Agent"""
-    return 'searx/{searx_version} {suffix}'.format(
-        searx_version=VERSION_TAG, suffix=settings['outgoing']['useragent_suffix']
+    return "searx/{searx_version} {suffix}".format(
+        searx_version=VERSION_TAG, suffix=settings["outgoing"]["useragent_suffix"]
     ).strip()
 
 
@@ -74,7 +91,10 @@ def gen_useragent(os_string: Optional[str] = None) -> str:
 
     See searx/data/useragents.json
     """
-    return USER_AGENTS['ua'].format(os=os_string or choice(USER_AGENTS['os']), version=choice(USER_AGENTS['versions']))
+    return USER_AGENTS["ua"].format(
+        os=os_string or choice(USER_AGENTS["os"]),
+        version=choice(USER_AGENTS["versions"]),
+    )
 
 
 class _HTMLTextExtractorException(Exception):
@@ -91,8 +111,8 @@ class _HTMLTextExtractor(HTMLParser):  # pylint: disable=W0223  # (see https://b
 
     def handle_starttag(self, tag, attrs):
         self.tags.append(tag)
-        if tag == 'br':
-            self.result.append(' ')
+        if tag == "br":
+            self.result.append(" ")
 
     def handle_endtag(self, tag):
         if not self.tags:
@@ -114,7 +134,7 @@ class _HTMLTextExtractor(HTMLParser):  # pylint: disable=W0223  # (see https://b
     def handle_charref(self, name):
         if not self.is_valid_tag():
             return
-        if name[0] in ('x', 'X'):
+        if name[0] in ("x", "X"):
             codepoint = int(name[1:], 16)
         else:
             codepoint = int(name)
@@ -128,7 +148,7 @@ class _HTMLTextExtractor(HTMLParser):  # pylint: disable=W0223  # (see https://b
         self.result.append(name)
 
     def get_text(self):
-        return ''.join(self.result).strip()
+        return "".join(self.result).strip()
 
 
 def html_to_text(html_str: str) -> str:
@@ -147,8 +167,8 @@ def html_to_text(html_str: str) -> str:
         >>> html_to_text('<style>.span { color: red; }</style><span>Example</span>')
         'Example'
     """
-    html_str = html_str.replace('\n', ' ').replace('\r', ' ')
-    html_str = ' '.join(html_str.split())
+    html_str = html_str.replace("\n", " ").replace("\r", " ")
+    html_str = " ".join(html_str.split())
     s = _HTMLTextExtractor()
     try:
         s.feed(html_str)
@@ -167,22 +187,22 @@ def extract_text(xpath_results, allow_none: bool = False) -> Optional[str]:
     """
     if isinstance(xpath_results, list):
         # it's list of result : concat everything using recursive call
-        result = ''
+        result = ""
         for e in xpath_results:
-            result = result + (extract_text(e) or '')
+            result = result + (extract_text(e) or "")
         return result.strip()
     if isinstance(xpath_results, ElementBase):
         # it's a element
-        text: str = html.tostring(xpath_results, encoding='unicode', method='text', with_tail=False)
-        text = text.strip().replace('\n', ' ')
-        return ' '.join(text.split())
+        text: str = html.tostring(xpath_results, encoding="unicode", method="text", with_tail=False)
+        text = text.strip().replace("\n", " ")
+        return " ".join(text.split())
     if isinstance(xpath_results, (_ElementStringResult, _ElementUnicodeResult, str, Number, bool)):
         return str(xpath_results)
     if xpath_results is None and allow_none:
         return None
     if xpath_results is None and not allow_none:
-        raise ValueError('extract_text(None, allow_none=False)')
-    raise ValueError('unsupported type')
+        raise ValueError("extract_text(None, allow_none=False)")
+    raise ValueError("unsupported type")
 
 
 def normalize_url(url: str, base_url: str) -> str:
@@ -212,25 +232,25 @@ def normalize_url(url: str, base_url: str) -> str:
     Returns:
         * str: normalized URL
     """
-    if url.startswith('//'):
+    if url.startswith("//"):
         # add http or https to this kind of url //example.com/
         parsed_search_url = urlparse(base_url)
-        url = '{0}:{1}'.format(parsed_search_url.scheme or 'http', url)
-    elif url.startswith('/'):
+        url = "{0}:{1}".format(parsed_search_url.scheme or "http", url)
+    elif url.startswith("/"):
         # fix relative url to the search engine
         url = urljoin(base_url, url)
 
     # fix relative urls that fall through the crack
-    if '://' not in url:
+    if "://" not in url:
         url = urljoin(base_url, url)
 
     parsed_url = urlparse(url)
 
     # add a / at this end of the url if there is no path
     if not parsed_url.netloc:
-        raise ValueError('Cannot parse url')
+        raise ValueError("Cannot parse url")
     if not parsed_url.path:
-        url += '/'
+        url += "/"
 
     return url
 
@@ -268,12 +288,12 @@ def extract_url(xpath_results, base_url) -> str:
         * str: normalized URL
     """
     if xpath_results == []:
-        raise ValueError('Empty url resultset')
+        raise ValueError("Empty url resultset")
 
     url = extract_text(xpath_results)
     if url:
         return normalize_url(url, base_url)
-    raise ValueError('URL not found')
+    raise ValueError("URL not found")
 
 
 def dict_subset(dictionary: MutableMapping, properties: Set[str]) -> Dict:
@@ -368,7 +388,7 @@ def _get_lang_to_lc_dict(lang_list: List[str]) -> Dict[str, str]:
     if value is None:
         value = {}
         for lang in lang_list:
-            value.setdefault(lang.split('-')[0], lang)
+            value.setdefault(lang.split("-")[0], lang)
         _LANG_TO_LC_CACHE[key] = value
     return value
 
@@ -376,10 +396,10 @@ def _get_lang_to_lc_dict(lang_list: List[str]) -> Dict[str, str]:
 # babel's get_global contains all sorts of miscellaneous locale and territory related data
 # see get_global in: https://github.com/python-babel/babel/blob/master/babel/core.py
 def _get_from_babel(lang_code: str, key):
-    match = get_global(key).get(lang_code.replace('-', '_'))
+    match = get_global(key).get(lang_code.replace("-", "_"))
     # for some keys, such as territory_aliases, match may be a list
     if isinstance(match, str):
-        return match.replace('_', '-')
+        return match.replace("_", "-")
     return match
 
 
@@ -393,12 +413,12 @@ def _match_language(lang_code: str, lang_list=[], custom_aliases={}) -> Optional
         return lang_code
 
     # try to get the most likely country for this language
-    subtags = _get_from_babel(lang_code, 'likely_subtags')
+    subtags = _get_from_babel(lang_code, "likely_subtags")
     if subtags:
         if subtags in lang_list:
             return subtags
-        subtag_parts = subtags.split('-')
-        new_code = subtag_parts[0] + '-' + subtag_parts[-1]
+        subtag_parts = subtags.split("-")
+        new_code = subtag_parts[0] + "-" + subtag_parts[-1]
         if new_code in custom_aliases:
             new_code = custom_aliases[new_code]
         if new_code in lang_list:
@@ -409,7 +429,7 @@ def _match_language(lang_code: str, lang_list=[], custom_aliases={}) -> Optional
 
 
 def match_language(  # pylint: disable=W0102
-    locale_code, lang_list=[], custom_aliases={}, fallback: Optional[str] = 'en-US'
+    locale_code, lang_list=[], custom_aliases={}, fallback: Optional[str] = "en-US"
 ) -> Optional[str]:
     """get the language code from lang_list that best matches locale_code"""
     # try to get language from given locale_code
@@ -417,25 +437,25 @@ def match_language(  # pylint: disable=W0102
     if language:
         return language
 
-    locale_parts = locale_code.split('-')
+    locale_parts = locale_code.split("-")
     lang_code = locale_parts[0]
 
     # if locale_code has script, try matching without it
     if len(locale_parts) > 2:
-        language = _match_language(lang_code + '-' + locale_parts[-1], lang_list, custom_aliases)
+        language = _match_language(lang_code + "-" + locale_parts[-1], lang_list, custom_aliases)
         if language:
             return language
 
     # try to get language using an equivalent country code
     if len(locale_parts) > 1:
-        country_alias = _get_from_babel(locale_parts[-1], 'territory_aliases')
+        country_alias = _get_from_babel(locale_parts[-1], "territory_aliases")
         if country_alias:
-            language = _match_language(lang_code + '-' + country_alias[0], lang_list, custom_aliases)
+            language = _match_language(lang_code + "-" + country_alias[0], lang_list, custom_aliases)
             if language:
                 return language
 
     # try to get language using an equivalent language code
-    alias = _get_from_babel(lang_code, 'language_aliases')
+    alias = _get_from_babel(lang_code, "language_aliases")
     if alias:
         language = _match_language(alias, lang_list, custom_aliases)
         if language:
@@ -466,7 +486,7 @@ def to_string(obj: Any) -> str:
     """Convert obj to its string representation."""
     if isinstance(obj, str):
         return obj
-    if hasattr(obj, '__str__'):
+    if hasattr(obj, "__str__"):
         return str(obj)
     return repr(obj)
 
@@ -505,13 +525,13 @@ def get_string_replaces_function(replaces: Dict[str, str]) -> Callable[[str], st
 def get_engine_from_settings(name: str) -> Dict:
     """Return engine configuration from settings.yml of a given engine name"""
 
-    if 'engines' not in settings:
+    if "engines" not in settings:
         return {}
 
-    for engine in settings['engines']:
-        if 'name' not in engine:
+    for engine in settings["engines"]:
+        if "name" not in engine:
             continue
-        if name == engine['name']:
+        if name == engine["name"]:
             return engine
 
     return {}
@@ -546,7 +566,7 @@ def get_xpath(xpath_spec: XPathSpecType) -> XPath:
     if isinstance(xpath_spec, XPath):
         return xpath_spec
 
-    raise TypeError('xpath_spec must be either a str or a lxml.etree.XPath')
+    raise TypeError("xpath_spec must be either a str or a lxml.etree.XPath")
 
 
 def eval_xpath(element: ElementBase, xpath_spec: XPathSpecType):
@@ -569,7 +589,7 @@ def eval_xpath(element: ElementBase, xpath_spec: XPathSpecType):
     try:
         return xpath(element)
     except XPathError as e:
-        arg = ' '.join([str(i) for i in e.args])
+        arg = " ".join([str(i) for i in e.args])
         raise SearxEngineXPathException(xpath_spec, arg) from e
 
 
@@ -591,9 +611,9 @@ def eval_xpath_list(element: ElementBase, xpath_spec: XPathSpecType, min_len: Op
     """
     result = eval_xpath(element, xpath_spec)
     if not isinstance(result, list):
-        raise SearxEngineXPathException(xpath_spec, 'the result is not a list')
+        raise SearxEngineXPathException(xpath_spec, "the result is not a list")
     if min_len is not None and min_len > len(result):
-        raise SearxEngineXPathException(xpath_spec, 'len(xpath_str) < ' + str(min_len))
+        raise SearxEngineXPathException(xpath_spec, "len(xpath_str) < " + str(min_len))
     return result
 
 
@@ -622,7 +642,7 @@ def eval_xpath_getindex(elements: ElementBase, xpath_spec: XPathSpecType, index:
     if default == _NOTSET:
         # raise an SearxEngineXPathException instead of IndexError
         # to record xpath_spec
-        raise SearxEngineXPathException(xpath_spec, 'index ' + str(index) + ' not found')
+        raise SearxEngineXPathException(xpath_spec, "index " + str(index) + " not found")
     return default
 
 
@@ -633,15 +653,15 @@ def _get_fasttext_model() -> "fasttext.FastText._FastText":
 
         # Monkey patch: prevent fasttext from showing a (useless) warning when loading a model.
         fasttext.FastText.eprint = lambda x: None
-        _FASTTEXT_MODEL = fasttext.load_model(str(data_dir / 'lid.176.ftz'))
+        _FASTTEXT_MODEL = fasttext.load_model(str(data_dir / "lid.176.ftz"))
     return _FASTTEXT_MODEL
 
 
 def detect_language(text: str, threshold: float = 0.3, min_probability: float = 0.5) -> Optional[str]:
     """https://fasttext.cc/docs/en/language-identification.html"""
     if not isinstance(text, str):
-        raise ValueError('text must a str')
-    r = _get_fasttext_model().predict(text.replace('\n', ' '), k=1, threshold=threshold)
+        raise ValueError("text must a str")
+    r = _get_fasttext_model().predict(text.replace("\n", " "), k=1, threshold=threshold)
     if isinstance(r, tuple) and len(r) == 2 and len(r[0]) > 0 and len(r[1]) > 0 and r[1][0] > min_probability:
-        return r[0][0].split('__label__')[1]
+        return r[0][0].split("__label__")[1]
     return None

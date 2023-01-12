@@ -19,25 +19,25 @@ from searx.utils import (
 )
 
 about = {
-    "website": 'https://emojipedia.org',
-    "wikidata_id": 'Q22908129',
+    "website": "https://emojipedia.org",
+    "wikidata_id": "Q22908129",
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 categories = []
 paging = False
 time_range_support = False
 
-base_url = 'https://emojipedia.org'
-search_url = base_url + '/search/?{query}'
+base_url = "https://emojipedia.org"
+search_url = base_url + "/search/?{query}"
 
 
 def request(query, params):
-    params['url'] = search_url.format(
-        query=urlencode({'q': query}),
+    params["url"] = search_url.format(
+        query=urlencode({"q": query}),
     )
     return params
 
@@ -49,18 +49,18 @@ def response(resp):
 
     for result in eval_xpath_list(dom, "//ol[@class='search-results']/li"):
 
-        extracted_desc = extract_text(eval_xpath_getindex(result, './/p', 0))
+        extracted_desc = extract_text(eval_xpath_getindex(result, ".//p", 0))
 
-        if 'No results found.' in extracted_desc:
+        if "No results found." in extracted_desc:
             break
 
-        link = eval_xpath_getindex(result, './/h2/a', 0)
+        link = eval_xpath_getindex(result, ".//h2/a", 0)
 
-        url = base_url + link.attrib.get('href')
+        url = base_url + link.attrib.get("href")
         title = extract_text(link)
         content = extracted_desc
 
-        res = {'url': url, 'title': title, 'content': content}
+        res = {"url": url, "title": title, "content": content}
 
         results.append(res)
 

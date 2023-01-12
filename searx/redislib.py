@@ -83,8 +83,8 @@ def secret_hash(name: str):
     :param name: the name to create a secret hash for
     :type name: str
     """
-    m = hmac.new(bytes(name, encoding='utf-8'), digestmod='sha256')
-    m.update(bytes(get_setting('server.secret_key'), encoding='utf-8'))
+    m = hmac.new(bytes(name, encoding="utf-8"), digestmod="sha256")
+    m.update(bytes(get_setting("server.secret_key"), encoding="utf-8"))
     return m.hexdigest()
 
 

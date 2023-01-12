@@ -11,56 +11,59 @@ from urllib.parse import urlencode, quote
 about = {
     "website": None,
     "wikidata_id": None,
-    "official_api_documentation": 'http://www.mediawiki.org/wiki/API:Search',
+    "official_api_documentation": "http://www.mediawiki.org/wiki/API:Search",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 # engine dependent config
-categories = ['general']
+categories = ["general"]
 paging = True
 number_of_results = 1
-search_type = 'nearmatch'  # possible values: title, text, nearmatch
+search_type = "nearmatch"  # possible values: title, text, nearmatch
 
 # search-url
-base_url = 'https://{language}.wikipedia.org/'
+base_url = "https://{language}.wikipedia.org/"
 search_postfix = (
-    'w/api.php?action=query'
-    '&list=search'
-    '&{query}'
-    '&format=json'
-    '&sroffset={offset}'
-    '&srlimit={limit}'
-    '&srwhat={searchtype}'
+    "w/api.php?action=query"
+    "&list=search"
+    "&{query}"
+    "&format=json"
+    "&sroffset={offset}"
+    "&srlimit={limit}"
+    "&srwhat={searchtype}"
 )
 
 
 # do search-request
 def request(query, params):
-    offset = (params['pageno'] - 1) * number_of_results
+    offset = (params["pageno"] - 1) * number_of_results
 
     string_args = dict(
-        query=urlencode({'srsearch': query}), offset=offset, limit=number_of_results, searchtype=search_type
+        query=urlencode({"srsearch": query}),
+        offset=offset,
+        limit=number_of_results,
+        searchtype=search_type,
     )
 
     format_strings = list(Formatter().parse(base_url))
 
-    if params['language'] == 'all':
-        language = 'en'
+    if params["language"] == "all":
+        language = "en"
     else:
-        language = params['language'].split('-')[0]
+        language = params["language"].split("-")[0]
 
     # format_string [('https://', 'language', '', None), ('.wikipedia.org/', None, None, None)]
-    if any(x[1] == 'language' for x in format_strings):
-        string_args['language'] = language
+    if any(x[1] == "language" for x in format_strings):
+        string_args["language"] = language
 
     # write search-language back to params, required in response
-    params['language'] = language
+    params["language"] = language
 
     search_url = base_url + search_postfix
 
-    params['url'] = search_url.format(**string_args)
+    params["url"] = search_url.format(**string_args)
 
     return params
 
@@ -72,21 +75,21 @@ def response(resp):
     search_results = loads(resp.text)
 
     # return empty array if there are no results
-    if not search_results.get('query', {}).get('search'):
+    if not search_results.get("query", {}).get("search"):
         return []
 
     # parse results
-    for result in search_results['query']['search']:
-        if result.get('snippet', '').startswith('#REDIRECT'):
+    for result in search_results["query"]["search"]:
+        if result.get("snippet", "").startswith("#REDIRECT"):
             continue
         url = (
-            base_url.format(language=resp.search_params['language'])
-            + 'wiki/'
-            + quote(result['title'].replace(' ', '_').encode())
+            base_url.format(language=resp.search_params["language"])
+            + "wiki/"
+            + quote(result["title"].replace(" ", "_").encode())
         )
 
         # append result
-        results.append({'url': url, 'title': result['title'], 'content': ''})
+        results.append({"url": url, "title": result["title"], "content": ""})
 
     # return results
     return results

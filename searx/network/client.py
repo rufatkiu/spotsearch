@@ -10,7 +10,12 @@ from typing import Any, Dict
 
 import httpx
 from httpx_socks import AsyncProxyTransport
-from python_socks import parse_proxy_url, ProxyConnectionError, ProxyTimeoutError, ProxyError
+from python_socks import (
+    parse_proxy_url,
+    ProxyConnectionError,
+    ProxyTimeoutError,
+    ProxyError,
+)
 
 from searx import logger
 
@@ -23,7 +28,7 @@ else:
     uvloop.install()
 
 
-logger = logger.getChild('searx.network.client')
+logger = logger.getChild("searx.network.client")
 LOOP = None
 SSLCONTEXTS: Dict[Any, SSLContext] = {}
 
@@ -39,7 +44,7 @@ class AsyncHTTPTransportNoHttp(httpx.AsyncHTTPTransport):
     """Block HTTP request"""
 
     async def handle_async_request(self, request):
-        raise httpx.UnsupportedProtocol('HTTP protocol is disabled')
+        raise httpx.UnsupportedProtocol("HTTP protocol is disabled")
 
 
 class AsyncProxyTransportFixed(AsyncProxyTransport):
@@ -65,12 +70,18 @@ def get_transport_for_socks_proxy(verify, http2, local_address, proxy_url, limit
     # socks5://   hostname is resolved on client side
     # socks5h://  hostname is resolved on proxy side
     rdns = False
-    socks5h = 'socks5h://'
+    socks5h = "socks5h://"
     if proxy_url.startswith(socks5h):
-        proxy_url = 'socks5://' + proxy_url[len(socks5h) :]
+        proxy_url = "socks5://" + proxy_url[len(socks5h) :]
         rdns = True
 
-    proxy_type, proxy_host, proxy_port, proxy_username, proxy_password = parse_proxy_url(proxy_url)
+    (
+        proxy_type,
+        proxy_host,
+        proxy_port,
+        proxy_username,
+        proxy_password,
+    ) = parse_proxy_url(proxy_url)
     verify = get_sslcontexts(proxy_url, None, verify, True, http2) if verify is True else verify
     return AsyncProxyTransportFixed(
         proxy_type=proxy_type,
@@ -123,9 +134,9 @@ def new_client(
     # See https://www.python-httpx.org/advanced/#routing
     mounts = {}
     for pattern, proxy_url in proxies.items():
-        if not enable_http and pattern.startswith('http://'):
+        if not enable_http and pattern.startswith("http://"):
             continue
-        if proxy_url.startswith('socks4://') or proxy_url.startswith('socks5://') or proxy_url.startswith('socks5h://'):
+        if proxy_url.startswith("socks4://") or proxy_url.startswith("socks5://") or proxy_url.startswith("socks5h://"):
             mounts[pattern] = get_transport_for_socks_proxy(
                 verify, enable_http2, local_address, proxy_url, limit, retries
             )
@@ -133,13 +144,13 @@ def new_client(
             mounts[pattern] = get_transport(verify, enable_http2, local_address, proxy_url, limit, retries)
 
     if not enable_http:
-        mounts['http://'] = AsyncHTTPTransportNoHttp()
+        mounts["http://"] = AsyncHTTPTransportNoHttp()
 
     transport = get_transport(verify, enable_http2, local_address, None, limit, retries)
 
     event_hooks = None
     if hook_log_response:
-        event_hooks = {'response': [hook_log_response]}
+        event_hooks = {"response": [hook_log_response]}
 
     return httpx.AsyncClient(
         transport=transport,
@@ -155,7 +166,7 @@ def get_loop():
 
 def init():
     # log
-    for logger_name in ('hpack.hpack', 'hpack.table', 'httpx._client'):
+    for logger_name in ("hpack.hpack", "hpack.table", "httpx._client"):
         logging.getLogger(logger_name).setLevel(logging.WARNING)
 
     # loop
@@ -166,7 +177,7 @@ def init():
 
     thread = threading.Thread(
         target=loop_thread,
-        name='asyncio_loop',
+        name="asyncio_loop",
         daemon=True,
     )
     thread.start()

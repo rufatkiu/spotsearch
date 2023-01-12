@@ -24,19 +24,19 @@ from searx.engines.yahoo import parse_url
 
 # about
 about = {
-    "website": 'https://news.yahoo.com',
-    "wikidata_id": 'Q3044717',
-    "official_api_documentation": 'https://developer.yahoo.com/api/',
+    "website": "https://news.yahoo.com",
+    "wikidata_id": "Q3044717",
+    "official_api_documentation": "https://developer.yahoo.com/api/",
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 language_support = False
 time_range_support = False
 safesearch = False
 paging = True
-categories = ['news']
+categories = ["news"]
 
 # search-url
 search_url = (
@@ -46,22 +46,22 @@ search_url = (
     # fmt: on
 )
 
-AGO_RE = re.compile(r'([0-9]+)\s*(year|month|week|day|minute|hour)')
+AGO_RE = re.compile(r"([0-9]+)\s*(year|month|week|day|minute|hour)")
 AGO_TIMEDELTA = {
-    'minute': timedelta(minutes=1),
-    'hour': timedelta(hours=1),
-    'day': timedelta(days=1),
-    'week': timedelta(days=7),
-    'month': timedelta(days=30),
-    'year': timedelta(days=365),
+    "minute": timedelta(minutes=1),
+    "hour": timedelta(hours=1),
+    "day": timedelta(days=1),
+    "week": timedelta(days=7),
+    "month": timedelta(days=30),
+    "year": timedelta(days=365),
 }
 
 
 def request(query, params):
-    offset = (params['pageno'] - 1) * 10 + 1
+    offset = (params["pageno"] - 1) * 10 + 1
 
-    params['url'] = search_url.format(offset=offset, query=urlencode({'p': query}))
-    logger.debug("query_url --> %s", params['url'])
+    params["url"] = search_url.format(offset=offset, query=urlencode({"p": query}))
+    logger.debug("query_url --> %s", params["url"])
     return params
 
 
@@ -72,15 +72,15 @@ def response(resp):
     # parse results
     for result in eval_xpath_list(dom, '//ol[contains(@class,"searchCenterMiddle")]//li'):
 
-        url = eval_xpath_getindex(result, './/h4/a/@href', 0, None)
+        url = eval_xpath_getindex(result, ".//h4/a/@href", 0, None)
         if url is None:
             continue
         url = parse_url(url)
-        title = extract_text(result.xpath('.//h4/a'))
-        content = extract_text(result.xpath('.//p'))
-        img_src = eval_xpath_getindex(result, './/img/@data-src', 0, None)
+        title = extract_text(result.xpath(".//h4/a"))
+        content = extract_text(result.xpath(".//p"))
+        img_src = eval_xpath_getindex(result, ".//img/@data-src", 0, None)
 
-        item = {'url': url, 'title': title, 'content': content, 'img_src': img_src}
+        item = {"url": url, "title": title, "content": content, "img_src": img_src}
 
         pub_date = extract_text(result.xpath('.//span[contains(@class,"s-time")]'))
         ago = AGO_RE.search(pub_date)
@@ -95,10 +95,10 @@ def response(resp):
                 pub_date = None
 
         if pub_date is not None:
-            item['publishedDate'] = pub_date
+            item["publishedDate"] = pub_date
         results.append(item)
 
         for suggestion in eval_xpath_list(dom, '//div[contains(@class,"AlsoTry")]//td'):
-            results.append({'suggestion': extract_text(suggestion)})
+            results.append({"suggestion": extract_text(suggestion)})
 
     return results

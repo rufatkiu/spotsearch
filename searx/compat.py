@@ -7,7 +7,7 @@
 # pylint: disable=C,R
 
 
-__all__ = ('cached_property',)
+__all__ = ("cached_property",)
 
 
 try:

@@ -12,12 +12,12 @@ from searx.utils import get_torrent_size
 
 # about
 about = {
-    "website": 'https://thepiratebay.org',
-    "wikidata_id": 'Q22663',
-    "official_api_documentation": 'https://apibay.org/',
+    "website": "https://thepiratebay.org",
+    "wikidata_id": "Q22663",
+    "official_api_documentation": "https://apibay.org/",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 # engine dependent config
@@ -81,14 +81,14 @@ def response(resp):
         # extract and convert creation date
         try:
             date = datetime.fromtimestamp(float(result["added"]))
-            params['publishedDate'] = date
+            params["publishedDate"] = date
         except:
             pass
 
         # let's try to calculate the torrent size
         try:
             filesize = get_torrent_size(result["size"], "B")
-            params['filesize'] = filesize
+            params["filesize"] = filesize
         except:
             pass
 

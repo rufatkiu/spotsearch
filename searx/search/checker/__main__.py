@@ -22,7 +22,7 @@ for h in root.handlers:
 root.addHandler(handler)
 
 # color only for a valid terminal
-if sys.stdout.isatty() and os.environ.get('TERM') not in ['dumb', 'unknown']:
+if sys.stdout.isatty() and os.environ.get("TERM") not in ["dumb", "unknown"]:
     RESET_SEQ = "\033[0m"
     COLOR_SEQ = "\033[1;%dm"
     BOLD_SEQ = "\033[1m"
@@ -31,17 +31,26 @@ else:
     RESET_SEQ = ""
     COLOR_SEQ = ""
     BOLD_SEQ = ""
-    BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = "", "", "", "", "", "", "", ""
+    BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = (
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+    )
 
 # equivalent of 'python -u' (unbuffered stdout, stderr)
 stdout = io.TextIOWrapper(
     # pylint: disable=consider-using-with
-    open(sys.stdout.fileno(), 'wb', 0),
+    open(sys.stdout.fileno(), "wb", 0),
     write_through=True,
 )
 stderr = io.TextIOWrapper(
     # pylint: disable=consider-using-with
-    open(sys.stderr.fileno(), 'wb', 0),
+    open(sys.stderr.fileno(), "wb", 0),
     write_through=True,
 )
 
@@ -55,7 +64,7 @@ def iter_processor(engine_name_list):
             if processor is not None:
                 yield name, processor
             else:
-                stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RED}Engine does not exist{RESET_SEQ}')
+                stdout.write(f"{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RED}Engine does not exist{RESET_SEQ}")
     else:
         for name, processor in searx.search.PROCESSORS.items():
             yield name, processor
@@ -65,22 +74,22 @@ def iter_processor(engine_name_list):
 def run(engine_name_list, verbose):
     searx.search.initialize()
     for name, processor in iter_processor(engine_name_list):
-        stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n')
+        stdout.write(f"{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n")
         if not sys.stdout.isatty():
-            stderr.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n')
+            stderr.write(f"{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n")
         checker = searx.search.checker.Checker(processor)
         checker.run()
         if checker.test_results.successful:
-            stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{GREEN}OK{RESET_SEQ}\n')
+            stdout.write(f"{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{GREEN}OK{RESET_SEQ}\n")
             if verbose:
                 stdout.write(f'    {"found languages":15}: {" ".join(sorted(list(checker.test_results.languages)))}\n')
         else:
-            stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RESET_SEQ}{RED}Error{RESET_SEQ}')
+            stdout.write(f"{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RESET_SEQ}{RED}Error{RESET_SEQ}")
             if not verbose:
-                errors = [test_name + ': ' + error for test_name, error in checker.test_results]
-                stdout.write(f'{RED}Error {str(errors)}{RESET_SEQ}\n')
+                errors = [test_name + ": " + error for test_name, error in checker.test_results]
+                stdout.write(f"{RED}Error {str(errors)}{RESET_SEQ}\n")
             else:
-                stdout.write('\n')
+                stdout.write("\n")
                 stdout.write(f'    {"found languages":15}: {" ".join(sorted(list(checker.test_results.languages)))}\n')
                 for test_name, logs in checker.test_results.logs.items():
                     for log in logs:
@@ -90,25 +99,25 @@ def run(engine_name_list, verbose):
 
 # call by setup.py
 def main():
-    parser = argparse.ArgumentParser(description='Check searx engines.')
+    parser = argparse.ArgumentParser(description="Check searx engines.")
     parser.add_argument(
-        'engine_name_list',
-        metavar='engine name',
+        "engine_name_list",
+        metavar="engine name",
         type=str,
-        nargs='*',
-        help='engines name or shortcut list. Empty for all engines.',
+        nargs="*",
+        help="engines name or shortcut list. Empty for all engines.",
     )
     parser.add_argument(
-        '--verbose',
-        '-v',
-        action='store_true',
-        dest='verbose',
-        help='Display details about the test results',
+        "--verbose",
+        "-v",
+        action="store_true",
+        dest="verbose",
+        help="Display details about the test results",
         default=False,
     )
     args = parser.parse_args()
     run(args.engine_name_list, args.verbose)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

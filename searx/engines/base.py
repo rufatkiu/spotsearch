@@ -11,19 +11,19 @@ from searx.utils import searx_useragent
 
 # about
 about = {
-    "website": 'https://base-search.net',
-    "wikidata_id": 'Q448335',
-    "official_api_documentation": 'https://api.base-search.net/',
+    "website": "https://base-search.net",
+    "wikidata_id": "Q448335",
+    "official_api_documentation": "https://api.base-search.net/",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'XML',
+    "results": "XML",
 }
 
-categories = ['science']
+categories = ["science"]
 
 base_url = (
-    'https://api.base-search.net/cgi-bin/BaseHttpSearchInterface.fcgi'
-    + '?func=PerformSearch&{query}&boost=oa&hits={hits}&offset={offset}'
+    "https://api.base-search.net/cgi-bin/BaseHttpSearchInterface.fcgi"
+    + "?func=PerformSearch&{query}&boost=oa&hits={hits}&offset={offset}"
 )
 
 # engine dependent config
@@ -33,23 +33,23 @@ number_of_results = 10
 # shortcuts for advanced search
 shorcut_dict = {
     # user-friendly keywords
-    'format:': 'dcformat:',
-    'author:': 'dccreator:',
-    'collection:': 'dccollection:',
-    'hdate:': 'dchdate:',
-    'contributor:': 'dccontributor:',
-    'coverage:': 'dccoverage:',
-    'date:': 'dcdate:',
-    'abstract:': 'dcdescription:',
-    'urls:': 'dcidentifier:',
-    'language:': 'dclanguage:',
-    'publisher:': 'dcpublisher:',
-    'relation:': 'dcrelation:',
-    'rights:': 'dcrights:',
-    'source:': 'dcsource:',
-    'subject:': 'dcsubject:',
-    'title:': 'dctitle:',
-    'type:': 'dcdctype:',
+    "format:": "dcformat:",
+    "author:": "dccreator:",
+    "collection:": "dccollection:",
+    "hdate:": "dchdate:",
+    "contributor:": "dccontributor:",
+    "coverage:": "dccoverage:",
+    "date:": "dcdate:",
+    "abstract:": "dcdescription:",
+    "urls:": "dcidentifier:",
+    "language:": "dclanguage:",
+    "publisher:": "dcpublisher:",
+    "relation:": "dcrelation:",
+    "rights:": "dcrights:",
+    "source:": "dcsource:",
+    "subject:": "dcsubject:",
+    "title:": "dctitle:",
+    "type:": "dcdctype:",
 }
 
 
@@ -59,13 +59,13 @@ def request(query, params):
         query = re.sub(key, shorcut_dict[key], query)
 
     # basic search
-    offset = (params['pageno'] - 1) * number_of_results
+    offset = (params["pageno"] - 1) * number_of_results
 
-    string_args = dict(query=urlencode({'query': query}), offset=offset, hits=number_of_results)
+    string_args = dict(query=urlencode({"query": query}), offset=offset, hits=number_of_results)
 
-    params['url'] = base_url.format(**string_args)
+    params["url"] = base_url.format(**string_args)
 
-    params['headers']['User-Agent'] = searx_useragent()
+    params["headers"]["User-Agent"] = searx_useragent()
     return params
 
 
@@ -74,7 +74,7 @@ def response(resp):
 
     search_results = etree.XML(resp.content)
 
-    for entry in search_results.xpath('./result/doc'):
+    for entry in search_results.xpath("./result/doc"):
         content = "No description available"
 
         date = datetime.now()  # needed in case no dcdate is available for an item
@@ -95,7 +95,7 @@ def response(resp):
 
         # dates returned by the BASE API are not several formats
         publishedDate = None
-        for date_format in ['%Y-%m-%dT%H:%M:%SZ', '%Y-%m-%d', '%Y-%m', '%Y']:
+        for date_format in ["%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%d", "%Y-%m", "%Y"]:
             try:
                 publishedDate = datetime.strptime(date, date_format)
                 break
@@ -103,9 +103,14 @@ def response(resp):
                 pass
 
         if publishedDate is not None:
-            res_dict = {'url': url, 'title': title, 'publishedDate': publishedDate, 'content': content}
+            res_dict = {
+                "url": url,
+                "title": title,
+                "publishedDate": publishedDate,
+                "content": content,
+            }
         else:
-            res_dict = {'url': url, 'title': title, 'content': content}
+            res_dict = {"url": url, "title": title, "content": content}
 
         results.append(res_dict)
 

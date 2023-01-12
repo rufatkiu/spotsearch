@@ -6,18 +6,18 @@ from searx import settings
 from searx.plugins import logger
 from flask_babel import gettext
 
-name = gettext('Hostname replace')
-description = gettext('Rewrite result hostnames or remove results based on the hostname')
+name = gettext("Hostname replace")
+description = gettext("Rewrite result hostnames or remove results based on the hostname")
 default_on = False
-preference_section = 'general'
+preference_section = "general"
 
-plugin_id = 'hostname_replace'
+plugin_id = "hostname_replace"
 
 replacements = {re.compile(p): r for (p, r) in settings[plugin_id].items()} if plugin_id in settings else {}
 
 logger = logger.getChild(plugin_id)
-parsed = 'parsed_url'
-_url_fields = ['iframe_src', 'audio_src']
+parsed = "parsed_url"
+_url_fields = ["iframe_src", "audio_src"]
 
 
 def on_result(request, search, result):
@@ -31,7 +31,7 @@ def on_result(request, search, result):
                 if not replacement:
                     return False
                 result[parsed] = result[parsed]._replace(netloc=pattern.sub(replacement, result[parsed].netloc))
-                result['url'] = urlunparse(result[parsed])
+                result["url"] = urlunparse(result[parsed])
 
         for url_field in _url_fields:
             if result.get(url_field):

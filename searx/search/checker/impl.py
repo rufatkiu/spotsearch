@@ -20,7 +20,7 @@ from searx.search.processors import EngineProcessor
 from searx.metrics import counter_inc
 
 
-logger = logger.getChild('searx.search.checker')
+logger = logger.getChild("searx.search.checker")
 
 HTML_TAGS = [
     # fmt: off
@@ -36,9 +36,9 @@ HTML_TAGS = [
 
 
 def get_check_no_html():
-    rep = ['<' + tag + '[^\>]*>' for tag in HTML_TAGS]
-    rep += ['</' + tag + '>' for tag in HTML_TAGS]
-    pattern = re.compile('|'.join(rep))
+    rep = ["<" + tag + "[^\>]*>" for tag in HTML_TAGS]
+    rep += ["</" + tag + ">" for tag in HTML_TAGS]
+    pattern = re.compile("|".join(rep))
 
     def f(text):
         return pattern.search(text.lower()) is None
@@ -54,7 +54,7 @@ def _is_url(url):
         result = urlparse(url)
     except ValueError:
         return False
-    if result.scheme not in ('http', 'https'):
+    if result.scheme not in ("http", "https"):
         return False
     return True
 
@@ -71,37 +71,37 @@ def _download_and_check_if_image(image_url: str) -> bool:
         a = time()
         try:
             # use "image_proxy" (avoid HTTP/2)
-            network.set_context_network_name('image_proxy')
+            network.set_context_network_name("image_proxy")
             r, stream = network.stream(
-                'GET',
+                "GET",
                 image_url,
                 timeout=10.0,
                 allow_redirects=True,
                 headers={
-                    'User-Agent': gen_useragent(),
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                    'Accept-Language': 'en-US;q=0.5,en;q=0.3',
-                    'Accept-Encoding': 'gzip, deflate, br',
-                    'DNT': '1',
-                    'Connection': 'keep-alive',
-                    'Upgrade-Insecure-Requests': '1',
-                    'Sec-GPC': '1',
-                    'Cache-Control': 'max-age=0',
+                    "User-Agent": gen_useragent(),
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                    "Accept-Language": "en-US;q=0.5,en;q=0.3",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "DNT": "1",
+                    "Connection": "keep-alive",
+                    "Upgrade-Insecure-Requests": "1",
+                    "Sec-GPC": "1",
+                    "Cache-Control": "max-age=0",
                 },
             )
             r.close()
             if r.status_code == 200:
-                is_image = r.headers.get('content-type', '').startswith('image/')
+                is_image = r.headers.get("content-type", "").startswith("image/")
             else:
                 is_image = False
             del r
             del stream
             return is_image
         except httpx.TimeoutException:
-            logger.error('Timeout for %s: %i', image_url, int(time() - a))
+            logger.error("Timeout for %s: %i", image_url, int(time() - a))
             retry -= 1
         except httpx.HTTPError:
-            logger.exception('Exception for %s', image_url)
+            logger.exception("Exception for %s", image_url)
             return False
     return False
 
@@ -111,11 +111,11 @@ def _is_url_image(image_url) -> bool:
     if not isinstance(image_url, str):
         return False
 
-    if image_url.startswith('//'):
-        image_url = 'https:' + image_url
+    if image_url.startswith("//"):
+        image_url = "https:" + image_url
 
-    if image_url.startswith('data:'):
-        return image_url.startswith('data:image/')
+    if image_url.startswith("data:"):
+        return image_url.startswith("data:image/")
 
     if not _is_url(image_url):
         return False
@@ -125,11 +125,11 @@ def _is_url_image(image_url) -> bool:
 
 def _search_query_to_dict(search_query: SearchQuery) -> typing.Dict[str, typing.Any]:
     return {
-        'query': search_query.query,
-        'lang': search_query.lang,
-        'pageno': search_query.pageno,
-        'safesearch': search_query.safesearch,
-        'time_range': search_query.time_range,
+        "query": search_query.query,
+        "lang": search_query.lang,
+        "pageno": search_query.pageno,
+        "safesearch": search_query.safesearch,
+        "time_range": search_query.time_range,
     }
 
 
@@ -151,7 +151,7 @@ def _search_query_diff(
 
 class TestResults:
 
-    __slots__ = 'errors', 'logs', 'languages'
+    __slots__ = "errors", "logs", "languages"
 
     def __init__(self):
         self.errors: typing.Dict[str, typing.List[str]] = {}
@@ -183,10 +183,21 @@ class TestResults:
 
 class ResultContainerTests:
 
-    __slots__ = 'test_name', 'search_query', 'result_container', 'languages', 'stop_test', 'test_results'
+    __slots__ = (
+        "test_name",
+        "search_query",
+        "result_container",
+        "languages",
+        "stop_test",
+        "test_results",
+    )
 
     def __init__(
-        self, test_results: TestResults, test_name: str, search_query: SearchQuery, result_container: ResultContainer
+        self,
+        test_results: TestResults,
+        test_name: str,
+        search_query: SearchQuery,
+        result_container: ResultContainer,
     ):
         self.test_name = test_name
         self.search_query = search_query
@@ -198,12 +209,12 @@ class ResultContainerTests:
     @property
     def result_urls(self):
         results = self.result_container.get_ordered_results()
-        return [result['url'] for result in results if 'url' in result]
+        return [result["url"] for result in results if "url" in result]
 
     def _record_error(self, message: str, *args) -> None:
         sq = _search_query_to_dict(self.search_query)
-        sqstr = ' '.join(['{}={!r}'.format(k, v) for k, v in sq.items()])
-        self.test_results.add_error(self.test_name, message, *args, '(' + sqstr + ')')
+        sqstr = " ".join(["{}={!r}".format(k, v) for k, v in sq.items()])
+        self.test_results.add_error(self.test_name, message, *args, "(" + sqstr + ")")
 
     def _add_language(self, text: str) -> typing.Optional[str]:
         langStr = detect_language(text)
@@ -213,34 +224,34 @@ class ResultContainerTests:
         return None
 
     def _check_result(self, result):
-        if not _check_no_html(result.get('title', '')):
-            self._record_error('HTML in title', repr(result.get('title', '')))
-        if not _check_no_html(result.get('content', '')):
-            self._record_error('HTML in content', repr(result.get('content', '')))
-        if result.get('url') is None:
-            self._record_error('url is None')
+        if not _check_no_html(result.get("title", "")):
+            self._record_error("HTML in title", repr(result.get("title", "")))
+        if not _check_no_html(result.get("content", "")):
+            self._record_error("HTML in content", repr(result.get("content", "")))
+        if result.get("url") is None:
+            self._record_error("url is None")
 
-        self._add_language(result.get('title', ''))
-        self._add_language(result.get('content', ''))
+        self._add_language(result.get("title", ""))
+        self._add_language(result.get("content", ""))
 
-        template = result.get('template', 'default.html')
-        if template == 'default.html':
+        template = result.get("template", "default.html")
+        if template == "default.html":
             return
-        if template == 'code.html':
+        if template == "code.html":
             return
-        if template == 'torrent.html':
+        if template == "torrent.html":
             return
-        if template == 'map.html':
+        if template == "map.html":
             return
-        if template == 'images.html':
-            thumbnail_src = result.get('thumbnail_src')
+        if template == "images.html":
+            thumbnail_src = result.get("thumbnail_src")
             if thumbnail_src is not None:
                 if not _is_url_image(thumbnail_src):
-                    self._record_error('thumbnail_src URL is invalid', thumbnail_src)
-            elif not _is_url_image(result.get('img_src')):
-                self._record_error('img_src URL is invalid', result.get('img_src'))
-        if template == 'videos.html' and not _is_url_image(result.get('thumbnail')):
-            self._record_error('thumbnail URL is invalid', result.get('img_src'))
+                    self._record_error("thumbnail_src URL is invalid", thumbnail_src)
+            elif not _is_url_image(result.get("img_src")):
+                self._record_error("img_src URL is invalid", result.get("img_src"))
+        if template == "videos.html" and not _is_url_image(result.get("thumbnail")):
+            self._record_error("thumbnail URL is invalid", result.get("img_src"))
 
     def _check_results(self, results: list):
         for result in results:
@@ -249,21 +260,21 @@ class ResultContainerTests:
     def _check_answers(self, answers):
         for answer in answers:
             if not _check_no_html(answer):
-                self._record_error('HTML in answer', answer)
+                self._record_error("HTML in answer", answer)
 
     def _check_infoboxes(self, infoboxes):
         for infobox in infoboxes:
-            if not _check_no_html(infobox.get('content', '')):
-                self._record_error('HTML in infobox content', infobox.get('content', ''))
-            self._add_language(infobox.get('content', ''))
-            for attribute in infobox.get('attributes', {}):
-                if not _check_no_html(attribute.get('value', '')):
-                    self._record_error('HTML in infobox attribute value', attribute.get('value', ''))
+            if not _check_no_html(infobox.get("content", "")):
+                self._record_error("HTML in infobox content", infobox.get("content", ""))
+            self._add_language(infobox.get("content", ""))
+            for attribute in infobox.get("attributes", {}):
+                if not _check_no_html(attribute.get("value", "")):
+                    self._record_error("HTML in infobox attribute value", attribute.get("value", ""))
 
     def check_basic(self):
         if len(self.result_container.unresponsive_engines) > 0:
             for message in self.result_container.unresponsive_engines:
-                self._record_error(message[1] + ' ' + (message[2] or ''))
+                self._record_error(message[1] + " " + (message[2] or ""))
             self.stop_test = True
             return
 
@@ -280,51 +291,54 @@ class ResultContainerTests:
     def has_infobox(self):
         """Check the ResultContainer has at least one infobox"""
         if len(self.result_container.infoboxes) == 0:
-            self._record_error('No infobox')
+            self._record_error("No infobox")
 
     def has_answer(self):
         """Check the ResultContainer has at least one answer"""
         if len(self.result_container.answers) == 0:
-            self._record_error('No answer')
+            self._record_error("No answer")
 
     def has_language(self, lang):
         """Check at least one title or content of the results is written in the `lang`.
 
         Detected using pycld3, may be not accurate"""
         if lang not in self.languages:
-            self._record_error(lang + ' not found')
+            self._record_error(lang + " not found")
 
     def not_empty(self):
         """Check the ResultContainer has at least one answer or infobox or result"""
         result_types = set()
         results = self.result_container.get_ordered_results()
         if len(results) > 0:
-            result_types.add('results')
+            result_types.add("results")
 
         if len(self.result_container.answers) > 0:
-            result_types.add('answers')
+            result_types.add("answers")
 
         if len(self.result_container.infoboxes) > 0:
-            result_types.add('infoboxes')
+            result_types.add("infoboxes")
 
         if len(result_types) == 0:
-            self._record_error('No result')
+            self._record_error("No result")
 
     def one_title_contains(self, title: str):
         """Check one of the title contains `title` (case insensitive comparison)"""
         title = title.lower()
         for result in self.result_container.get_ordered_results():
-            if title in result['title'].lower():
+            if title in result["title"].lower():
                 return
-        self._record_error(('{!r} not found in the title'.format(title)))
+        self._record_error(("{!r} not found in the title".format(title)))
 
 
 class CheckerTests:
 
-    __slots__ = 'test_results', 'test_name', 'result_container_tests_list'
+    __slots__ = "test_results", "test_name", "result_container_tests_list"
 
     def __init__(
-        self, test_results: TestResults, test_name: str, result_container_tests_list: typing.List[ResultContainerTests]
+        self,
+        test_results: TestResults,
+        test_name: str,
+        result_container_tests_list: typing.List[ResultContainerTests],
     ):
         self.test_results = test_results
         self.test_name = test_name
@@ -342,18 +356,18 @@ class CheckerTests:
                             self.result_container_tests_list[i].search_query,
                             self.result_container_tests_list[j].search_query,
                         )
-                        common_str = ' '.join(['{}={!r}'.format(k, v) for k, v in common.items()])
-                        diff1_str = ', '.join(['{}={!r}'.format(k, v1) for (k, (v1, v2)) in diff.items()])
-                        diff2_str = ', '.join(['{}={!r}'.format(k, v2) for (k, (v1, v2)) in diff.items()])
+                        common_str = " ".join(["{}={!r}".format(k, v) for k, v in common.items()])
+                        diff1_str = ", ".join(["{}={!r}".format(k, v1) for (k, (v1, v2)) in diff.items()])
+                        diff2_str = ", ".join(["{}={!r}".format(k, v2) for (k, (v1, v2)) in diff.items()])
                         self.test_results.add_error(
                             self.test_name,
-                            'results are identitical for {} and {} ({})'.format(diff1_str, diff2_str, common_str),
+                            "results are identitical for {} and {} ({})".format(diff1_str, diff2_str, common_str),
                         )
 
 
 class Checker:
 
-    __slots__ = 'processor', 'tests', 'test_results'
+    __slots__ = "processor", "tests", "test_results"
 
     def __init__(self, processor: EngineProcessor):
         self.processor = processor
@@ -378,9 +392,9 @@ class Checker:
 
         for kwargs in itertools.product(*p):
             kwargs = {k: v for k, v in kwargs}
-            query = kwargs['query']
+            query = kwargs["query"]
             params = dict(kwargs)
-            del params['query']
+            del params["query"]
             yield SearchQuery(query, engineref_list, **params)
 
     def call_test(self, obj, test_description):
@@ -396,7 +410,7 @@ class Checker:
         else:
             self.test_results.add_error(
                 obj.test_name,
-                'method {!r} ({}) not found for {}'.format(method, method.__class__.__name__, obj.__class__.__name__),
+                "method {!r} ({}) not found for {}".format(method, method.__class__.__name__, obj.__class__.__name__),
             )
 
     def call_tests(self, obj, test_descriptions):
@@ -408,7 +422,7 @@ class Checker:
         engineref_category = search_query.engineref_list[0].category
         params = self.processor.get_params(search_query, engineref_category)
         if params is not None:
-            counter_inc('engine', search_query.engineref_list[0].name, 'search', 'count', 'sent')
+            counter_inc("engine", search_query.engineref_list[0].name, "search", "count", "sent")
             self.processor.search(search_query.query, params, result_container, default_timer(), 5)
         return result_container
 
@@ -420,18 +434,18 @@ class Checker:
 
     def run_test(self, test_name):
         test_parameters = self.tests[test_name]
-        search_query_list = list(Checker.search_query_matrix_iterator(self.engineref_list, test_parameters['matrix']))
+        search_query_list = list(Checker.search_query_matrix_iterator(self.engineref_list, test_parameters["matrix"]))
         rct_list = [self.get_result_container_tests(test_name, search_query) for search_query in search_query_list]
         stop_test = False
-        if 'result_container' in test_parameters:
+        if "result_container" in test_parameters:
             for rct in rct_list:
                 stop_test = stop_test or rct.stop_test
                 if not rct.stop_test:
-                    self.call_tests(rct, test_parameters['result_container'])
+                    self.call_tests(rct, test_parameters["result_container"])
         if not stop_test:
-            if 'test' in test_parameters:
+            if "test" in test_parameters:
                 checker_tests = CheckerTests(self.test_results, test_name, rct_list)
-                self.call_tests(checker_tests, test_parameters['test'])
+                self.call_tests(checker_tests, test_parameters["test"])
 
     def run(self):
         for test_name in self.tests:

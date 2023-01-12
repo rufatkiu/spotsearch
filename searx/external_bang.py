@@ -7,15 +7,15 @@ LEAF_KEY = chr(16)
 
 
 def get_node(external_bangs_db, bang):
-    node = external_bangs_db['trie']
-    after = ''
-    before = ''
+    node = external_bangs_db["trie"]
+    after = ""
+    before = ""
     for bang_letter in bang:
         after += bang_letter
         if after in node and isinstance(node, dict):
             node = node[after]
             before += after
-            after = ''
+            after = ""
     return node, before, after
 
 
@@ -24,7 +24,7 @@ def get_bang_definition_and_ac(external_bangs_db, bang):
 
     bang_definition = None
     bang_ac_list = []
-    if after != '':
+    if after != "":
         for k in node:
             if k.startswith(after):
                 bang_ac_list.append(before + k)
@@ -41,8 +41,8 @@ def get_bang_definition_and_ac(external_bangs_db, bang):
 def resolve_bang_definition(bang_definition, query):
     url, rank = bang_definition.split(chr(1))
     url = url.replace(chr(2), quote_plus(query))
-    if url.startswith('//'):
-        url = 'https:' + url
+    if url.startswith("//"):
+        url = "https:" + url
     rank = int(rank) if len(rank) > 0 else 0
     return (url, rank)
 
@@ -62,7 +62,7 @@ def get_bang_definition_and_autocomplete(bang, external_bangs_db=None):
 
         current_bang_definition, current_bang_ac_list = get_bang_definition_and_ac(external_bangs_db, bang_ac)
         if current_bang_definition:
-            _, order = resolve_bang_definition(current_bang_definition, '')
+            _, order = resolve_bang_definition(current_bang_definition, "")
             new_autocomplete.append((bang_ac, order))
         for new_bang in current_bang_ac_list:
             if new_bang not in done and new_bang not in current:

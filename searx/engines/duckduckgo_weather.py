@@ -9,8 +9,8 @@ from datetime import datetime
 from flask_babel import gettext
 
 about = {
-    "website": 'https://duckduckgo.com/',
-    "wikidata_id": 'Q12805',
+    "website": "https://duckduckgo.com/",
+    "wikidata_id": "Q12805",
     "official_api_documentation": None,
     "use_official_api": True,
     "require_api_key": False,
@@ -72,7 +72,7 @@ def generate_day_table(day):
 
 
 def request(query, params):
-    params["url"] = url.format(query=quote(query), lang=params['language'].split('-')[0])
+    params["url"] = url.format(query=quote(query), lang=params["language"].split("-")[0])
 
     return params
 
@@ -87,11 +87,11 @@ def response(resp):
     if resp.text.strip() == "ddg_spice_forecast();":
         return []
 
-    result = loads(resp.text[resp.text.find('\n') + 1 : resp.text.rfind('\n') - 2])
+    result = loads(resp.text[resp.text.find("\n") + 1 : resp.text.rfind("\n") - 2])
 
     current = result["currently"]
 
-    title = result['flags']['ddg-location']
+    title = result["flags"]["ddg-location"]
 
     infobox = f"<h3>{gettext('Current condition')}</h3><table><tbody>"
 
@@ -101,8 +101,8 @@ def response(resp):
 
     last_date = None
 
-    for time in result['hourly']['data']:
-        current_time = datetime.fromtimestamp(time['time'])
+    for time in result["hourly"]["data"]:
+        current_time = datetime.fromtimestamp(time["time"])
 
         if last_date != current_time.date():
             if last_date is not None:
@@ -112,8 +112,8 @@ def response(resp):
 
             infobox += "<table><tbody>"
 
-            for day in result['daily']['data']:
-                if datetime.fromtimestamp(day['time']).date() == current_time.date():
+            for day in result["daily"]["data"]:
+                if datetime.fromtimestamp(day["time"]).date() == current_time.date():
                     infobox += generate_day_table(day)
 
             infobox += "</tbody></table><table><tbody>"

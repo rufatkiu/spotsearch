@@ -3,8 +3,6 @@ from searx.engines import load_engines
 from searx.query import RawTextQuery
 from tests import SearxTestCase
 
-import searx.engines
-
 
 TEST_ENGINES = [
     {

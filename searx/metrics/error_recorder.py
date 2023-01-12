@@ -19,17 +19,27 @@ errors_per_engines = {}
 class ErrorContext:
 
     __slots__ = (
-        'filename',
-        'function',
-        'line_no',
-        'code',
-        'exception_classname',
-        'log_message',
-        'log_parameters',
-        'secondary',
+        "filename",
+        "function",
+        "line_no",
+        "code",
+        "exception_classname",
+        "log_message",
+        "log_parameters",
+        "secondary",
     )
 
-    def __init__(self, filename, function, line_no, code, exception_classname, log_message, log_parameters, secondary):
+    def __init__(
+        self,
+        filename,
+        function,
+        line_no,
+        code,
+        exception_classname,
+        log_message,
+        log_parameters,
+        secondary,
+    ):
         self.filename = filename
         self.function = function
         self.line_no = line_no
@@ -82,15 +92,15 @@ class ErrorContext:
 def add_error_context(engine_name: str, error_context: ErrorContext) -> None:
     errors_for_engine = errors_per_engines.setdefault(engine_name, {})
     errors_for_engine[error_context] = errors_for_engine.get(error_context, 0) + 1
-    engines[engine_name].logger.warning('%s', str(error_context))
+    engines[engine_name].logger.warning("%s", str(error_context))
 
 
 def get_trace(traces):
     for trace in reversed(traces):
-        split_filename = trace.filename.split('/')
-        if '/'.join(split_filename[-3:-1]) == 'searx/engines':
+        split_filename = trace.filename.split("/")
+        if "/".join(split_filename[-3:-1]) == "searx/engines":
             return trace
-        if '/'.join(split_filename[-4:-1]) == 'searx/search/processors':
+        if "/".join(split_filename[-4:-1]) == "searx/search/processors":
             return trace
     return traces[-1]
 
@@ -109,11 +119,11 @@ def get_request_exception_messages(
     status_code = None
     reason = None
     hostname = None
-    if hasattr(exc, '_request') and exc._request is not None:
+    if hasattr(exc, "_request") and exc._request is not None:
         # exc.request is property that raise an RuntimeException
         # if exc._request is not defined.
         url = exc.request.url
-    if url is None and hasattr(exc, 'response') and exc.response is not None:
+    if url is None and hasattr(exc, "response") and exc.response is not None:
         url = exc.response.url
     if url is not None:
         hostname = url.host
@@ -128,7 +138,7 @@ def get_messages(exc, filename) -> typing.Tuple:
         return (exc.msg,)
     if isinstance(exc, TypeError):
         return (str(exc),)
-    if isinstance(exc, ValueError) and 'lxml' in filename:
+    if isinstance(exc, ValueError) and "lxml" in filename:
         return (str(exc),)
     if isinstance(exc, HTTPError):
         return get_request_exception_messages(exc)
@@ -149,7 +159,7 @@ def get_exception_classname(exc: Exception) -> str:
     exc_module = exc_class.__module__
     if exc_module is None or exc_module == str.__class__.__module__:
         return exc_name
-    return exc_module + '.' + exc_name
+    return exc_module + "." + exc_name
 
 
 def get_error_context(framerecords, exception_classname, log_message, log_parameters, secondary) -> ErrorContext:
@@ -161,11 +171,20 @@ def get_error_context(framerecords, exception_classname, log_message, log_parame
     line_no = searx_frame.lineno
     code = searx_frame.code_context[0].strip()
     del framerecords
-    return ErrorContext(filename, function, line_no, code, exception_classname, log_message, log_parameters, secondary)
+    return ErrorContext(
+        filename,
+        function,
+        line_no,
+        code,
+        exception_classname,
+        log_message,
+        log_parameters,
+        secondary,
+    )
 
 
 def count_exception(engine_name: str, exc: Exception, secondary: bool = False) -> None:
-    if not settings['general']['enable_metrics']:
+    if not settings["general"]["enable_metrics"]:
         return
     framerecords = inspect.trace()
     try:
@@ -178,9 +197,12 @@ def count_exception(engine_name: str, exc: Exception, secondary: bool = False) -
 
 
 def count_error(
-    engine_name: str, log_message: str, log_parameters: typing.Optional[typing.Tuple] = None, secondary: bool = False
+    engine_name: str,
+    log_message: str,
+    log_parameters: typing.Optional[typing.Tuple] = None,
+    secondary: bool = False,
 ) -> None:
-    if not settings['general']['enable_metrics']:
+    if not settings["general"]["enable_metrics"]:
         return
     framerecords = list(reversed(inspect.stack()[1:]))
     try:

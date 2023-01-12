@@ -38,7 +38,7 @@ def default_request_params():
 class OnlineProcessor(EngineProcessor):
     """Processor class for ``online`` engines."""
 
-    engine_type = 'online'
+    engine_type = "online"
 
     def initialize(self):
         # set timeout for all HTTP requests
@@ -58,7 +58,7 @@ class OnlineProcessor(EngineProcessor):
         params.update(default_request_params())
 
         # add an user agent
-        params['headers']['User-Agent'] = gen_useragent()
+        params["headers"]["User-Agent"] = gen_useragent()
 
         # add Accept-Language header
         if self.engine.send_accept_language_header and search_query.locale:
@@ -69,60 +69,60 @@ class OnlineProcessor(EngineProcessor):
                     search_query.locale.territory,
                     search_query.locale.language,
                 )
-            params['headers']['Accept-Language'] = ac_lang
+            params["headers"]["Accept-Language"] = ac_lang
 
         return params
 
     def _send_http_request(self, params):
         # create dictionary which contain all
         # information about the request
-        request_args = dict(headers=params['headers'], cookies=params['cookies'], auth=params['auth'])
+        request_args = dict(headers=params["headers"], cookies=params["cookies"], auth=params["auth"])
 
         # verify
         # if not None, it overrides the verify value defined in the network.
         # use False to accept any server certificate
         # use a path to file to specify a server certificate
-        verify = params.get('verify')
+        verify = params.get("verify")
         if verify is not None:
-            request_args['verify'] = params['verify']
+            request_args["verify"] = params["verify"]
 
         # max_redirects
-        max_redirects = params.get('max_redirects')
+        max_redirects = params.get("max_redirects")
         if max_redirects:
-            request_args['max_redirects'] = max_redirects
+            request_args["max_redirects"] = max_redirects
 
         # follow_redirects
-        if 'follow_redirects' in params:
+        if "follow_redirects" in params:
             # httpx has renamed this parameter to 'follow_redirects'
-            request_args['follow_redirects'] = params['follow_redirects']
+            request_args["follow_redirects"] = params["follow_redirects"]
 
         # soft_max_redirects
-        soft_max_redirects = params.get('soft_max_redirects', max_redirects or 0)
+        soft_max_redirects = params.get("soft_max_redirects", max_redirects or 0)
 
         # raise_for_status
-        request_args['raise_for_httperror'] = params.get('raise_for_httperror', True)
+        request_args["raise_for_httperror"] = params.get("raise_for_httperror", True)
 
         # specific type of request (GET or POST)
-        if params['method'] == 'GET':
+        if params["method"] == "GET":
             req = searx.network.get
         else:
             req = searx.network.post
 
-        request_args['data'] = params['data']
+        request_args["data"] = params["data"]
 
         # send the request
-        response = req(params['url'], **request_args)
+        response = req(params["url"], **request_args)
 
         # check soft limit of the redirect count
         if len(response.history) > soft_max_redirects:
             # unexpected redirect : record an error
             # but the engine might still return valid results.
-            status_code = str(response.status_code or '')
-            reason = response.reason_phrase or ''
+            status_code = str(response.status_code or "")
+            reason = response.reason_phrase or ""
             hostname = response.url.host
             count_error(
                 self.engine_name,
-                '{} redirects, maximum: {}'.format(len(response.history), soft_max_redirects),
+                "{} redirects, maximum: {}".format(len(response.history), soft_max_redirects),
                 (status_code, reason, hostname),
                 secondary=True,
             )
@@ -135,10 +135,10 @@ class OnlineProcessor(EngineProcessor):
         self.engine.request(query, params)
 
         # ignoring empty urls
-        if params['url'] is None:
+        if params["url"] is None:
             return None
 
-        if not params['url']:
+        if not params["url"]:
             return None
 
         # send request
@@ -182,7 +182,7 @@ class OnlineProcessor(EngineProcessor):
             )
         except SearxEngineCaptchaException as e:
             self.handle_exception(result_container, e, suspend=True)
-            self.logger.exception('CAPTCHA')
+            self.logger.exception("CAPTCHA")
         except SearxEngineTooManyRequestsException as e:
             if "google" in self.engine_name:
                 self.logger.warn(
@@ -190,50 +190,53 @@ class OnlineProcessor(EngineProcessor):
                     " section of your settings.yml file if google is blocked for you."
                 )
             self.handle_exception(result_container, e, suspend=True)
-            self.logger.exception('Too many requests')
+            self.logger.exception("Too many requests")
         except SearxEngineAccessDeniedException as e:
             self.handle_exception(result_container, e, suspend=True)
-            self.logger.exception('Searx is blocked')
+            self.logger.exception("Searx is blocked")
         except Exception as e:  # pylint: disable=broad-except
             self.handle_exception(result_container, e)
-            self.logger.exception('exception : {0}'.format(e))
+            self.logger.exception("exception : {0}".format(e))
 
     def get_default_tests(self):
         tests = {}
 
-        tests['simple'] = {
-            'matrix': {'query': ('life', 'computer')},
-            'result_container': ['not_empty'],
+        tests["simple"] = {
+            "matrix": {"query": ("life", "computer")},
+            "result_container": ["not_empty"],
         }
 
-        if getattr(self.engine, 'paging', False):
-            tests['paging'] = {
-                'matrix': {'query': 'time', 'pageno': (1, 2, 3)},
-                'result_container': ['not_empty'],
-                'test': ['unique_results'],
+        if getattr(self.engine, "paging", False):
+            tests["paging"] = {
+                "matrix": {"query": "time", "pageno": (1, 2, 3)},
+                "result_container": ["not_empty"],
+                "test": ["unique_results"],
             }
-            if 'general' in self.engine.categories:
+            if "general" in self.engine.categories:
                 # avoid documentation about HTML tags (<time> and <input type="time">)
-                tests['paging']['matrix']['query'] = 'news'
+                tests["paging"]["matrix"]["query"] = "news"
 
-        if getattr(self.engine, 'time_range', False):
-            tests['time_range'] = {
-                'matrix': {'query': 'news', 'time_range': (None, 'day')},
-                'result_container': ['not_empty'],
-                'test': ['unique_results'],
+        if getattr(self.engine, "time_range", False):
+            tests["time_range"] = {
+                "matrix": {"query": "news", "time_range": (None, "day")},
+                "result_container": ["not_empty"],
+                "test": ["unique_results"],
             }
 
-        if getattr(self.engine, 'supported_languages', []):
-            tests['lang_fr'] = {
-                'matrix': {'query': 'paris', 'lang': 'fr'},
-                'result_container': ['not_empty', ('has_language', 'fr')],
+        if getattr(self.engine, "supported_languages", []):
+            tests["lang_fr"] = {
+                "matrix": {"query": "paris", "lang": "fr"},
+                "result_container": ["not_empty", ("has_language", "fr")],
             }
-            tests['lang_en'] = {
-                'matrix': {'query': 'paris', 'lang': 'en'},
-                'result_container': ['not_empty', ('has_language', 'en')],
+            tests["lang_en"] = {
+                "matrix": {"query": "paris", "lang": "en"},
+                "result_container": ["not_empty", ("has_language", "en")],
             }
 
-        if getattr(self.engine, 'safesearch', False):
-            tests['safesearch'] = {'matrix': {'query': 'porn', 'safesearch': (0, 2)}, 'test': ['unique_results']}
+        if getattr(self.engine, "safesearch", False):
+            tests["safesearch"] = {
+                "matrix": {"query": "porn", "safesearch": (0, 2)},
+                "test": ["unique_results"],
+            }
 
         return tests

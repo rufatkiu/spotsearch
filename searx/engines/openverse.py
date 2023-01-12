@@ -10,28 +10,28 @@ from urllib.parse import urlencode
 
 
 about = {
-    "website": 'https://wordpress.org/openverse/',
+    "website": "https://wordpress.org/openverse/",
     "wikidata_id": None,
-    "official_api_documentation": 'https://api.openverse.engineering/v1/',
+    "official_api_documentation": "https://api.openverse.engineering/v1/",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
-categories = ['images']
+categories = ["images"]
 
 paging = True
 nb_per_page = 20
 
-base_url = 'https://api.openverse.engineering/v1/images/'
-search_string = '?page={page}&page_size={nb_per_page}&format=json&{query}'
+base_url = "https://api.openverse.engineering/v1/images/"
+search_string = "?page={page}&page_size={nb_per_page}&format=json&{query}"
 
 
 def request(query, params):
 
-    search_path = search_string.format(query=urlencode({'q': query}), nb_per_page=nb_per_page, page=params['pageno'])
+    search_path = search_string.format(query=urlencode({"q": query}), nb_per_page=nb_per_page, page=params["pageno"])
 
-    params['url'] = base_url + search_path
+    params["url"] = base_url + search_path
 
     return params
 
@@ -41,13 +41,13 @@ def response(resp):
 
     json_data = loads(resp.text)
 
-    for result in json_data['results']:
+    for result in json_data["results"]:
         results.append(
             {
-                'url': result['foreign_landing_url'],
-                'title': result['title'],
-                'img_src': result['url'],
-                'template': 'images.html',
+                "url": result["foreign_landing_url"],
+                "title": result["title"],
+                "img_src": result["url"],
+                "template": "images.html",
             }
         )
 

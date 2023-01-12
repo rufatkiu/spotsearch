@@ -14,7 +14,11 @@ from contextlib import contextmanager
 import httpx
 import anyio
 
-from .network import get_network, initialize, check_network_configuration  # pylint:disable=cyclic-import
+from .network import (
+    get_network,
+    initialize,
+    check_network_configuration,
+)  # pylint:disable=cyclic-import
 from .client import get_loop
 from .raise_for_httperror import raise_for_httperror
 
@@ -29,7 +33,7 @@ def reset_time_for_thread():
 
 def get_time_for_thread():
     """returns thread's total time or None"""
-    return THREADLOCAL.__dict__.get('total_time')
+    return THREADLOCAL.__dict__.get("total_time")
 
 
 def set_timeout_for_thread(timeout, start_time=None):
@@ -46,20 +50,20 @@ def get_context_network():
 
     If unset, return value from :py:obj:`get_network`.
     """
-    return THREADLOCAL.__dict__.get('network') or get_network()
+    return THREADLOCAL.__dict__.get("network") or get_network()
 
 
 @contextmanager
 def _record_http_time():
     # pylint: disable=too-many-branches
     time_before_request = default_timer()
-    start_time = getattr(THREADLOCAL, 'start_time', time_before_request)
+    start_time = getattr(THREADLOCAL, "start_time", time_before_request)
     try:
         yield start_time
     finally:
         # update total_time.
         # See get_time_for_thread() and reset_time_for_thread()
-        if hasattr(THREADLOCAL, 'total_time'):
+        if hasattr(THREADLOCAL, "total_time"):
             time_after_request = default_timer()
             THREADLOCAL.total_time += time_after_request - time_before_request
 
@@ -68,12 +72,12 @@ def _get_timeout(start_time, kwargs):
     # pylint: disable=too-many-branches
 
     # timeout (httpx)
-    if 'timeout' in kwargs:
-        timeout = kwargs['timeout']
+    if "timeout" in kwargs:
+        timeout = kwargs["timeout"]
     else:
-        timeout = getattr(THREADLOCAL, 'timeout', None)
+        timeout = getattr(THREADLOCAL, "timeout", None)
         if timeout is not None:
-            kwargs['timeout'] = timeout
+            kwargs["timeout"] = timeout
 
     # 2 minutes timeout for the requests without timeout
     timeout = timeout or 120
@@ -95,10 +99,12 @@ def request(method, url, **kwargs):
         try:
             return future.result(timeout)
         except concurrent.futures.TimeoutError as e:
-            raise httpx.TimeoutException('Timeout', request=None) from e
+            raise httpx.TimeoutException("Timeout", request=None) from e
 
 
-def multi_requests(request_list: List["Request"]) -> List[Union[httpx.Response, Exception]]:
+def multi_requests(
+    request_list: List["Request"],
+) -> List[Union[httpx.Response, Exception]]:
     """send multiple HTTP requests in parallel. Wait for all requests to finish."""
     with _record_http_time() as start_time:
         # send the requests
@@ -108,7 +114,8 @@ def multi_requests(request_list: List["Request"]) -> List[Union[httpx.Response, 
         for request_desc in request_list:
             timeout = _get_timeout(start_time, request_desc.kwargs)
             future = asyncio.run_coroutine_threadsafe(
-                network.request(request_desc.method, request_desc.url, **request_desc.kwargs), loop
+                network.request(request_desc.method, request_desc.url, **request_desc.kwargs),
+                loop,
             )
             future_list.append((future, timeout))
 
@@ -118,7 +125,7 @@ def multi_requests(request_list: List["Request"]) -> List[Union[httpx.Response, 
             try:
                 responses.append(future.result(timeout))
             except concurrent.futures.TimeoutError:
-                responses.append(httpx.TimeoutException('Timeout', request=None))
+                responses.append(httpx.TimeoutException("Timeout", request=None))
             except Exception as e:  # pylint: disable=broad-except
                 responses.append(e)
         return responses
@@ -133,62 +140,62 @@ class Request(NamedTuple):
 
     @staticmethod
     def get(url, **kwargs):
-        return Request('GET', url, kwargs)
+        return Request("GET", url, kwargs)
 
     @staticmethod
     def options(url, **kwargs):
-        return Request('OPTIONS', url, kwargs)
+        return Request("OPTIONS", url, kwargs)
 
     @staticmethod
     def head(url, **kwargs):
-        return Request('HEAD', url, kwargs)
+        return Request("HEAD", url, kwargs)
 
     @staticmethod
     def post(url, **kwargs):
-        return Request('POST', url, kwargs)
+        return Request("POST", url, kwargs)
 
     @staticmethod
     def put(url, **kwargs):
-        return Request('PUT', url, kwargs)
+        return Request("PUT", url, kwargs)
 
     @staticmethod
     def patch(url, **kwargs):
-        return Request('PATCH', url, kwargs)
+        return Request("PATCH", url, kwargs)
 
     @staticmethod
     def delete(url, **kwargs):
-        return Request('DELETE', url, kwargs)
+        return Request("DELETE", url, kwargs)
 
 
 def get(url, **kwargs):
-    kwargs.setdefault('allow_redirects', True)
-    return request('get', url, **kwargs)
+    kwargs.setdefault("allow_redirects", True)
+    return request("get", url, **kwargs)
 
 
 def options(url, **kwargs):
-    kwargs.setdefault('allow_redirects', True)
-    return request('options', url, **kwargs)
+    kwargs.setdefault("allow_redirects", True)
+    return request("options", url, **kwargs)
 
 
 def head(url, **kwargs):
-    kwargs.setdefault('allow_redirects', False)
-    return request('head', url, **kwargs)
+    kwargs.setdefault("allow_redirects", False)
+    return request("head", url, **kwargs)
 
 
 def post(url, data=None, **kwargs):
-    return request('post', url, data=data, **kwargs)
+    return request("post", url, data=data, **kwargs)
 
 
 def put(url, data=None, **kwargs):
-    return request('put', url, data=data, **kwargs)
+    return request("put", url, data=data, **kwargs)
 
 
 def patch(url, data=None, **kwargs):
-    return request('patch', url, data=data, **kwargs)
+    return request("patch", url, data=data, **kwargs)
 
 
 def delete(url, **kwargs):
-    return request('delete', url, **kwargs)
+    return request("delete", url, **kwargs)
 
 
 async def stream_chunk_to_queue(network, queue, method, url, **kwargs):

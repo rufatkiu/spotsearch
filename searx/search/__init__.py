@@ -17,21 +17,30 @@ from searx.plugins import plugins
 from searx.search.models import EngineRef, SearchQuery
 from searx.engines import load_engines
 from searx.network import initialize as initialize_network, check_network_configuration
-from searx.metrics import initialize as initialize_metrics, counter_inc, histogram_observe_time
+from searx.metrics import (
+    initialize as initialize_metrics,
+    counter_inc,
+    histogram_observe_time,
+)
 from searx.search.processors import PROCESSORS, initialize as initialize_processors
 from searx.search.checker import initialize as initialize_checker
 
 
-logger = logger.getChild('search')
+logger = logger.getChild("search")
 
 
-def initialize(settings_engines=None, enable_checker=False, check_network=False, enable_metrics=True):
-    settings_engines = settings_engines or settings['engines']
+def initialize(
+    settings_engines=None,
+    enable_checker=False,
+    check_network=False,
+    enable_metrics=True,
+):
+    settings_engines = settings_engines or settings["engines"]
     load_engines(settings_engines)
-    initialize_network(settings_engines, settings['outgoing'])
+    initialize_network(settings_engines, settings["outgoing"])
     if check_network:
         check_network_configuration()
-    initialize_metrics([engine['name'] for engine in settings_engines], enable_metrics)
+    initialize_metrics([engine["name"] for engine in settings_engines], enable_metrics)
     initialize_processors(settings_engines)
     if enable_checker:
         initialize_checker()
@@ -46,7 +55,7 @@ class Search:
         # init vars
         super().__init__()
         self.search_query = search_query
-        self.result_container = ResultContainer(search_query.lang)
+        self.result_container = ResultContainer()
         self.start_time = None
         self.actual_timeout = None
 
@@ -73,7 +82,7 @@ class Search:
 
         if answerers_results:
             for results in answerers_results:
-                self.result_container.extend('answer', results)
+                self.result_container.extend("answer", results)
             return True
         return False
 
@@ -98,7 +107,7 @@ class Search:
             if request_params is None:
                 continue
 
-            counter_inc('engine', engineref.name, 'search', 'count', 'sent')
+            counter_inc("engine", engineref.name, "search", "count", "sent")
 
             # append request to list
             requests.append((engineref.name, self.search_query.query, request_params))
@@ -107,7 +116,7 @@ class Search:
             default_timeout = max(default_timeout, processor.engine.timeout)
 
         # adjust timeout
-        max_request_timeout = settings['outgoing']['max_request_timeout']
+        max_request_timeout = settings["outgoing"]["max_request_timeout"]
         actual_timeout = default_timeout
         query_timeout = self.search_query.timeout_limit
 
@@ -139,7 +148,13 @@ class Search:
         for engine_name, query, request_params in requests:
             th = threading.Thread(  # pylint: disable=invalid-name
                 target=PROCESSORS[engine_name].search,
-                args=(query, request_params, self.result_container, self.start_time, self.actual_timeout),
+                args=(
+                    query,
+                    request_params,
+                    self.result_container,
+                    self.start_time,
+                    self.actual_timeout,
+                ),
                 name=search_id,
             )
             th._timeout = False
@@ -152,8 +167,8 @@ class Search:
                 th.join(remaining_time)
                 if th.is_alive():
                     th._timeout = True
-                    self.result_container.add_unresponsive_engine(th._engine_name, 'timeout')
-                    PROCESSORS[th._engine_name].logger.error('engine timeout')
+                    self.result_container.add_unresponsive_engine(th._engine_name, "timeout")
+                    PROCESSORS[th._engine_name].logger.error("engine timeout")
 
     def search_standard(self):
         """
@@ -180,7 +195,7 @@ class Search:
 class SearchWithPlugins(Search):
     """Inherit from the Search class, add calls to the plugins."""
 
-    __slots__ = 'ordered_plugin_list', 'request'
+    __slots__ = "ordered_plugin_list", "request"
 
     def __init__(self, search_query: SearchQuery, ordered_plugin_list, request: flask.Request):
         super().__init__(search_query)
@@ -196,13 +211,13 @@ class SearchWithPlugins(Search):
         self.request = request._get_current_object()
 
     def _on_result(self, result):
-        return plugins.call(self.ordered_plugin_list, 'on_result', self.request, self, result)
+        return plugins.call(self.ordered_plugin_list, "on_result", self.request, self, result)
 
     def search(self) -> ResultContainer:
-        if plugins.call(self.ordered_plugin_list, 'pre_search', self.request, self):
+        if plugins.call(self.ordered_plugin_list, "pre_search", self.request, self):
             super().search()
 
-        plugins.call(self.ordered_plugin_list, 'post_search', self.request, self)
+        plugins.call(self.ordered_plugin_list, "post_search", self.request, self)
 
         self.result_container.close()
 

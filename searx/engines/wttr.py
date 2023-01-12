@@ -72,7 +72,7 @@ def generate_condition_table(condition, lang, current=False):
 
 
 def request(query, params):
-    if query.replace('/', '') in [":help", ":bash.function", ":translation"]:
+    if query.replace("/", "") in [":help", ":bash.function", ":translation"]:
         return None
 
     if params["language"] == "all":
@@ -96,15 +96,20 @@ def response(resp):
     result = loads(resp.text)
 
     current = result["current_condition"][0]
-    location = result['nearest_area'][0]
+    location = result["nearest_area"][0]
 
-    forecast_indices = {3: gettext('Morning'), 4: gettext('Noon'), 6: gettext('Evening'), 7: gettext('Night')}
+    forecast_indices = {
+        3: gettext("Morning"),
+        4: gettext("Noon"),
+        6: gettext("Evening"),
+        7: gettext("Night"),
+    }
 
     title = f"{location['areaName'][0]['value']}, {location['region'][0]['value']}"
 
     infobox = f"<h3>{gettext('Current condition')}</h3><table><tbody>"
 
-    infobox += generate_condition_table(current, resp.search_params['language'], True)
+    infobox += generate_condition_table(current, resp.search_params["language"], True)
 
     infobox += "</tbody></table>"
 
@@ -120,9 +125,9 @@ def response(resp):
         infobox += "<table><tbody>"
 
         for time in forecast_indices.items():
-            infobox += f"<tr><td rowspan=\"7\"><b>{time[1]}</b></td></tr>"
+            infobox += f'<tr><td rowspan="7"><b>{time[1]}</b></td></tr>'
 
-            infobox += generate_condition_table(day['hourly'][time[0]], resp.search_params['language'])
+            infobox += generate_condition_table(day["hourly"][time[0]], resp.search_params["language"])
 
         infobox += "</tbody></table>"
 

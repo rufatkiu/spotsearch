@@ -29,7 +29,7 @@ search_url = "https://play.google.com/store/search?{query}&c=apps"
 
 def request(query, params):
     params["url"] = search_url.format(query=urlencode({"q": query}))
-    params['cookies']['CONSENT'] = "YES+"
+    params["cookies"]["CONSENT"] = "YES+"
 
     return params
 

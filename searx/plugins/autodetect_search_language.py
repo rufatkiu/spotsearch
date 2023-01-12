@@ -71,9 +71,9 @@ import babel
 from searx.utils import detect_language
 from searx.languages import language_codes
 
-name = gettext('Autodetect search language')
-description = gettext('Automatically detect the query search language and switch to it.')
-preference_section = 'general'
+name = gettext("Autodetect search language")
+description = gettext("Automatically detect the query search language and switch to it.")
+preference_section = "general"
 default_on = False
 
 supported_langs = set()
@@ -93,5 +93,5 @@ def pre_search(request, search):  # pylint: disable=unused-argument
 
 def init(app, settings):  # pylint: disable=unused-argument
     for searxng_locale in language_codes:
-        supported_langs.add(searxng_locale[0].split('-')[0])
+        supported_langs.add(searxng_locale[0].split("-")[0])
     return True

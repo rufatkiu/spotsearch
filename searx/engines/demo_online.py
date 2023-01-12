@@ -19,25 +19,25 @@ list in ``settings.yml``:
 from json import loads
 from urllib.parse import urlencode
 
-engine_type = 'online'
+engine_type = "online"
 send_accept_language_header = True
-categories = ['general']
+categories = ["general"]
 disabled = True
 timeout = 2.0
-categories = ['images']
+categories = ["images"]
 paging = True
 page_size = 20
 
-search_api = 'https://api.artic.edu/api/v1/artworks/search?'
-image_api = 'https://www.artic.edu/iiif/2/'
+search_api = "https://api.artic.edu/api/v1/artworks/search?"
+image_api = "https://www.artic.edu/iiif/2/"
 
 about = {
-    "website": 'https://www.artic.edu',
-    "wikidata_id": 'Q239303',
-    "official_api_documentation": 'http://api.artic.edu/docs/',
+    "website": "https://www.artic.edu",
+    "wikidata_id": "Q239303",
+    "official_api_documentation": "http://api.artic.edu/docs/",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 
@@ -51,7 +51,7 @@ def init(engine_settings):
 
     """
     global _my_online_engine  # pylint: disable=global-statement
-    _my_online_engine = engine_settings.get('name')
+    _my_online_engine = engine_settings.get("name")
 
 
 def request(query, params):
@@ -61,13 +61,13 @@ def request(query, params):
     """
     args = urlencode(
         {
-            'q': query,
-            'page': params['pageno'],
-            'fields': 'id,title,artist_display,medium_display,image_id,date_display,dimensions,artist_titles',
-            'limit': page_size,
+            "q": query,
+            "page": params["pageno"],
+            "fields": "id,title,artist_display,medium_display,image_id,date_display,dimensions,artist_titles",
+            "limit": page_size,
         }
     )
-    params['url'] = search_api + args
+    params["url"] = search_api + args
     return params
 
 
@@ -80,20 +80,20 @@ def response(resp):
     results = []
     json_data = loads(resp.text)
 
-    for result in json_data['data']:
+    for result in json_data["data"]:
 
-        if not result['image_id']:
+        if not result["image_id"]:
             continue
 
         results.append(
             {
-                'url': 'https://artic.edu/artworks/%(id)s' % result,
-                'title': result['title'] + " (%(date_display)s) //  %(artist_display)s" % result,
-                'content': result['medium_display'],
-                'author': ', '.join(result['artist_titles']),
-                'img_src': image_api + '/%(image_id)s/full/843,/0/default.jpg' % result,
-                'img_format': result['dimensions'],
-                'template': 'images.html',
+                "url": "https://artic.edu/artworks/%(id)s" % result,
+                "title": result["title"] + " (%(date_display)s) //  %(artist_display)s" % result,
+                "content": result["medium_display"],
+                "author": ", ".join(result["artist_titles"]),
+                "img_src": image_api + "/%(image_id)s/full/843,/0/default.jpg" % result,
+                "img_format": result["dimensions"],
+                "template": "images.html",
             }
         )
 

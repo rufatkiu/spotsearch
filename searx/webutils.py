@@ -12,7 +12,6 @@ from typing import Iterable, List, Tuple, Dict
 
 from io import StringIO
 from codecs import getincrementalencoder
-from typing import Dict
 
 from flask_babel import gettext, format_date
 
@@ -20,9 +19,9 @@ from searx import logger, settings
 from searx.engines import Engine, OTHER_CATEGORY
 
 
-VALID_LANGUAGE_CODE = re.compile(r'^[a-z]{2,3}(-[a-zA-Z]{2})?$')
+VALID_LANGUAGE_CODE = re.compile(r"^[a-z]{2,3}(-[a-zA-Z]{2})?$")
 
-logger = logger.getChild('webutils')
+logger = logger.getChild("webutils")
 
 
 class UnicodeWriter:
@@ -42,7 +41,7 @@ class UnicodeWriter:
         self.writer.writerow(row)
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
-        data = data.strip('\x00')
+        data = data.strip("\x00")
         # ... and re-encode it into the target encoding
         data = self.encoder.encode(data)
         # write to the target stream
@@ -62,7 +61,7 @@ def get_themes(templates_path):
 
 def get_hash_for_file(file: pathlib.Path) -> str:
     m = hashlib.sha1()
-    with file.open('rb') as f:
+    with file.open("rb") as f:
         m.update(f.read())
     return m.hexdigest()
 
@@ -73,12 +72,12 @@ def get_static_files(static_path: str) -> Dict[str, str]:
 
     def walk(path: pathlib.Path):
         for file in path.iterdir():
-            if file.name.startswith('.'):
+            if file.name.startswith("."):
                 # ignore hidden file
                 continue
             if file.is_file():
                 static_files[str(file.relative_to(static_path_path))] = get_hash_for_file(file)
-            if file.is_dir() and file.name not in ('node_modules', 'src'):
+            if file.is_dir() and file.name not in ("node_modules", "src"):
                 # ignore "src" and "node_modules" directories
                 walk(file)
 
@@ -90,7 +89,7 @@ def get_result_templates(templates_path):
     result_templates = set()
     templates_path_length = len(templates_path) + 1
     for directory, _, files in os.walk(templates_path):
-        if directory.endswith('result_templates'):
+        if directory.endswith("result_templates"):
             for filename in files:
                 f = os.path.join(directory[templates_path_length:], filename)
                 result_templates.add(f)
@@ -109,7 +108,7 @@ def is_hmac_of(secret_key, value, hmac_to_check):
 def prettify_url(url, max_length=74):
     if len(url) > max_length:
         chunk_len = int(max_length / 2 + 1)
-        return '{0}[...]{1}'.format(url[:chunk_len], url[-chunk_len:])
+        return "{0}[...]{1}".format(url[:chunk_len], url[-chunk_len:])
     else:
         return url
 
@@ -120,24 +119,34 @@ def highlight_content(content, query):
         return None
     # ignoring html contents
     # TODO better html content detection
-    if content.find('<') != -1:
+    if content.find("<") != -1:
         return content
 
     if content.lower().find(query.lower()) > -1:
-        query_regex = '({0})'.format(re.escape(query))
-        content = re.sub(query_regex, '<span class="highlight">\\1</span>', content, flags=re.I | re.U)
+        query_regex = "({0})".format(re.escape(query))
+        content = re.sub(
+            query_regex,
+            '<span class="highlight">\\1</span>',
+            content,
+            flags=re.I | re.U,
+        )
     else:
         regex_parts = []
         for chunk in query.split():
-            chunk = chunk.replace('"', '')
+            chunk = chunk.replace('"', "")
             if len(chunk) == 0:
                 continue
             elif len(chunk) == 1:
-                regex_parts.append('\\W+{0}\\W+'.format(re.escape(chunk)))
+                regex_parts.append("\\W+{0}\\W+".format(re.escape(chunk)))
             else:
-                regex_parts.append('{0}'.format(re.escape(chunk)))
-        query_regex = '({0})'.format('|'.join(regex_parts))
-        content = re.sub(query_regex, '<span class="highlight">\\1</span>', content, flags=re.I | re.U)
+                regex_parts.append("{0}".format(re.escape(chunk)))
+        query_regex = "({0})".format("|".join(regex_parts))
+        content = re.sub(
+            query_regex,
+            '<span class="highlight">\\1</span>',
+            content,
+            flags=re.I | re.U,
+        )
 
     return content
 
@@ -159,8 +168,8 @@ def searxng_l10n_timespan(dt: datetime) -> str:  # pylint: disable=invalid-name
         minutes = int((timedifference.seconds / 60) % 60)
         hours = int(timedifference.seconds / 60 / 60)
         if hours == 0:
-            return gettext('{minutes} minute(s) ago').format(minutes=minutes)
-        return gettext('{hours} hour(s), {minutes} minute(s) ago').format(hours=hours, minutes=minutes)
+            return gettext("{minutes} minute(s) ago").format(minutes=minutes)
+        return gettext("{hours} hour(s), {minutes} minute(s) ago").format(hours=hours, minutes=minutes)
     return format_date(dt)
 
 
@@ -176,18 +185,20 @@ def is_flask_run_cmdline():
     frames = inspect.stack()
     if len(frames) < 2:
         return False
-    return frames[-2].filename.endswith('flask/cli.py')
+    return frames[-2].filename.endswith("flask/cli.py")
 
 
-DEFAULT_GROUP_NAME = 'others'
+DEFAULT_GROUP_NAME = "others"
 
 
-def group_engines_in_tab(engines: Iterable[Engine]) -> List[Tuple[str, Iterable[Engine]]]:
+def group_engines_in_tab(
+    engines: Iterable[Engine],
+) -> List[Tuple[str, Iterable[Engine]]]:
     """Groups an Iterable of engines by their first non tab category"""
 
     def get_group(eng):
         non_tab_categories = [
-            c for c in eng.categories if c not in list(settings['categories_as_tabs'].keys()) + [OTHER_CATEGORY]
+            c for c in eng.categories if c not in list(settings["categories_as_tabs"].keys()) + [OTHER_CATEGORY]
         ]
         return non_tab_categories[0] if len(non_tab_categories) > 0 else DEFAULT_GROUP_NAME
 
@@ -199,6 +210,6 @@ def group_engines_in_tab(engines: Iterable[Engine]) -> List[Tuple[str, Iterable[
     sorted_groups = sorted(((name, list(engines)) for name, engines in groups), key=group_sort_key)
 
     def engine_sort_key(engine):
-        return (engine.about.get('language', ''), engine.name)
+        return (engine.about.get("language", ""), engine.name)
 
     return [(groupname, sorted(engines, key=engine_sort_key)) for groupname, engines in sorted_groups]

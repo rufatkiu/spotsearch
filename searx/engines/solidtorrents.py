@@ -18,30 +18,30 @@ from searx.utils import (
 )
 
 about = {
-    "website": 'https://www.solidtorrents.net/',
+    "website": "https://www.solidtorrents.net/",
     "wikidata_id": None,
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
-categories = ['files']
+categories = ["files"]
 paging = True
 
 # base_url can be overwritten by a list of URLs in the settings.yml
-base_url = 'https://solidtorrents.net'
+base_url = "https://solidtorrents.net"
 
 
 def request(query, params):
     if isinstance(base_url, list):
-        params['base_url'] = random.choice(base_url)
+        params["base_url"] = random.choice(base_url)
     else:
-        params['base_url'] = base_url
-    search_url = params['base_url'] + '/search?{query}'
-    page = (params['pageno'] - 1) * 20
-    query = urlencode({'q': query, 'page': page})
-    params['url'] = search_url.format(query=query)
+        params["base_url"] = base_url
+    search_url = params["base_url"] + "/search?{query}"
+    page = (params["pageno"] - 1) * 20
+    query = urlencode({"q": query, "page": page})
+    params["url"] = search_url.format(query=query)
     return params
 
 
@@ -50,11 +50,11 @@ def response(resp):
     dom = html.fromstring(resp.text)
 
     for result in eval_xpath(dom, '//div[contains(@class, "search-result")]'):
-        a = eval_xpath_getindex(result, './div/h5/a', 0, None)
+        a = eval_xpath_getindex(result, "./div/h5/a", 0, None)
         if a is None:
             continue
         title = extract_text(a)
-        url = eval_xpath_getindex(a, '@href', 0, None)
+        url = eval_xpath_getindex(a, "@href", 0, None)
         categ = eval_xpath(result, './div//a[contains(@class, "category")]')
         metadata = extract_text(categ)
         stats = eval_xpath_list(result, './div//div[contains(@class, "stats")]/div', min_len=5)
@@ -66,21 +66,21 @@ def response(resp):
         magnet = eval_xpath_getindex(result, './div//a[contains(@class, "dl-magnet")]/@href', 0, None)
 
         params = {
-            'seed': seed,
-            'leech': leech,
-            'title': title,
-            'url': resp.search_params['base_url'] + url,
-            'filesize': filesize,
-            'magnetlink': magnet,
-            'torrentfile': torrentfile,
-            'metadata': metadata,
-            'template': "torrent.html",
+            "seed": seed,
+            "leech": leech,
+            "title": title,
+            "url": resp.search_params["base_url"] + url,
+            "filesize": filesize,
+            "magnetlink": magnet,
+            "torrentfile": torrentfile,
+            "metadata": metadata,
+            "template": "torrent.html",
         }
 
         date_str = extract_text(stats[4])
 
         try:
-            params['publishedDate'] = datetime.strptime(date_str, '%b %d, %Y')
+            params["publishedDate"] = datetime.strptime(date_str, "%b %d, %Y")
         except ValueError:
             pass
 

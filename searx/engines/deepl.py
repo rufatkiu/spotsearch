@@ -5,23 +5,23 @@
 from json import loads
 
 about = {
-    "website": 'https://deepl.com',
-    "wikidata_id": 'Q43968444',
-    "official_api_documentation": 'https://www.deepl.com/docs-api',
+    "website": "https://deepl.com",
+    "wikidata_id": "Q43968444",
+    "official_api_documentation": "https://www.deepl.com/docs-api",
     "use_official_api": True,
     "require_api_key": True,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
-engine_type = 'online_dictionary'
-categories = ['general']
+engine_type = "online_dictionary"
+categories = ["general"]
 
-url = 'https://api-free.deepl.com/v2/translate'
+url = "https://api-free.deepl.com/v2/translate"
 api_key = None
 
 
 def request(_query, params):
-    '''pre-request callback
+    """pre-request callback
 
     params<dict>:
 
@@ -31,11 +31,15 @@ def request(_query, params):
     - ``url``: ''
     - ``category``: 'search category'
     - ``pageno``: 1  # number of the requested page
-    '''
+    """
 
-    params['url'] = url
-    params['method'] = 'POST'
-    params['data'] = {'auth_key': api_key, 'text': params['query'], 'target_lang': params['to_lang'][1]}
+    params["url"] = url
+    params["method"] = "POST"
+    params["data"] = {
+        "auth_key": api_key,
+        "text": params["query"],
+        "target_lang": params["to_lang"][1],
+    }
 
     return params
 
@@ -43,7 +47,7 @@ def request(_query, params):
 def response(resp):
     results = []
     result = loads(resp.text)
-    translations = result['translations']
+    translations = result["translations"]
 
     infobox = "<dl>"
 
@@ -54,8 +58,8 @@ def response(resp):
 
     results.append(
         {
-            'infobox': 'Deepl',
-            'content': infobox,
+            "infobox": "Deepl",
+            "content": infobox,
         }
     )
 

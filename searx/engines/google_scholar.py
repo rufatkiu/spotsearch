@@ -39,16 +39,16 @@ from searx.engines.google import (
 
 # about
 about = {
-    "website": 'https://scholar.google.com',
-    "wikidata_id": 'Q494817',
-    "official_api_documentation": 'https://developers.google.com/custom-search',
+    "website": "https://scholar.google.com",
+    "wikidata_id": "Q494817",
+    "official_api_documentation": "https://developers.google.com/custom-search",
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 # engine dependent config
-categories = ['science', 'scientific publications']
+categories = ["science", "scientific publications"]
 paging = True
 language_support = True
 use_locale_domain = True
@@ -67,35 +67,43 @@ def time_range_url(params):
         &as_ylo=2019
     """
     # as_ylo=2016&as_yhi=2019
-    ret_val = ''
-    if params['time_range'] in time_range_dict:
-        ret_val = urlencode({'as_ylo': datetime.now().year - 1})
-    return '&' + ret_val
+    ret_val = ""
+    if params["time_range"] in time_range_dict:
+        ret_val = urlencode({"as_ylo": datetime.now().year - 1})
+    return "&" + ret_val
 
 
 def request(query, params):
     """Google-Scholar search request"""
 
-    offset = (params['pageno'] - 1) * 10
+    offset = (params["pageno"] - 1) * 10
     lang_info = get_lang_info(params, supported_languages, language_aliases, False)
 
     # subdomain is: scholar.google.xy
-    lang_info['subdomain'] = lang_info['subdomain'].replace("www.", "scholar.")
+    lang_info["subdomain"] = lang_info["subdomain"].replace("www.", "scholar.")
 
     query_url = (
-        'https://'
-        + lang_info['subdomain']
-        + '/scholar'
+        "https://"
+        + lang_info["subdomain"]
+        + "/scholar"
         + "?"
-        + urlencode({'q': query, **lang_info['params'], 'ie': "utf8", 'oe': "utf8", 'start': offset})
+        + urlencode(
+            {
+                "q": query,
+                **lang_info["params"],
+                "ie": "utf8",
+                "oe": "utf8",
+                "start": offset,
+            }
+        )
     )
 
     query_url += time_range_url(params)
-    params['url'] = query_url
+    params["url"] = query_url
 
-    params['cookies']['CONSENT'] = "YES+"
-    params['headers'].update(lang_info['headers'])
-    params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    params["cookies"]["CONSENT"] = "YES+"
+    params["headers"].update(lang_info["headers"])
+    params["headers"]["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 
     # params['google_subdomain'] = subdomain
     return params
@@ -112,26 +120,26 @@ def parse_gs_a(text: Optional[str]):
     if text is None or text == "":
         return None, None, None, None
 
-    s_text = text.split(' - ')
-    authors = s_text[0].split(', ')
+    s_text = text.split(" - ")
+    authors = s_text[0].split(", ")
     publisher = s_text[-1]
     if len(s_text) != 3:
         return authors, None, publisher, None
 
     # the format is "{authors} - {journal}, {year} - {publisher}" or "{authors} - {year} - {publisher}"
     # get journal and year
-    journal_year = s_text[1].split(', ')
+    journal_year = s_text[1].split(", ")
     # journal is optional and may contains some coma
     if len(journal_year) > 1:
-        journal = ', '.join(journal_year[0:-1])
-        if journal == '…':
+        journal = ", ".join(journal_year[0:-1])
+        if journal == "…":
             journal = None
     else:
         journal = None
     # year
     year = journal_year[-1]
     try:
-        publishedDate = datetime.strptime(year.strip(), '%Y')
+        publishedDate = datetime.strptime(year.strip(), "%Y")
     except ValueError:
         publishedDate = None
     return authors, journal, publisher, publishedDate
@@ -150,9 +158,9 @@ def response(resp):  # pylint: disable=too-many-locals
     dom = html.fromstring(resp.text)
 
     # parse results
-    for result in eval_xpath_list(dom, '//div[@data-cid]'):
+    for result in eval_xpath_list(dom, "//div[@data-cid]"):
 
-        title = extract_text(eval_xpath(result, './/h3[1]//a'))
+        title = extract_text(eval_xpath(result, ".//h3[1]//a"))
 
         if not title:
             # this is a [ZITATION] block
@@ -162,7 +170,7 @@ def response(resp):  # pylint: disable=too-many-locals
         if pub_type:
             pub_type = pub_type[1:-1].lower()
 
-        url = eval_xpath_getindex(result, './/h3[1]//a/@href', 0)
+        url = eval_xpath_getindex(result, ".//h3[1]//a/@href", 0)
         content = extract_text(eval_xpath(result, './/div[@class="gs_rs"]'))
         authors, journal, publisher, publishedDate = parse_gs_a(
             extract_text(eval_xpath(result, './/div[@class="gs_a"]'))
@@ -185,27 +193,27 @@ def response(resp):  # pylint: disable=too-many-locals
 
         results.append(
             {
-                'template': 'paper.html',
-                'type': pub_type,
-                'url': url,
-                'title': title,
-                'authors': authors,
-                'publisher': publisher,
-                'journal': journal,
-                'publishedDate': publishedDate,
-                'content': content,
-                'comments': comments,
-                'html_url': html_url,
-                'pdf_url': pdf_url,
+                "template": "paper.html",
+                "type": pub_type,
+                "url": url,
+                "title": title,
+                "authors": authors,
+                "publisher": publisher,
+                "journal": journal,
+                "publishedDate": publishedDate,
+                "content": content,
+                "comments": comments,
+                "html_url": html_url,
+                "pdf_url": pdf_url,
             }
         )
 
     # parse suggestion
     for suggestion in eval_xpath(dom, '//div[contains(@class, "gs_qsuggest_wrap")]//li//a'):
         # append suggestion
-        results.append({'suggestion': extract_text(suggestion)})
+        results.append({"suggestion": extract_text(suggestion)})
 
     for correction in eval_xpath(dom, '//div[@class="gs_r gs_pda"]/a'):
-        results.append({'correction': extract_text(correction)})
+        results.append({"correction": extract_text(correction)})
 
     return results

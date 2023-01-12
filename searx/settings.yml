@@ -41,10 +41,10 @@ ui:
     archive_today : False # show archive.today links
     static_path : "" # Custom static path - leave it blank if you didn't change
     templates_path : "" # Custom templates path - leave it blank if you didn't change
-    default_theme : oscar # ui theme
+    default_theme : etheme # ui theme
     default_locale : "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
     theme_args :
-        oscar_style : logicodev # default style of oscar
+        etheme-style : light # default style of oscar
 #   results_on_new_tab: False  # Open result links in a new tab by default
 #   categories_order :
 #     - general
@@ -802,12 +802,6 @@ engines:
     shortcut : imdb
     timeout : 6.0
     disabled : True
-
-  - name: imdb
-    engine: imdb
-    shortcut: imdb
-    timeout: 6.0
-    disabled: true
 
   - name: ina
     engine: ina
@@ -1930,25 +1924,6 @@ engines:
       website: https://sr.ht
       wikidata_id: Q78514485
       official_api_documentation: https://man.sr.ht/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
-  - name: brave
-    shortcut: brave
-    engine: xpath
-    paging: true
-    disabled: True
-    first_page_num: 0
-    search_url: https://search.brave.com/search?q={query}&offset={pageno}&spellcheck=1
-    url_xpath: //div[@class="snippet fdb"]/a/@href
-    title_xpath: //span[@class="snippet-title"]
-    content_xpath: //p[1][@class="snippet-description"]
-    suggestion_xpath: //div[@class="text-gray h6"]/a
-    categories: general
-    about:
-      website: https://brave.com/search/
-      wikidata_id: Q22906900
       use_official_api: false
       require_api_key: false
       results: HTML

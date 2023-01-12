@@ -18,7 +18,6 @@
 
 import re
 from urllib.parse import urlencode
-from random import random
 from lxml import html
 
 from searx.utils import (
@@ -41,22 +40,19 @@ from searx.engines.google import (
 # pylint: disable=unused-import
 from searx.engines.google import supported_languages_url, _fetch_supported_languages
 
-# pylint: enable=unused-import
-
-logger = logger.getChild('google videos')
 # about
 about = {
-    "website": 'https://www.google.com',
-    "wikidata_id": 'Q219885',
-    "official_api_documentation": 'https://developers.google.com/custom-search',
+    "website": "https://www.google.com",
+    "wikidata_id": "Q219885",
+    "official_api_documentation": "https://developers.google.com/custom-search",
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 # engine dependent config
 
-categories = ['videos', 'web']
+categories = ["videos", "web"]
 paging = False
 language_support = True
 use_locale_domain = True
@@ -75,14 +71,14 @@ def _re(regexpr):
 
 def scrap_out_thumbs_src(dom):
     ret_val = {}
-    thumb_name = 'dimg_'
+    thumb_name = "dimg_"
     for script in eval_xpath_list(dom, '//script[contains(., "google.ldi={")]'):
         _script = script.text
         # "dimg_35":"https://i.ytimg.c....",
         _dimurl = _re("s='([^']*)").findall(_script)
-        for k, v in _re('(' + thumb_name + '[0-9]*)":"(http[^"]*)').findall(_script):
-            v = v.replace(r'\u003d', '=')
-            v = v.replace(r'\u0026', '&')
+        for k, v in _re("(" + thumb_name + '[0-9]*)":"(http[^"]*)').findall(_script):
+            v = v.replace(r"\u003d", "=")
+            v = v.replace(r"\u0026", "&")
             ret_val[k] = v
     logger.debug("found %s imgdata for: %s", thumb_name, ret_val.keys())
     return ret_val
@@ -91,7 +87,7 @@ def scrap_out_thumbs_src(dom):
 def scrap_out_thumbs(dom):
     """Scrap out thumbnail data from <script> tags."""
     ret_val = {}
-    thumb_name = 'dimg_'
+    thumb_name = "dimg_"
 
     for script in eval_xpath_list(dom, '//script[contains(., "_setImagesSrc")]'):
         _script = script.text
@@ -116,22 +112,30 @@ def request(query, params):
     lang_info = get_lang_info(params, supported_languages, language_aliases, False)
 
     query_url = (
-        'https://'
-        + lang_info['subdomain']
-        + '/search'
+        "https://"
+        + lang_info["subdomain"]
+        + "/search"
         + "?"
-        + urlencode({'q': query, 'tbm': "vid", **lang_info['params'], 'ie': "utf8", 'oe': "utf8"})
+        + urlencode(
+            {
+                "q": query,
+                "tbm": "vid",
+                **lang_info["params"],
+                "ie": "utf8",
+                "oe": "utf8",
+            }
+        )
     )
 
-    if params['time_range'] in time_range_dict:
-        query_url += '&' + urlencode({'tbs': 'qdr:' + time_range_dict[params['time_range']]})
-    if params['safesearch']:
-        query_url += '&' + urlencode({'safe': filter_mapping[params['safesearch']]})
-    params['url'] = query_url
+    if params["time_range"] in time_range_dict:
+        query_url += "&" + urlencode({"tbs": "qdr:" + time_range_dict[params["time_range"]]})
+    if params["safesearch"]:
+        query_url += "&" + urlencode({"safe": filter_mapping[params["safesearch"]]})
+    params["url"] = query_url
 
-    params['cookies']['CONSENT'] = "YES+"
-    params['headers'].update(lang_info['headers'])
-    params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    params["cookies"]["CONSENT"] = "YES+"
+    params["headers"].update(lang_info["headers"])
+    params["headers"]["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
     return params
 
 
@@ -156,7 +160,7 @@ def response(resp):
             continue
 
         # ingnore articles without an image id / e.g. news articles
-        img_id = eval_xpath_getindex(result, './/g-img/img/@id', 0, default=None)
+        img_id = eval_xpath_getindex(result, ".//g-img/img/@id", 0, default=None)
         if img_id is None:
             logger.error("no img_id found in item %s (news article?)", len(results) + 1)
             continue
@@ -174,19 +178,19 @@ def response(resp):
 
         results.append(
             {
-                'url': url,
-                'title': title,
-                'content': content,
-                'length': length,
-                'author': pub_info,
-                'thumbnail': img_src,
-                'template': 'videos.html',
+                "url": url,
+                "title": title,
+                "content": content,
+                "length": length,
+                "author": pub_info,
+                "thumbnail": img_src,
+                "template": "videos.html",
             }
         )
 
     # parse suggestion
     for suggestion in eval_xpath_list(dom, suggestion_xpath):
         # append suggestion
-        results.append({'suggestion': extract_text(suggestion)})
+        results.append({"suggestion": extract_text(suggestion)})
 
     return results

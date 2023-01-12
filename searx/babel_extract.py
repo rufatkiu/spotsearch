@@ -46,6 +46,6 @@ def extract(
     namespace = {}
     exec(fileobj.read(), {}, namespace)  # pylint: disable=exec-used
 
-    for name in namespace['__all__']:
+    for name in namespace["__all__"]:
         for k, v in namespace[name].items():
-            yield 0, '_', v, ["%s['%s']" % (name, k)]
+            yield 0, "_", v, ["%s['%s']" % (name, k)]

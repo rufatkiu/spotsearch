@@ -8,20 +8,20 @@
 import sqlite3
 import contextlib
 
-engine_type = 'offline'
+engine_type = "offline"
 database = ""
 query_str = ""
 limit = 10
 paging = True
-result_template = 'key-value.html'
+result_template = "key-value.html"
 
 
 def init(engine_settings):
-    if 'query_str' not in engine_settings:
-        raise ValueError('query_str cannot be empty')
+    if "query_str" not in engine_settings:
+        raise ValueError("query_str cannot be empty")
 
-    if not engine_settings['query_str'].lower().startswith('select '):
-        raise ValueError('only SELECT query is supported')
+    if not engine_settings["query_str"].lower().startswith("select "):
+        raise ValueError("only SELECT query is supported")
 
 
 @contextlib.contextmanager
@@ -35,7 +35,7 @@ def sqlite_cursor():
     * https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
     * https://www.sqlite.org/uri.html
     """
-    uri = 'file:' + database + '?mode=ro'
+    uri = "file:" + database + "?mode=ro"
     with contextlib.closing(sqlite3.connect(uri, uri=True)) as connect:
         connect.row_factory = sqlite3.Row
         with contextlib.closing(connect.cursor()) as cursor:
@@ -46,12 +46,12 @@ def search(query, params):
     results = []
 
     query_params = {
-        'query': query,
-        'wildcard': r'%' + query.replace(' ', r'%') + r'%',
-        'limit': limit,
-        'offset': (params['pageno'] - 1) * limit,
+        "query": query,
+        "wildcard": r"%" + query.replace(" ", r"%") + r"%",
+        "limit": limit,
+        "offset": (params["pageno"] - 1) * limit,
     }
-    query_to_run = query_str + ' LIMIT :limit OFFSET :offset'
+    query_to_run = query_str + " LIMIT :limit OFFSET :offset"
 
     with sqlite_cursor() as cur:
 
@@ -60,7 +60,7 @@ def search(query, params):
 
         for row in cur.fetchall():
             item = dict(zip(col_names, map(str, row)))
-            item['template'] = result_template
+            item["template"] = result_template
             logger.debug("append result --> %s", item)
             results.append(item)
 

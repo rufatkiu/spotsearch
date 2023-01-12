@@ -10,12 +10,12 @@ from searx.utils import html_to_text
 
 # about
 about = {
-    "website": 'https://joinpeertube.org',
-    "wikidata_id": 'Q50938515',
-    "official_api_documentation": 'https://docs.joinpeertube.org/api-rest-reference.html',
+    "website": "https://joinpeertube.org",
+    "wikidata_id": "Q50938515",
+    "official_api_documentation": "https://docs.joinpeertube.org/api-rest-reference.html",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 # engine dependent config
@@ -23,7 +23,7 @@ categories = ["videos"]
 paging = True
 base_url = "https://peer.tube"
 supported_languages_url = (
-    'https://framagit.org/framasoft/peertube/search-index/-/raw/master/client/src/views/Search.vue'
+    "https://framagit.org/framasoft/peertube/search-index/-/raw/master/client/src/views/Search.vue"
 )
 
 

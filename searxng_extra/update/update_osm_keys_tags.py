@@ -161,6 +161,7 @@ def get_tags():
             results.setdefault(tag_category, {}).setdefault(tag_type, {}).setdefault(lang, label)
     return results
 
+
 def optimize_data_lang(translations):
     language_to_delete = []
     # remove "zh-hk" entry if the value is the same as "zh"
@@ -185,11 +186,13 @@ def optimize_data_lang(translations):
     for language in language_to_delete:
         del translations[language]
 
+
 def optimize_tags(data):
     for v in data.values():
         for translations in v.values():
             optimize_data_lang(translations)
     return data
+
 
 def optimize_keys(data):
     for k, v in data.items():

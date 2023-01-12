@@ -24,30 +24,33 @@ about = {
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
-categories = ['files']
+categories = ["files"]
 paging = True
-base_url = ''
+base_url = ""
 
 
 def init(engine_settings=None):
     global base_url  # pylint: disable=global-statement
 
     if "base_url" not in engine_settings:
-        resp = http_get('https://z-lib.org', timeout=5.0)
+        resp = http_get("https://z-lib.org", timeout=5.0)
         if resp.ok:
             dom = html.fromstring(resp.text)
             base_url = extract_text(
-                eval_xpath(dom, './/a[contains(@class, "domain-check-link") and @data-mode="books"]/@href')
+                eval_xpath(
+                    dom,
+                    './/a[contains(@class, "domain-check-link") and @data-mode="books"]/@href',
+                )
             )
     logger.debug("using base_url: %s" % base_url)
 
 
 def request(query, params):
-    search_url = base_url + '/s/{search_query}/?page={pageno}'
-    params['url'] = search_url.format(search_query=quote(query), pageno=params['pageno'])
+    search_url = base_url + "/s/{search_query}/?page={pageno}"
+    params["url"] = search_url.format(search_query=quote(query), pageno=params["pageno"])
     return params
 
 
@@ -63,10 +66,13 @@ def response(resp):
         result["title"] = extract_text(eval_xpath(item, './/*[@itemprop="name"]'))
 
         year = extract_text(
-            eval_xpath(item, './/div[contains(@class, "property_year")]//div[contains(@class, "property_value")]')
+            eval_xpath(
+                item,
+                './/div[contains(@class, "property_year")]//div[contains(@class, "property_value")]',
+            )
         )
         if year:
-            year = '(%s) ' % year
+            year = "(%s) " % year
 
         result[
             "content"
@@ -76,11 +82,15 @@ def response(resp):
             authors=extract_text(eval_xpath(item, './/div[@class="authors"]')),
             publisher=extract_text(eval_xpath(item, './/div[@title="Publisher"]')),
             file_type=extract_text(
-                eval_xpath(item, './/div[contains(@class, "property__file")]//div[contains(@class, "property_value")]')
+                eval_xpath(
+                    item,
+                    './/div[contains(@class, "property__file")]//div[contains(@class, "property_value")]',
+                )
             ),
             language=extract_text(
                 eval_xpath(
-                    item, './/div[contains(@class, "property_language")]//div[contains(@class, "property_value")]'
+                    item,
+                    './/div[contains(@class, "property_language")]//div[contains(@class, "property_value")]',
                 )
             ),
             book_rating=extract_text(eval_xpath(item, './/span[contains(@class, "book-rating-interest-score")]')),

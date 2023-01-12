@@ -8,12 +8,12 @@ from searx import logger
 
 __all__ = ["Histogram", "HistogramStorage", "CounterStorage"]
 
-logger = logger.getChild('searx.metrics')
+logger = logger.getChild("searx.metrics")
 
 
 class Histogram:
 
-    _slots__ = '_lock', '_size', '_sum', '_quartiles', '_count', '_width'
+    _slots__ = "_lock", "_size", "_sum", "_quartiles", "_count", "_width"
 
     def __init__(self, width=10, size=200):
         self._lock = threading.Lock()
@@ -58,7 +58,7 @@ class Histogram:
 
     @property
     def quartile_percentage(self):
-        '''Quartile in percentage'''
+        """Quartile in percentage"""
         with self._lock:
             if self._count > 0:
                 return [int(q * 100 / self._count) for q in self._quartiles]
@@ -102,7 +102,7 @@ class Histogram:
 
 class HistogramStorage:
 
-    __slots__ = 'measures', 'histogram_class'
+    __slots__ = "measures", "histogram_class"
 
     def __init__(self, histogram_class=Histogram):
         self.clear()
@@ -121,14 +121,14 @@ class HistogramStorage:
 
     def dump(self):
         logger.debug("Histograms:")
-        ks = sorted(self.measures.keys(), key='/'.join)
+        ks = sorted(self.measures.keys(), key="/".join)
         for k in ks:
-            logger.debug("- %-60s %s", '|'.join(k), self.measures[k])
+            logger.debug("- %-60s %s", "|".join(k), self.measures[k])
 
 
 class CounterStorage:
 
-    __slots__ = 'counters', 'lock'
+    __slots__ = "counters", "lock"
 
     def __init__(self):
         self.lock = threading.Lock()
@@ -151,10 +151,10 @@ class CounterStorage:
 
     def dump(self):
         with self.lock:
-            ks = sorted(self.counters.keys(), key='/'.join)
+            ks = sorted(self.counters.keys(), key="/".join)
         logger.debug("Counters:")
         for k in ks:
-            logger.debug("- %-60s %s", '|'.join(k), self.counters[k])
+            logger.debug("- %-60s %s", "|".join(k), self.counters[k])
 
 
 class VoidHistogram(Histogram):
