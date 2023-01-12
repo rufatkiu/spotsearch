@@ -1,104 +1,3 @@
-1.1.0 2022.08.07
-================
-
-It has been a while since we released a new version of searx. Thus, we have lots of new things to offer, like new engines, autocompleter, plugins, etc. We got numerous contributions from ~30 new developers, but also we got many PRs from our recurring contributors.
-
-Thank you so much for you support! We couldn't have release so many awesome things without you!
-
-Core
-~~~~
-
-- Drop Python 3.6 support #3133
-- Run tests under python 3.10 #3035
-- Reduce redundant docker build steps #2725
-- Allow overriding Docker repository when building docker image #2726
-- Add healthcheck endpoint for Docker #2992
-
-New engines
-~~~~~~~~~~~
-
-- Wordnik.com #2735
-- Bandcamp #2763
-- SJP - Słownik języka polskiego #2736
-- Wikimini #2819
-- Dogpile #2822
-- PyPI XPATH engine #2830
-- ManKier #2829
-- Kaufland.de #2915
-- ask.com #2898
-- gpodder.net (JSON) #2885
-- woxikon.de synonyme (xpath) #2883
-- Petalsearch.com engine (xpath) #2897
-- whaleslide.com #2861
-- azlyrics.com #2955
-- IMDB #2980
-- Prowlarr #3118
-- Tineye reverse image search #3040
-- Onesearch #3065
-- TVmaze #3246
-- Emojipedia #3278
-- Psychonautwiki by @dimethyltriptamine @kvch
-
-Fixed engines
-~~~~~~~~~~~~~
-
-- Remove hubsbpot tracking URL params #2723
-- Fix URL to solidtorrent result page #2786
-- Update onion engines to v3 #2904
-- Fix Seznam engine #2905
-- Add pagination support for Library Genesis #2887
-- Fix uppercase ip query #2991
-- Fix Libgen + Uncomment Ebay and Urbandictionary #2986
-- Fixed Hoogle engine #3146
-- Fix Digg engine #3150
-- Don't lump all search suggestions together in Yahoo #3208
-- Fix DDG safe search #3247
-- Fix Qwant: Remove extra q from URL #3091
-
-New plugins
-~~~~~~~~~~~
-
-- hostname_replace plugin to rewrite result hostnames #2724
-- search_operators plugin to filter search results using -, site: and -site: #3311
-
-Fixed plugins
-~~~~~~~~~~~~~
-
-- Fix default_doi_resolver in preferences #2707
-- Add DOI resolver from sci-hub and replace default DOI #2706
-
-Themes
-~~~~~~
-
-- Fix dark "expand" button from infobox #2702
-- fix url_for(..., _external=True) in templates #2656
-- [enh] oscar: image thumbnail layout #2675
-- Improve text overflow of custom select #2985
-- Products results: add possibility to show if a product is in stock or not #3120
-- Configurable autofocus of search input (#1984) #3285
-- archive.today option for results page #3308
-- Fix keyboard hints for category tabs (#1187) #3276
-
-Enhancements
-~~~~~~~~~~~~
-
-- Allow overriding env vars SEARX_SETTINGS_PATH, UWSGI_SETTINGS_PATH #2717
-- correct typo/grammatical mistake #2744
-- Fix bug for 'FileNotFoundError' in 'standalone_searx.py' #2764
-- Fix grammar mistake in debug log output #2759
-- Fix typo #2768
-- Fix redirect when saving preferences #2760
-- Replace Makefile boilerplate by shell scripts #2594
-- Fix Qwant's fetch_languages function #2799
-- Apply HTTPS where possible + fix small typo #2922
-- Сhange in user-agent Firefox versions to latest #3008
-- Use engine-type when looking up supported_languages from JSON files #3002
-- Update about section of Invidious and Rumble + Change filtron error wording #2959
-- Verify that Tor proxy works every time searx starts #3015
-- Update settings_loader.get_user_settings_path() #3056
-- Fix wrong func call #3058
-- Improve ranking based on language #3053
-
 1.0.0 2021.03.27
 ================
 
@@ -281,7 +180,7 @@ New settings.yml
 - ``ui.advanced_search`` - add preference for displaying advanced settings ( #2327 )
 - ``server.method: "POST"`` - Make default query submission method configurable ( #2130 )
 - ``server.default_http_headers`` - add default http headers ( #2295 )
-- ``engines.*.proxies`` - Using proxy only for specific engines ( #1827 #2319 ), see https://searx.github.io/searx/dev/engine_overview.html#settings-yml
+- ``engines.*.proxies`` - Using proxy only for specific engines ( #1827 #2319 ), see https://docs.searxng.org/dev/engine_overview.html#settings-yml
 - ``enabled_plugins`` - Enabled plugins ( a05c660e3036ad8d02072fc6731af54c2ed6151c )
 - ``preferences.lock`` - Let admins lock user preferences ( #2270 )
 
@@ -397,8 +296,8 @@ Special thanks to `NLNet <https://nlnet.nl>`__ for sponsoring multiple features 
    - Wikivoyage
    - Rubygems
  - Engine fixes (google, google images, startpage, gigablast, yacy)
- - Private engines introduced - more details: https://searx.github.io/searx/blog/private-engines.html
- - Greatly improved documentation - check it at https://searx.github.io/searx
+ - Private engines introduced - more details: https://docs.searxng.org/blog/private-engines.html
+ - Greatly improved documentation - check it at https://docs.searxng.org
  - Added autofocus to all search inputs
  - CSP friendly oscar theme
  - Added option to hide engine errors with `display_error_messages` engine option (true/false values, default is true)
@@ -424,7 +323,7 @@ Special thanks to `NLNet <https://nlnet.nl>`__ for sponsoring multiple features 
  - Removed engines: faroo
 
 Special thanks to `NLNet <https://nlnet.nl>`__ for sponsoring multiple features of this release.
-Special thanks to https://www.accessibility.nl/english for making accessibilty audit.
+Special thanks to https://www.accessibility.nl/english for making accessibility audit.
 
 News
 ~~~~
@@ -461,7 +360,7 @@ News
 - Docker image updates
 - Bang expression fixes
 - Result merging fixes
-- New environment variable added: SEARX_BIND_ADDRESS
+- New environment variable added: SEARXNG_BIND_ADDRESS
 
 
 News
@@ -696,7 +595,7 @@ News
 News
 ~~~~
 
-New documentation page is available: https://searx.github.io/searx
+New documentation page is available: https://docs.searxng.org
 
 
 0.8.0 2015.09.08

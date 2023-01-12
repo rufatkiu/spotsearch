@@ -7,6 +7,7 @@ import re
 from urllib.parse import quote, urljoin
 from lxml import html
 from searx.utils import extract_text, eval_xpath, eval_xpath_list, eval_xpath_getindex
+from searx.network import raise_for_httperror
 
 # about
 about = {
@@ -16,9 +17,10 @@ about = {
     "use_official_api": False,
     "require_api_key": False,
     "results": 'HTML',
+    "language": 'de',
 }
 
-categories = ['general']
+categories = ['dictionaries']
 paging = True
 
 # search-url
@@ -37,7 +39,7 @@ def request(query, params):
       pageno  : 1 # number of the requested page
     '''
 
-    offset = (params['pageno'] - 1)
+    offset = params['pageno'] - 1
     if offset == 0:
         search_url_fmt = base_url + 'suchen/dudenonline/{query}'
         params['url'] = search_url_fmt.format(query=quote(query))
@@ -46,6 +48,7 @@ def request(query, params):
     # after the last page of results, spelling corrections are returned after a HTTP redirect
     # whatever the page number is
     params['soft_max_redirects'] = 1
+    params['raise_for_httperror'] = False
     return params
 
 
@@ -55,11 +58,16 @@ def response(resp):
     '''
     results = []
 
+    if resp.status_code == 404:
+        return results
+
+    raise_for_httperror(resp)
+
     dom = html.fromstring(resp.text)
 
-    number_of_results_element =\
-        eval_xpath_getindex(dom, '//a[@class="active" and contains(@href,"/suchen/dudenonline")]/span/text()',
-                            0, default=None)
+    number_of_results_element = eval_xpath_getindex(
+        dom, '//a[@class="active" and contains(@href,"/suchen/dudenonline")]/span/text()', 0, default=None
+    )
     if number_of_results_element is not None:
         number_of_results_string = re.sub('[^0-9]', '', number_of_results_element)
         results.append({'number_of_results': int(number_of_results_string)})
@@ -70,8 +78,6 @@ def response(resp):
         title = eval_xpath(result, 'string(.//h2/a)').strip()
         content = extract_text(eval_xpath(result, './/p'))
         # append result
-        results.append({'url': url,
-                        'title': title,
-                        'content': content})
+        results.append({'url': url, 'title': title, 'content': content})
 
     return results

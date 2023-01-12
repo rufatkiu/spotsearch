@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Reddit
+# lint: pylint
+"""Reddit
 """
 
 import json
@@ -18,7 +18,7 @@ about = {
 }
 
 # engine dependent config
-categories = ['general', 'images', 'news', 'social media']
+categories = ['social media']
 page_size = 25
 
 # search-url
@@ -26,16 +26,16 @@ base_url = 'https://www.reddit.com/'
 search_url = base_url + 'search.json?{query}'
 
 
-# do search-request
 def request(query, params):
+
     query = urlencode({'q': query, 'limit': page_size})
     params['url'] = search_url.format(query=query)
 
     return params
 
 
-# get response from search-request
 def response(resp):
+
     img_results = []
     text_results = []
 
@@ -52,10 +52,7 @@ def response(resp):
         data = post['data']
 
         # extract post information
-        params = {
-            'url': urljoin(base_url, data['permalink']),
-            'title': data['title']
-        }
+        params = {'url': urljoin(base_url, data['permalink']), 'title': data['title']}
 
         # if thumbnail field contains a valid URL, we need to change template
         thumbnail = data['thumbnail']

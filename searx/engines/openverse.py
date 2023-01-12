@@ -10,9 +10,9 @@ from urllib.parse import urlencode
 
 
 about = {
-    "website": 'https://search.creativecommons.org/',
+    "website": 'https://wordpress.org/openverse/',
     "wikidata_id": None,
-    "official_api_documentation": 'https://api.creativecommons.engineering/v1/',
+    "official_api_documentation": 'https://api.openverse.engineering/v1/',
     "use_official_api": True,
     "require_api_key": False,
     "results": 'JSON',
@@ -29,10 +29,7 @@ search_string = '?page={page}&page_size={nb_per_page}&format=json&{query}'
 
 def request(query, params):
 
-    search_path = search_string.format(
-        query=urlencode({'q': query}),
-        nb_per_page=nb_per_page,
-        page=params['pageno'])
+    search_path = search_string.format(query=urlencode({'q': query}), nb_per_page=nb_per_page, page=params['pageno'])
 
     params['url'] = base_url + search_path
 
@@ -45,9 +42,13 @@ def response(resp):
     json_data = loads(resp.text)
 
     for result in json_data['results']:
-        results.append({'url': result['foreign_landing_url'],
-                        'title': result['title'],
-                        'img_src': result['url'],
-                        'template': 'images.html'})
+        results.append(
+            {
+                'url': result['foreign_landing_url'],
+                'title': result['title'],
+                'img_src': result['url'],
+                'template': 'images.html',
+            }
+        )
 
     return results

@@ -1,16 +1,20 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Bing (Images)
+# lint: pylint
+"""Bing (Images)
+
 """
 
-from urllib.parse import urlencode
-from lxml import html
 from json import loads
-from random import randrange
-from searx.utils import match_language
+from urllib.parse import urlencode
 
+from lxml import html
+
+from searx.utils import match_language
 from searx.engines.bing import language_aliases
-from searx.engines.bing import _fetch_supported_languages, supported_languages_url  # NOQA # pylint: disable=unused-import
+from searx.engines.bing import (  # pylint: disable=unused-import
+    _fetch_supported_languages,
+    supported_languages_url,
+)
 
 # about
 about = {
@@ -23,63 +27,43 @@ about = {
 }
 
 # engine dependent config
-categories = ['images']
+categories = ['images', 'web']
 paging = True
 safesearch = True
 time_range_support = True
+send_accept_language_header = True
 supported_languages_url = 'https://www.bing.com/account/general'
 number_of_results = 28
 
 # search-url
 base_url = 'https://www.bing.com/'
-search_string = 'images/search'\
-    '?{query}'\
-    '&count={count}'\
-    '&first={first}'\
+search_string = (
+    # fmt: off
+    'images/search'
+    '?{query}'
+    '&count={count}'
+    '&first={first}'
     '&tsc=ImageHoverTitle'
+    # fmt: on
+)
 time_range_string = '&qft=+filterui:age-lt{interval}'
-time_range_dict = {'day': '1440',
-                   'week': '10080',
-                   'month': '43200',
-                   'year': '525600'}
+time_range_dict = {'day': '1440', 'week': '10080', 'month': '43200', 'year': '525600'}
 
 # safesearch definitions
-safesearch_types = {2: 'STRICT',
-                    1: 'DEMOTE',
-                    0: 'OFF'}
+safesearch_types = {2: 'STRICT', 1: 'DEMOTE', 0: 'OFF'}
 
 
 # do search-request
 def request(query, params):
     offset = ((params['pageno'] - 1) * number_of_results) + 1
 
-    search_path = search_string.format(
-        query=urlencode({'q': query}),
-        count=number_of_results,
-        first=offset)
+    search_path = search_string.format(query=urlencode({'q': query}), count=number_of_results, first=offset)
 
-    language = match_language(params['language'], supported_languages, language_aliases, 'en').lower()
+    language = match_language(params['language'], supported_languages, language_aliases).lower()
 
-    HV = randrange(1e10, 1e11)
-    WTS = randrange(1e11, 1e12)
-    CW = randrange(1e4, 1e5)
-    CH = randrange(1e3, 1e5)
+    params['cookies']['SRCHHPGUSR'] = 'ADLT=' + safesearch_types.get(params['safesearch'], 'DEMOTE')
 
-    params['cookies']['SRCHHPGUSR'] = \
-        f'SRCHLANG={language}&BRW=XW&BRH=M&CW={CW}&CH={CH}&DPR=1&UTC=-180&DM=1&HV={HV}&WTS={WTS}&ADLT=' \
-        + safesearch_types.get(params['safesearch'], 'DEMOTE')
-    params['cookies']['_EDGE_S'] = 'mkt=' + language +\
-        '&ui=' + language + '&F=1'
-    params['cookies']['_IDET'] = 'MIExp=0'
-    params['cookies']['MMCA'] = 'ID=B361EE82CAB9425EB0EE47B5E80DF8C1'
-    params['cookies']['BCP'] = 'AD=1&AL=1&SM=1'
-    params['cookies']['_SS'] = 'SID=3208F62E63AF6F2F047CE6C462866EF2&R=0&RB=0&GB=0&RG=0&RP=0'
-    params['cookies']['SRCHUID'] = 'V=2&GUID=EC79C7475528483B98FBE3F045357F18&dmnchg=1'
-    params['cookies']['MUID'] = '11635A5F5EAA6FD83B3F4AB55F836EFF'
-    params['cookies']['SRCHD'] = 'AF=IRPRST'
-    params['cookies']['MUIDB'] = '11635A5F5EAA6FD83B3F4AB55F836EFF'
-    params['cookies']['_EDGE_V'] = '1'
-    params['cookies']['SUID'] = 'M'
+    params['cookies']['_EDGE_S'] = 'mkt=' + language + '&ui=' + language + '&F=1'
 
     params['url'] = base_url + search_path
     if params['time_range'] in time_range_dict:
@@ -96,27 +80,28 @@ def response(resp):
 
     # parse results
     for result in dom.xpath('//div[@class="imgpt"]'):
-        try:
-            img_format = result.xpath('./div[contains(@class, "img_info")]/span/text()')[0]
-            # Microsoft seems to experiment with this code so don't make the path too specific,
-            # just catch the text section for the first anchor in img_info assuming this to be
-            # the originating site.
-            source = result.xpath('./div[contains(@class, "img_info")]//a/text()')[0]
+        img_format = result.xpath('./div[contains(@class, "img_info")]/span/text()')[0]
+        # Microsoft seems to experiment with this code so don't make the path too specific,
+        # just catch the text section for the first anchor in img_info assuming this to be
+        # the originating site.
+        source = result.xpath('./div[contains(@class, "img_info")]//a/text()')[0]
 
-            m = loads(result.xpath('./a/@m')[0])
+        m = loads(result.xpath('./a/@m')[0])
 
-            # strip 'Unicode private use area' highlighting, they render to Tux
-            # the Linux penguin and a standing diamond on my machine...
-            title = m.get('t', '').replace('\ue000', '').replace('\ue001', '')
-            results.append({'template': 'images.html',
-                            'url': m['purl'],
-                            'thumbnail_src': m['turl'],
-                            'img_src': m['murl'],
-                            'content': '',
-                            'title': title,
-                            'source': source,
-                            'img_format': img_format})
-        except:
-            continue
+        # strip 'Unicode private use area' highlighting, they render to Tux
+        # the Linux penguin and a standing diamond on my machine...
+        title = m.get('t', '').replace('\ue000', '').replace('\ue001', '')
+        results.append(
+            {
+                'template': 'images.html',
+                'url': m['purl'],
+                'thumbnail_src': m['turl'],
+                'img_src': m['murl'],
+                'content': '',
+                'title': title,
+                'source': source,
+                'img_format': img_format,
+            }
+        )
 
     return results

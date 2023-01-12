@@ -3,7 +3,6 @@
 """OpenStreetMap (Map)
 
 """
-# pylint: disable=missing-function-docstring
 
 import re
 from json import loads
@@ -15,7 +14,7 @@ from flask_babel import gettext
 from searx.data import OSM_KEYS_TAGS, CURRENCIES
 from searx.utils import searx_useragent
 from searx.external_urls import get_external_url
-from searx.engines.wikidata import send_wikidata_query, sparql_string_escape
+from searx.engines.wikidata import send_wikidata_query, sparql_string_escape, get_thumbnail
 
 # about
 about = {
@@ -31,6 +30,7 @@ about = {
 categories = ['map']
 paging = False
 language_support = True
+send_accept_language_header = True
 
 # search-url
 base_url = 'https://nominatim.openstreetmap.org/'
@@ -38,12 +38,13 @@ search_string = 'search?{query}&polygon_geojson=1&format=jsonv2&addressdetails=1
 result_id_url = 'https://openstreetmap.org/{osm_type}/{osm_id}'
 result_lat_lon_url = 'https://www.openstreetmap.org/?mlat={lat}&mlon={lon}&zoom={zoom}&layers=M'
 
-route_url = 'https://graphhopper.com/maps/?point={}&point={}&locale=en-US&vehicle=car&weighting=fastest&turn_costs=true&use_miles=false&layer=Omniscale'  # NOQA
+route_url = 'https://graphhopper.com/maps/?point={}&point={}&locale=en-US&vehicle=car&weighting=fastest&turn_costs=true&use_miles=false&layer=Omniscale'  # pylint: disable=line-too-long
 route_re = re.compile('(?:from )?(.+) to (.+)')
 
 wikidata_image_sparql = """
 select ?item ?itemLabel ?image ?sign ?symbol ?website ?wikipediaName
 where {
+  hint:Query hint:optimizer "None".
   values ?item { %WIKIDATA_IDS% }
   OPTIONAL { ?item wdt:P18|wdt:P8517|wdt:P4291|wdt:P5252|wdt:P3451|wdt:P4640|wdt:P5775|wdt:P2716|wdt:P1801|wdt:P4896 ?image }
   OPTIONAL { ?item wdt:P1766|wdt:P8505|wdt:P8667 ?sign }
@@ -61,7 +62,7 @@ where {
   }
 }
 ORDER by ?item
-"""  # NOQA
+"""
 
 
 # key value that are link: mapping functions
@@ -71,7 +72,7 @@ ORDER by ?item
 def value_to_https_link(value):
     http = 'http://'
     if value.startswith(http):
-        value = 'https://' + value[len(http):]
+        value = 'https://' + value[len(http) :]
     return (value, value)
 
 
@@ -142,9 +143,8 @@ def request(query, params):
     params['url'] = base_url + search_string.format(query=urlencode({'q': query}))
     params['route'] = route_re.match(query)
     params['headers']['User-Agent'] = searx_useragent()
-
-    accept_language = 'en' if params['language'] == 'all' else params['language']
-    params['headers']['Accept-Language'] = accept_language
+    if 'Accept-Language' not in params['headers']:
+        params['headers']['Accept-Language'] = 'en'
     return params
 
 
@@ -155,10 +155,12 @@ def response(resp):
     user_language = resp.search_params['language']
 
     if resp.search_params['route']:
-        results.append({
-            'answer': gettext('Get directions'),
-            'url': route_url.format(*resp.search_params['route'].groups()),
-        })
+        results.append(
+            {
+                'answer': gettext('Get directions'),
+                'url': route_url.format(*resp.search_params['route'].groups()),
+            }
+        )
 
     fetch_wikidata(nominatim_json, user_language)
 
@@ -170,30 +172,30 @@ def response(resp):
             continue
 
         url, osm, geojson = get_url_osm_geojson(result)
-        img_src = get_img_src(result)
+        img_src = get_thumbnail(get_img_src(result))
         links, link_keys = get_links(result, user_language)
         data = get_data(result, user_language, link_keys)
 
-        results.append({
-            'template': 'map.html',
-            'title': title,
-            'address': address,
-            'address_label': get_key_label('addr', user_language),
-            'url': url,
-            'osm': osm,
-            'geojson': geojson,
-            'img_src': img_src,
-            'links': links,
-            'data': data,
-            'type': get_tag_label(
-                result.get('category'), result.get('type', ''), user_language
-            ),
-            'type_icon': result.get('icon'),
-            'content': '',
-            'longitude': result['lon'],
-            'latitude': result['lat'],
-            'boundingbox': result['boundingbox'],
-        })
+        results.append(
+            {
+                'template': 'map.html',
+                'title': title,
+                'address': address,
+                'address_label': get_key_label('addr', user_language),
+                'url': url,
+                'osm': osm,
+                'geojson': geojson,
+                'img_src': img_src,
+                'links': links,
+                'data': data,
+                'type': get_tag_label(result.get('category'), result.get('type', ''), user_language),
+                'type_icon': result.get('icon'),
+                'content': '',
+                'longitude': result['lon'],
+                'latitude': result['lat'],
+                'boundingbox': result['boundingbox'],
+            }
+        )
 
     return results
 
@@ -301,8 +303,7 @@ def get_title_address(result):
 
 
 def get_url_osm_geojson(result):
-    """Get url, osm and geojson
-    """
+    """Get url, osm and geojson"""
     osm_type = result.get('osm_type', result.get('type'))
     if 'osm_id' not in result:
         # see https://github.com/osm-search/Nominatim/issues/1521
@@ -353,11 +354,13 @@ def get_links(result, user_language):
             url, url_label = mapping_function(raw_value)
             if url.startswith('https://wikidata.org'):
                 url_label = result.get('wikidata', {}).get('itemLabel') or url_label
-            links.append({
-                'label': get_key_label(k, user_language),
-                'url': url,
-                'url_label': url_label,
-            })
+            links.append(
+                {
+                    'label': get_key_label(k, user_language),
+                    'url': url,
+                    'url_label': url_label,
+                }
+            )
             link_keys.add(k)
     return links, link_keys
 
@@ -377,11 +380,13 @@ def get_data(result, user_language, ignore_keys):
             continue
         k_label = get_key_label(k, user_language)
         if k_label:
-            data.append({
-                'label': k_label,
-                'key': k,
-                'value': v,
-            })
+            data.append(
+                {
+                    'label': k_label,
+                    'key': k,
+                    'value': v,
+                }
+            )
     data.sort(key=lambda entry: (get_key_rank(entry['key']), entry['label']))
     return data
 

@@ -1,4 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+"""Processores for engine-type: ``online_dictionary``
+
+"""
 
 import re
 
@@ -9,10 +13,13 @@ parser_re = re.compile('.*?([a-z]+)-([a-z]+) (.+)$', re.I)
 
 
 class OnlineDictionaryProcessor(OnlineProcessor):
+    """Processor class used by ``online_dictionary`` engines."""
 
     engine_type = 'online_dictionary'
 
     def get_params(self, search_query, engine_category):
+        """Returns a set of *request params* or ``None`` if search query does not match
+        to :py:obj:`parser_re`."""
         params = super().get_params(search_query, engine_category)
         if params is None:
             return None
@@ -40,10 +47,9 @@ class OnlineDictionaryProcessor(OnlineProcessor):
 
         if getattr(self.engine, 'paging', False):
             tests['translation_paging'] = {
-                'matrix': {'query': 'en-es house',
-                           'pageno': (1, 2, 3)},
+                'matrix': {'query': 'en-es house', 'pageno': (1, 2, 3)},
                 'result_container': ['not_empty', ('one_title_contains', 'house')],
-                'test': ['unique_results']
+                'test': ['unique_results'],
             }
         else:
             tests['translation'] = {

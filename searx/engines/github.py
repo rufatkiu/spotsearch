@@ -17,7 +17,7 @@ about = {
 }
 
 # engine dependent config
-categories = ['it']
+categories = ['it', 'repos']
 
 # search-url
 search_url = 'https://api.github.com/search/repositories?sort=stars&order=desc&{query}'  # noqa
@@ -40,7 +40,7 @@ def response(resp):
 
     search_res = loads(resp.text)
 
-    # check if items are recieved
+    # check if items are received
     if 'items' not in search_res:
         return []
 
@@ -55,9 +55,7 @@ def response(resp):
             content = ''
 
         # append result
-        results.append({'url': url,
-                        'title': title,
-                        'content': content})
+        results.append({'url': url, 'title': title, 'content': content})
 
     # return results
     return results

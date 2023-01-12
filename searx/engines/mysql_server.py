@@ -1,14 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+"""MySQL database (offline)
+
 """
- MySQL database (Offline)
-"""
 
-# error is ignored because the admin has to
-# install it manually to use the engine
-# pylint: disable=import-error
-
-import mysql.connector
-
+# import error is ignored because the admin has to install mysql manually to use
+# the engine
+import mysql.connector  # pyright: ignore # pylint: disable=import-error
 
 engine_type = 'offline'
 auth_plugin = 'caching_sha2_password'
@@ -25,13 +23,14 @@ _connection = None
 
 
 def init(engine_settings):
+    global _connection  # pylint: disable=global-statement
+
     if 'query_str' not in engine_settings:
         raise ValueError('query_str cannot be empty')
 
     if not engine_settings['query_str'].lower().startswith('select '):
         raise ValueError('only SELECT query is supported')
 
-    global _connection
     _connection = mysql.connector.connect(
         database=database,
         user=username,

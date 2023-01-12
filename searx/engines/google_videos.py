@@ -1,31 +1,25 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Google (Video)
+# lint: pylint
+"""This is the implementation of the google videos engine.
 
-For detailed description of the *REST-full* API see: `Query Parameter
-Definitions`_.  Not all parameters can be appied.
-
-.. _admonition:: Content-Security-Policy (CSP)
+.. admonition:: Content-Security-Policy (CSP)
 
    This engine needs to allow images from the `data URLs`_ (prefixed with the
-   ``data:` scheme).::
+   ``data:`` scheme)::
 
      Header set Content-Security-Policy "img-src 'self' data: ;"
 
-.. _Query Parameter Definitions:
-   https://developers.google.com/custom-search/docs/xml_results#WebSearch_Query_Parameter_Definitions
 .. _data URLs:
    https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
 
 """
 
-# pylint: disable=invalid-name, missing-function-docstring
+# pylint: disable=invalid-name
 
 import re
 from urllib.parse import urlencode
-from random import random
 from lxml import html
 
-from searx import logger
 from searx.utils import (
     eval_xpath,
     eval_xpath_list,
@@ -44,13 +38,10 @@ from searx.engines.google import (
 )
 
 # pylint: disable=unused-import
-from searx.engines.google import (
-    supported_languages_url
-    ,  _fetch_supported_languages
-)
+from searx.engines.google import supported_languages_url, _fetch_supported_languages
+
 # pylint: enable=unused-import
 
-logger = logger.getChild('google videos')
 # about
 about = {
     "website": 'https://www.google.com',
@@ -69,6 +60,7 @@ language_support = True
 use_locale_domain = True
 time_range_support = True
 safesearch = True
+send_accept_language_header = True
 
 RE_CACHE = {}
 
@@ -119,19 +111,15 @@ def scrap_out_thumbs(dom):
 def request(query, params):
     """Google-Video search request"""
 
-    lang_info = get_lang_info(
-        # pylint: disable=undefined-variable
-        params, supported_languages, language_aliases, False
-    )
+    lang_info = get_lang_info(params, supported_languages, language_aliases, False)
 
-    query_url = 'https://' + lang_info['subdomain'] + '/search' + "?" + urlencode({
-        'q':   query,
-        'tbm': "vid",
-        **lang_info['params'],
-        'ucbcb': 1,
-        'ie': "utf8",
-        'oe': "utf8",
-    })
+    query_url = (
+        'https://'
+        + lang_info['subdomain']
+        + '/search'
+        + "?"
+        + urlencode({'q': query, 'tbm': "vid", **lang_info['params'], 'ie': "utf8", 'oe': "utf8"})
+    )
 
     if params['time_range'] in time_range_dict:
         query_url += '&' + urlencode({'tbs': 'qdr:' + time_range_dict[params['time_range']]})
@@ -139,8 +127,7 @@ def request(query, params):
         query_url += '&' + urlencode({'safe': filter_mapping[params['safesearch']]})
     params['url'] = query_url
 
-    logger.debug("HTTP header Accept-Language --> %s", lang_info.get('Accept-Language'))
-    params['cookies']['CONSENT'] = "PENDING+" + str(random()*100)
+    params['cookies']['CONSENT'] = "YES+"
     params['headers'].update(lang_info['headers'])
     params['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
     return params
@@ -163,7 +150,7 @@ def response(resp):
 
         # ignore google *sections*
         if extract_text(eval_xpath(result, g_section_with_header)):
-            logger.debug("ingoring <g-section-with-header>")
+            logger.debug("ignoring <g-section-with-header>")
             continue
 
         # ingnore articles without an image id / e.g. news articles
@@ -183,15 +170,17 @@ def response(resp):
         content = extract_text(c_node)
         pub_info = extract_text(eval_xpath(result, './/div[@class="Zg1NU"]'))
 
-        results.append({
-            'url':         url,
-            'title':       title,
-            'content':     content,
-            'length':      length,
-            'author':      pub_info,
-            'thumbnail':   img_src,
-            'template':    'videos.html',
-            })
+        results.append(
+            {
+                'url': url,
+                'title': title,
+                'content': content,
+                'length': length,
+                'author': pub_info,
+                'thumbnail': img_src,
+                'template': 'videos.html',
+            }
+        )
 
     # parse suggestion
     for suggestion in eval_xpath_list(dom, suggestion_xpath):

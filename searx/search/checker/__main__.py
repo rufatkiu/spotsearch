@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+# pylint: disable=missing-module-docstring
 
 import sys
 import io
@@ -8,7 +10,7 @@ import logging
 
 import searx.search
 import searx.search.checker
-from searx.search import processors
+from searx.search import PROCESSORS
 from searx.engines import engine_shortcuts
 
 
@@ -32,8 +34,16 @@ else:
     BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = "", "", "", "", "", "", "", ""
 
 # equivalent of 'python -u' (unbuffered stdout, stderr)
-stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), write_through=True)
-stderr = io.TextIOWrapper(open(sys.stderr.fileno(), 'wb', 0), write_through=True)
+stdout = io.TextIOWrapper(
+    # pylint: disable=consider-using-with
+    open(sys.stdout.fileno(), 'wb', 0),
+    write_through=True,
+)
+stderr = io.TextIOWrapper(
+    # pylint: disable=consider-using-with
+    open(sys.stderr.fileno(), 'wb', 0),
+    write_through=True,
+)
 
 
 # iterator of processors
@@ -41,13 +51,13 @@ def iter_processor(engine_name_list):
     if len(engine_name_list) > 0:
         for name in engine_name_list:
             name = engine_shortcuts.get(name, name)
-            processor = processors.get(name)
+            processor = PROCESSORS.get(name)
             if processor is not None:
                 yield name, processor
             else:
                 stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RED}Engine does not exist{RESET_SEQ}')
     else:
-        for name, processor in searx.search.processors.items():
+        for name, processor in searx.search.PROCESSORS.items():
             yield name, processor
 
 
@@ -60,7 +70,7 @@ def run(engine_name_list, verbose):
             stderr.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n')
         checker = searx.search.checker.Checker(processor)
         checker.run()
-        if checker.test_results.succesfull:
+        if checker.test_results.successful:
             stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{GREEN}OK{RESET_SEQ}\n')
             if verbose:
                 stdout.write(f'    {"found languages":15}: {" ".join(sorted(list(checker.test_results.languages)))}\n')
@@ -81,12 +91,21 @@ def run(engine_name_list, verbose):
 # call by setup.py
 def main():
     parser = argparse.ArgumentParser(description='Check searx engines.')
-    parser.add_argument('engine_name_list', metavar='engine name', type=str, nargs='*',
-                        help='engines name or shortcut list. Empty for all engines.')
-    parser.add_argument('--verbose', '-v',
-                        action='store_true', dest='verbose',
-                        help='Display details about the test results',
-                        default=False)
+    parser.add_argument(
+        'engine_name_list',
+        metavar='engine name',
+        type=str,
+        nargs='*',
+        help='engines name or shortcut list. Empty for all engines.',
+    )
+    parser.add_argument(
+        '--verbose',
+        '-v',
+        action='store_true',
+        dest='verbose',
+        help='Display details about the test results',
+        default=False,
+    )
     args = parser.parse_args()
     run(args.engine_name_list, args.verbose)
 

@@ -8,7 +8,7 @@ Dictionary of the polish language from PWN (sjp.pwn)
 from lxml.html import fromstring
 from searx import logger
 from searx.utils import extract_text
-from searx.raise_for_httperror import raise_for_httperror
+from searx.network import raise_for_httperror
 
 logger = logger.getChild('sjp engine')
 
@@ -20,18 +20,21 @@ about = {
     "use_official_api": False,
     "require_api_key": False,
     "results": 'HTML',
+    "language": 'pl',
 }
 
-categories = ['general']
+categories = ['dictionaries']
 paging = False
 
 URL = 'https://sjp.pwn.pl'
 SEARCH_URL = URL + '/szukaj/{query}.html'
 
 word_xpath = '//div[@class="query"]'
-dict_xpath = ['//div[@class="wyniki sjp-so-wyniki sjp-so-anchor"]',
-              '//div[@class="wyniki sjp-wyniki sjp-anchor"]',
-              '//div[@class="wyniki sjp-doroszewski-wyniki sjp-doroszewski-anchor"]']
+dict_xpath = [
+    '//div[@class="wyniki sjp-so-wyniki sjp-so-anchor"]',
+    '//div[@class="wyniki sjp-wyniki sjp-anchor"]',
+    '//div[@class="wyniki sjp-doroszewski-wyniki sjp-doroszewski-anchor"]',
+]
 
 
 def request(query, params):
@@ -86,9 +89,11 @@ def response(resp):
                 infobox += "</ol>"
         infobox += "</ul></div>"
 
-    results.append({
-        'infobox': word,
-        'content': infobox,
-    })
+    results.append(
+        {
+            'infobox': word,
+            'content': infobox,
+        }
+    )
 
     return results

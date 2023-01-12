@@ -1,4 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+"""Processores for engine-type: ``online_currency``
+
+"""
 
 import unicodedata
 import re
@@ -6,8 +10,7 @@ import re
 from searx.data import CURRENCIES
 from .online import OnlineProcessor
 
-
-parser_re = re.compile('.*?(\\d+(?:\\.\\d+)?)\s?([^.0-9]+) (?:in|to|en|dans|nel|pour|para|zu|a) ([^.0-9]+)', re.I)
+parser_re = re.compile('.*?(\\d+(?:\\.\\d+)?) ([^.0-9]+) (?:in|to) ([^.0-9]+)', re.I)
 
 
 def normalize_name(name):
@@ -17,7 +20,6 @@ def normalize_name(name):
 
 
 def name_to_iso4217(name):
-    global CURRENCIES
     name = normalize_name(name)
     currency = CURRENCIES['names'].get(name, [name])
     if isinstance(currency, str):
@@ -26,15 +28,19 @@ def name_to_iso4217(name):
 
 
 def iso4217_to_name(iso4217, language):
-    global CURRENCIES
     return CURRENCIES['iso4217'].get(iso4217, {}).get(language, iso4217)
 
 
 class OnlineCurrencyProcessor(OnlineProcessor):
 
+    """Processor class used by ``online_currency`` engines."""
+
     engine_type = 'online_currency'
 
     def get_params(self, search_query, engine_category):
+        """Returns a set of *request params* or ``None`` if search query does not match
+        to :py:obj:`parser_re`."""
+
         params = super().get_params(search_query, engine_category)
         if params is None:
             return None

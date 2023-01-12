@@ -1,23 +1,26 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Emojipedia
+# lint: pylint
+"""Emojipedia
+
+Emojipedia is an emoji reference website which documents the meaning and
+common usage of emoji characters in the Unicode Standard.  It is owned by Zedge
+since 2021. Emojipedia is a voting member of The Unicode Consortium.[1]
+
+[1] https://en.wikipedia.org/wiki/Emojipedia
 """
 
 from urllib.parse import urlencode
 from lxml import html
 
-from searx import logger
 from searx.utils import (
     eval_xpath_list,
     eval_xpath_getindex,
     extract_text,
 )
 
-logger = logger.getChild('Emojipedia engine')
-
 about = {
     "website": 'https://emojipedia.org',
-    "wikidata_id": None,
+    "wikidata_id": 'Q22908129',
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
@@ -57,11 +60,7 @@ def response(resp):
         title = extract_text(link)
         content = extracted_desc
 
-        res = {
-            'url': url,
-            'title': title,
-            'content': content
-        }
+        res = {'url': url, 'title': title, 'content': content}
 
         results.append(res)
 

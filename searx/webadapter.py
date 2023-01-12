@@ -15,8 +15,9 @@ def deduplicate_engineref_list(engineref_list: List[EngineRef]) -> List[EngineRe
     return list(engineref_dict.values())
 
 
-def validate_engineref_list(engineref_list: List[EngineRef], preferences: Preferences)\
-        -> Tuple[List[EngineRef], List[EngineRef], List[EngineRef]]:
+def validate_engineref_list(
+    engineref_list: List[EngineRef], preferences: Preferences
+) -> Tuple[List[EngineRef], List[EngineRef], List[EngineRef]]:
     """Validate query_engines according to the preferences
 
     Returns:
@@ -53,7 +54,7 @@ def parse_lang(preferences: Preferences, form: Dict[str, str], raw_text_query: R
         return preferences.get_value('language')
     # get language
     # set specific language if set on request, query or preferences
-    # TODO support search with multible languages
+    # TODO support search with multiple languages
     if len(raw_text_query.languages):
         query_lang = raw_text_query.languages[-1]
     elif 'language' in form:
@@ -154,9 +155,11 @@ def get_selected_categories(preferences: Preferences, form: Optional[Dict[str, s
 def get_engineref_from_category_list(category_list: List[str], disabled_engines: List[str]) -> List[EngineRef]:
     result = []
     for categ in category_list:
-        result.extend(EngineRef(engine.name, categ)
-                      for engine in categories[categ]
-                      if (engine.name, categ) not in disabled_engines)
+        result.extend(
+            EngineRef(engine.name, categ)
+            for engine in categories[categ]
+            if (engine.name, categ) not in disabled_engines
+        )
     return result
 
 
@@ -170,8 +173,11 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
         # parse the form only if the categories are not locked
         for pd_name, pd in form.items():
             if pd_name == 'engines':
-                pd_engines = [EngineRef(engine_name, engines[engine_name].categories[0])
-                              for engine_name in map(str.strip, pd.split(',')) if engine_name in engines]
+                pd_engines = [
+                    EngineRef(engine_name, engines[engine_name].categories[0])
+                    for engine_name in map(str.strip, pd.split(','))
+                    if engine_name in engines
+                ]
                 if pd_engines:
                     query_engineref_list.extend(pd_engines)
                     explicit_engine_list = True
@@ -206,8 +212,9 @@ def parse_engine_data(form):
     return engine_data
 
 
-def get_search_query_from_webapp(preferences: Preferences, form: Dict[str, str])\
-        -> Tuple[SearchQuery, RawTextQuery, List[EngineRef], List[EngineRef]]:
+def get_search_query_from_webapp(
+    preferences: Preferences, form: Dict[str, str]
+) -> Tuple[SearchQuery, RawTextQuery, List[EngineRef], List[EngineRef]]:
     # no text for the query ?
     if not form.get('q'):
         raise SearxParameterException('q', '')
@@ -216,7 +223,7 @@ def get_search_query_from_webapp(preferences: Preferences, form: Dict[str, str])
     disabled_engines = preferences.engines.get_disabled()
 
     # parse query, if tags are set, which change
-    # the serch engine or search-language
+    # the search engine or search-language
     raw_text_query = RawTextQuery(form['q'], disabled_engines)
 
     # set query
@@ -229,9 +236,9 @@ def get_search_query_from_webapp(preferences: Preferences, form: Dict[str, str])
     external_bang = raw_text_query.external_bang
     engine_data = parse_engine_data(form)
 
-    if not is_locked('categories') and raw_text_query.enginerefs and raw_text_query.specific:
+    if not is_locked('categories') and raw_text_query.specific:
         # if engines are calculated from query,
-        # set categories by using that informations
+        # set categories by using that information
         query_engineref_list = raw_text_query.enginerefs
     else:
         # otherwise, using defined categories to
@@ -239,12 +246,23 @@ def get_search_query_from_webapp(preferences: Preferences, form: Dict[str, str])
         query_engineref_list = parse_generic(preferences, form, disabled_engines)
 
     query_engineref_list = deduplicate_engineref_list(query_engineref_list)
-    query_engineref_list, query_engineref_list_unknown, query_engineref_list_notoken =\
-        validate_engineref_list(query_engineref_list, preferences)
+    query_engineref_list, query_engineref_list_unknown, query_engineref_list_notoken = validate_engineref_list(
+        query_engineref_list, preferences
+    )
 
-    return (SearchQuery(query, query_engineref_list, query_lang, query_safesearch, query_pageno,
-                        query_time_range, query_timeout, external_bang=external_bang,
-                        engine_data=engine_data),
-            raw_text_query,
-            query_engineref_list_unknown,
-            query_engineref_list_notoken)
+    return (
+        SearchQuery(
+            query,
+            query_engineref_list,
+            query_lang,
+            query_safesearch,
+            query_pageno,
+            query_time_range,
+            query_timeout,
+            external_bang=external_bang,
+            engine_data=engine_data,
+        ),
+        raw_text_query,
+        query_engineref_list_unknown,
+        query_engineref_list_notoken,
+    )

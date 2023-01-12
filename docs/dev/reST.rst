@@ -6,16 +6,16 @@ reST primer
 
 .. sidebar:: KISS_ and readability_
 
-   Instead of defining more and more roles, we at searx encourage our
+   Instead of defining more and more roles, we at SearXNG encourage our
    contributors to follow principles like KISS_ and readability_.
 
-We at searx are using reStructuredText (aka reST_) markup for all kind of
+We at SearXNG are using reStructuredText (aka reST_) markup for all kind of
 documentation, with the builders from the Sphinx_ project a HTML output is
 generated and deployed at :docs:`github.io <.>`.  For build prerequisites read
 :ref:`docs build`.
 
 The source files of Searx's documentation are located at :origin:`docs`.  Sphinx
-assumes source files to be encoded in UTF-8 by defaul.  Run :ref:`make docs.live
+assumes source files to be encoded in UTF-8 by default.  Run :ref:`make docs.live
 <make docs.live>` to build HTML while editing.
 
 .. sidebar:: Further reading
@@ -78,7 +78,7 @@ User's POV: :origin:`docs/user`
 
 Admin's POV: :origin:`docs/admin`
   A typical Admin knows about setting up services on a linux system, but he does
-  not know all the pros and cons of a searx setup.
+  not know all the pros and cons of a SearXNG setup.
 
 Developer's POV: :origin:`docs/dev`
   Depending on the readability_ of code, a typical developer is able to read and
@@ -227,13 +227,13 @@ To refer anchors use the `ref role`_ markup:
 
 .. code:: reST
 
-   Visit chapter :ref:`reST anchor`.  Or set hyperlink text manualy :ref:`foo
+   Visit chapter :ref:`reST anchor`.  Or set hyperlink text manually :ref:`foo
    bar <reST anchor>`.
 
 .. admonition:: ``:ref:`` role
    :class: rst-example
 
-   Visist chapter :ref:`reST anchor`.  Or set hyperlink text manualy :ref:`foo
+   Visist chapter :ref:`reST anchor`.  Or set hyperlink text manually :ref:`foo
    bar <reST anchor>`.
 
 .. _reST ordinary ref:
@@ -288,7 +288,7 @@ content becomes smart.
    project's wiki article     :wiki:`Offline-engines`            ``:wiki:`Offline-engines```
    to docs public URL         :docs:`dev/reST.html`              ``:docs:`dev/reST.html```
    files & folders origin     :origin:`docs/dev/reST.rst`        ``:origin:`docs/dev/reST.rst```
-   pull request               :pull:`1756`                       ``:pull:`1756```
+   pull request               :pull:`4`                          ``:pull:`4```
    patch                      :patch:`af2cae6`                   ``:patch:`af2cae6```
    PyPi package               :pypi:`searx`                      ``:pypi:`searx```
    manual page man            :man:`bash`                        ``:man:`bash```
@@ -320,7 +320,7 @@ To list all anchors of the inventory (e.g. ``python``) use:
 
    $ python -m sphinx.ext.intersphinx https://docs.python.org/3/objects.inv
    ...
-   $ python -m sphinx.ext.intersphinx https://searx.github.io/searx/objects.inv
+   $ python -m sphinx.ext.intersphinx https://docs.searxng.org/objects.inv
    ...
 
 Literal blocks
@@ -494,8 +494,8 @@ Figures & Images
    is flexible.  To get best results in the generated output format, install
    ImageMagick_ and Graphviz_.
 
-Searx's sphinx setup includes: :ref:`linuxdoc:kfigure`.  Scaleable here means;
-scaleable in sense of the build process.  Normally in absence of a converter
+Searx's sphinx setup includes: :ref:`linuxdoc:kfigure`.  Scalable here means;
+scalable in sense of the build process.  Normally in absence of a converter
 tool, the build process will break.  From the authors POV it’s annoying to care
 about the build process when handling with images, especially since he has no
 access to the build process.  With :ref:`linuxdoc:kfigure` the build process
@@ -503,7 +503,7 @@ continues and scales output quality in dependence of installed image processors.
 
 If you want to add an image, you should use the ``kernel-figure`` (inheritance
 of :dudir:`figure`) and ``kernel-image`` (inheritance of :dudir:`image`)
-directives.  E.g. to insert a figure with a scaleable image format use SVG
+directives.  E.g. to insert a figure with a scalable image format use SVG
 (:ref:`svg image example`):
 
 .. code:: reST
@@ -900,7 +900,7 @@ primer>`.
 
    .. sidebar:: KISS_ and readability_
 
-      Instead of defining more and more roles, we at searx encourage our
+      Instead of defining more and more roles, we at SearXNG encourage our
       contributors to follow principles like KISS_ and readability_.
 
 Generic admonition
@@ -1185,7 +1185,7 @@ and *targets* (e.g. a ref to :ref:`row 2 of table's body <row body 2>`).
         - cell 4.4
 
       * - row 5
-        - cell 5.1 with automatic span to rigth end
+        - cell 5.1 with automatic span to right end
 
       * - row 6
         - cell 6.1
@@ -1237,7 +1237,7 @@ and *targets* (e.g. a ref to :ref:`row 2 of table's body <row body 2>`).
         - cell 4.4
 
       * - row 5
-        - cell 5.1 with automatic span to rigth end
+        - cell 5.1 with automatic span to right end
 
       * - row 6
         - cell 6.1
@@ -1280,11 +1280,11 @@ Templating
 
 Templating is suitable for documentation which is created generic at the build
 time.  The sphinx-jinja_ extension evaluates jinja_ templates in the :ref:`make
-install` (with searx modules installed).  We use this e.g. to build chapter:
-:ref:`engines generic`.  Below the jinja directive from the
+install` (with SearXNG modules installed).  We use this e.g. to build chapter:
+:ref:`configured engines`.  Below the jinja directive from the
 :origin:`docs/admin/engines.rst` is shown:
 
-.. literalinclude:: ../admin/engines.rst
+.. literalinclude:: ../admin/engines/configured_engines.rst
    :language: reST
    :start-after: .. _configured engines:
 

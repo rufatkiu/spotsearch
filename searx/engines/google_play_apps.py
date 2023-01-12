@@ -22,7 +22,9 @@ about = {
 }
 
 categories = ["files", "apps"]
-search_url = "https://play.google.com/store/search?{query}&c=apps&ucbcb=1"
+send_accept_language_header = True
+
+search_url = "https://play.google.com/store/search?{query}&c=apps"
 
 
 def request(query, params):

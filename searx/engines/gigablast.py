@@ -1,14 +1,15 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """
  Gigablast (Web)
 """
-# pylint: disable=missing-function-docstring, invalid-name
+# pylint: disable=invalid-name
 
 import re
-from json import loads, JSONDecodeError
+from time import time
+from json import loads
 from urllib.parse import urlencode
-from searx.exceptions import SearxEngineResponseException
-from searx.poolrequests import get
+from searx.network import get
 
 # about
 about = {
@@ -21,25 +22,25 @@ about = {
 }
 
 # engine dependent config
-categories = ['general']
-collections = 'main'
-search_type = ''
-fast = 0
+categories = ['general', 'web']
 # gigablast's pagination is totally damaged, don't use it
 paging = False
 safesearch = True
 
 # search-url
 base_url = 'https://gigablast.com'
+search_path = '/search?'
 
 # ugly hack: gigablast requires a random extra parameter which can be extracted
 # from the source code of the gigablast HTTP client
 extra_param = ''
-extra_param_path='/search?c=main&qlangcountry=en-us&q=south&s=10'
+# timestamp of the last fetch of extra_param
+extra_param_ts = 0
+# after how many seconds extra_param expire
+extra_param_expiration_delay = 3000
 
-_wait_for_results_msg = 'Loading results takes too long. Please enable fast option in gigablast engine.'
 
-def parse_extra_param(text):
+def fetch_extra_param(query_args, headers):
 
     # example:
     #
@@ -48,38 +49,27 @@ def parse_extra_param(text):
     #
     # extra_param --> "rand=1590740241635&nsab=730863287"
 
-    global extra_param  # pylint: disable=global-statement
-    re_var= None
+    global extra_param, extra_param_ts  # pylint: disable=global-statement
+
+    extra_param_ts = time()
+    extra_param_path = search_path + urlencode(query_args)
+    text = get(base_url + extra_param_path, headers=headers).text
+
+    re_var = None
     for line in text.splitlines():
         if re_var is None and extra_param_path in line:
             var = line.split("=")[0].split()[1]  # e.g. var --> 'uxrl'
             re_var = re.compile(var + "\\s*=\\s*" + var + "\\s*\\+\\s*'" + "(.*)" + "'(.*)")
-            extra_param = line.split("'")[1][len(extra_param_path):]
+            extra_param = line.split("'")[1][len(extra_param_path) :]
             continue
         if re_var is not None and re_var.search(line):
             extra_param += re_var.search(line).group(1)
             break
 
-def init(engine_settings=None):  # pylint: disable=unused-argument
-    parse_extra_param(get(base_url + extra_param_path).text)
-
 
 # do search-request
 def request(query, params):  # pylint: disable=unused-argument
-
-    # see API http://www.gigablast.com/api.html#/search
-    # Take into account, that the API has some quirks ..
-    query_args = {
-        'c': collections,
-        'format': 'json',
-        'q': query,
-        'dr': 1 ,
-        'showgoodimages': 0,
-        'fast': fast,
-    }
-
-    if search_type != '':
-        query_args['searchtype'] = search_type
+    query_args = dict(c='main', q=query, dr=1, showgoodimages=0)
 
     if params['language'] and params['language'] != 'all':
         query_args['qlangcountry'] = params['language']
@@ -88,22 +78,24 @@ def request(query, params):  # pylint: disable=unused-argument
     if params['safesearch'] >= 1:
         query_args['ff'] = 1
 
-    search_url = '/search?' + urlencode(query_args)
-    params['url'] = base_url + search_url + extra_param
+    # see API http://www.gigablast.com/api.html#/search
+    # Take into account, that the API has some quirks ..
+    if time() > (extra_param_ts + extra_param_expiration_delay):
+        fetch_extra_param(query_args, params['headers'])
+
+    query_args['format'] = 'json'
+    params['url'] = base_url + search_path + urlencode(query_args) + extra_param
 
     return params
+
 
 # get response from search-request
 def response(resp):
     results = []
 
-    try:
-        response_json = loads(resp.text)
-    except JSONDecodeError as e:
-        if 'Waiting for results' in resp.text:
-            raise SearxEngineResponseException(message=_wait_for_results_msg)  # pylint: disable=raise-missing-from
-        raise e
+    response_json = loads(resp.text)
 
+    # logger.debug('gigablast returns %s results', len(response_json['results']))
 
     for result in response_json['results']:
         # see "Example JSON Output (&format=json)"
@@ -129,10 +121,6 @@ def response(resp):
         if len(subtitle) > 3 and subtitle != title:
             title += " - " + subtitle
 
-        results.append(dict(
-            url = url
-            , title = title
-            , content = content
-        ))
+        results.append(dict(url=url, title=title, content=content))
 
     return results

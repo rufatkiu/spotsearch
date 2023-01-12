@@ -6,7 +6,7 @@ import os
 import shlex
 import subprocess
 import logging
-from importlib.metadata import version
+import importlib
 
 # fallback values
 # if there is searx.version_frozen module, and it is not possible to get the git tag
@@ -59,7 +59,7 @@ def get_git_url_and_branch():
 
 
 def get_git_version():
-    git_commit_date_hash = subprocess_run(r"git show -s --date='format:%Y.%m.%d' --format='%cd'")
+    git_commit_date_hash = subprocess_run(r"git show -s --date='format:%Y.%m.%d' --format='%cd-%h'")
     tag_version = git_version = git_commit_date_hash
 
     # add "-dirty" suffix if there are uncommited changes except searx/settings.yml
@@ -74,8 +74,8 @@ def get_git_version():
 
 
 try:
-    vf = version('spot')
-    VERSION_STRING = VERSION_TAG = vf
+    vf = importlib.import_module('searx.version_frozen')
+    VERSION_STRING, VERSION_TAG, GIT_URL, GIT_BRANCH = vf.VERSION_STRING, vf.VERSION_TAG, vf.GIT_URL, vf.GIT_BRANCH
 except ImportError:
     try:
         try:

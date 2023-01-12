@@ -24,7 +24,7 @@ Sample response
        "images",
      ],
      "default_locale": "",
-     "default_theme": "oscar",
+     "default_theme": "simple",
      "engines": [
        {
          "categories": [
@@ -83,11 +83,11 @@ Embed search bar
 ================
 
 The search bar can be embedded into websites.  Just paste the example into the
-HTML of the site.  URL of the searx instance and values are customizable.
+HTML of the site.  URL of the SearXNG instance and values are customizable.
 
 .. code:: html
 
-   <form method="post" action="https://searx.me/">
+   <form method="post" action="https://example.org/">
      <!-- search      --> <input type="text" name="q" />
      <!-- categories  --> <input type="hidden" name="categories" value="general,social media" />
      <!-- language    --> <input type="hidden" name="lang" value="all" />

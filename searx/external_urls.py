@@ -8,7 +8,7 @@ IMDB_PREFIX_TO_URL_ID = {
     'mn': 'imdb_name',
     'ch': 'imdb_character',
     'co': 'imdb_company',
-    'ev': 'imdb_event'
+    'ev': 'imdb_event',
 }
 HTTP_WIKIMEDIA_IMAGE = 'http://commons.wikimedia.org/wiki/Special:FilePath/'
 
@@ -20,9 +20,9 @@ def get_imdb_url_id(imdb_item_id):
 
 def get_wikimedia_image_id(url):
     if url.startswith(HTTP_WIKIMEDIA_IMAGE):
-        return url[len(HTTP_WIKIMEDIA_IMAGE):]
+        return url[len(HTTP_WIKIMEDIA_IMAGE) :]
     if url.startswith('File:'):
-        return url[len('File:'):]
+        return url[len('File:') :]
     return url
 
 
@@ -30,7 +30,7 @@ def get_external_url(url_id, item_id, alternative="default"):
     """Return an external URL or None if url_id is not found.
 
     url_id can take value from data/external_urls.json
-    The "imdb_id" value is automaticaly converted according to the item_id value.
+    The "imdb_id" value is automatically converted according to the item_id value.
 
     If item_id is None, the raw URL with the $1 is returned.
     """
@@ -52,10 +52,12 @@ def get_external_url(url_id, item_id, alternative="default"):
 
 
 def get_earth_coordinates_url(latitude, longitude, osm_zoom, alternative='default'):
-    url = get_external_url('map', None, alternative)\
-        .replace('${latitude}', str(latitude))\
-        .replace('${longitude}', str(longitude))\
+    url = (
+        get_external_url('map', None, alternative)
+        .replace('${latitude}', str(latitude))
+        .replace('${longitude}', str(longitude))
         .replace('${zoom}', str(osm_zoom))
+    )
     return url
 
 

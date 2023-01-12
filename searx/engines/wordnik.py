@@ -4,11 +4,8 @@
 """
 
 from lxml.html import fromstring
-from searx import logger
 from searx.utils import extract_text
-from searx.raise_for_httperror import raise_for_httperror
-
-logger = logger.getChild('Wordnik engine')
+from searx.network import raise_for_httperror
 
 # about
 about = {
@@ -51,7 +48,7 @@ def response(resp):
             def_abbr = extract_text(def_item.xpath('.//abbr')).strip()
             def_text = extract_text(def_item).strip()
             if def_abbr:
-                def_text = def_text[len(def_abbr):].strip()
+                def_text = def_text[len(def_abbr) :].strip()
             src_defs.append((def_abbr, def_text))
 
         definitions.append((src_text, src_defs))
@@ -69,9 +66,11 @@ def response(resp):
             infobox += f"<li><i>{def_abbr}</i> {def_text}</li>"
         infobox += "</ul>"
 
-    results.append({
-        'infobox': word,
-        'content': infobox,
-    })
+    results.append(
+        {
+            'infobox': word,
+            'content': infobox,
+        }
+    )
 
     return results

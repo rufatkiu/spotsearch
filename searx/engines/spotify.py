@@ -5,8 +5,9 @@
 
 from json import loads
 from urllib.parse import urlencode
-import requests
 import base64
+
+from searx.network import post as http_post
 
 # about
 about = {
@@ -28,22 +29,19 @@ api_client_secret = None
 url = 'https://api.spotify.com/'
 search_url = url + 'v1/search?{query}&type=track&offset={offset}'
 
-embedded_url = '<iframe data-src="https://embed.spotify.com/?uri=spotify:track:{audioid}"\
-     width="300" height="80" frameborder="0" allowtransparency="true"></iframe>'
-
-
 # do search-request
 def request(query, params):
     offset = (params['pageno'] - 1) * 20
 
     params['url'] = search_url.format(query=urlencode({'q': query}), offset=offset)
 
-    r = requests.post(
+    r = http_post(
         'https://accounts.spotify.com/api/token',
         data={'grant_type': 'client_credentials'},
-        headers={'Authorization': 'Basic ' + base64.b64encode(
-            "{}:{}".format(api_client_id, api_client_secret).encode()
-        ).decode()}
+        headers={
+            'Authorization': 'Basic '
+            + base64.b64encode("{}:{}".format(api_client_id, api_client_secret).encode()).decode()
+        },
     )
     j = loads(r.text)
     params['headers'] = {'Authorization': 'Bearer {}'.format(j.get('access_token'))}
@@ -62,18 +60,17 @@ def response(resp):
         if result['type'] == 'track':
             title = result['name']
             url = result['external_urls']['spotify']
-            content = '{} - {} - {}'.format(
-                result['artists'][0]['name'],
-                result['album']['name'],
-                result['name'])
-
-            embedded = embedded_url.format(audioid=result['id'])
+            content = '{} - {} - {}'.format(result['artists'][0]['name'], result['album']['name'], result['name'])
 
             # append result
-            results.append({'url': url,
-                            'title': title,
-                            'embedded': embedded,
-                            'content': content})
+            results.append(
+                {
+                    'url': url,
+                    'title': title,
+                    'iframe_src': "https://embed.spotify.com/?uri=spotify:track:" + result['id'],
+                    'content': content,
+                }
+            )
 
     # return results
     return results

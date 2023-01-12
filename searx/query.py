@@ -3,6 +3,7 @@
 from abc import abstractmethod, ABC
 import re
 
+from searx import settings
 from searx.languages import language_codes
 from searx.engines import categories, engines, engine_shortcuts
 from searx.external_bang import get_bang_definition_and_autocomplete
@@ -39,7 +40,6 @@ class QueryPartParser(ABC):
 
 
 class TimeoutParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
         return raw_value[0] == '<'
@@ -69,7 +69,6 @@ class TimeoutParser(QueryPartParser):
 
 
 class LanguageParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
         return raw_value[0] == ':'
@@ -86,16 +85,14 @@ class LanguageParser(QueryPartParser):
         # check if any language-code is equal with
         # declared language-codes
         for lc in language_codes:
-            lang_id, lang_name, country, english_name = map(str.lower, lc)
+            lang_id, lang_name, country, english_name, _flag = map(str.lower, lc)
 
             # if correct language-code is found
             # set it as new search-language
 
-            if (value == lang_id
-                or value == lang_name
-                or value == english_name
-                or value.replace('-', ' ') == country)\
-               and value not in self.raw_text_query.languages:
+            if (
+                value == lang_id or value == lang_name or value == english_name or value.replace('-', ' ') == country
+            ) and value not in self.raw_text_query.languages:
                 found = True
                 lang_parts = lang_id.split('-')
                 if len(lang_parts) == 2:
@@ -120,12 +117,18 @@ class LanguageParser(QueryPartParser):
     def _autocomplete(self, value):
         if not value:
             # show some example queries
-            for lang in [":en", ":en_us", ":english", ":united_kingdom"]:
-                self.raw_text_query.autocomplete_list.append(lang)
+            if len(settings['search']['languages']) < 10:
+                for lang in settings['search']['languages']:
+                    self.raw_text_query.autocomplete_list.append(':' + lang)
+            else:
+                for lang in [":en", ":en_us", ":english", ":united_kingdom"]:
+                    self.raw_text_query.autocomplete_list.append(lang)
             return
 
         for lc in language_codes:
-            lang_id, lang_name, country, english_name = map(str.lower, lc)
+            if lc[0] not in settings['search']['languages']:
+                continue
+            lang_id, lang_name, country, english_name, _flag = map(str.lower, lc)
 
             # check if query starts with language-id
             if lang_id.startswith(value):
@@ -145,7 +148,6 @@ class LanguageParser(QueryPartParser):
 
 
 class ExternalBangParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
         return raw_value.startswith('!!')
@@ -173,10 +175,9 @@ class ExternalBangParser(QueryPartParser):
 
 
 class BangParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
-        return raw_value[0] == '!' or raw_value[0] == '?'
+        return raw_value[0] == '!'
 
     def __call__(self, raw_value):
         value = raw_value[1:].replace('-', ' ').replace('_', ' ')
@@ -197,13 +198,15 @@ class BangParser(QueryPartParser):
             self.raw_text_query.enginerefs.append(EngineRef(value, 'none'))
             return True
 
-        # check if prefix is equal with categorie name
+        # check if prefix is equal with category name
         if value in categories:
             # using all engines for that search, which
-            # are declared under that categorie name
-            self.raw_text_query.enginerefs.extend(EngineRef(engine.name, value)
-                                                  for engine in categories[value]
-                                                  if (engine.name, value) not in self.raw_text_query.disabled_engines)
+            # are declared under that category name
+            self.raw_text_query.enginerefs.extend(
+                EngineRef(engine.name, value)
+                for engine in categories[value]
+                if (engine.name, value) not in self.raw_text_query.disabled_engines
+            )
             return True
 
         return False
@@ -216,10 +219,10 @@ class BangParser(QueryPartParser):
                     self._add_autocomplete(first_char + suggestion)
             return
 
-        # check if query starts with categorie name
+        # check if query starts with category name
         for category in categories:
             if category.startswith(value):
-                self._add_autocomplete(first_char + category)
+                self._add_autocomplete(first_char + category.replace(' ', '_'))
 
         # check if query starts with engine name
         for engine in engines:
@@ -239,7 +242,7 @@ class RawTextQuery:
         TimeoutParser,  # this force the timeout
         LanguageParser,  # this force a language
         ExternalBangParser,  # external bang (must be before BangParser)
-        BangParser  # this force a engine or category
+        BangParser,  # this force a engine or category
     ]
 
     def __init__(self, query, disabled_engines):
@@ -274,8 +277,7 @@ class RawTextQuery:
 
         for i, query_part in enumerate(raw_query_parts):
             # part does only contain spaces, skip
-            if query_part.isspace()\
-               or query_part == '':
+            if query_part.isspace() or query_part == '':
                 continue
 
             # parse special commands
@@ -309,7 +311,7 @@ class RawTextQuery:
 
     def getFullQuery(self):
         """
-        get full querry including whitespaces
+        get full query including whitespaces
         """
         return '{0} {1}'.format(' '.join(self.query_parts), self.getQuery()).strip()
 
@@ -317,14 +319,16 @@ class RawTextQuery:
         return self.getFullQuery()
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} " \
-               + f"query={self.query!r} " \
-               + f"disabled_engines={self.disabled_engines!r}\n  " \
-               + f"languages={self.languages!r} " \
-               + f"timeout_limit={self.timeout_limit!r} "\
-               + f"external_bang={self.external_bang!r} " \
-               + f"specific={self.specific!r} " \
-               + f"enginerefs={self.enginerefs!r}\n  " \
-               + f"autocomplete_list={self.autocomplete_list!r}\n  " \
-               + f"query_parts={self.query_parts!r}\n  " \
-               + f"user_query_parts={self.user_query_parts!r} >"
+        return (
+            f"<{self.__class__.__name__} "
+            + f"query={self.query!r} "
+            + f"disabled_engines={self.disabled_engines!r}\n  "
+            + f"languages={self.languages!r} "
+            + f"timeout_limit={self.timeout_limit!r} "
+            + f"external_bang={self.external_bang!r} "
+            + f"specific={self.specific!r} "
+            + f"enginerefs={self.enginerefs!r}\n  "
+            + f"autocomplete_list={self.autocomplete_list!r}\n  "
+            + f"query_parts={self.query_parts!r}\n  "
+            + f"user_query_parts={self.user_query_parts!r} >"
+        )

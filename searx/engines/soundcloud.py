@@ -8,8 +8,7 @@ from json import loads
 from lxml import html
 from dateutil import parser
 from urllib.parse import quote_plus, urlencode
-from searx import logger
-from searx.poolrequests import get as http_get
+from searx.network import get as http_get
 
 # about
 about = {
@@ -28,17 +27,15 @@ paging = True
 # search-url
 # missing attribute: user_id, app_version, app_locale
 url = 'https://api-v2.soundcloud.com/'
-search_url = url + 'search?{query}'\
-                         '&variant_ids='\
-                         '&facet=model'\
-                         '&limit=20'\
-                         '&offset={offset}'\
-                         '&linked_partitioning=1'\
-                         '&client_id={client_id}'   # noqa
-
-embedded_url = '<iframe width="100%" height="166" ' +\
-    'scrolling="no" frameborder="no" ' +\
-    'data-src="https://w.soundcloud.com/player/?url={uri}"></iframe>'
+search_url = (
+    url + 'search?{query}'
+    '&variant_ids='
+    '&facet=model'
+    '&limit=20'
+    '&offset={offset}'
+    '&linked_partitioning=1'
+    '&client_id={client_id}'
+)  # noqa
 
 cid_re = re.compile(r'client_id:"([^"]*)"', re.I | re.U)
 guest_client_id = ''
@@ -76,9 +73,7 @@ def init(engine_settings=None):
 def request(query, params):
     offset = (params['pageno'] - 1) * 20
 
-    params['url'] = search_url.format(query=urlencode({'q': query}),
-                                      offset=offset,
-                                      client_id=guest_client_id)
+    params['url'] = search_url.format(query=urlencode({'q': query}), offset=offset, client_id=guest_client_id)
 
     return params
 
@@ -86,24 +81,23 @@ def request(query, params):
 # get response from search-request
 def response(resp):
     results = []
-
     search_res = loads(resp.text)
 
     # parse results
     for result in search_res.get('collection', []):
+
         if result['kind'] in ('track', 'playlist'):
-            title = result['title']
-            content = result['description'] or ''
-            publishedDate = parser.parse(result['last_modified'])
             uri = quote_plus(result['uri'])
-            embedded = embedded_url.format(uri=uri)
+            res = {
+                'url': result['permalink_url'],
+                'title': result['title'],
+                'content': result['description'] or '',
+                'publishedDate': parser.parse(result['last_modified']),
+                'iframe_src': "https://w.soundcloud.com/player/?url=" + uri,
+            }
+            img_src = result['artwork_url'] or result['user']['avatar_url']
+            if img_src:
+                res['img_src'] = img_src
+            results.append(res)
 
-            # append result
-            results.append({'url': result['permalink_url'],
-                            'title': title,
-                            'publishedDate': publishedDate,
-                            'embedded': embedded,
-                            'content': content})
-
-    # return results
     return results

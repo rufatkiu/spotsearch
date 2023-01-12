@@ -1,9 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """MediathekViewWeb (API)
 
 """
-
-# pylint: disable=missing-function-docstring
 
 import datetime
 from json import loads, dumps
@@ -15,6 +14,7 @@ about = {
     "use_official_api": True,
     "require_api_key": False,
     "results": 'JSON',
+    "language": "de",
 }
 
 categories = ['videos']
@@ -22,28 +22,32 @@ paging = True
 time_range_support = False
 safesearch = False
 
+
 def request(query, params):
 
     params['url'] = 'https://mediathekviewweb.de/api/query'
     params['method'] = 'POST'
     params['headers']['Content-type'] = 'text/plain'
-    params['data'] = dumps({
-        'queries' : [
-	    {
-	        'fields' : [
-		    'title',
-		    'topic',
-	        ],
-	    'query' : query
-	    },
-        ],
-        'sortBy' : 'timestamp',
-        'sortOrder' : 'desc',
-        'future' : True,
-        'offset' : (params['pageno'] - 1 )* 10,
-        'size' : 10
-    })
+    params['data'] = dumps(
+        {
+            'queries': [
+                {
+                    'fields': [
+                        'title',
+                        'topic',
+                    ],
+                    'query': query,
+                },
+            ],
+            'sortBy': 'timestamp',
+            'sortOrder': 'desc',
+            'future': True,
+            'offset': (params['pageno'] - 1) * 10,
+            'size': 10,
+        }
+    )
     return params
+
 
 def response(resp):
 
@@ -58,11 +62,15 @@ def response(resp):
 
         item['hms'] = str(datetime.timedelta(seconds=item['duration']))
 
-        results.append({
-            'url' : item['url_video_hd'],
-            'title' : "%(channel)s: %(title)s (%(hms)s)" % item,
-            'length' : item['hms'],
-            'content' : "%(description)s" % item,
-        })
+        results.append(
+            {
+                'url': item['url_video_hd'].replace("http://", "https://"),
+                'title': "%(channel)s: %(title)s (%(hms)s)" % item,
+                'length': item['hms'],
+                'content': "%(description)s" % item,
+                'iframe_src': item['url_video_hd'].replace("http://", "https://"),
+                'template': 'videos.html',
+            }
+        )
 
     return results

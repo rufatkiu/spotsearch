@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """
  Meilisearch
 """
 
-# pylint: disable=global-statement, missing-function-docstring
+# pylint: disable=global-statement
 
 from json import loads, dumps
 

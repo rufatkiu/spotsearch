@@ -1,20 +1,18 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """APKMirror
 """
 
-# pylint: disable=invalid-name, missing-function-docstring
+# pylint: disable=invalid-name
 
 from urllib.parse import urlencode
 from lxml import html
 
-from searx import logger
 from searx.utils import (
     eval_xpath_list,
     eval_xpath_getindex,
     extract_text,
 )
-
-logger = logger.getChild('APKMirror engine')
 
 about = {
     "website": 'https://www.apkmirror.com',
@@ -26,7 +24,7 @@ about = {
 }
 
 # engine dependent config
-categories = ['files']
+categories = ['files', 'apps']
 paging = True
 time_range_support = False
 
@@ -37,8 +35,8 @@ search_url = base_url + '/?post_type=app_release&searchtype=apk&page={pageno}&{q
 
 def request(query, params):
     params['url'] = search_url.format(
-        pageno = params['pageno'],
-        query = urlencode({'s': query}),
+        pageno=params['pageno'],
+        query=urlencode({'s': query}),
     )
     logger.debug("query_url --> %s", params['url'])
     return params
@@ -57,11 +55,7 @@ def response(resp):
         url = base_url + link.attrib.get('href') + '#downloads'
         title = extract_text(link)
         img_src = base_url + eval_xpath_getindex(result, './/img/@src', 0)
-        res = {
-            'url': url,
-            'title': title,
-            'img_src': img_src
-        }
+        res = {'url': url, 'title': title, 'img_src': img_src}
 
         results.append(res)
 

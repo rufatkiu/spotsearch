@@ -51,7 +51,6 @@ filter_mapping = {0: 'images', 1: 'active', 2: 'active'}
 def request(query, params):
     """Google-Image search request"""
 
-    # pylint: disable=undefined-variable
     lang_info = get_lang_info(params, supported_languages, language_aliases, False)
 
     query_url = (
