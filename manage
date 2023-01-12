@@ -282,7 +282,11 @@ weblate.translations.commit() {
     )
     dump_return $exitcode
 }
-
+babel.compile() {
+    build_msg BABEL compile
+    pyenv.cmd pybabel compile -d "${REPO_ROOT}/searx/translations"
+    dump_return $?
+}
 weblate.push.translations() {
 
     # Push *translation changes* from SearXNG (origin) to Weblate's counterpart
@@ -563,8 +567,8 @@ node.env() {
     nodejs.ensure
     (   set -e
 
-        build_msg INSTALL "searx/static/themes/simple/package.json"
-        npm --prefix searx/static/themes/simple install
+        build_msg INSTALL "searx/static/themes/etheme/package.json"
+        npm --prefix searx/static/themes/etheme install
     )
     dump_return $?
 }
@@ -802,6 +806,14 @@ themes.simple() {
     (   set -e
         build_msg GRUNT "theme: simple"
         npm --prefix searx/static/themes/simple run build
+    )
+    dump_return $?
+}
+
+themes.etheme() {
+    (   set -e
+        build_msg GRUNT "theme: etheme"
+        npm --prefix searx/static/themes/etheme run build
     )
     dump_return $?
 }
