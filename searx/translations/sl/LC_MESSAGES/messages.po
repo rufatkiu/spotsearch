@@ -4,6 +4,9 @@
 #
 # Translators:
 # asladic <ales.sladic@gmail.com>, 2017-2018
+# Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
+# Alexandre Flament <alex@al-f.net>, 2022.
+# peterT1D <kozlovic.peter@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -132,15 +135,15 @@ msgstr "Napake"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Pridobite navodila"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (neveljaven)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "Ta vnos je presegel"
+msgstr "Ta vnos je bil presezen"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
@@ -187,17 +190,63 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Prepisovanje HTTP povezav v HTTPS, ko je to mogoče"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Neskončno drsenje"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Slika je preveč preprosta, da bi lahko našel zadetke. TinEye potrebuje "
+"osnovni nivo vizualnih detajlov za identifikacijo zadetkov."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Samodejno naloži naslednjo stran ob ogledu dna trenutne strani"
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Slike ni bilo mogoče prevesti."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Jutro"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Opoldne"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Večer"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Noč"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr "Samodejno zaznavanje jezika iskanja"
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr "Samodejno zazna jezik iskanja poizvedbe in preklopi nanj."
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Pretvori besede v drugo hash vrednost."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "Hash vrednost"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Preimenuj strežniško ime"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"Prepiši rezultate strežniških imen ali odstrani rezultate na bazi "
+"strežniških imen"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr ""
+msgstr "Prosto dostopni DOI prepis"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -219,7 +268,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Išči ob izboru kategorije"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -232,6 +281,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informacije o sebi"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -1169,25 +1222,18 @@ msgstr "Zadetki iskanja"
 msgid "Try searching for:"
 msgstr "Poskusite iskati:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Začni iskati"
-
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
 msgstr ""
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistike"
+#: searx/templates/simple/search.html:9
+#: searx/templates/simple/simple_search.html:5
+msgid "Search for..."
+msgstr "Poišči..."
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1206,23 +1252,115 @@ msgstr "Prvič uporabljate searx."
 msgid "There is currently no data available. "
 msgstr "Trenutno ni podatkov na voljo."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Točke"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr ""
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr ""
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr ""
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr ""
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Opozorila"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Napake in izjeme"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Izjeme"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Sporočilo"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Odstotek"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr ""
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Ime datoteke"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funkcija"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr ""
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr ""
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr ""
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Komentar(ji)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Kadarkoli"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "V zadnjem dnevu"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "V zadnjem tednu"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "V zadnjem mesecu"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "V zadnjem letu"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informacije!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "Trenutno ni definiranih piškotkov."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Iskalniki ne morejo pridobiti rezultatov."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Prosimo, poskusite kasneje tu ali na drugi instanci searx."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Prosim poizkusite kasneje, ali poiščite drugo SearXNG istanco."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Škoda!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1296,12 +1434,10 @@ msgstr "Odjemalec"
 msgid "Number of Files"
 msgstr "Število datotek"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "pokaži video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "skrij video"

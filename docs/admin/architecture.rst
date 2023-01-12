@@ -6,23 +6,33 @@ Architecture
 
 .. sidebar:: Further reading
 
-   - Reverse Proxy: :ref:`Apache <apache searx site>` & :ref:`nginx <nginx searx
-     site>`
-   - Filtron: :ref:`searx filtron`
-   - Morty: :ref:`searx morty`
-   - uWSGI: :ref:`searx uwsgi`
-   - Searx: :ref:`installation basic`
+   - Reverse Proxy: :ref:`Apache <apache searxng site>` & :ref:`nginx <nginx
+     searxng site>`
+   - uWSGI: :ref:`searxng uwsgi`
+   - SearXNG: :ref:`installation basic`
 
 Herein you will find some hints and suggestions about typical architectures of
-searx infrastructures.
+SearXNG infrastructures.
 
-We start with a contribution from :pull:`@dalf <1776#issuecomment-567917320>`.
-It shows a *reference* setup for public searx instances which can build up and
-maintained by the scripts from our :ref:`toolboxing`.
+.. _architecture uWSGI:
+
+uWSGI Setup
+===========
+
+We start with a *reference* setup for public SearXNG instances which can be build
+up and maintained by the scripts from our :ref:`toolboxing`.
 
 .. _arch public:
 
 .. kernel-figure:: arch_public.dot
    :alt: arch_public.dot
 
-   Reference architecture of a public searx setup.
+   Reference architecture of a public SearXNG setup.
+
+The reference installation activates ``server.limiter``, ``server.image_proxy``
+and ``ui.static_use_hash`` (:origin:`/etc/searxng/settings.yml
+<utils/templates/etc/searxng/settings.yml>`)
+
+.. literalinclude:: ../../utils/templates/etc/searxng/settings.yml
+   :language: yaml
+   :end-before: # preferences:

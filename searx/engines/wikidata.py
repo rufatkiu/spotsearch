@@ -1,23 +1,24 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+"""Wikidata
 """
- Wikidata
-"""
+# pylint: disable=missing-class-docstring
 
-
-from urllib.parse import urlencode
+from hashlib import md5
+from urllib.parse import urlencode, unquote
 from json import loads
 
 from dateutil.parser import isoparse
 from babel.dates import format_datetime, format_date, format_time, get_datetime_format
 
-from searx import logger
 from searx.data import WIKIDATA_UNITS
-from searx.poolrequests import post, get
+from searx.network import post, get
 from searx.utils import match_language, searx_useragent, get_string_replaces_function
 from searx.external_urls import get_external_url, get_earth_coordinates_url, area_to_osm_zoom
-from searx.engines.wikipedia import _fetch_supported_languages, supported_languages_url  # NOQA # pylint: disable=unused-import
-
-logger = logger.getChild('wikidata')
+from searx.engines.wikipedia import (  # pylint: disable=unused-import
+    _fetch_supported_languages,
+    supported_languages_url,
+)
 
 # about
 about = {
@@ -49,7 +50,7 @@ WIKIDATA_PROPERTIES = {
 # SERVICE wikibase:label: https://en.wikibooks.org/wiki/SPARQL/SERVICE_-_Label#Manual_Label_SERVICE
 # https://en.wikibooks.org/wiki/SPARQL/WIKIDATA_Precision,_Units_and_Coordinates
 # https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format#Data_model
-# optmization:
+# optimization:
 # * https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/query_optimization
 # * https://github.com/blazegraph/database/wiki/QueryHints
 QUERY_TEMPLATE = """
@@ -102,24 +103,27 @@ DUMMY_ENTITY_URLS = set(
 
 # https://www.w3.org/TR/sparql11-query/#rSTRING_LITERAL1
 # https://lists.w3.org/Archives/Public/public-rdf-dawg/2011OctDec/0175.html
-sparql_string_escape = get_string_replaces_function({'\t': '\\\t',
-                                                     '\n': '\\\n',
-                                                     '\r': '\\\r',
-                                                     '\b': '\\\b',
-                                                     '\f': '\\\f',
-                                                     '\"': '\\\"',
-                                                     '\'': '\\\'',
-                                                     '\\': '\\\\'})
+sparql_string_escape = get_string_replaces_function(
+    # fmt: off
+    {
+        '\t': '\\\t',
+        '\n': '\\\n',
+        '\r': '\\\r',
+        '\b': '\\\b',
+        '\f': '\\\f',
+        '\"': '\\\"',
+        '\'': '\\\'',
+        '\\': '\\\\'
+    }
+    # fmt: on
+)
 
 replace_http_by_https = get_string_replaces_function({'http:': 'https:'})
 
 
 def get_headers():
     # user agent: https://www.mediawiki.org/wiki/Wikidata_Query_Service/User_Manual#Query_limits
-    return {
-        'Accept': 'application/sparql-results+json',
-        'User-Agent': searx_useragent()
-    }
+    return {'Accept': 'application/sparql-results+json', 'User-Agent': searx_useragent()}
 
 
 def get_label_for_entity(entity_id, language):
@@ -189,7 +193,51 @@ def response(resp):
     return results
 
 
+_IMG_SRC_DEFAULT_URL_PREFIX = "https://commons.wikimedia.org/wiki/Special:FilePath/"
+_IMG_SRC_NEW_URL_PREFIX = "https://upload.wikimedia.org/wikipedia/commons/thumb/"
+
+
+def get_thumbnail(img_src):
+    """Get Thumbnail image from wikimedia commons
+
+    Images from commons.wikimedia.org are (HTTP) redirected to
+    upload.wikimedia.org.  The redirected URL can be calculated by this
+    function.
+
+    - https://stackoverflow.com/a/33691240
+
+    """
+    logger.debug('get_thumbnail(): %s', img_src)
+    if not img_src is None and _IMG_SRC_DEFAULT_URL_PREFIX in img_src.split()[0]:
+        img_src_name = unquote(img_src.replace(_IMG_SRC_DEFAULT_URL_PREFIX, "").split("?", 1)[0].replace("%20", "_"))
+        img_src_name_first = img_src_name
+        img_src_name_second = img_src_name
+
+        if ".svg" in img_src_name.split()[0]:
+            img_src_name_second = img_src_name + ".png"
+
+        img_src_size = img_src.replace(_IMG_SRC_DEFAULT_URL_PREFIX, "").split("?", 1)[1]
+        img_src_size = img_src_size[img_src_size.index("=") + 1 : img_src_size.index("&")]
+        img_src_name_md5 = md5(img_src_name.encode("utf-8")).hexdigest()
+        img_src = (
+            _IMG_SRC_NEW_URL_PREFIX
+            + img_src_name_md5[0]
+            + "/"
+            + img_src_name_md5[0:2]
+            + "/"
+            + img_src_name_first
+            + "/"
+            + img_src_size
+            + "px-"
+            + img_src_name_second
+        )
+        logger.debug('get_thumbnail() redirected: %s', img_src)
+
+    return img_src
+
+
 def get_results(attribute_result, attributes, language):
+    # pylint: disable=too-many-branches
     results = []
     infobox_title = attribute_result.get('itemLabel')
     infobox_id = attribute_result['item']
@@ -198,7 +246,7 @@ def get_results(attribute_result, attributes, language):
     infobox_attributes = []
     infobox_content = attribute_result.get('itemDescription', [])
     img_src = None
-    img_src_priority = 100
+    img_src_priority = 0
 
     for attribute in attributes:
         value = attribute.get_str(attribute_result, language)
@@ -216,17 +264,17 @@ def get_results(attribute_result, attributes, language):
                         results.append({'title': infobox_title, 'url': url})
                     # update the infobox_id with the wikipedia URL
                     # first the local wikipedia URL, and as fallback the english wikipedia URL
-                    if attribute_type == WDArticle\
-                       and ((attribute.language == 'en' and infobox_id_lang is None)
-                            or attribute.language != 'en'):
+                    if attribute_type == WDArticle and (
+                        (attribute.language == 'en' and infobox_id_lang is None) or attribute.language != 'en'
+                    ):
                         infobox_id_lang = attribute.language
                         infobox_id = url
             elif attribute_type == WDImageAttribute:
                 # this attribute is an image.
                 # replace the current image only the priority is lower
                 # (the infobox contain only one image).
-                if attribute.priority < img_src_priority:
-                    img_src = value
+                if attribute.priority > img_src_priority:
+                    img_src = get_thumbnail(value)
                     img_src_priority = attribute.priority
             elif attribute_type == WDGeoAttribute:
                 # geocoordinate link
@@ -237,13 +285,11 @@ def get_results(attribute_result, attributes, language):
                 osm_zoom = area_to_osm_zoom(area) if area else 19
                 url = attribute.get_geo_url(attribute_result, osm_zoom=osm_zoom)
                 if url:
-                    infobox_urls.append({'title': attribute.get_label(language),
-                                         'url': url,
-                                         'entity': attribute.name})
+                    infobox_urls.append({'title': attribute.get_label(language), 'url': url, 'entity': attribute.name})
             else:
-                infobox_attributes.append({'label': attribute.get_label(language),
-                                           'value': value,
-                                           'entity': attribute.name})
+                infobox_attributes.append(
+                    {'label': attribute.get_label(language), 'value': value, 'entity': attribute.name}
+                )
 
     if infobox_id:
         infobox_id = replace_http_by_https(infobox_id)
@@ -251,22 +297,19 @@ def get_results(attribute_result, attributes, language):
     # add the wikidata URL at the end
     infobox_urls.append({'title': 'Wikidata', 'url': attribute_result['item']})
 
-    if img_src is None and len(infobox_attributes) == 0 and len(infobox_urls) == 1 and\
-       len(infobox_content) == 0:
-        results.append({
-            'url': infobox_urls[0]['url'],
-            'title': infobox_title,
-            'content': infobox_content
-        })
+    if img_src is None and len(infobox_attributes) == 0 and len(infobox_urls) == 1 and len(infobox_content) == 0:
+        results.append({'url': infobox_urls[0]['url'], 'title': infobox_title, 'content': infobox_content})
     else:
-        results.append({
-            'infobox': infobox_title,
-            'id': infobox_id,
-            'content': infobox_content,
-            'img_src': img_src,
-            'urls': infobox_urls,
-            'attributes': infobox_attributes
-        })
+        results.append(
+            {
+                'infobox': infobox_title,
+                'id': infobox_id,
+                'content': infobox_content,
+                'img_src': img_src,
+                'urls': infobox_urls,
+                'attributes': infobox_attributes,
+            }
+        )
     return results
 
 
@@ -276,17 +319,19 @@ def get_query(query, language):
     where = list(filter(lambda s: len(s) > 0, [a.get_where() for a in attributes]))
     wikibase_label = list(filter(lambda s: len(s) > 0, [a.get_wikibase_label() for a in attributes]))
     group_by = list(filter(lambda s: len(s) > 0, [a.get_group_by() for a in attributes]))
-    query = QUERY_TEMPLATE\
-        .replace('%QUERY%', sparql_string_escape(query))\
-        .replace('%SELECT%', ' '.join(select))\
-        .replace('%WHERE%', '\n  '.join(where))\
-        .replace('%WIKIBASE_LABELS%', '\n      '.join(wikibase_label))\
-        .replace('%GROUP_BY%', ' '.join(group_by))\
+    query = (
+        QUERY_TEMPLATE.replace('%QUERY%', sparql_string_escape(query))
+        .replace('%SELECT%', ' '.join(select))
+        .replace('%WHERE%', '\n  '.join(where))
+        .replace('%WIKIBASE_LABELS%', '\n      '.join(wikibase_label))
+        .replace('%GROUP_BY%', ' '.join(group_by))
         .replace('%LANGUAGE%', language)
+    )
     return query, attributes
 
 
 def get_attributes(language):
+    # pylint: disable=too-many-statements
     attributes = []
 
     def add_value(name):
@@ -308,90 +353,98 @@ def get_attributes(language):
         attributes.append(WDDateAttribute(name))
 
     # Dates
-    for p in ['P571',    # inception date
-              'P576',    # dissolution date
-              'P580',    # start date
-              'P582',    # end date
-              'P569',    # date of birth
-              'P570',    # date of death
-              'P619',    # date of spacecraft launch
-              'P620']:   # date of spacecraft landing
+    for p in [
+        'P571',  # inception date
+        'P576',  # dissolution date
+        'P580',  # start date
+        'P582',  # end date
+        'P569',  # date of birth
+        'P570',  # date of death
+        'P619',  # date of spacecraft launch
+        'P620',
+    ]:  # date of spacecraft landing
         add_date(p)
 
-    for p in ['P27',     # country of citizenship
-              'P495',    # country of origin
-              'P17',     # country
-              'P159']:   # headquarters location
+    for p in [
+        'P27',  # country of citizenship
+        'P495',  # country of origin
+        'P17',  # country
+        'P159',
+    ]:  # headquarters location
         add_label(p)
 
     # Places
-    for p in ['P36',     # capital
-              'P35',     # head of state
-              'P6',      # head of government
-              'P122',    # basic form of government
-              'P37']:    # official language
+    for p in [
+        'P36',  # capital
+        'P35',  # head of state
+        'P6',  # head of government
+        'P122',  # basic form of government
+        'P37',
+    ]:  # official language
         add_label(p)
 
-    add_value('P1082')   # population
+    add_value('P1082')  # population
     add_amount('P2046')  # area
-    add_amount('P281')   # postal code
-    add_label('P38')     # currency
-    add_amount('P2048')  # heigth (building)
+    add_amount('P281')  # postal code
+    add_label('P38')  # currency
+    add_amount('P2048')  # height (building)
 
     # Media
-    for p in ['P400',    # platform (videogames, computing)
-              'P50',     # author
-              'P170',    # creator
-              'P57',     # director
-              'P175',    # performer
-              'P178',    # developer
-              'P162',    # producer
-              'P176',    # manufacturer
-              'P58',     # screenwriter
-              'P272',    # production company
-              'P264',    # record label
-              'P123',    # publisher
-              'P449',    # original network
-              'P750',    # distributed by
-              'P86']:    # composer
+    for p in [
+        'P400',  # platform (videogames, computing)
+        'P50',  # author
+        'P170',  # creator
+        'P57',  # director
+        'P175',  # performer
+        'P178',  # developer
+        'P162',  # producer
+        'P176',  # manufacturer
+        'P58',  # screenwriter
+        'P272',  # production company
+        'P264',  # record label
+        'P123',  # publisher
+        'P449',  # original network
+        'P750',  # distributed by
+        'P86',
+    ]:  # composer
         add_label(p)
 
-    add_date('P577')     # publication date
-    add_label('P136')    # genre (music, film, artistic...)
-    add_label('P364')    # original language
-    add_value('P212')    # ISBN-13
-    add_value('P957')    # ISBN-10
-    add_label('P275')    # copyright license
-    add_label('P277')    # programming language
-    add_value('P348')    # version
-    add_label('P840')    # narrative location
+    add_date('P577')  # publication date
+    add_label('P136')  # genre (music, film, artistic...)
+    add_label('P364')  # original language
+    add_value('P212')  # ISBN-13
+    add_value('P957')  # ISBN-10
+    add_label('P275')  # copyright license
+    add_label('P277')  # programming language
+    add_value('P348')  # version
+    add_label('P840')  # narrative location
 
     # Languages
-    add_value('P1098')   # number of speakers
-    add_label('P282')    # writing system
-    add_label('P1018')   # language regulatory body
-    add_value('P218')    # language code (ISO 639-1)
+    add_value('P1098')  # number of speakers
+    add_label('P282')  # writing system
+    add_label('P1018')  # language regulatory body
+    add_value('P218')  # language code (ISO 639-1)
 
     # Other
-    add_label('P169')    # ceo
-    add_label('P112')    # founded by
-    add_label('P1454')   # legal form (company, organization)
-    add_label('P137')    # operator (service, facility, ...)
-    add_label('P1029')   # crew members (tripulation)
-    add_label('P225')    # taxon name
-    add_value('P274')    # chemical formula
-    add_label('P1346')   # winner (sports, contests, ...)
-    add_value('P1120')   # number of deaths
-    add_value('P498')    # currency code (ISO 4217)
+    add_label('P169')  # ceo
+    add_label('P112')  # founded by
+    add_label('P1454')  # legal form (company, organization)
+    add_label('P137')  # operator (service, facility, ...)
+    add_label('P1029')  # crew members (tripulation)
+    add_label('P225')  # taxon name
+    add_value('P274')  # chemical formula
+    add_label('P1346')  # winner (sports, contests, ...)
+    add_value('P1120')  # number of deaths
+    add_value('P498')  # currency code (ISO 4217)
 
     # URL
-    add_url('P856', official=True)          # official website
+    add_url('P856', official=True)  # official website
     attributes.append(WDArticle(language))  # wikipedia (user language)
     if not language.startswith('en'):
         attributes.append(WDArticle('en'))  # wikipedia (english)
 
-    add_url('P1324')     # source code repository
-    add_url('P1581')     # blog
+    add_url('P1324')  # source code repository
+    add_url('P1581')  # blog
     add_url('P434', url_id='musicbrainz_artist')
     add_url('P435', url_id='musicbrainz_work')
     add_url('P436', url_id='musicbrainz_release_group')
@@ -407,11 +460,11 @@ def get_attributes(language):
     attributes.append(WDGeoAttribute('P625'))
 
     # Image
-    add_image('P15', priority=1, url_id='wikimedia_image')    # route map
-    add_image('P242', priority=2, url_id='wikimedia_image')   # locator map
-    add_image('P154', priority=3, url_id='wikimedia_image')   # logo
-    add_image('P18', priority=4, url_id='wikimedia_image')    # image
-    add_image('P41', priority=5, url_id='wikimedia_image')    # flag
+    add_image('P15', priority=1, url_id='wikimedia_image')  # route map
+    add_image('P242', priority=2, url_id='wikimedia_image')  # locator map
+    add_image('P154', priority=3, url_id='wikimedia_image')  # logo
+    add_image('P18', priority=4, url_id='wikimedia_image')  # image
+    add_image('P41', priority=5, url_id='wikimedia_image')  # flag
     add_image('P2716', priority=6, url_id='wikimedia_image')  # collage
     add_image('P2910', priority=7, url_id='wikimedia_image')  # icon
 
@@ -419,8 +472,7 @@ def get_attributes(language):
 
 
 class WDAttribute:
-
-    __slots__ = 'name',
+    __slots__ = ('name',)
 
     def __init__(self, name):
         self.name = name
@@ -440,7 +492,7 @@ class WDAttribute:
     def get_group_by(self):
         return ""
 
-    def get_str(self, result, language):
+    def get_str(self, result, language):  # pylint: disable=unused-argument
         return result.get(self.name + 's')
 
     def __repr__(self):
@@ -448,14 +500,15 @@ class WDAttribute:
 
 
 class WDAmountAttribute(WDAttribute):
-
     def get_select(self):
         return '?{name} ?{name}Unit'.replace('{name}', self.name)
 
     def get_where(self):
         return """  OPTIONAL { ?item p:{name} ?{name}Node .
     ?{name}Node rdf:type wikibase:BestRank ; ps:{name} ?{name} .
-    OPTIONAL { ?{name}Node psv:{name}/wikibase:quantityUnit ?{name}Unit. } }""".replace('{name}', self.name)
+    OPTIONAL { ?{name}Node psv:{name}/wikibase:quantityUnit ?{name}Unit. } }""".replace(
+            '{name}', self.name
+        )
 
     def get_group_by(self):
         return self.get_select()
@@ -489,7 +542,9 @@ class WDArticle(WDAttribute):
         return """OPTIONAL { ?article{language} schema:about ?item ;
              schema:inLanguage "{language}" ;
              schema:isPartOf <https://{language}.wikipedia.org/> ;
-             schema:name ?articleName{language} . }""".replace('{language}', self.language)
+             schema:name ?articleName{language} . }""".replace(
+            '{language}', self.language
+        )
 
     def get_group_by(self):
         return self.get_select()
@@ -500,7 +555,6 @@ class WDArticle(WDAttribute):
 
 
 class WDLabelAttribute(WDAttribute):
-
     def get_select(self):
         return '(group_concat(distinct ?{name}Label;separator=", ") as ?{name}Labels)'.replace('{name}', self.name)
 
@@ -531,14 +585,13 @@ class WDURLAttribute(WDAttribute):
             value = value.split(',')[0]
             url_id = self.url_id
             if value.startswith(WDURLAttribute.HTTP_WIKIMEDIA_IMAGE):
-                value = value[len(WDURLAttribute.HTTP_WIKIMEDIA_IMAGE):]
+                value = value[len(WDURLAttribute.HTTP_WIKIMEDIA_IMAGE) :]
                 url_id = 'wikimedia_image'
             return get_external_url(url_id, value)
         return value
 
 
 class WDGeoAttribute(WDAttribute):
-
     def get_label(self, language):
         return "OpenStreetMap"
 
@@ -548,7 +601,9 @@ class WDGeoAttribute(WDAttribute):
     def get_where(self):
         return """OPTIONAL { ?item p:{name}/psv:{name} [
     wikibase:geoLatitude ?{name}Lat ;
-    wikibase:geoLongitude ?{name}Long ] }""".replace('{name}', self.name)
+    wikibase:geoLongitude ?{name}Long ] }""".replace(
+            '{name}', self.name
+        )
 
     def get_group_by(self):
         return self.get_select()
@@ -570,7 +625,7 @@ class WDGeoAttribute(WDAttribute):
 
 class WDImageAttribute(WDURLAttribute):
 
-    __slots__ = 'priority',
+    __slots__ = ('priority',)
 
     def __init__(self, name, url_id=None, priority=100):
         super().__init__(name, url_id)
@@ -578,7 +633,6 @@ class WDImageAttribute(WDURLAttribute):
 
 
 class WDDateAttribute(WDAttribute):
-
     def get_select(self):
         return '?{name} ?{name}timePrecision ?{name}timeZone ?{name}timeCalendar'.replace('{name}', self.name)
 
@@ -592,12 +646,14 @@ class WDDateAttribute(WDAttribute):
     wikibase:timePrecision ?{name}timePrecision ;
     wikibase:timeTimezone ?{name}timeZone ;
     wikibase:timeCalendarModel ?{name}timeCalendar ] . }
-    hint:Prior hint:rangeSafe true;""".replace('{name}', self.name)
+    hint:Prior hint:rangeSafe true;""".replace(
+            '{name}', self.name
+        )
 
     def get_group_by(self):
         return self.get_select()
 
-    def format_8(self, value, locale):
+    def format_8(self, value, locale):  # pylint: disable=unused-argument
         # precision: less than a year
         return value
 
@@ -624,11 +680,12 @@ class WDDateAttribute(WDAttribute):
     def format_13(self, value, locale):
         timestamp = isoparse(value)
         # precision: minute
-        return get_datetime_format(format, locale=locale) \
-            .replace("'", "") \
-            .replace('{0}', format_time(timestamp, 'full', tzinfo=None,
-                                        locale=locale)) \
+        return (
+            get_datetime_format(format, locale=locale)
+            .replace("'", "")
+            .replace('{0}', format_time(timestamp, 'full', tzinfo=None, locale=locale))
             .replace('{1}', format_date(timestamp, 'short', locale=locale))
+        )
 
     def format_14(self, value, locale):
         # precision: second.
@@ -649,7 +706,7 @@ class WDDateAttribute(WDAttribute):
         '11': ('format_11', 0),  # day
         '12': ('format_13', 0),  # hour (not supported by babel, display minute)
         '13': ('format_13', 0),  # minute
-        '14': ('format_14', 0)  # second
+        '14': ('format_14', 0),  # second
     }
 
     def get_str(self, result, language):
@@ -669,7 +726,7 @@ class WDDateAttribute(WDAttribute):
                     else:
                         value = t[0]
                 return format_method(value, language)
-            except Exception:
+            except Exception:  # pylint: disable=broad-except
                 return value
         return value
 
@@ -683,7 +740,7 @@ def debug_explain_wikidata_query(query, method='GET'):
     return http_response.content
 
 
-def init(engine_settings=None):
+def init(engine_settings=None):  # pylint: disable=unused-argument
     # WIKIDATA_PROPERTIES : add unit symbols
     WIKIDATA_PROPERTIES.update(WIKIDATA_UNITS)
 

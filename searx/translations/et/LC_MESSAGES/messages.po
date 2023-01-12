@@ -5,6 +5,8 @@
 # Translators:
 # Madis Otenurm, 2020
 # Madis Otenurm, 2019
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# dogyx <aaronloit@tuta.io>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -140,7 +142,7 @@ msgstr "{title} (VANANENUD)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "See üksus on asendatud:"
+msgstr "See üksus on asendatud"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
@@ -187,17 +189,71 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Kirjuta võimalusel HTTP lingid HTTPSiks"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Lõpmatu kerimine"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Ei saanud lugeda seda pildi linki. See võib olla faili formaadi pärast. "
+"TinEye ainult lubab ainult järgmisi formaate: JPEG, PNG, GIF, BMP, TIFF "
+"või WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Laadi lehe lõppu kerimisel järgmine leht automaatselt"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Pilti ei saanud alla laadida."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr ""
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr ""
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr ""
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr ""
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Teisendab stringid erinevateks hash-digestideks."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "hash-digest"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Hostnime asendamine"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"Tulemuste hostinimede ümberkirjutamine või tulemuste eemaldamine "
+"hostinime alusel"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr "Open Access DOI rewrite"
+msgstr "Avatud juurdepääsu DOI ümberkirjutamine"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -219,7 +275,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Otsi kategooria valimisel"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -232,6 +288,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr ""
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -1171,25 +1231,21 @@ msgstr "Otsingutulemused"
 msgid "Try searching for:"
 msgstr "Proovi otsida:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Alusta otsingut"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Tagasi üles"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Tühjenda otsing"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Eelmine lehekülg"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Tühjenda"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistika"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Esilehe kuvamine"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1208,23 +1264,115 @@ msgstr "Tundub, et kasutad searxi esimest korda."
 msgid "There is currently no data available. "
 msgstr "Hetkel andmed puuduvad."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Skoorid"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Tulemuste arv"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Kokku"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Töötlemine"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Hoiatused"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Vead ja erandid"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Erand"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Sõnum"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Protsentuaalne osakaal"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parameeter"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Failinimi"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funktsioon"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Kood"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Kontrollida"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Ebaõnnestunud test"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Kommentaar(id)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Igal ajal"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Viimane päev"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Viimane nädal"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Viimane kuu"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Viimane aasta"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Teave!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "hetkel pole ühtegi küpsist määratud."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Mootorid ei saa tulemusi tagastada."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Palun proovi hiljem uuesti või leia teine searxi eksemplar."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Palun proovige hiljem uuesti või leidke teine SearXNG instants."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Vabandust!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1298,12 +1446,10 @@ msgstr "Kaanija"
 msgid "Number of Files"
 msgstr "Failide arv"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "kuva video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "peida video"

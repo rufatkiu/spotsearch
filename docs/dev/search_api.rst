@@ -20,24 +20,26 @@ Parameters
 
    - :ref:`engines-dev`
    - :ref:`settings.yml`
-   - :ref:`engines generic`
+   - :ref:`configured engines`
 
 ``q`` : required
   The search query.  This string is passed to external search services.  Thus,
-  searx supports syntax of each search service.  For example, ``site:github.com
-  searx`` is a valid query for Google.  However, if simply the query above is
+  SearXNG supports syntax of each search service.  For example, ``site:github.com
+  SearXNG`` is a valid query for Google.  However, if simply the query above is
   passed to any search engine which does not filter its results based on this
   syntax, you might not get the results you wanted.
 
   See more at :ref:`search-syntax`
 
 ``categories`` : optional
-  Comma separated list, specifies the active search categories
+  Comma separated list, specifies the active search categories (see
+  :ref:`configured engines`)
 
 ``engines`` : optional
-  Comma separated list, specifies the active search engines.
+  Comma separated list, specifies the active search engines (see
+  :ref:`configured engines`).
 
-``lang`` : default ``all``
+``language`` : default from :ref:`settings search`
   Code of the language.
 
 ``pageno`` : default ``1``
@@ -52,31 +54,33 @@ Parameters
 ``format`` : optional
   [ ``json``, ``csv``, ``rss`` ]
 
-  Output format of results.
+  Output format of results.  Format needs to be activated in :ref:`settings
+  search`.
 
 ``results_on_new_tab`` : default ``0``
   [ ``0``, ``1`` ]
 
   Open search results on new tab.
 
-``image_proxy`` : default ``False``
+``image_proxy`` : default from :ref:`settings server`
   [  ``True``, ``False`` ]
 
-  Proxy image results through searx.
+  Proxy image results through SearXNG.
 
-``autocomplete`` : default *empty*
-  [ ``google``, ``dbpedia``, ``duckduckgo``, ``startpage``, ``wikipedia`` ]
+``autocomplete`` : default from :ref:`settings search`
+  [ ``google``, ``dbpedia``, ``duckduckgo``, ``startpage``, ``wikipedia``,
+  ``swisscows``, ``qwant`` ]
 
   Service which completes words as you type.
 
-``safesearch`` :  default ``None``
-  [ ``0``, ``1``, ``None`` ]
+``safesearch`` :  default from :ref:`settings search`
+  [ ``0``, ``1``, ``2`` ]
 
   Filter search results of engines which support safe search.  See if an engine
   supports safe search in the preferences page of an instance.
 
-``theme`` : default ``oscar``
-  [ ``oscar``, ``simple`` ]
+``theme`` : default ``simple``
+  [ ``simple`` ]
 
   Theme of instance.
 
@@ -84,33 +88,35 @@ Parameters
   instance administrator deleted, created or renamed themes on their instance.
   See the available options in the preferences page of the instance.
 
-``oscar-style`` : default ``logicodev``
-  [ ``pointhi``, ``logicodev`` ]
-
-  Style of Oscar theme.  It is only parsed if the theme of an instance is
-  ``oscar``.
-
-  Please note, available styles depend on an instance.  It is possible that an
-  instance administrator deleted, created or renamed styles on their
-  instance. See the available options in the preferences page of the instance.
-
 ``enabled_plugins`` : optional
   List of enabled plugins.
 
-  :default: ``HTTPS_rewrite``, ``Self_Informations``,
-    ``Search_on_category_select``, ``Tracker_URL_remover``
+  :default:
+     ``Hash_plugin``, ``Search_on_category_select``,
+     ``Self_Information``, ``Tracker_URL_remover``,
+     ``Ahmia_blacklist``
 
-  :values: [ ``DOAI_rewrite``, ``HTTPS_rewrite``, ``Infinite_scroll``,
-    ``Vim-like_hotkeys``, ``Self_Informations``, ``Tracker_URL_remover``,
-    ``Search_on_category_select`` ]
+  :values:
+     .. enabled by default
+
+     ``Hash_plugin``, ``Search_on_category_select``,
+     ``Self_Information``, ``Tracker_URL_remover``,
+     ``Ahmia_blacklist``,
+
+     .. disabled by default
+
+     ``Hostname_replace``, ``Open_Access_DOI_rewrite``,
+     ``Vim-like_hotkeys``, ``Tor_check_plugin``
 
 ``disabled_plugins``: optional
   List of disabled plugins.
 
-  :default: ``DOAI_rewrite``, ``Infinite_scroll``, ``Vim-like_hotkeys``
-  :values: ``DOAI_rewrite``, ``HTTPS_rewrite``, ``Infinite_scroll``,
-    ``Vim-like_hotkeys``, ``Self_Informations``, ``Tracker_URL_remover``,
-    ``Search_on_category_select``
+  :default:
+     ``Hostname_replace``, ``Open_Access_DOI_rewrite``,
+     ``Vim-like_hotkeys``, ``Tor_check_plugin``
+
+  :values:
+     see values from ``enabled_plugins``
 
 ``enabled_engines`` : optional : *all* :origin:`engines <searx/engines>`
   List of enabled engines.

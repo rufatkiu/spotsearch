@@ -7,6 +7,8 @@
 # Juan Jaramillo <juanda097@protonmail.ch>, 2015-2016
 # pizzaiolo, 2016
 # Venca24 <Vaclav.Zouzalik@seznam.cz>, 2018
+# Gergely <gergely@fsfe.org>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -134,11 +136,11 @@ msgstr "Eraroj"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Akiru direktojn"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (MALAKTUALA)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -189,13 +191,69 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Ŝanĝi HTTP-ligilojn al HTTPS, se eblas"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Senfina rulumado"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Neeblas legi la URL de ĉi tiun bildon. Ĝi povas esti pro nesubtenata "
+"dosierformo. TineEye nur subtenas bildojn, kiuj estas JPEG, PNG, GIF, "
+"BMP, TIFF aŭ WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Aŭtomate ŝarĝi sekvan paĝon rulumante al la subo de la nuna paĝo"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"La bildo estas tro simpla por trovi kongruojn. TinEye bezonas bazan "
+"levelon de detalo por sukcese identigi kongruojn."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "La bildo ne eblis elŝuti."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Mateno"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Tagmezo"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Vespero"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Nokto"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr ""
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Konvertas ĉenojn al malsamaj hash-digestoj."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "haketa mesaĝaro"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Gastnomo anstataŭigas"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"Reskribi rezultajn gastigajn nomojn aŭ forigi rezultojn bazitajn sur la "
+"gastiga nomo"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
@@ -221,7 +279,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Serĉi en elektita kategorio"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -234,6 +292,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Meminformoj"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -979,18 +1041,18 @@ msgstr "kodumebla metaserĉilo kiu respektas vian privatecon"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "Fontaĵo"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "Spurilo de problemoj"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "Publikaj instancoj"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1071,10 +1133,34 @@ msgstr "Direkti al malfermaliraj versioj de eldonaĵoj, se eblas (aldonaĵo nece
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "Motoraj ĵetonoj"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
+msgstr "Alirĵetonoj por privataj motoroj"
+
+#: searx/templates/simple/preferences.html:179
+msgid "User interface"
+msgstr "Fasado"
+
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "Fasada lingvo"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "Ŝanĝi lingvon de la fasono"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "Etoso"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change SearXNG layout"
+msgstr "Ŝanĝu SearXNG-aranĝon"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
 msgstr ""
 
 #: searx/templates/oscar/preferences.html:202
@@ -1168,25 +1254,18 @@ msgstr "Serĉrezultoj"
 msgid "Try searching for:"
 msgstr "Provu serĉi:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Komenci serĉon"
-
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
 msgstr ""
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistikoj"
+#: searx/templates/simple/search.html:9
+#: searx/templates/simple/simple_search.html:5
+msgid "Search for..."
+msgstr "Serĉi..."
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1205,23 +1284,115 @@ msgstr "Ŝajnas, ke ĉi tio estas via unua fojo, kiam vi uzas searx."
 msgid "There is currently no data available. "
 msgstr "Nun ne estas datumoj disponeblaj."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Poentaroj"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr ""
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr ""
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr ""
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr ""
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr ""
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr ""
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr ""
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr ""
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr ""
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Dosiernomo"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr ""
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr ""
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr ""
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr ""
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr ""
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Iam ajn"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Pasinta tago"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Pasinta semajno"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Pasinta monato"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Pasinta jaro"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informoj!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "nun ne estas ajnaj kuketoj difinitaj."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Motoroj ne povas trovi rezultojn."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Bonvolu provi ĝin poste aŭ trovi aliajn searx-instancon."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr ""
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Pardonu!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1295,12 +1466,10 @@ msgstr "Ricevanto"
 msgid "Number of Files"
 msgstr "Nombro da Dosieroj"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "montri videojn"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "kaŝi videojn"

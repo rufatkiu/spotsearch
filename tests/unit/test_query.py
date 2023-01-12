@@ -1,8 +1,7 @@
-from mock import patch
-
-from searx.search import initialize
+from searx import settings
+from searx.engines import load_engines
 from searx.query import RawTextQuery
-from searx.testing import SearxTestCase
+from tests import SearxTestCase
 
 import searx.engines
 
@@ -20,7 +19,6 @@ TEST_ENGINES = [
 
 
 class TestQuery(SearxTestCase):
-
     def test_simple_query(self):
         query_text = 'the query'
         query = RawTextQuery(query_text, [])
@@ -61,7 +59,6 @@ class TestQuery(SearxTestCase):
 
 
 class TestLanguageParser(SearxTestCase):
-
     def test_language_code(self):
         language = 'es-ES'
         query_text = 'the query'
@@ -134,12 +131,11 @@ class TestLanguageParser(SearxTestCase):
         query = RawTextQuery(':hu-H', [])
         self.assertEqual(query.autocomplete_list, [":hu-hu"])
 
-        query = RawTextQuery(':v', [])
-        self.assertEqual(query.autocomplete_list, [":vi", ":tiếng việt"])
+        query = RawTextQuery(':zh-', [])
+        self.assertEqual(query.autocomplete_list, [':zh-cn', ':zh-hk', ':zh-tw'])
 
 
 class TestTimeoutParser(SearxTestCase):
-
     def test_timeout_below100(self):
         query_text = '<3 the query'
         query = RawTextQuery(query_text, [])
@@ -192,7 +188,6 @@ class TestTimeoutParser(SearxTestCase):
 
 
 class TestExternalBangParser(SearxTestCase):
-
     def test_external_bang(self):
         query_text = '!!ddg the query'
         query = RawTextQuery(query_text, [])
@@ -237,13 +232,12 @@ class TestExternalBangParser(SearxTestCase):
 class TestBang(SearxTestCase):
 
     SPECIFIC_BANGS = ['!dummy_engine', '!du', '!general']
-    NOT_SPECIFIC_BANGS = ['?dummy_engine', '?du', '?general']
     THE_QUERY = 'the query'
 
     def test_bang(self):
-        initialize(TEST_ENGINES)
+        load_engines(TEST_ENGINES)
 
-        for bang in TestBang.SPECIFIC_BANGS + TestBang.NOT_SPECIFIC_BANGS:
+        for bang in TestBang.SPECIFIC_BANGS:
             with self.subTest(msg="Check bang", bang=bang):
                 query_text = TestBang.THE_QUERY + ' ' + bang
                 query = RawTextQuery(query_text, [])
@@ -259,20 +253,13 @@ class TestBang(SearxTestCase):
                 query = RawTextQuery(query_text, [])
                 self.assertTrue(query.specific)
 
-    def test_not_specific(self):
-        for bang in TestBang.NOT_SPECIFIC_BANGS:
-            with self.subTest(msg="Check bang is not specific", bang=bang):
-                query_text = TestBang.THE_QUERY + ' ' + bang
-                query = RawTextQuery(query_text, [])
-                self.assertFalse(query.specific)
-
     def test_bang_not_found(self):
-        initialize(TEST_ENGINES)
+        load_engines(TEST_ENGINES)
         query = RawTextQuery('the query !bang_not_found', [])
         self.assertEqual(query.getFullQuery(), 'the query !bang_not_found')
 
     def test_bang_autocomplete(self):
-        initialize(TEST_ENGINES)
+        load_engines(TEST_ENGINES)
         query = RawTextQuery('the query !dum', [])
         self.assertEqual(query.autocomplete_list, ['!dummy_engine'])
 
@@ -281,10 +268,9 @@ class TestBang(SearxTestCase):
         self.assertEqual(query.getQuery(), '!dum the query')
 
     def test_bang_autocomplete_empty(self):
-        with patch.object(searx.engines, 'initialize_engines', searx.engines.load_engines):
-            initialize()
-            query = RawTextQuery('the query !', [])
-            self.assertEqual(query.autocomplete_list, ['!images', '!wikipedia', '!osm'])
+        load_engines(settings['engines'])
+        query = RawTextQuery('the query !', [])
+        self.assertEqual(query.autocomplete_list, ['!images', '!wikipedia', '!osm'])
 
-            query = RawTextQuery('the query ?', ['osm'])
-            self.assertEqual(query.autocomplete_list, ['?images', '?wikipedia'])
+        query = RawTextQuery('the query !', ['osm'])
+        self.assertEqual(query.autocomplete_list, ['!images', '!wikipedia'])

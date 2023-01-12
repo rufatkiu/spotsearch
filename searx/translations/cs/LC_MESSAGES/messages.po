@@ -7,6 +7,9 @@
 # Lukáš Kucharczyk <lukas@kucharczyk.xyz>, 2020
 # Venca24 <Vaclav.Zouzalik@seznam.cz>, 2020
 # Venca24 <Vaclav.Zouzalik@seznam.cz>, 2018
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Masterix <masterix@duck.com>, 2022.
+# LagManCZ <lagmen@post.cz>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -190,13 +193,67 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Přesměrovat HTTP na HTTPS, pokud je to možné"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Nekonečné výsledky"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Nelze načíst url adresu obrázku. Příčinou může být nepodporovaný formát "
+"souboru. TinEye podporuje pouze obrázky ve formátu JPEG, PNG, GIF, BMP, "
+"TIFF nebo WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Automaticky načítat další výsledky při rolování"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Obrázek je příliš jednoduchý na to, aby bylo možné najít shody. TinEye "
+"vyžaduje základní úroveň vizuálních detailů pro úspěšnou identifikaci."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Obrázek se nepodařilo stáhnout."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Ráno"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Poledne"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Večer"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Noc"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr "Automaticky rozpoznaný jazyk vyhledávání"
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr "Automaticky detekuj jazyk vyhledávaného dotazu a přepni se do něj."
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Převádí řetězce na různé hash hodnoty."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "hash hodnota"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Nahrazení adresy serveru"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr "Přepsat adresy serverů nebo odstranit výsledky podle adresy"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
@@ -222,7 +279,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Spustit hledaní při výběru kategorie"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -235,6 +292,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informace o sobě"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -382,7 +443,7 @@ msgstr "Stránka nenalezena"
 #: searx/templates/simple/404.html:6
 #, python-format
 msgid "Go to %(search_page)s."
-msgstr "Přejít na %(search_page)s"
+msgstr "Přejít na %(search_page)s."
 
 #: searx/templates/etheme/404.html:10 searx/templates/oscar/404.html:6
 #: searx/templates/simple/404.html:6
@@ -1176,25 +1237,21 @@ msgstr "Výsledky vyhledávání"
 msgid "Try searching for:"
 msgstr "Zkuste vyhledat:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Začít hledat"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Nahoru"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Smazat vyhledávání"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Předchozí stránka"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Smazat"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistiky"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Zobrazit úvodní stránku"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1213,23 +1270,115 @@ msgstr "Zdá se, že používáte searx poprvé."
 msgid "There is currently no data available. "
 msgstr "Aktuálně nejsou k dispozici žádná data."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Skóre"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Počet výsledků"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Celkem"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Zpracovávám"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Varování"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Chyby a výjimky"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Výjimka"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Zpráva"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Procenta"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parametr"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Název souboru"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funkce"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Kód"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Zkoušeč"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Test selhal"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Komentář(e)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Kdykoli"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Dnes"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Tento týden"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Měsíc"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Rok"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informace!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "aktuálně nejsou definované žádné cookies."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Načtení výsledků vyhledávači se nezdařilo."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Zkuste to prosím později, nebo použijte jinou instanci searx."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Prosím zkuste to znovu později, nebo si najděte jinou instanci SearXNG."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Omlouváme se!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1303,12 +1452,10 @@ msgstr "Leecher"
 msgid "Number of Files"
 msgstr "Počet souborů"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "zobrazit video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "skrýt video"

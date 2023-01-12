@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the  project.
 #
 # Translators:
-# Alexandre Flament <alex@al-f.net>, 2017-2018
+# Alexandre Flament <alex@al-f.net>, 2017-2018, 2022.
 # Benjamin Sonntag <benjamin@sonntag.fr>, 2014
 # Cqoicebordel, 2014
 # Cqoicebordel, 2014-2017,2020
@@ -142,7 +142,7 @@ msgstr "Obtenir l'itinéraire"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr "{titre} (OBSOLETE)"
+msgstr "{titre} (OBSOLÈTE)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -193,9 +193,15 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Réécrire les liens HTTP en HTTPS si possible"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Défilement infini"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Impossible de lire l'url de l'image. Cela peut être dû à un format de "
+"fichier non pris en charge. TinEye ne prend en charge que les images au "
+"format JPEG, PNG, GIF, BMP, TIFF ou WebP."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -228,7 +234,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Lancer la recherche lors du choix d'une catégorie"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -241,6 +247,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informations sur le navigateur"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -258,7 +268,7 @@ msgstr "Retire les arguments utilisés pour vous pister des URL retournées"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr "Raccourcis comme Vim"
+msgstr "Raccourcis clavier comme Vim"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
@@ -1084,11 +1094,11 @@ msgstr ""
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr "Jeton de moteur"
+msgstr "Jetons de moteur"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
-msgstr "Jeton d'accès pour les moteurs privés"
+msgstr "Jetons d'accès pour les moteurs privés"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
@@ -1120,7 +1130,7 @@ msgstr "Langue choisie"
 #: searx/templates/oscar/time-range.html:2
 #: searx/templates/simple/preferences.html:125
 msgid "Time range"
-msgstr "Espace temporel"
+msgstr "Intervalle de temps"
 
 #: searx/templates/oscar/preferences.html:223
 #: searx/templates/oscar/preferences.html:227
@@ -1154,7 +1164,7 @@ msgstr "Valeur"
 
 #: searx/templates/oscar/results.html:32 searx/templates/simple/results.html:45
 msgid "Engines cannot retrieve results"
-msgstr "Les moteurs ne peuvent récupérer de résultats"
+msgstr "Les moteurs ne peuvent pas récupérer de résultats"
 
 #: searx/templates/oscar/results.html:69
 msgid "Links"
@@ -1179,27 +1189,23 @@ msgstr "Résultats de recherche"
 #: searx/templates/oscar/results.html:100
 #: searx/templates/simple/results.html:107
 msgid "Try searching for:"
-msgstr "Essayez de chercher : "
+msgstr "Essayez de chercher :"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Lancer une recherche"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Retour en haut de page"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Effacer la recherche"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Page précédente"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Effacer"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistiques"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Afficher la page d'accueil"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1218,8 +1224,103 @@ msgstr "Il semble que ce soit la première fois que vous utilisez searx."
 msgid "There is currently no data available. "
 msgstr "Aucune donnée disponible pour l'instant. "
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Score"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Nombre de résultats"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Total"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Traitement"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Attention"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Erreurs et exceptions"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Exception"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Message"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Paramètre"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Nom de fichier"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Fonction"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Code"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Checker"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Test échoué"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Commentaire(s)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "À tout moment"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Dernières 24h"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Semaine précédente"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Mois précédent"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Année précédente"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Information !"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "il n'y a pas de cookies définis pour le moment."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Les moteurs ne peuvent récupérer de résultats."
 
@@ -1230,13 +1331,11 @@ msgstr ""
 "Veuillez réessayer ultérieurement, ou utiliser une instance différente de"
 " searx."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Désolé !"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1310,12 +1409,10 @@ msgstr "Téléchargeurs"
 msgid "Number of Files"
 msgstr "Nombre de fichiers"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "afficher la vidéo"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "cacher la vidéo"

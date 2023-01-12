@@ -13,21 +13,17 @@ preference_section = 'onions'
 ahmia_blacklist = None
 
 
-def get_ahmia_blacklist():
-    global ahmia_blacklist
-    if not ahmia_blacklist:
-        ahmia_blacklist = ahmia_blacklist_loader()
-    return ahmia_blacklist
-
-
-def not_blacklisted(result):
+def on_result(request, search, result):
     if not result.get('is_onion') or not result.get('parsed_url'):
         return True
     result_hash = md5(result['parsed_url'].hostname.encode()).hexdigest()
-    return result_hash not in get_ahmia_blacklist()
+    return result_hash not in ahmia_blacklist
 
 
-def post_search(request, search):
-    filtered_results = list(filter(not_blacklisted, search.result_container._merged_results))
-    search.result_container._merged_results = filtered_results
+def init(app, settings):
+    global ahmia_blacklist  # pylint: disable=global-statement
+    if not settings['outgoing']['using_tor_proxy']:
+        # disable the plugin
+        return False
+    ahmia_blacklist = ahmia_blacklist_loader()
     return True

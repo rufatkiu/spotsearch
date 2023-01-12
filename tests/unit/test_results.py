@@ -1,24 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from searx.results import ResultContainer
-from searx.testing import SearxTestCase
+from tests import SearxTestCase
 
 
-def fake_result(url='https://aa.bb/cc?dd=ee#ff',
-                title='aaa',
-                content='bbb',
-                engine='wikipedia', **kwargs):
-    result = {'url': url,
-              'title': title,
-              'content': content,
-              'engine': engine}
+def fake_result(url='https://aa.bb/cc?dd=ee#ff', title='aaa', content='bbb', engine='wikipedia', **kwargs):
+    result = {
+        # fmt: off
+        'url': url,
+        'title': title,
+        'content': content,
+        'engine': engine,
+        # fmt: on
+    }
     result.update(kwargs)
     return result
 
 
 #  TODO
 class ResultContainerTestCase(SearxTestCase):
-
     def test_empty(self):
         c = ResultContainer("en-US")
         self.assertEqual(c.get_ordered_results(), [])

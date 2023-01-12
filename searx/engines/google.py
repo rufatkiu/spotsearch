@@ -27,11 +27,8 @@ The google WEB engine itself has a special setup option:
 
 from urllib.parse import urlencode
 from lxml import html
-from searx import logger
 from searx.utils import match_language, extract_text, eval_xpath, eval_xpath_list, eval_xpath_getindex
 from searx.exceptions import SearxEngineCaptchaException
-
-logger = logger.getChild('google engine')
 
 # about
 about = {
@@ -242,8 +239,7 @@ def get_lang_info(params, lang_list, custom_aliases, supported_any_language):
 
 
 def detect_google_sorry(resp):
-    """Detect when ratelimited"""
-    if resp.url == 'sorry.google.com' or resp.url.startswith('/sorry'):
+    if resp.url.host == 'sorry.google.com' or resp.url.path.startswith('/sorry'):
         raise SearxEngineCaptchaException()
 
 
@@ -252,7 +248,6 @@ def request(query, params):
 
     offset = (params['pageno'] - 1) * 10
 
-    # pylint: disable=undefined-variable
     lang_info = get_lang_info(params, supported_languages, language_aliases, True)
 
     additional_parameters = {}

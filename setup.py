@@ -21,10 +21,10 @@ setup(
     version=VERSION_TAG,
     description="A privacy-respecting, hackable metasearch engine",
     long_description=long_description,
-    url=brand.DOCS_URL,
+    url=get_setting('brand.docs_url'),
     project_urls={
-        "Code": brand.GIT_URL,
-        "Issue tracker": brand.ISSUE_URL
+        "Code": GIT_URL,
+        "Issue tracker": get_setting('brand.issue_url')
     },
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -38,7 +38,7 @@ setup(
     author='MURENA SAS',
     author_email='dev@murena.io',
     license='GNU Affero General Public License',
-    packages=find_packages(exclude=["tests*", "searx_extra"]),
+    packages=find_packages(exclude=["tests*", "searxng_extra"]),
     zip_safe=False,
     install_requires=requirements,
     extras_require={

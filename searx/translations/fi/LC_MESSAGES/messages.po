@@ -4,6 +4,8 @@
 #
 # Translators:
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2017
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Mico Hautaluoma <m@mha.fi>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -82,11 +84,11 @@ msgstr "hakuvirhe"
 
 #: searx/webapp.py:711
 msgid "{minutes} minute(s) ago"
-msgstr "{minutes} min sitten"
+msgstr "{minutes} minuutti(a) sitten"
 
 #: searx/webapp.py:713
 msgid "{hours} hour(s), {minutes} minute(s) ago"
-msgstr "{hours} t, {minutes} min sitten"
+msgstr "{hours} tunti(a), {minutes} minuutti(a) sitten"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
@@ -131,11 +133,11 @@ msgstr "Virheet"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Reittiohjeet"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (VANHENTUNUT)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -186,13 +188,69 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Muuta HTTP-linkit HTTPS-muotoon jos mahdollista"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Loputon vieritys"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Kuvan url-osoitetta ei voitu lukea. Tämä saattaa johtua tiedostomuodosta,"
+" jota ei tueta. TinEye tukee vain kuvia, jotka ovat JPEG, PNG, GIF, BMP, "
+"TIFF tai WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Lataa automaattisesti seuraava sivu, kun nykyisen sivun loppu saavutetaan"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Kuva on liian yksinkertainen löytääkseen osumia. TinEye vaatii "
+"visuaalisen tarkkuuden perustason, jotta osumien tunnistaminen onnistuu."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Tätä kuvaa ei voida ladata."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Aamu"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Päivä"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Ilta"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Yö"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr ""
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Muuntaa merkkijonot erilaisiksi hash-digesteiksi."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "hash-digest"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Isäntänimen korvaus"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"Kirjoita tuloksien isäntänimiä uudelleen tai poista tulokset isäntänimen "
+"perusteella"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
@@ -218,7 +276,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Etsi valitsemalla luokka"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -231,6 +289,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Tietojasi"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -979,18 +1041,18 @@ msgstr "yksityisyyttä kunnioittava, muokattava metahakukone"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "Lähdekoodi"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "Ongelmien seuranta"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "Julkiset palvelimet"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1073,19 +1135,102 @@ msgstr ""
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "Hakukonetokenit"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
+msgstr "Pääsytunnukset yksityisiin hakukoneisiin"
+
+#: searx/templates/simple/preferences.html:179
+msgid "User interface"
+msgstr "Käyttöliittymä"
+
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "Käyttöliittymän kieli"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "Vaihda asettelun kieltä"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "Teema"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change SearXNG layout"
+msgstr "Vaihda SearXNG:n käyttöliittymä"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
+msgstr "Teeman tyyli"
+
+#: searx/templates/simple/preferences.html:214
+msgid "Choose auto to follow your browser settings"
+msgstr "Valitse auto seurataksesi selaimesi asetuksia"
+
+#: searx/templates/simple/preferences.html:217
+msgid "Center Alignment"
+msgstr "Keskipisteen kohdistus"
+
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "Päällä"
+
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "Pois"
+
+#: searx/templates/simple/preferences.html:224
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr "Näyttää tulokset sivun keskellä (Oscar-asettelu)."
+
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "Tulokset uusiin välilehtiin"
+
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "Avaa tulokset uusiin välilehtiin"
+
+#: searx/templates/simple/preferences.html:241
+msgid "Infinite scroll"
+msgstr "Loputon vieritys"
+
+#: searx/templates/simple/preferences.html:248
+msgid "Automatically load next page when scrolling to bottom of current page"
+msgstr "Lataa automaattisesti seuraava sivu, kun nykyisen sivun loppu saavutetaan"
+
+#: searx/templates/simple/preferences.html:254
+msgid "Privacy"
+msgstr "Yksityisyys"
+
+#: searx/templates/simple/preferences.html:257
+msgid "HTTP Method"
+msgstr "HTTP-menetelmä"
+
+#: searx/templates/simple/preferences.html:264
+msgid ""
+"Change how forms are submitted, <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
 msgstr ""
+"Kun tämä on käytössä, sivun otsikko sisältää kyselysi. Selaimesi voi "
+"tallentaa tämän otsikon"
 
 #: searx/templates/oscar/preferences.html:203
 msgid "Disable all"
 msgstr ""
+"Tämä välilehti ei näy hakutuloksissa, mutta voit tehdä hakuja täällä "
+"luetelluista moottoreista \"bangien\" kautta."
 
 #: searx/templates/oscar/preferences.html:218
 #: searx/templates/oscar/preferences.html:232
@@ -1172,25 +1317,21 @@ msgstr "Hakutulokset"
 msgid "Try searching for:"
 msgstr "Yritä etsiä:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Aloita haku"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Takaisin huipulle"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr ""
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Edellinen sivu"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "tilastot"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Näytä etusivu"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1209,23 +1350,115 @@ msgstr "Vaikuttaa siltä, että käytät searxia ensimmäistä kertaa."
 msgid "There is currently no data available. "
 msgstr "Tietoja ei ole juuri nyt saatavilla."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Pisteet"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Tulosten määrä"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Yhteensä"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Käsitellään"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Varoitukset"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Virheet ja poikkeukset"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Poikkeus"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Viesti"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Prosentti"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parametri"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Tiedoston nimi"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funktio"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Koodi"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Tarkistaja"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Epäonnistunut testi"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Kommentit"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Milloin tahansa"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Viimeinen päivä"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Viimeinen viikko"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Viimeinen kuukausi"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Viimeinen vuosi"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Huomio!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "Evästeitä ei ole määritetty tällä hetkellä."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Moottorit eivät voi palauttaa tuloksia."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Yritä myöhemmin uudelleen tai kokeile toista searx-instanssia."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Yritä uudelleen tai etsi toinen SearXNG-palvelin."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Pahoittelut!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1299,12 +1532,10 @@ msgstr "Lataaja"
 msgid "Number of Files"
 msgstr "Tiedostojen määrä"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "näytä video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "piilota video"

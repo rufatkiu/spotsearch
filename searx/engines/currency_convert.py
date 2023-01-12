@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- currency convert (DuckDuckGo)
+# lint: pylint
+"""Currency convert (DuckDuckGo)
 """
 
 import json
@@ -13,32 +13,34 @@ about = {
     "use_official_api": False,
     "require_api_key": False,
     "results": 'JSONP',
+    "description": "Service from DuckDuckGo.",
 }
 
 engine_type = 'online_currency'
 categories = []
-url = 'https://duckduckgo.com/js/spice/currency/1/{0}/{1}'
+base_url = 'https://duckduckgo.com/js/spice/currency/1/{0}/{1}'
 weight = 100
 
 https_support = True
 
 
-def request(query, params):
-    params['url'] = url.format(params['from'], params['to'])
+def request(_query, params):
+    params['url'] = base_url.format(params['from'], params['to'])
     return params
 
 
 def response(resp):
     """remove first and last lines to get only json"""
-    json_resp = resp.text[resp.text.find('\n') + 1:resp.text.rfind('\n') - 2]
+    json_resp = resp.text[resp.text.find('\n') + 1 : resp.text.rfind('\n') - 2]
     results = []
     try:
         conversion_rate = float(json.loads(json_resp)['conversion']['converted-amount'])
-    except:
+    except ValueError:
         return results
 
     url = 'https://duckduckgo.com/js/spice/currency/1/{0}/{1}'.format(
-        resp.search_params['from'].upper(), resp.search_params['to'])
+        resp.search_params['from'].upper(), resp.search_params['to']
+    )
 
     source_url = 'https://www.xe.com/currencyconverter/convert/?Amount=1&From={0}&To={1}'.format(
         resp.search_params['from'], resp.search_params['to']

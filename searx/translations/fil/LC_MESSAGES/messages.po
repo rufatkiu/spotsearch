@@ -95,7 +95,7 @@ msgstr "Random value generator"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr "Generate different random values"
+msgstr "Maglabas ng iba't ibang halaga"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
@@ -132,11 +132,11 @@ msgstr "Kamalian"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Kumuha ng direksyon"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (Luma)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -187,9 +187,12 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Palitan ang HTTP links patungo sa HTTPS hanggat maaari"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Walang hanggan na pag-scroll"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -199,7 +202,7 @@ msgstr ""
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr "Open Access DOI rewrite"
+msgstr "Malayang akses sa muling pagsulat ng DOI"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -221,7 +224,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Maghanap kapag nakapili ng uri"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -234,6 +237,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr ""
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -251,7 +258,7 @@ msgstr "Alisin ang tracker sa ibabalik na URL"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr "Vim-like hotkeys"
+msgstr "Kasingtulad ng vim hotkeys"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
@@ -985,18 +992,18 @@ msgstr "isang gumagalang sa pagiging pribado, hackable na metasearch engine"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "sors kowd"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "Tagasubaybay ng isyu"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "Pampublikong instances"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1079,19 +1086,105 @@ msgstr ""
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "Mga token ng makina"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
+msgstr "I-access ang mga token para sa mga pribadong makina"
+
+#: searx/templates/simple/preferences.html:179
+msgid "User interface"
+msgstr "Ang User interface"
+
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "Ang wika ng Interface"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "Ibahin ang layout pangwika"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "Tema"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change SearXNG layout"
+msgstr "Baguhin ang SearXNG layout"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
+msgstr "Stilo ng theme"
+
+#: searx/templates/simple/preferences.html:214
+msgid "Choose auto to follow your browser settings"
+msgstr "Pumili ng auto para sundin ang mga setting ng iyong browser"
+
+#: searx/templates/simple/preferences.html:217
+msgid "Center Alignment"
+msgstr "Pag-align sa Gitnang"
+
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "Bukas"
+
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "Sara"
+
+#: searx/templates/simple/preferences.html:224
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr "Tignan ang resulta sa gitnang bahagi ng pahina (Oscar layout)."
+
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "Ang resulta ay na sa bagong tab"
+
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "Buksan ang resulta sa panibagong browser tab"
+
+#: searx/templates/simple/preferences.html:241
+msgid "Infinite scroll"
+msgstr "Walang hanggan na pag-scroll"
+
+#: searx/templates/simple/preferences.html:248
+msgid "Automatically load next page when scrolling to bottom of current page"
+msgstr ""
+"Awtomatiko na ikarga ang sumunod na pahina kapag nakarating na sa dulo ng"
+" kasalukuyang pahina"
+
+#: searx/templates/simple/preferences.html:254
+msgid "Privacy"
+msgstr "Pagiging Pribado"
+
+#: searx/templates/simple/preferences.html:257
+msgid "HTTP Method"
+msgstr "Paraan ng HTTP"
+
+#: searx/templates/simple/preferences.html:264
+msgid ""
+"Change how forms are submitted, <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
 msgstr ""
+"Kapag pinagana, ang pamagat ng pahina ng resulta ay naglalaman ng iyong "
+"query. Maaaring i-record ng iyong browser ang pamagat na ito"
 
 #: searx/templates/oscar/preferences.html:203
 msgid "Disable all"
 msgstr ""
+"Ang tab na ito ay hindi lumalabas para sa mga resulta ng paghahanap, "
+"ngunit maaari kang maghanap sa mga engine na nakalista dito sa "
+"pamamagitan ng bangs."
 
 #: searx/templates/oscar/preferences.html:218
 #: searx/templates/oscar/preferences.html:232
@@ -1145,7 +1238,7 @@ msgstr "Pangalan ng cookie"
 #: searx/templates/oscar/preferences.html:344
 #: searx/templates/simple/preferences.html:205
 msgid "Value"
-msgstr "Value"
+msgstr "Nilalaman"
 
 #: searx/templates/oscar/results.html:32 searx/templates/simple/results.html:45
 msgid "Engines cannot retrieve results"
@@ -1176,25 +1269,17 @@ msgstr "Mga resulta ng paghahanap"
 msgid "Try searching for:"
 msgstr "Subukan maghanap ng:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Simulan ang paghahanap"
-
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
 msgstr ""
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "stats"
+#: searx/templates/simple/results.html:187
+msgid "Next page"
+msgstr ""
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1213,23 +1298,115 @@ msgstr "Mukhang ito ang unang paggamit mo ng searx."
 msgid "There is currently no data available. "
 msgstr "Wala pa sa ngayon na makitang datos."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Iskor"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr ""
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr ""
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr ""
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr ""
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr ""
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Mga error at exceptions"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr ""
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr ""
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr ""
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr ""
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr ""
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr ""
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr ""
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr ""
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr ""
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr ""
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Kahit anong oras"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Nakaraang araw"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Nakaraang linggo"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Nakaraang buwan"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Nakaraang taon"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Impormasyon!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "wala pang cookies na naka-define sa ngayon."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Hindi makuha ng engines ang mga resulta."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Paki subukan muli o gumamit ng ibang instance ng searx."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Pakiusap, subukan muli mamaya o humanap ng ibang SearXNG instance."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Paumanhin!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1273,7 +1450,7 @@ msgstr "Kuhanin ang larawan"
 
 #: searx/templates/oscar/result_templates/images.html:30
 msgid "View source"
-msgstr "Tignan ang pinagkuhanan"
+msgstr "Tignan ang source"
 
 #: searx/templates/oscar/result_templates/map.html:26
 #: searx/templates/simple/result_templates/map.html:11
@@ -1303,15 +1480,13 @@ msgstr "Leecher"
 msgid "Number of Files"
 msgstr "Bilang ng mga files"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
-msgstr "ipakita ang bidyo"
+msgstr "ipakita ang video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
-msgstr "itago ang bidyo"
+msgstr "itago ang video"
 
 #: searx/templates/oscar/result_templates/videos.html:20
 msgid "Length"

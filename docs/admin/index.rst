@@ -7,17 +7,15 @@ Administrator documentation
    :caption: Contents
 
    installation
-   installation-searx
+   installation-docker
+   installation-scripts
+   installation-searxng
    installation-uwsgi
    installation-nginx
    installation-apache
-   installation-docker
-   update-searx
-   settings
+   update-searxng
+   engines/index
    api
    architecture
-   filtron
-   morty
-   engines
    plugins
    buildhosts

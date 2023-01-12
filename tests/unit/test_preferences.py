@@ -1,10 +1,18 @@
-from searx.preferences import (EnumStringSetting, MapSetting, MissingArgumentException, SearchLanguageSetting,
-                               MultipleChoiceSetting, PluginsSetting, ValidationException)
-from searx.testing import SearxTestCase
+from searx.locales import locales_initialize
+from searx.preferences import (
+    EnumStringSetting,
+    MapSetting,
+    SearchLanguageSetting,
+    MultipleChoiceSetting,
+    PluginsSetting,
+    ValidationException,
+)
+from tests import SearxTestCase
+
+locales_initialize()
 
 
 class PluginStub:
-
     def __init__(self, plugin_id, default_on):
         self.id = plugin_id
         self.default_on = default_on
@@ -12,10 +20,6 @@ class PluginStub:
 
 class TestSettings(SearxTestCase):
     # map settings
-
-    def test_map_setting_invalid_initialization(self):
-        with self.assertRaises(MissingArgumentException):
-            MapSetting(3, wrong_argument={'0': 0})
 
     def test_map_setting_invalid_default_value(self):
         with self.assertRaises(ValidationException):
@@ -37,9 +41,6 @@ class TestSettings(SearxTestCase):
         self.assertEqual(setting.get_value(), 2)
 
     # enum settings
-    def test_enum_setting_invalid_initialization(self):
-        with self.assertRaises(MissingArgumentException):
-            EnumStringSetting('cat', wrong_argument=[0, 1, 2])
 
     def test_enum_setting_invalid_default_value(self):
         with self.assertRaises(ValidationException):
@@ -61,9 +62,6 @@ class TestSettings(SearxTestCase):
         self.assertEqual(setting.get_value(), 2)
 
     # multiple choice settings
-    def test_multiple_setting_invalid_initialization(self):
-        with self.assertRaises(MissingArgumentException):
-            MultipleChoiceSetting(['2'], wrong_argument=['0', '1', '2'])
 
     def test_multiple_setting_invalid_default_value(self):
         with self.assertRaises(ValidationException):
@@ -109,32 +107,50 @@ class TestSettings(SearxTestCase):
     def test_plugins_setting_all_default_enabled(self):
         plugin1 = PluginStub('plugin1', True)
         plugin2 = PluginStub('plugin2', True)
-        setting = PluginsSetting(['3'], choices=[plugin1, plugin2])
-        self.assertEqual(setting.get_enabled(), set(['plugin1', 'plugin2']))
+        setting = PluginsSetting(['3'], plugins=[plugin1, plugin2])
+        self.assertEqual(set(setting.get_enabled()), set(['plugin1', 'plugin2']))
 
     def test_plugins_setting_few_default_enabled(self):
         plugin1 = PluginStub('plugin1', True)
         plugin2 = PluginStub('plugin2', False)
         plugin3 = PluginStub('plugin3', True)
-        setting = PluginsSetting('name', choices=[plugin1, plugin2, plugin3])
-        self.assertEqual(setting.get_enabled(), set(['plugin1', 'plugin3']))
+        setting = PluginsSetting('name', plugins=[plugin1, plugin2, plugin3])
+        self.assertEqual(set(setting.get_enabled()), set(['plugin1', 'plugin3']))
 
 
 class TestPreferences(SearxTestCase):
-
     def test_encode(self):
         from searx.preferences import Preferences
-        pref = Preferences(['oscar', 'etheme'], ['general'], {}, [])
-        url_params = 'eJx1VMmO2zAM_Zr6YrTocujJh6JF0QEKzKAz7VVgJNohLIseUU7ivy-VcWy5yyGOTVGP73GLKJNPYjiYgGeT4NB8BS9YOSY' \
-            'TUdifMDYM-vmGY1d5CN0EHTYOK88W_PXNkcDBozOjnzoK0vyi4bWnHs2RU4-zvHr_-RF9a-5Cy3GARByy7X7EkKMoBeMp9CuPQ-SzYMx' \
-            '8Vr9P1qKI-XJ_p1fOkRJWNCgVM0a-zAttmBJbHkaPSZlNts-_jiuBFgUh2mPztkpHHLBhsRArDHvm356eHh5vATS0Mqagr0ZsZO_V8hT' \
-            'B9srt54_v6jewJugqL4Nn_hYSdhxnI-jRpi05GDQCStOT7UGVmJY8ZnltRKyF23SGiLWjqNcygKGkpyeGZIywJfD1gI5AjRTAmBM55Aw' \
-            'Q0Tn626lj7jzWo4e5hnEsIlprX6dTgdBRpyRBFKTDgBF8AasVyT4gvSTEoXRpXWRyG3CYQYld65I_V6lboILTMAlZY65_ejRDcHgp0Tv' \
-            'EPtGAsqTiBf3m76g7pP9B84mwjPvuUtASRDei1nDF2ix_JXW91UJkXrPh6RAhznVmKyQl7dwJdMJ6bz1QOmgzYlrEzHDMcEUuo44AgS1' \
-            'CvkjaOb2Q2AyY5oGDTs_OLXE_c2I5cg9hk3kEJZ0fu4SuktsIA2RhuJwP86AdripThCBeO9uVUejyPGmFSxPrqEYcuWi25zOEXV9tc1m' \
-            '_KP1nafYtdfv6Q9hKfWmGm9A_3G635UwiVndLGdFCiLWkONk0xUxGLGGweGWTa2nZYZ0fS1YKlE3Uuw8fPl52E5U8HJYbC7sbjXUsrnT' \
-            'XHXRbELfO-1fGSqskiGnMK7B0dV3t8Lq08pbdtYpuVdoKWA2Yjuyah_vHp2rZWjo0zXL8Gw8DTj0='
+
+        pref = Preferences(['etheme'], ['general'], {}, [])
+        url_params = (
+            'eJx1Vk1z4zYM_TXxRZNMd7eddg8-pe21nWnvGoiEJEQkofDDtvzrC1qSRdnbQxQTBA'
+            'Hw8eGRCiJ27AnDsUOHHszBgOsSdHjU-Pr7HwfDCkweHCBFVmxHgxGPB7LiU4-eL9Px'
+            'TzABDxZjz_r491___HsI0GJA8Ko__nSIPVo8BspLDx5DMjHU7GqH5zpCsyzXTLVMsj'
+            'mhPzLI8I19d5iX1SFOUkUu4QD6BE6hrpcE8_LPhH6qydWRonjORnItOYqyXHk2Zs1E'
+            'ARojAdB15GTrMA6VJe_Z13VLBsPL1_ccmk5YUajrBRqxNhSbpAaMdU1Rxkqp13iq6x'
+            'Np5LxMI15RwtgUSOWx7iqNtyqI3S4Wej6TrmsWfHx2lcD5r-PSa7NWN8glxPxf5r5c'
+            'ikGrPedw6wZaj1gFbuMZPFaaPKrIAtFceOvJDQSqCNBRJ7BAiGX6TtCEZt0ta2zQd8'
+            'uwY-4MVqOBqYJxDFvucsbyiXLVd4i6kbUuMeqh8ZA_S1yyutlgIQfFYnLykziFH9vW'
+            'kB8Uet5iDKQGCEWBhiSln6q80UDlBDch4psPSy1wNZMnVYR2o13m3ASwreQRnceRi2'
+            'AjSNqOwsqWmbAZxSp_7kcBFnJBeHez4CKpKqieDQgsQREK5fNcBB_H3HrFIUUeJo4s'
+            'Wx7Abekn6HnHpTM10348UMM8hEejdKbY8ncxfCaO-OgVOHn1ZJX2DRSf8px4eqj6y7'
+            'dvv162anXS6LYjC3h1YEt_yx-IQ2lxcMo82gw-NVOHdj28EdHH1GDBFYuaQFIMQsrz'
+            'GZtiyicrqlAYznyhgd2bHFeYHLvJYlHfy_svL7995bOjofp4ef_55fv36zRANbIJA2'
+            'FX0C_v34oE3Es9oHtQIOFFZcilS5WdV_J5YUHRoeAvdCrZ0IDTCuy4sTOvHvMe96rl'
+            'usfxs5rcrLuTv1lmOApYmqip6_bEz4eORSyR2xA8tmWxKnkvP3fM0Hgi4bpstFisWR'
+            'TWV31adSdvSkPc7SkKbtOOTxgny05ALE6pNdL5vhQ5dFQKhYxjbpJZ0ChuSWcN22nh'
+            'rGpPwC32HXSL7Qm8xf6Dzu6XfLfk19dFoZ4li1sRD9fJVVnWYOmiDCe97Uw0RGi4am'
+            'o-JJA7IMMYUO7fIvM6N6ZG4ILlotrPhyjXSbSQqQZj7i2d-2pzGntRIHefJS8viwaK'
+            '-iW6NN9uyTSuTP88CwtKrG-GPaSz6Qn92fwEtGxVk4QMrAhMdev7m6yMBLMOF86iZN'
+            'JIe_xEadXAQuzW8HltyDCkJrmYVqVOI_oU7ijL64W03LLC81jcA8kFuQpDX1R90-b9'
+            '_iZOD2J1t9xfE0BGSJ5PqHA7kUUudYuG7HFjz12C2Mz3zNhD8eQgFa_sdiy3InNWHg'
+            'pV9OCCkWPUZRivRfA2g3DytC3fnlajSaJs4Zihvrwto7eeQxRVR3noCSDzhbZzYKjn'
+            'd-DZy7PtaVp2WgvPBpzCXUL_J1OGex48RVmOXzBU8_N3kqekkefRDzxNK2_Klp9mBJ'
+            'wsUnXyRqq1mScHuYalUY7_AZTCR4s=&q='
+        )
         pref.parse_encoded_data(url_params)
         self.assertEqual(
             vars(pref.key_value_settings['categories']),
-            {'value': ['general'], 'locked': False, 'choices': ['general', 'none']})
+            {'value': ['general'], 'locked': False, 'choices': ['general', 'none']},
+        )

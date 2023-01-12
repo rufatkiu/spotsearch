@@ -281,7 +281,7 @@ New settings.yml
 - ``ui.advanced_search`` - add preference for displaying advanced settings ( #2327 )
 - ``server.method: "POST"`` - Make default query submission method configurable ( #2130 )
 - ``server.default_http_headers`` - add default http headers ( #2295 )
-- ``engines.*.proxies`` - Using proxy only for specific engines ( #1827 #2319 ), see https://searx.github.io/searx/dev/engine_overview.html#settings-yml
+- ``engines.*.proxies`` - Using proxy only for specific engines ( #1827 #2319 ), see https://docs.searxng.org/dev/engine_overview.html#settings-yml
 - ``enabled_plugins`` - Enabled plugins ( a05c660e3036ad8d02072fc6731af54c2ed6151c )
 - ``preferences.lock`` - Let admins lock user preferences ( #2270 )
 
@@ -397,8 +397,8 @@ Special thanks to `NLNet <https://nlnet.nl>`__ for sponsoring multiple features 
    - Wikivoyage
    - Rubygems
  - Engine fixes (google, google images, startpage, gigablast, yacy)
- - Private engines introduced - more details: https://searx.github.io/searx/blog/private-engines.html
- - Greatly improved documentation - check it at https://searx.github.io/searx
+ - Private engines introduced - more details: https://docs.searxng.org/blog/private-engines.html
+ - Greatly improved documentation - check it at https://docs.searxng.org
  - Added autofocus to all search inputs
  - CSP friendly oscar theme
  - Added option to hide engine errors with `display_error_messages` engine option (true/false values, default is true)
@@ -424,7 +424,7 @@ Special thanks to `NLNet <https://nlnet.nl>`__ for sponsoring multiple features 
  - Removed engines: faroo
 
 Special thanks to `NLNet <https://nlnet.nl>`__ for sponsoring multiple features of this release.
-Special thanks to https://www.accessibility.nl/english for making accessibilty audit.
+Special thanks to https://www.accessibility.nl/english for making accessibility audit.
 
 News
 ~~~~
@@ -461,7 +461,7 @@ News
 - Docker image updates
 - Bang expression fixes
 - Result merging fixes
-- New environment variable added: SEARX_BIND_ADDRESS
+- New environment variable added: SEARXNG_BIND_ADDRESS
 
 
 News
@@ -696,7 +696,7 @@ News
 News
 ~~~~
 
-New documentation page is available: https://searx.github.io/searx
+New documentation page is available: https://docs.searxng.org
 
 
 0.8.0 2015.09.08

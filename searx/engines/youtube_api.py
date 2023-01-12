@@ -26,18 +26,12 @@ api_key = None
 # search-url
 base_url = 'https://www.googleapis.com/youtube/v3/search'
 search_url = base_url + '?part=snippet&{query}&maxResults=20&key={api_key}'
-
-embedded_url = '<iframe width="540" height="304" ' +\
-    'data-src="https://www.youtube-nocookie.com/embed/{videoid}" ' +\
-    'frameborder="0" allowfullscreen></iframe>'
-
 base_youtube_url = 'https://www.youtube.com/watch?v='
 
 
 # do search-request
 def request(query, params):
-    params['url'] = search_url.format(query=urlencode({'q': query}),
-                                      api_key=api_key)
+    params['url'] = search_url.format(query=urlencode({'q': query}), api_key=api_key)
 
     # add language tag if specified
     if params['language'] != 'all':
@@ -76,16 +70,18 @@ def response(resp):
 
         url = base_youtube_url + videoid
 
-        embedded = embedded_url.format(videoid=videoid)
-
         # append result
-        results.append({'url': url,
-                        'title': title,
-                        'content': content,
-                        'template': 'videos.html',
-                        'publishedDate': publishedDate,
-                        'embedded': embedded,
-                        'thumbnail': thumbnail})
+        results.append(
+            {
+                'url': url,
+                'title': title,
+                'content': content,
+                'template': 'videos.html',
+                'publishedDate': publishedDate,
+                'iframe_src': "https://www.youtube-nocookie.com/embed/" + videoid,
+                'thumbnail': thumbnail,
+            }
+        )
 
     # return results
     return results

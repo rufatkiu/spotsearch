@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Yahoo (Web)
+# lint: pylint
+"""Yahoo Search (Web)
+
+Languages are supported by mapping the language to a domain.  If domain is not
+found in :py:obj:`lang2domain` URL ``<lang>.search.yahoo.com`` is used.
+
 """
 
 from urllib.parse import (
@@ -27,7 +31,7 @@ about = {
 }
 
 # engine dependent config
-categories = ['general']
+categories = ['general', 'web']
 paging = True
 time_range_support = True
 supported_languages_url = 'https://search.yahoo.com/preferences/languages'
@@ -49,7 +53,6 @@ lang2domain = {
     'zh_chs': 'hk.search.yahoo.com',
     'zh_cht': 'tw.search.yahoo.com',
     'en': 'search.yahoo.com',
-
     'bg': 'search.yahoo.com',
     'cs': 'search.yahoo.com',
     'da': 'search.yahoo.com',
@@ -61,18 +64,17 @@ lang2domain = {
     'ko': 'search.yahoo.com',
     'sk': 'search.yahoo.com',
     'sl': 'search.yahoo.com',
-
 }
+"""Map language to domain"""
 
 
 def _get_language(params):
 
     lang = language_aliases.get(params['language'])
     if lang is None:
-        lang = match_language(
-            params['language'], supported_languages, language_aliases
-        )
+        lang = match_language(params['language'], supported_languages, language_aliases)
     lang = lang.split('-')[0]
+    logger.debug("params['language']: %s --> %s", params['language'], lang)
     return lang
 
 
@@ -82,17 +84,19 @@ def request(query, params):
     lang = _get_language(params)
     age, btf = time_range_dict.get(params['time_range'], ('', ''))
 
-    args = urlencode({
-        'p': query,
-        'ei': 'UTF-8',
-        'fl': 1,
-        'vl': 'lang_' + lang,
-        'btf': btf,
-        'fr2': 'time',
-        'age': age,
-        'b': offset,
-        'xargs': 0,
-    })
+    args = urlencode(
+        {
+            'p': query,
+            'ei': 'UTF-8',
+            'fl': 1,
+            'vl': 'lang_' + lang,
+            'btf': btf,
+            'fr2': 'time',
+            'age': age,
+            'b': offset,
+            'xargs': 0,
+        }
+    )
 
     domain = lang2domain.get(lang, '%s.search.yahoo.com' % lang)
     params['url'] = 'https://%s/search?%s' % (domain, args)
@@ -100,6 +104,8 @@ def request(query, params):
 
 
 def parse_url(url_string):
+    """remove yahoo-specific tracking-url"""
+
     endings = ['/RS', '/RK']
     endpositions = []
     start = url_string.find('http', url_string.find('/RU=') + 1)
@@ -111,15 +117,18 @@ def parse_url(url_string):
 
     if start == 0 or len(endpositions) == 0:
         return url_string
-    else:
-        end = min(endpositions)
-        return unquote(url_string[start:end])
+
+    end = min(endpositions)
+    return unquote(url_string[start:end])
 
 
 def response(resp):
+    """parse response"""
+
     results = []
     dom = html.fromstring(resp.text)
 
+    # parse results
     for result in eval_xpath_list(dom, '//div[contains(@class,"algo-sr")]'):
         url = eval_xpath_getindex(result, './/h3/a/@href', 0, default=None)
         if url is None:
@@ -132,15 +141,11 @@ def response(resp):
         offset = len(extract_text(title.xpath('span')))
         title = extract_text(title)[offset:]
 
-        content = eval_xpath_getindex(
-            result, './/div[contains(@class, "compText")]', 0, default=''
-        )
+        content = eval_xpath_getindex(result, './/div[contains(@class, "compText")]', 0, default='')
         content = extract_text(content, allow_none=True)
 
         # append result
-        results.append({'url': url,
-                        'title': title,
-                        'content': content})
+        results.append({'url': url, 'title': title, 'content': content})
 
     for suggestion in eval_xpath_list(dom, '//div[contains(@class, "AlsoTry")]//table//a'):
         # append suggestion

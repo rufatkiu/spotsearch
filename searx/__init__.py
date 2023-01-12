@@ -1,138 +1,106 @@
-'''
-searx is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+# pylint: disable=missing-module-docstring
 
-searx is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
+import sys
+import os
+from os.path import dirname, abspath
 
-You should have received a copy of the GNU Affero General Public License
-along with searx. If not, see < http://www.gnu.org/licenses/ >.
-
-(C) 2013- by Adam Tauber, <asciimoo@gmail.com>
-'''
-
-import base64
 import logging
-import searx.settings_loader
-from os import environ
-from os.path import realpath, dirname, join, abspath, isfile
-from sys import exit
 
-from searx.exceptions import SearxSettingsException
+import searx.unixthreadname
+import searx.settings_loader
+from searx.settings_defaults import settings_set_defaults
+
+
+# Debug
+LOG_FORMAT_DEBUG = '%(levelname)-7s %(name)-30.30s: %(message)s'
+
+# Production
+LOG_FORMAT_PROD = '%(asctime)-15s %(levelname)s:%(name)s: %(message)s'
+LOG_LEVEL_PROD = logging.WARNING
 
 searx_dir = abspath(dirname(__file__))
-engine_dir = dirname(realpath(__file__))
-static_path = abspath(join(dirname(__file__), 'static'))
+searx_parent_dir = abspath(dirname(dirname(__file__)))
+settings, settings_load_message = searx.settings_loader.load_settings()
 
-settings, settings_outgoing = {}, ''
-try:
-    settings, settings_load_message = searx.settings_loader.load_settings()
-except SearxSettingsException as e:
-    logger = logging.getLogger('searx')
-    logger.error('Failed to load settings file: {}'.format(str(e)))
-    exit(1)
+if settings is not None:
+    settings = settings_set_defaults(settings)
+
+_unset = object()
 
 
-if settings['ui']['static_path']:
-    static_path = settings['ui']['static_path']
+def get_setting(name, default=_unset):
+    """Returns the value to which ``name`` point.  If there is no such name in the
+    settings and the ``default`` is unset, a :py:obj:`KeyError` is raised.
 
-'''
-enable debug if
-the environnement variable SEARX_DEBUG is 1 or true
-(whatever the value in settings.yml)
-or general.debug=True in settings.yml
-disable debug if
-the environnement variable SEARX_DEBUG is 0 or false
-(whatever the value in settings.yml)
-or general.debug=False in settings.yml
-'''
-searx_debug_env = environ.get('SEARX_DEBUG', '').lower()
-if searx_debug_env == 'true' or searx_debug_env == '1':
-    searx_debug = True
-elif searx_debug_env == 'false' or searx_debug_env == '0':
-    searx_debug = False
-else:
-    searx_debug = settings.get('general', {}).get('debug')
+    """
+    value = settings
+    for a in name.split('.'):
+        if isinstance(value, dict):
+            value = value.get(a, _unset)
+        else:
+            value = _unset
 
+        if value is _unset:
+            if default is _unset:
+                raise KeyError(name)
+            value = default
+            break
+
+    return value
+
+
+def is_color_terminal():
+    if os.getenv('TERM') in ('dumb', 'unknown'):
+        return False
+    return sys.stdout.isatty()
+
+
+def logging_config_debug():
+    try:
+        import coloredlogs  # pylint: disable=import-outside-toplevel
+    except ImportError:
+        coloredlogs = None
+
+    log_level = os.environ.get('SEARXNG_DEBUG_LOG_LEVEL', 'DEBUG')
+    if coloredlogs and is_color_terminal():
+        level_styles = {
+            'spam': {'color': 'green', 'faint': True},
+            'debug': {},
+            'notice': {'color': 'magenta'},
+            'success': {'bold': True, 'color': 'green'},
+            'info': {'bold': True, 'color': 'cyan'},
+            'warning': {'color': 'yellow'},
+            'error': {'color': 'red'},
+            'critical': {'bold': True, 'color': 'red'},
+        }
+        field_styles = {
+            'asctime': {'color': 'green'},
+            'hostname': {'color': 'magenta'},
+            'levelname': {'color': 8},
+            'name': {'color': 8},
+            'programname': {'color': 'cyan'},
+            'username': {'color': 'yellow'},
+        }
+        coloredlogs.install(level=log_level, level_styles=level_styles, field_styles=field_styles, fmt=LOG_FORMAT_DEBUG)
+    else:
+        logging.basicConfig(level=logging.getLevelName(log_level), format=LOG_FORMAT_DEBUG)
+
+
+searx_debug = settings['general']['debug']
 if searx_debug:
-    logging.basicConfig(level=logging.DEBUG)
+    logging_config_debug()
 else:
-    logging.basicConfig(level=logging.WARNING)
-
-logger = logging.getLogger("searx")
-
-if "GUNICORN_LOGGER" in environ:
-    logger = logging.getLogger()
-    gunicorn_logger = logging.getLogger("gunicorn.error")
-    logger.handlers = gunicorn_logger.handlers
-    logger.setLevel(environ.get("GUNICORN_LEVEL", "INFO"))
-
+    logging.basicConfig(level=LOG_LEVEL_PROD, format=LOG_FORMAT_PROD)
+    logging.root.setLevel(level=LOG_LEVEL_PROD)
+    logging.getLogger('werkzeug').setLevel(level=LOG_LEVEL_PROD)
+logger = logging.getLogger('searx')
 logger.info(settings_load_message)
-logger.info('Initialisation done')
 
-if 'SEARX_SECRET' in environ:
-    settings['server']['secret_key'] = environ['SEARX_SECRET']
-if 'SEARX_BIND_ADDRESS' in environ:
-    settings['server']['bind_address'] = environ['SEARX_BIND_ADDRESS']
-if 'SEARX_MORTY_URL' in environ:
-    settings.setdefault('result_proxy', {})['url'] = environ['SEARX_MORTY_URL']
-if 'SEARX_MORTY_KEY' in environ:
-    settings.setdefault('result_proxy', {})['key'] = base64.b64decode(environ['SEARX_MORTY_KEY'])
-if 'SEARX_PROXY_HTTP' in environ:
-    settings['outgoing'].setdefault('proxies', {})['http'] = environ['SEARX_PROXY_HTTP']
-if 'SEARX_PROXY_HTTPS' in environ:
-    settings['outgoing'].setdefault('proxies', {})['https'] = environ['SEARX_PROXY_HTTPS']
-if 'SEARX_REDIS_HOST' in environ:
-    settings['server']['redis_host'] = environ['SEARX_REDIS_HOST']
-if 'SEARX_UI_DEFAULT_THEME' in environ:
-    settings['ui']['default_theme'] = environ['SEARX_UI_DEFAULT_THEME']
-
-
-class _brand_namespace:
-
-    @classmethod
-    def get_val(cls, group, name, default=''):
-        return settings.get(group, {}).get(name) or default
-
-    @property
-    def SEARX_URL(self):
-        return self.get_val('server', 'base_url')
-
-    @property
-    def CONTACT_URL(self):
-        return self.get_val('general', 'contact_url')
-
-    @property
-    def GIT_URL(self):
-        return self.get_val('brand', 'git_url')
-
-    @property
-    def GIT_BRANCH(self):
-        return self.get_val('brand', 'git_branch')
-
-    @property
-    def ISSUE_URL(self):
-        return self.get_val('brand', 'issue_url')
-
-    @property
-    def DOCS_URL(self):
-        return self.get_val('brand', 'docs_url')
-
-    @property
-    def PUBLIC_INSTANCES(self):
-        return self.get_val('brand', 'public_instances')
-
-    @property
-    def WIKI_URL(self):
-        return self.get_val('brand', 'wiki_url')
-
-    @property
-    def TWITTER_URL(self):
-        return self.get_val('brand', 'twitter_url')
-
-
-brand = _brand_namespace()
+# log max_request_timeout
+max_request_timeout = settings['outgoing']['max_request_timeout']
+if max_request_timeout is None:
+    logger.info('max_request_timeout=%s', repr(max_request_timeout))
+else:
+    logger.info('max_request_timeout=%i second(s)', max_request_timeout)

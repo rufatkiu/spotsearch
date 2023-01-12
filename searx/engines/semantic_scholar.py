@@ -6,6 +6,7 @@
 from json import dumps, loads
 from datetime import datetime
 
+from flask_babel import gettext
 
 about = {
     "website": 'https://www.semanticscholar.org/',
@@ -15,6 +16,8 @@ about = {
     "require_api_key": False,
     "results": 'JSON',
 }
+
+categories = ['science', 'scientific publications']
 paging = True
 search_url = 'https://www.semanticscholar.org/api/1/search'
 paper_url = 'https://www.semanticscholar.org/paper'
@@ -24,19 +27,21 @@ def request(query, params):
     params['url'] = search_url
     params['method'] = 'POST'
     params['headers']['content-type'] = 'application/json'
-    params['data'] = dumps({
-        "queryString": query,
-        "page": params['pageno'],
-        "pageSize": 10,
-        "sort": "relevance",
-        "useFallbackRankerService": False,
-        "useFallbackSearchCluster": False,
-        "getQuerySuggestions": False,
-        "authors": [],
-        "coAuthors": [],
-        "venues": [],
-        "performTitleMatch": True,
-    })
+    params['data'] = dumps(
+        {
+            "queryString": query,
+            "page": params['pageno'],
+            "pageSize": 10,
+            "sort": "relevance",
+            "useFallbackRankerService": False,
+            "useFallbackSearchCluster": False,
+            "getQuerySuggestions": False,
+            "authors": [],
+            "coAuthors": [],
+            "venues": [],
+            "performTitleMatch": True,
+        }
+    )
     return params
 
 
@@ -45,9 +50,6 @@ def response(resp):
     results = []
 
     for result in res['results']:
-        item = {}
-        metadata = []
-
         url = result.get('primaryPaperLink', {}).get('url')
         if not url and result.get('links'):
             url = result.get('links')[0]
@@ -58,22 +60,47 @@ def response(resp):
         if not url:
             url = paper_url + '/%s' % result['id']
 
-        item['url'] = url
+        # publishedDate
+        if 'pubDate' in result:
+            publishedDate = datetime.strptime(result['pubDate'], "%Y-%m-%d")
+        else:
+            publishedDate = None
 
-        item['title'] = result['title']['text']
-        item['content'] = result['paperAbstract']['text']
+        # authors
+        authors = [author[0]['name'] for author in result.get('authors', [])]
 
-        metadata = result.get('fieldsOfStudy') or []
-        venue = result.get('venue', {}).get('text')
-        if venue:
-            metadata.append(venue)
-        if metadata:
-            item['metadata'] = ', '.join(metadata)
+        # pick for the first alternate link, but not from the crawler
+        pdf_url = None
+        for doc in result.get('alternatePaperLinks', []):
+            if doc['linkType'] not in ('crawler', 'doi'):
+                pdf_url = doc['url']
+                break
 
-        pubDate = result.get('pubDate')
-        if pubDate:
-            item['publishedDate'] = datetime.strptime(pubDate, "%Y-%m-%d")
+        # comments
+        comments = None
+        if 'citationStats' in result:
+            comments = gettext(
+                '{numCitations} citations from the year {firstCitationVelocityYear} to {lastCitationVelocityYear}'
+            ).format(
+                numCitations=result['citationStats']['numCitations'],
+                firstCitationVelocityYear=result['citationStats']['firstCitationVelocityYear'],
+                lastCitationVelocityYear=result['citationStats']['lastCitationVelocityYear'],
+            )
 
-        results.append(item)
+        results.append(
+            {
+                'template': 'paper.html',
+                'url': url,
+                'title': result['title']['text'],
+                'content': result['paperAbstract']['text'],
+                'journal': result.get('venue', {}).get('text') or result.get('journal', {}).get('name'),
+                'doi': result.get('doiInfo', {}).get('doi'),
+                'tags': result.get('fieldsOfStudy'),
+                'authors': authors,
+                'pdf_url': pdf_url,
+                'publishedDate': publishedDate,
+                'comments': comments,
+            }
+        )
 
     return results

@@ -4,6 +4,9 @@
 #
 # Translators:
 # Jan Hovancik, 2017
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Fero Novák <itzwowsmile@gmail.com>, 2022.
+# JohnyPeaN <johnypean@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -47,7 +50,7 @@ msgstr "videá"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "technika"
+msgstr "technológia"
 
 #: searx/webapp.py:198
 msgid "news"
@@ -55,7 +58,7 @@ msgstr "správy"
 
 #: searx/webapp.py:199
 msgid "map"
-msgstr "mapy"
+msgstr "mapa"
 
 #: searx/webapp.py:200
 msgid "onions"
@@ -71,11 +74,11 @@ msgstr ""
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
-msgstr "Neplatné nastavenia, upravte svoje hodnoty, prosím"
+msgstr "Nesprávne nastavenia, prosím upravte svoje predvoľby"
 
 #: searx/webapp.py:524
 msgid "Invalid settings"
-msgstr ""
+msgstr "Nesprávne nastavenia"
 
 #: searx/webapp.py:589 searx/webapp.py:659
 msgid "search error"
@@ -83,11 +86,11 @@ msgstr "chyba vyhľadávania"
 
 #: searx/webapp.py:711
 msgid "{minutes} minute(s) ago"
-msgstr "{minutes} min. pred"
+msgstr "pred {minutes} min."
 
 #: searx/webapp.py:713
 msgid "{hours} hour(s), {minutes} minute(s) ago"
-msgstr "{hours} hod., {minutes} min. pred"
+msgstr "pred {hours} hod., {minutes} min."
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
@@ -95,7 +98,7 @@ msgstr "Generátor nahodných hodnôt"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr "Vytvoriť iné náhodné hodnoty"
+msgstr "Vytvoriť rôzné náhodné hodnoty"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
@@ -132,11 +135,11 @@ msgstr "Chyby"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Požiadať o navigáciu"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (ZASTARANÉ)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -145,6 +148,8 @@ msgstr "Táto položka bola nahradená"
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
 msgstr ""
+"{numCitations} citácií od roku {firstCitationVelocityYear} do roku "
+"{lastCitationVelocityYear}"
 
 #: searx/engines/qwant.py:200
 #: searx/templates/etheme/result_templates/currency.html:13
@@ -187,9 +192,13 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Prepísať odkazy HTTP na HTTPS, ak je to možné"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Nekonečné posúvanie"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Obrázok je príliš nízkej kvality na to aby sa našla zhoda. TinEye "
+"vyžaduje vyššiu kvalitu detailov v obrázku na identifikáciu zhôd."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -199,7 +208,7 @@ msgstr ""
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr ""
+msgstr "Otvoriť prístup k prepísaniu DOI"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -221,7 +230,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Vyhľadávanie pri výbere kategórie"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -234,6 +243,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Vlastné informácie"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -375,7 +388,7 @@ msgstr ""
 #: searx/templates/etheme/404.html:7 searx/templates/oscar/404.html:4
 #: searx/templates/simple/404.html:4
 msgid "Page not found"
-msgstr "Stránka sa nenašla."
+msgstr "Stránka sa nenašla"
 
 #: searx/templates/etheme/404.html:10 searx/templates/oscar/404.html:6
 #: searx/templates/simple/404.html:6
@@ -978,18 +991,18 @@ msgstr "prispôsobitelný meta-vyhľadávač, ktorý rešpektuje vaše súkromie
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "Zdrojový kód"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "Sledovanie problémov"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "Verejné inštancie"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1059,7 +1072,7 @@ msgstr ""
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
 msgid "Open Access DOI resolver"
-msgstr ""
+msgstr "DOI vyhodnocovač otvoreným prístupom"
 
 #: searx/templates/oscar/preferences.html:164
 #: searx/templates/simple/preferences.html:105
@@ -1067,14 +1080,16 @@ msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
 msgstr ""
+"Presmerovanie na verzie publikácií s otvoreným prístupom, ak sú k "
+"dispozícii (vyžaduje sa plugin)"
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "Engine tokeny"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
-msgstr ""
+msgstr "Prístupové tokwny pre súkromné nástroje"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
@@ -1140,7 +1155,7 @@ msgstr "Hodnota"
 
 #: searx/templates/oscar/results.html:32 searx/templates/simple/results.html:45
 msgid "Engines cannot retrieve results"
-msgstr ""
+msgstr "Vyhľadávače nemôžu získať výsledky"
 
 #: searx/templates/oscar/results.html:69
 msgid "Links"
@@ -1165,27 +1180,23 @@ msgstr "Výsledky vyhľadávania"
 #: searx/templates/oscar/results.html:100
 #: searx/templates/simple/results.html:107
 msgid "Try searching for:"
-msgstr ""
+msgstr "Skús hľadať:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Začať vyhľadávanie"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Späť na začiatok"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr ""
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Predošlá strana"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "štatistiky"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Zobraz úvodnú stranu"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1204,23 +1215,115 @@ msgstr "Zdá sa, že používate searx prvýkrát."
 msgid "There is currently no data available. "
 msgstr "Momentálne nie su dostupné žiadne dáta."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Hodnotenia"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Počet výsledkov"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Celkom"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Spracovávanie"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Varovania"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Chyby a výnimky"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Výnimka"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Správa"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Úroveň"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parameter"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Názov súboru"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funkcia"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Kód"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Kontrolór"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Zlyhaný test"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Komentár(e)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Kedykoľvek"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Posledný deň"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Posledný týždeň"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Posledný mesiac"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Posledný rok"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informácia!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "momentálne nie su definované žiadne cookies."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
-msgstr ""
+msgstr "Vyhľadávače nemôžu získať výsledky."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr ""
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Skúste znova neskôr, prosím, alebo použite inú inštanciu SearXNG."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Je nám ľúto!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1294,12 +1397,10 @@ msgstr ""
 msgid "Number of Files"
 msgstr "Počet súborov"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "ukázať video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "skryť video"

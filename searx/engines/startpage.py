@@ -16,15 +16,13 @@ from lxml import html
 from babel import Locale
 from babel.localedata import locale_identifiers
 
-from searx import logger
-from searx.poolrequests import get
+from searx.network import get
 from searx.utils import extract_text, eval_xpath, match_language
 from searx.exceptions import (
     SearxEngineResponseException,
     SearxEngineCaptchaException,
 )
 
-logger = logger.getChild('startpage')
 
 # about
 about = {
@@ -37,7 +35,7 @@ about = {
 }
 
 # engine dependent config
-categories = ['general']
+categories = ['general', 'web']
 # there is a mechanism to block "bot" search
 # (probably the parameter qid), require
 # storing of qid's between mulitble search-calls
@@ -91,15 +89,14 @@ def get_sc_code(headers):
         dom = html.fromstring(resp.text)
 
         try:
-            # href --> '/?sc=adrKJMgF8xwp20'
-            href = eval_xpath(dom, '//a[@class="footer-home__logo"]')[0].get('href')
+            # <input type="hidden" name="sc" value="...">
+            sc_code = eval_xpath(dom, '//input[@name="sc"]/@value')[0]
         except IndexError as exc:
             # suspend startpage API --> https://github.com/searxng/searxng/pull/695
             raise SearxEngineResponseException(
                 suspended_time=7 * 24 * 3600, message="PR-695: query new sc time-stamp failed!"
             ) from exc
 
-        sc_code = href[5:]
         sc_code_ts = time()
         logger.debug("new value is: %s", sc_code)
 
@@ -172,7 +169,7 @@ def response(resp):
         # check if search result starts with something like: "2 Sep 2014 ... "
         if re.match(r"^([1-9]|[1-2][0-9]|3[0-1]) [A-Z][a-z]{2} [0-9]{4} \.\.\. ", content):
             date_pos = content.find('...') + 4
-            date_string = content[0:date_pos - 5]
+            date_string = content[0 : date_pos - 5]
             # fix content string
             content = content[date_pos:]
 
@@ -184,7 +181,7 @@ def response(resp):
         # check if search result starts with something like: "5 days ago ... "
         elif re.match(r"^[0-9]+ days? ago \.\.\. ", content):
             date_pos = content.find('...') + 4
-            date_string = content[0:date_pos - 5]
+            date_string = content[0 : date_pos - 5]
 
             # calculate datetime
             published_date = datetime.now() - timedelta(days=int(re.match(r'\d+', date_string).group()))
@@ -194,15 +191,10 @@ def response(resp):
 
         if published_date:
             # append result
-            results.append({'url': url,
-                            'title': title,
-                            'content': content,
-                            'publishedDate': published_date})
+            results.append({'url': url, 'title': title, 'content': content, 'publishedDate': published_date})
         else:
             # append result
-            results.append({'url': url,
-                            'title': title,
-                            'content': content})
+            results.append({'url': url, 'title': title, 'content': content})
 
     # return results
     return results
@@ -216,7 +208,7 @@ def _fetch_supported_languages(resp):
     # native name, the English name of the writing script used by the language,
     # or occasionally something else entirely.
 
-    # this cases are so special they need to be hardcoded, a couple of them are mispellings
+    # this cases are so special they need to be hardcoded, a couple of them are misspellings
     language_names = {
         'english_uk': 'en-GB',
         'fantizhengwen': ['zh-TW', 'zh-HK'],
@@ -224,7 +216,7 @@ def _fetch_supported_languages(resp):
         'malayam': 'ml',
         'norsk': 'nb',
         'sinhalese': 'si',
-        'sudanese': 'su'
+        'sudanese': 'su',
     }
 
     # get the English name of every language known by babel
@@ -252,7 +244,7 @@ def _fetch_supported_languages(resp):
 
     dom = html.fromstring(resp.text)
     sp_lang_names = []
-    for option in dom.xpath('//form[@id="settings-form"]//select[@name="language"]/option'):
+    for option in dom.xpath('//form[@name="settings"]//select[@name="language"]/option'):
         sp_lang_names.append((option.get('value'), extract_text(option).lower()))
 
     supported_languages = {}

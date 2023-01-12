@@ -10,6 +10,9 @@
 # dimqua <dimqua@riseup.net>, 2017
 # John DOe <is-kir@ya.ru>, 2018
 # Дмитрий Михирев, 2016-2017
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Surepusofu Arutemu <crexlight@gmail.com>, 2022.
+# No4vick <MineBor1@yandex.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -30,15 +33,15 @@ msgstr ""
 
 #: searx/webapp.py:191
 msgid "files"
-msgstr "файлы"
+msgstr "Файлы"
 
 #: searx/webapp.py:192
 msgid "general"
-msgstr "общие"
+msgstr "Общие"
 
 #: searx/webapp.py:193
 msgid "music"
-msgstr "музыка"
+msgstr "Музыка"
 
 #: searx/webapp.py:194
 msgid "social media"
@@ -46,23 +49,23 @@ msgstr "соцсети"
 
 #: searx/webapp.py:195
 msgid "images"
-msgstr "картинки"
+msgstr "Картинки"
 
 #: searx/webapp.py:196
 msgid "videos"
-msgstr "видео"
+msgstr "Видео"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "it"
+msgstr "IT"
 
 #: searx/webapp.py:198
 msgid "news"
-msgstr "новости"
+msgstr "Новости"
 
 #: searx/webapp.py:199
 msgid "map"
-msgstr "карты"
+msgstr "Карты"
 
 #: searx/webapp.py:200
 msgid "onions"
@@ -70,7 +73,7 @@ msgstr ""
 
 #: searx/webapp.py:201
 msgid "science"
-msgstr "наука"
+msgstr "Наука"
 
 #: searx/webapp.py:399
 msgid "No item found"
@@ -78,11 +81,11 @@ msgstr "Ничего не найдено"
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
-msgstr "Неправильные параметры, измените настройки"
+msgstr "Неправильные параметры, пожалуйста измените ваши настройки"
 
 #: searx/webapp.py:524
 msgid "Invalid settings"
-msgstr "Настройки некорректны"
+msgstr "Неверные настройки"
 
 #: searx/webapp.py:589 searx/webapp.py:659
 msgid "search error"
@@ -102,7 +105,7 @@ msgstr "Генератор случайных значений"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr "Генерирует различные случайные значения"
+msgstr "Генерирует разные случайные значения"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
@@ -110,7 +113,7 @@ msgstr "Статистические функции"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
-msgstr "Вычисляет {functions} от аргументов"
+msgstr "Применяет функции {functions} к аргументам"
 
 #: searx/engines/__init__.py:251
 msgid "Engine time (sec)"
@@ -139,11 +142,11 @@ msgstr "Ошибки"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr "Получить инструкции"
+msgstr "Запрашивать маршруты"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr "{title} (УСТАРЕВШЕЕ)"
+msgstr "{title} (УСТАРЕЛО)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -194,17 +197,71 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Заменять в ссылках HTTP на HTTPS если это возможно"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Бесконечная прокрутка"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Не удалось прочитать изображение по ссылки. Возможно это вызвано "
+"неподдерживаемым форматом файла. TinEye поддерживает только следующие "
+"форматы: JPEG, PNG, GIF, BMP, TIFF or WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Автоматически загружать следующую страницу при прокрутке до конца текущей"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Изображение слишком простое для нахождения похожих. TinEye требует "
+"базовый уровень визуальных деталей для успешного определения совпадений."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Не удалось загрузить изображение."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Утро"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Полдень"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Вечер"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Ночь"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr "Автоматически определять язык поиска"
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr "Автоматически определять язык поиска запроса и переключаться на него."
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Рассчитывает контрольные суммы от строки."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "контрольная сумма"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Замена имени сайта"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr "Заменить имя хоста или удалить результаты на основе имени хоста"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr "Перезапись открытого доступа к DOI"
+msgstr "Искать Open Access DOI"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -226,7 +283,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Поиск по выбранной категории"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -239,6 +296,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Информация"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -248,15 +309,15 @@ msgstr ""
 
 #: searx/plugins/tracker_url_remover.py:27
 msgid "Tracker URL remover"
-msgstr "Удаление трекинга URL-адресов"
+msgstr "Убрать отслеживание URL"
 
 #: searx/plugins/tracker_url_remover.py:28
 msgid "Remove trackers arguments from the returned URL"
-msgstr "Удаляет аргументы отслеживания из URL-адреса"
+msgstr "Удаление параметров для отслеживания пользователя из URL-адреса"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr "Горячие клавиши в стиле vim"
+msgstr "Горячие клавиши в стиле Vim"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
@@ -991,14 +1052,14 @@ msgstr "Исходный код"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr "Трекер проблем"
+msgstr "Сообщить о проблеме"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr "Публичные инстансы"
+msgstr "Публичные зеркала"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1068,7 +1129,7 @@ msgstr ""
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
 msgid "Open Access DOI resolver"
-msgstr "Распознаватель открытого доступа к DOI"
+msgstr "Источник Open Access DOI"
 
 #: searx/templates/oscar/preferences.html:164
 #: searx/templates/simple/preferences.html:105
@@ -1085,7 +1146,7 @@ msgstr "Токены движка"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
-msgstr "Доступные токены для персональных движков"
+msgstr "Доступные токены для частных движков"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
@@ -1142,7 +1203,7 @@ msgstr "Описание"
 #: searx/templates/oscar/preferences.html:343
 #: searx/templates/simple/preferences.html:204
 msgid "Cookie name"
-msgstr "Имя файла cookie"
+msgstr "Cookie"
 
 #: searx/templates/oscar/preferences.html:344
 #: searx/templates/simple/preferences.html:205
@@ -1151,7 +1212,7 @@ msgstr "Значение"
 
 #: searx/templates/oscar/results.html:32 searx/templates/simple/results.html:45
 msgid "Engines cannot retrieve results"
-msgstr "Движки не могут получить результаты"
+msgstr "Поисковые системы не могут получить результат"
 
 #: searx/templates/oscar/results.html:69
 msgid "Links"
@@ -1178,25 +1239,21 @@ msgstr "Результаты поиска"
 msgid "Try searching for:"
 msgstr "Попробуйте поискать:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Начать поиск"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Наверх"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Очистить поиск"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Предыдущая страница"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Очистить"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "статистика"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Показать главную страницу"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1218,20 +1275,19 @@ msgstr "На данный момент данные недоступны."
 #: searx/templates/oscar/messages/no_results.html:4
 #: searx/templates/simple/messages/no_results.html:4
 msgid "Engines cannot retrieve results."
-msgstr "Движки не могут получить результаты."
+msgstr "Поисковые системы не могут получить результат."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Пожалуйста, попробуйте позже или воспользуйтесь другим сервером searx."
-
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
-msgid "Sorry!"
-msgstr "Сожалеем!"
-
-#: searx/templates/oscar/messages/no_results.html:15
 #: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr ""
+"Пожалуйста, попробуйте ещё раз позднее, либо перейдите на другое зеркало "
+"SearXNG."
+
+#: searx/templates/simple/messages/no_results.html:20
+msgid "Sorry!"
+msgstr "Грусть-печаль!"
+
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1275,7 +1331,7 @@ msgstr "Скачать изображение"
 
 #: searx/templates/oscar/result_templates/images.html:30
 msgid "View source"
-msgstr "Посмотреть источник"
+msgstr "Перейти к источнику"
 
 #: searx/templates/oscar/result_templates/map.html:26
 #: searx/templates/simple/result_templates/map.html:11
@@ -1303,14 +1359,12 @@ msgstr "Личер"
 #: searx/templates/oscar/result_templates/torrent.html:15
 #: searx/templates/simple/result_templates/torrent.html:20
 msgid "Number of Files"
-msgstr "Число файлов"
+msgstr "Количество файлов"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "показать видео"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "скрыть видео"

@@ -7,6 +7,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 # Noémi Ványi <sitbackandwait@gmail.com>, 2016
 # Noémi Ványi <sitbackandwait@gmail.com>, 2016-2017
+# Kuka Manó <dumpster@perjel.hu>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
+# Lakatos Tamás <tomimost@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -49,7 +52,7 @@ msgstr "videók"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "it"
+msgstr "IT"
 
 #: searx/webapp.py:198
 msgid "news"
@@ -73,6 +76,10 @@ msgstr "Nincs találat"
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
+msgstr "Érvénytelen beállítások, kérlek módosítsd őket"
+
+#: searx/webapp.py:538
+msgid "Invalid settings"
 msgstr "Érvénytelen beállítások"
 
 #: searx/webapp.py:524
@@ -97,7 +104,7 @@ msgstr "Véletlen érték generátor"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr "Különböző random értékek generálása"
+msgstr "Különböző véletlen értékek generálása"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
@@ -142,7 +149,7 @@ msgstr "{title} (elavult)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "Ezt a bejegyzést törölte:"
+msgstr "Ezt a bejegyzést törölte"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
@@ -189,13 +196,69 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "HTTP linkek lecserélése HTTPS-re"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Végtelenített találatok"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Ennek a képnek az url-je nem olvasható. Ennek oka lehet egy nem "
+"támogatott fájl formátum. A TinEye által támogatott formátumok: JPEG, "
+"PNG, GIF, BMP, TIFF or WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "További találatok automatikus betöltése"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"A kép túl egyszerű a kereséshez. A TinEye-nek szüksége van egy minimális "
+"vizuális részletességre a sikeres kereséshez."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "A kép nem tölthető le."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Reggel"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Dél"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Este"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Éjszaka"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr ""
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "A szöveget különböző hash értékekké alakítja."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "hash érték"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Hosztnév kicserélése"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"Találatok hosztnevének átírása vagy találatok eltávolítása hosztnév "
+"alapján"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
@@ -220,6 +283,10 @@ msgid "Search on category select"
 msgstr "Azonnali keresés kategória választással"
 
 #: searx/plugins/search_on_category_select.py:19
+msgid "Search on category select"
+msgstr "Keresés kategória választással"
+
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -232,6 +299,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Személyes információ"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -249,7 +320,7 @@ msgstr "Felhasználó követéshez használt találati URL paraméterek eltávol
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr "Vim típusú billentyűzetes navigáció"
+msgstr "Vim jellegű billentyűzetes navigáció"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
@@ -384,7 +455,7 @@ msgstr "Vissza a %(search_page)s."
 #: searx/templates/etheme/404.html:10 searx/templates/oscar/404.html:6
 #: searx/templates/simple/404.html:6
 msgid "search page"
-msgstr "kereső oldalra"
+msgstr "kereső oldal"
 
 #: searx/templates/etheme/about.html:2 searx/templates/oscar/about.html:2
 #: searx/templates/oscar/navbar.html:6
@@ -974,7 +1045,7 @@ msgstr "egy privátszféra tisztelő, könnyen módosítható metakereső"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr "Forrás kód"
+msgstr "Forráskód"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
@@ -1102,7 +1173,7 @@ msgstr "Kiválasztott nyelv"
 #: searx/templates/oscar/time-range.html:2
 #: searx/templates/simple/preferences.html:125
 msgid "Time range"
-msgstr "Idő szűrés"
+msgstr "Időintervallum"
 
 #: searx/templates/oscar/preferences.html:223
 #: searx/templates/oscar/preferences.html:227
@@ -1127,7 +1198,7 @@ msgstr "Leírás"
 #: searx/templates/oscar/preferences.html:343
 #: searx/templates/simple/preferences.html:204
 msgid "Cookie name"
-msgstr "Süti név"
+msgstr "Süti neve"
 
 #: searx/templates/oscar/preferences.html:344
 #: searx/templates/simple/preferences.html:205
@@ -1163,25 +1234,21 @@ msgstr "Keresési eredmények"
 msgid "Try searching for:"
 msgstr "Keresés erre:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Keresés indítása"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Vissza a lap tetejére"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Keresés törlése"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Előző oldal"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Törlés"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statisztikák"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Kezdőlap megjelenítése"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1200,40 +1267,134 @@ msgstr "Úgy tűnik először használod a keresőt."
 msgid "There is currently no data available. "
 msgstr "Nincs megjeleníthető adat."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Pontszámok"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Találatok száma"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Összesen"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Feldolgozás"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Figyelmeztetések"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Hibák és kivételek"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Kivétel"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Üzenet"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Százalék"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Paraméter"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Fájlnév"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funkció"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Kód"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Ellenőrző"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Elbukott teszt"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Komment(ek)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Bármikor"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Legutóbbi nap"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Legutóbbi hét"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Legutóbbi hónap"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Előző év"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Figyelem!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "jelenleg nincs süti definiálva"
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Nincs találat a keresőmotortól."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Kérjük próbáld újra, vagy használj egy másik searx-t."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Kérlek próbáld újra, vagy keress egy másik SearXNG oldalt."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Elnézést!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
-msgstr "Nincs megjeleníthető találat."
+msgstr ""
+"Nincs megjeleníthető találat. Kérlek, hogy használj másik kifejezést vagy"
+" keress több kategóriában."
 
 #: searx/templates/oscar/result_templates/default.html:7
 #: searx/templates/oscar/result_templates/files.html:7
 #: searx/templates/oscar/result_templates/files.html:10
 #: searx/templates/simple/result_templates/default.html:6
 msgid "show media"
-msgstr "médium mutatása"
+msgstr "média mutatása"
 
 #: searx/templates/oscar/result_templates/default.html:7
 #: searx/templates/oscar/result_templates/files.html:7
 #: searx/templates/simple/result_templates/default.html:6
 msgid "hide media"
-msgstr "médium elrejtése"
+msgstr "média elrejtése"
 
 #: searx/templates/oscar/result_templates/files.html:33
 #: searx/templates/oscar/result_templates/videos.html:19
@@ -1288,15 +1449,13 @@ msgstr "Leecher"
 msgid "Number of Files"
 msgstr "Fájlok száma"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
-msgstr "video mutatása"
+msgstr "videó mutatása"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
-msgstr "video elrejtése"
+msgstr "videó elrejtése"
 
 #: searx/templates/oscar/result_templates/videos.html:20
 msgid "Length"

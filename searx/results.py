@@ -2,12 +2,12 @@ import re
 from collections import defaultdict
 from operator import itemgetter
 from threading import RLock
+from typing import List, NamedTuple, Set
 from urllib.parse import urlparse, unquote
+
 from searx import logger
 from searx.engines import engines
-from searx.metrology.error_recorder import record_error
-from searx.utils import add_scheme_to_url
-from searx import settings
+from searx.metrics import histogram_observe, counter_add, count_error
 
 
 CONTENT_LEN_IGNORED_CHARS_REGEX = re.compile(r'[,;:!?\./\\\\ ()-_]', re.M | re.U)
@@ -49,12 +49,8 @@ def compare_urls(url_a, url_b):
         return False
 
     # remove / from the end of the url if required
-    path_a = url_a.path[:-1]\
-        if url_a.path.endswith('/')\
-        else url_a.path
-    path_b = url_b.path[:-1]\
-        if url_b.path.endswith('/')\
-        else url_b.path
+    path_a = url_a.path[:-1] if url_a.path.endswith('/') else url_a.path
+    path_b = url_b.path[:-1] if url_b.path.endswith('/') else url_b.path
 
     return unquote(path_a) == unquote(path_b)
 
@@ -85,8 +81,9 @@ def merge_two_infoboxes(infobox1, infobox2):
             parsed_url2 = urlparse(url2.get('url', ''))
             entity_url2 = url2.get('entity')
             for url1 in urls1:
-                if (entity_url2 is not None and url1.get('entity') == entity_url2)\
-                   or compare_urls(urlparse(url1.get('url', '')), parsed_url2):
+                if (entity_url2 is not None and url1.get('entity') == entity_url2) or compare_urls(
+                    urlparse(url1.get('url', '')), parsed_url2
+                ):
                     unique_url = False
                     break
             if unique_url:
@@ -117,8 +114,7 @@ def merge_two_infoboxes(infobox1, infobox2):
                 attributeSet.add(entity)
 
         for attribute in infobox2.get('attributes', []):
-            if attribute.get('label') not in attributeSet\
-               and attribute.get('entity') not in attributeSet:
+            if attribute.get('label') not in attributeSet and attribute.get('entity') not in attributeSet:
                 attributes1.append(attribute)
 
     if 'content' in infobox2:
@@ -138,22 +134,42 @@ def result_score(result, language):
         if hasattr(engines[result_engine], 'weight'):
             weight *= float(engines[result_engine].weight)
 
-    if settings['search'].get('prefer_configured_language', False):
-        domain_parts = result['parsed_url'].netloc.split('.')
-        if language in domain_parts:
-            weight *= 1.1
+    occurrences = len(result['positions'])
 
-    occurences = len(result['positions'])
+    return sum((occurrences * weight) / position for position in result['positions'])
 
-    return sum((occurences * weight) / position for position in result['positions'])
+
+class Timing(NamedTuple):
+    engine: str
+    total: float
+    load: float
+
+
+class UnresponsiveEngine(NamedTuple):
+    engine: str
+    error_type: str
+    suspended: bool
 
 
 class ResultContainer:
     """docstring for ResultContainer"""
 
-    __slots__ = '_merged_results', 'infoboxes', 'suggestions', 'answers', 'corrections', '_number_of_results',\
-                '_ordered', 'paging', 'unresponsive_engines', 'timings', 'redirect_url', 'engine_data',\
-                '_language'
+    __slots__ = (
+        '_merged_results',
+        'infoboxes',
+        'suggestions',
+        'answers',
+        'corrections',
+        '_number_of_results',
+        '_closed',
+        'paging',
+        'unresponsive_engines',
+        'timings',
+        'redirect_url',
+        'engine_data',
+        'on_result',
+        '_lock',
+    )
 
     def __init__(self, language):
         super().__init__()
@@ -164,56 +180,58 @@ class ResultContainer:
         self.corrections = set()
         self._number_of_results = []
         self.engine_data = defaultdict(dict)
-        self._ordered = False
+        self._closed = False
         self.paging = False
-        self.unresponsive_engines = set()
-        self.timings = []
+        self.unresponsive_engines: Set[UnresponsiveEngine] = set()
+        self.timings: List[Timing] = []
         self.redirect_url = None
-        self._language = language.lower().split('-')[0]
+        self.on_result = lambda _: True
+        self._lock = RLock()
 
     def extend(self, engine_name, results):
+        if self._closed:
+            return
+
         standard_result_count = 0
         error_msgs = set()
         for result in list(results):
             result['engine'] = engine_name
-            if 'suggestion' in result:
+            if 'suggestion' in result and self.on_result(result):
                 self.suggestions.add(result['suggestion'])
-            elif 'answer' in result:
+            elif 'answer' in result and self.on_result(result):
                 self.answers[result['answer']] = result
-            elif 'correction' in result:
+            elif 'correction' in result and self.on_result(result):
                 self.corrections.add(result['correction'])
-            elif 'infobox' in result:
+            elif 'infobox' in result and self.on_result(result):
                 self._merge_infobox(result)
-            elif 'number_of_results' in result:
+            elif 'number_of_results' in result and self.on_result(result):
                 self._number_of_results.append(result['number_of_results'])
-            elif 'engine_data' in result:
+            elif 'engine_data' in result and self.on_result(result):
                 self.engine_data[engine_name][result['key']] = result['engine_data']
-            else:
+            elif 'url' in result:
                 # standard result (url, title, content)
-                if 'url' in result and not isinstance(result['url'], str):
-                    logger.debug('result: invalid URL: %s', str(result))
-                    error_msgs.add('invalid URL')
-                elif 'title' in result and not isinstance(result['title'], str):
-                    logger.debug('result: invalid title: %s', str(result))
-                    error_msgs.add('invalid title')
-                elif 'content' in result and not isinstance(result['content'], str):
-                    logger.debug('result: invalid content: %s', str(result))
-                    error_msgs.add('invalid content')
-                else:
-                    self._merge_result(result, standard_result_count + 1)
-                    standard_result_count += 1
+                if not self._is_valid_url_result(result, error_msgs):
+                    continue
+                # normalize the result
+                self._normalize_url_result(result)
+                # call on_result call searx.search.SearchWithPlugins._on_result
+                # which calls the plugins
+                if not self.on_result(result):
+                    continue
+                self.__merge_url_result(result, standard_result_count + 1)
+                standard_result_count += 1
+            elif self.on_result(result):
+                self.__merge_result_no_url(result, standard_result_count + 1)
+                standard_result_count += 1
 
         if len(error_msgs) > 0:
             for msg in error_msgs:
-                record_error(engine_name, 'some results are invalids: ' + msg)
+                count_error(engine_name, 'some results are invalids: ' + msg, secondary=True)
 
         if engine_name in engines:
-            with RLock():
-                engines[engine_name].stats['search_count'] += 1
-                engines[engine_name].stats['result_count'] += standard_result_count
+            histogram_observe(standard_result_count, 'engine', engine_name, 'result', 'count')
 
-        if not self.paging and standard_result_count > 0 and engine_name in engines\
-           and engines[engine_name].paging:
+        if not self.paging and standard_result_count > 0 and engine_name in engines and engines[engine_name].paging:
             self.paging = True
 
     def _merge_infobox(self, infobox):
@@ -222,22 +240,37 @@ class ResultContainer:
         infobox['engines'] = set([infobox['engine']])
         if infobox_id is not None:
             parsed_url_infobox_id = urlparse(infobox_id)
-            for existingIndex in self.infoboxes:
-                if compare_urls(urlparse(existingIndex.get('id', '')), parsed_url_infobox_id):
-                    merge_two_infoboxes(existingIndex, infobox)
-                    add_infobox = False
+            with self._lock:
+                for existingIndex in self.infoboxes:
+                    if compare_urls(urlparse(existingIndex.get('id', '')), parsed_url_infobox_id):
+                        merge_two_infoboxes(existingIndex, infobox)
+                        add_infobox = False
 
         if add_infobox:
             self.infoboxes.append(infobox)
 
-    def _merge_result(self, result, position):
+    def _is_valid_url_result(self, result, error_msgs):
         if 'url' in result:
-            self.__merge_url_result(result, position)
-            return
+            if not isinstance(result['url'], str):
+                logger.debug('result: invalid URL: %s', str(result))
+                error_msgs.add('invalid URL')
+                return False
 
-        self.__merge_result_no_url(result, position)
+        if 'title' in result and not isinstance(result['title'], str):
+            logger.debug('result: invalid title: %s', str(result))
+            error_msgs.add('invalid title')
+            return False
 
-    def __merge_url_result(self, result, position):
+        if 'content' in result:
+            if not isinstance(result['content'], str):
+                logger.debug('result: invalid content: %s', str(result))
+                error_msgs.add('invalid content')
+                return False
+
+        return True
+
+    def _normalize_url_result(self, result):
+        """Return True if the result is valid"""
         result['parsed_url'] = urlparse(result['url'])
 
         # if the result has no scheme, use http as default
@@ -251,19 +284,28 @@ class ResultContainer:
             result['img_src'] = add_scheme_to_url(result['img_src'])
 
         result['engines'] = set([result['engine']])
+        # avoid duplicate content between the content and title fields
+        if result.get('content') == result.get('title'):
+            del result['content']
 
-        # strip multiple spaces and cariage returns from content
+        # make sure there is a template
+        if 'template' not in result:
+            result['template'] = 'default.html'
+
+        # strip multiple spaces and carriage returns from content
         if result.get('content'):
             result['content'] = WHITESPACE_REGEX.sub(' ', result['content'])
 
-        duplicated = self.__find_duplicated_http_result(result)
-        if duplicated:
-            self.__merge_duplicated_http_result(duplicated, result, position)
-            return
+    def __merge_url_result(self, result, position):
+        result['engines'] = set([result['engine']])
+        with self._lock:
+            duplicated = self.__find_duplicated_http_result(result)
+            if duplicated:
+                self.__merge_duplicated_http_result(duplicated, result, position)
+                return
 
-        # if there is no duplicate found, append result
-        result['positions'] = [position]
-        with RLock():
+            # if there is no duplicate found, append result
+            result['positions'] = [position]
             self._merged_results.append(result)
 
     def __find_duplicated_http_result(self, result):
@@ -271,22 +313,22 @@ class ResultContainer:
         for merged_result in self._merged_results:
             if 'parsed_url' not in merged_result:
                 continue
-            if compare_urls(result['parsed_url'], merged_result['parsed_url'])\
-               and result_template == merged_result.get('template'):
+            if compare_urls(result['parsed_url'], merged_result['parsed_url']) and result_template == merged_result.get(
+                'template'
+            ):
                 if result_template != 'images.html':
                     # not an image, same template, same url : it's a duplicate
                     return merged_result
                 else:
                     # it's an image
-                    # it's a duplicate if the parsed_url, template and img_src are differents
+                    # it's a duplicate if the parsed_url, template and img_src are different
                     if result.get('img_src', '') == merged_result.get('img_src', ''):
                         return merged_result
         return None
 
     def __merge_duplicated_http_result(self, duplicated, result, position):
         # using content with more text
-        if result_content_len(result.get('content', '')) >\
-                result_content_len(duplicated.get('content', '')):
+        if result_content_len(result.get('content', '')) > result_content_len(duplicated.get('content', '')):
             duplicated['content'] = result['content']
 
         # merge all result's parameters not found in duplicate
@@ -308,16 +350,17 @@ class ResultContainer:
     def __merge_result_no_url(self, result, position):
         result['engines'] = set([result['engine']])
         result['positions'] = [position]
-        with RLock():
+        with self._lock:
             self._merged_results.append(result)
 
-    def order_results(self):
+    def close(self):
+        self._closed = True
+
         for result in self._merged_results:
             score = result_score(result, self._language)
             result['score'] = score
-            with RLock():
-                for result_engine in result['engines']:
-                    engines[result_engine].stats['score_count'] += score
+            for result_engine in result['engines']:
+                counter_add(score, 'engine', result_engine, 'score')
 
         results = sorted(self._merged_results, key=itemgetter('score'), reverse=True)
 
@@ -331,18 +374,20 @@ class ResultContainer:
             res['category'] = engine.categories[0] if len(engine.categories) > 0 else ''
 
             # FIXME : handle more than one category per engine
-            category = res['category']\
-                + ':' + res.get('template', '')\
-                + ':' + ('img_src' if 'img_src' in res or 'thumbnail' in res else '')
+            category = (
+                res['category']
+                + ':'
+                + res.get('template', '')
+                + ':'
+                + ('img_src' if 'img_src' in res or 'thumbnail' in res else '')
+            )
 
-            current = None if category not in categoryPositions\
-                else categoryPositions[category]
+            current = None if category not in categoryPositions else categoryPositions[category]
 
             # group with previous results using the same category
             # if the group can accept more result and is not too far
             # from the current position
-            if current is not None and (current['count'] > 0)\
-                    and (len(gresults) - current['index'] < 20):
+            if current is not None and (current['count'] > 0) and (len(gresults) - current['index'] < 20):
                 # group with the previous results using
                 # the same category with this one
                 index = current['index']
@@ -366,12 +411,11 @@ class ResultContainer:
                 categoryPositions[category] = {'index': len(gresults), 'count': 8}
 
         # update _merged_results
-        self._ordered = True
         self._merged_results = gresults
 
     def get_ordered_results(self):
-        if not self._ordered:
-            self.order_results()
+        if not self._closed:
+            self.close()
         return self._merged_results
 
     def results_length(self):
@@ -383,16 +427,12 @@ class ResultContainer:
             return 0
         return resultnum_sum / len(self._number_of_results)
 
-    def add_unresponsive_engine(self, engine_name, error_type, error_message=None):
+    def add_unresponsive_engine(self, engine_name: str, error_type: str, suspended: bool = False):
         if engines[engine_name].display_error_messages:
-            self.unresponsive_engines.add((engine_name, error_type, error_message))
+            self.unresponsive_engines.add(UnresponsiveEngine(engine_name, error_type, suspended))
 
-    def add_timing(self, engine_name, engine_time, page_load_time):
-        self.timings.append({
-            'engine': engines[engine_name].shortcut,
-            'total': engine_time,
-            'load': page_load_time
-        })
+    def add_timing(self, engine_name: str, engine_time: float, page_load_time: float):
+        self.timings.append(Timing(engine_name, total=engine_time, load=page_load_time))
 
     def get_timings(self):
         return self.timings

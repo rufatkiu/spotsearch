@@ -1,14 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Redis engine (Offline)
+# lint: pylint
+"""Redis engine (offline)
+
 """
 
-# pylint: disable=missing-function-docstring
-# pylint: disable=import-error
-
-import redis
+import redis  # pylint: disable=import-error
 
 engine_type = 'offline'
+
 # redis connection variables
 host = '127.0.0.1'
 port = 6379
@@ -22,12 +21,8 @@ exact_match_only = True
 _redis_client = None
 
 
-def init(_):
-    connect()
-
-
-def connect():
-    global _redis_client
+def init(_engine_settings):
+    global _redis_client  # pylint: disable=global-statement
     _redis_client = redis.StrictRedis(
         host=host,
         port=port,
@@ -37,9 +32,10 @@ def connect():
     )
 
 
-def search(query, params):
+def search(query, _params):
     if not exact_match_only:
         return search_keys(query)
+
     ret = _redis_client.hgetall(query)
     if ret:
         ret['template'] = result_template
@@ -48,7 +44,12 @@ def search(query, params):
         qset, rest = query.split(' ', 1)
         ret = []
         for res in _redis_client.hscan_iter(qset, match='*{}*'.format(rest)):
-            ret.append({res[0]: res[1], 'template': result_template})
+            ret.append(
+                {
+                    res[0]: res[1],
+                    'template': result_template,
+                }
+            )
         return ret
     return []
 
