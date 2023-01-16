@@ -12,7 +12,7 @@ from .online import OnlineProcessor
 
 
 parser_re = re.compile(
-    r".*?(\\d+(?:\\.\\d+)?)\s?([^.0-9]+) (?:in|to|en|dans|nel|pour|para|zu|a) ([^.0-9]+)",
+    '.*?(\\d+(?:\\.\\d+)?) ([^.0-9]+) (?:in|to|en|dans|nel|pour|para|zu|a) ([^.0-9]+)',
     re.I,
 )
 

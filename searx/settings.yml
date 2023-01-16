@@ -86,10 +86,10 @@ outgoing:
   # to the administrator
   useragent_suffix: ""
   # The maximum number of concurrent connections that may be established.
-  pool_connections: 100
+  pool_connections: 200
   # Allow the connection pool to maintain keep-alive connections below this
   # point.
-  pool_maxsize: 20
+  pool_maxsize: 40
   # See https://www.python-httpx.org/http2/
   enable_http2: true
   # uncomment below section if you want to use a custom server certificate

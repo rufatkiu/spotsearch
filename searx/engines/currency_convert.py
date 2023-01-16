@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
-"""Currency convert (DuckDuckGo)
+"""
+currency convert (DuckDuckGo)
 """
 
 import json
@@ -56,6 +56,7 @@ def response(resp):
             "conversion_rate": round(conversion_rate, 2),
             "source_url": source_url,
             "url": url,
+            "content": "",
         }
     )
     return results

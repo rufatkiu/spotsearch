@@ -165,6 +165,13 @@ default_theme = settings["ui"]["default_theme"]
 templates_path = settings["ui"]["templates_path"]
 themes = get_themes(templates_path)
 result_templates = get_result_templates(templates_path)
+favicons = []
+for indice, _name in enumerate(themes):
+    favicons.append([])
+    theme_img_path = os.path.join(settings["ui"]["static_path"], 'themes', _name, 'img', 'icons')
+    for (dirpath, dirnames, filenames) in os.walk(theme_img_path):
+        favicons[indice].extend(filenames)
+
 
 STATS_SORT_PARAMETERS = {
     "name": (False, "name", ""),
@@ -878,7 +885,9 @@ def search():
             settings['search']['languages'],
             fallback=request.preferences.get_value("language")
         ),
-        timeout_limit = request.form.get('timeout_limit', None)
+        timeout_limit = request.form.get('timeout_limit', None),
+        node_name=__get_node_name(),
+        favicons=favicons[themes.index('etheme')],
         # fmt: on
     )
 
