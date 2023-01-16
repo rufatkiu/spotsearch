@@ -17,6 +17,7 @@ from html import escape
 from io import StringIO
 import typing
 from typing import List, Dict, Iterable
+from datetime import datetime
 
 import urllib
 import urllib.parse
@@ -55,6 +56,7 @@ from searx import (
 )
 
 from searx import infopage
+from searx.version import VERSION_TAG
 from searx.data import ENGINE_DESCRIPTIONS
 from searx.results import Timing, UnresponsiveEngine
 from searx.settings_defaults import OUTPUT_FORMATS
@@ -493,6 +495,9 @@ def render(template_name: str, **kwargs):
     kwargs["enable_metrics"] = get_setting("general.enable_metrics")
     kwargs["get_setting"] = get_setting
     kwargs["get_pretty_url"] = get_pretty_url
+    kwargs['version'] = VERSION_TAG
+    kwargs['year'] = datetime.today().year
+    kwargs['repo_url'] = settings['brand']['git_url']
 
     # values from settings: donation_url
     donation_url = get_setting("general.donation_url")
