@@ -8,6 +8,8 @@ from urllib.parse import urlencode
 from searx.utils import match_language, extract_text
 import re
 from searx.network import get
+from searx import logger
+from lxml.html import fromstring
 
 # about
 about = {
@@ -154,9 +156,9 @@ def response(resp):
         if "n" in search_result:
             continue
 
-        title = extract_text(search_result.get("t"))
+        title = extract_text(fromstring(search_result.get("t")))
 
-        content = extract_text(search_result.get("a"))
+        content = extract_text(fromstring(search_result.get("a")))
 
         results.append({"title": title, "content": content, "url": search_result.get("u")})
     return results
