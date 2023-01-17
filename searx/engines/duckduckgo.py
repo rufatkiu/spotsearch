@@ -8,7 +8,6 @@ from urllib.parse import urlencode
 from searx.utils import match_language, extract_text
 import re
 from searx.network import get
-from searx import logger
 from lxml.html import fromstring
 
 # about
