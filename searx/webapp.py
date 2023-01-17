@@ -443,6 +443,7 @@ def get_client_settings():
     }
 
 
+# pylint: disable=too-many-statements
 def render(template_name: str, **kwargs):
 
     kwargs["client_settings"] = str(
