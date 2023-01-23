@@ -221,7 +221,7 @@ def response(resp):
                 content = " // ".join(content_parts)
                 length = item["duration"]
                 if length is not None:
-                    length = str(timedelta(milliseconds=length))                
+                    length = str(timedelta(milliseconds=length))
                 pub_date = item["date"]
                 if pub_date is not None:
                     pub_date = datetime.fromtimestamp(pub_date)
