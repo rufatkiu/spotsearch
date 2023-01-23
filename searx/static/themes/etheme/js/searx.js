@@ -26,7 +26,6 @@
     return {
         autocompleter: script.getAttribute('data-autocompleter') === 'true',
         method: script.getAttribute('data-method'),
-        translations: JSON.parse(script.getAttribute('data-translations'))
     };
 })(document);
 ;/**

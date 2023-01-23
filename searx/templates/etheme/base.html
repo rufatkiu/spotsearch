@@ -107,8 +107,7 @@
     {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js', v=version) }}"></script>{% endif %}
     <script src="{{ url_for('static', filename='js/searx.min.js', v=version) }}"
             data-method="{{ method or 'POST' }}"
-            data-autocompleter="{% if autocomplete %}true{% else %}false{% endif %}"
-            data-translations="{{ translations }}"></script>
+            data-autocompleter="{% if autocomplete %}true{% else %}false{% endif %}"></script>
     {% for script in scripts %}
     <script src="{{ url_for('static', filename=script, v=version) }}"></script>
     {% endfor %}
