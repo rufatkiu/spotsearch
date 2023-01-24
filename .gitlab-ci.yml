@@ -64,7 +64,6 @@ test:unit:
     - echo "$SSH_KNOWN_HOSTS" > $HOME/.ssh/known_hosts
     - chmod 600 ~/.ssh/id_ed25519
     - chmod 644 ~/.ssh/known_hosts ~/.ssh/id_ed25519.pub
-    - ssh $DOCKER_HOST "cd $PATH_STAGING"
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
     - echo "Deploying to ($SSH_USER@$BACKEND_HOST)" 
