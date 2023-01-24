@@ -1,3 +1,4 @@
+image: $CI_REGISTRY_IMAGE/env:latest
 
 stages:
  - check
@@ -9,14 +10,12 @@ services:
   - docker:20.10-dind 
 
 python:
-  image: $CI_REGISTRY_IMAGE/env:latest
   stage: check
   script:
     - ./manage test.black
     - ./manage test.pylint
 
 build:web:
-  image: $CI_REGISTRY_IMAGE/env:latest
   stage: build
   script:
     - ./manage node.env
@@ -48,7 +47,6 @@ build:docker:tags:
     - tags
 
 test:unit:
-  image: $CI_REGISTRY_IMAGE/env:latest
   stage: test
   script:
     - ./manage test.coverage
