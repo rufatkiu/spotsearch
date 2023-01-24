@@ -1,4 +1,3 @@
-image: $CI_REGISTRY_IMAGE/env:latest
 
 stages:
  - check
@@ -10,12 +9,14 @@ services:
   - docker:20.10-dind 
 
 python:
+  image: $CI_REGISTRY_IMAGE:master
   stage: check
   script:
     - ./manage test.black
     - ./manage test.pylint
 
 build:web:
+  image: $CI_REGISTRY_IMAGE:master
   stage: build
   script:
     - ./manage node.env
@@ -30,25 +31,24 @@ build:web:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker pull $CI_REGISTRY_IMAGE/env 
-    - docker tag $CI_REGISTRY_IMAGE/env base-env-image
     - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 build:docker:
   extends: .build:docker
+  only:
+    - branches
 
 build:docker:tags:
   extends: .build:docker
   script:
-    - docker pull $CI_REGISTRY_IMAGE/env 
-    - docker tag $CI_REGISTRY_IMAGE/env base-env-image
     - docker build --build-arg SEARXNG_GIT_VERSION="${CI_COMMIT_TAG}" -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   only:
     - tags
 
 test:unit:
+  image: $CI_REGISTRY_IMAGE:master
   stage: test
   script:
     - ./manage test.coverage

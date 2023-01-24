@@ -64,7 +64,7 @@ RUN su searxng -c "/usr/bin/python3 -m compileall -q searx" \
 # Keep these arguments at the end to prevent redundant layer rebuilds
 ARG LABEL_DATE=
 ARG GIT_URL=unknown
-ARG SEARXNG_GIT_VERSION=unknown
+ARG SEARXNG_GIT_VERSION=1.0.0
 ARG LABEL_VCS_REF=
 ARG LABEL_VCS_URL=
 
