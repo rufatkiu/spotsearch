@@ -6,7 +6,6 @@ import os
 import shlex
 import subprocess
 import logging
-from importlib.metadata import version
 
 # fallback values
 # if there is searx.version_frozen module, and it is not possible to get the git tag
