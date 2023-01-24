@@ -43,7 +43,7 @@ build:docker:tags:
   script:
     - docker pull $CI_REGISTRY_IMAGE/env 
     - docker tag $CI_REGISTRY_IMAGE/env base-env-image
-    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker build --build-arg SEARXNG_GIT_VERSION="${CI_COMMIT_TAG}" -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   only:
     - tags

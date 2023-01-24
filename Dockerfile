@@ -67,6 +67,9 @@ ARG GIT_URL=unknown
 ARG SEARXNG_GIT_VERSION=unknown
 ARG LABEL_VCS_REF=
 ARG LABEL_VCS_URL=
+
+ENV SPOT_VERSION=${SEARXNG_GIT_VERSION}
+
 LABEL maintainer="searxng <${GIT_URL}>" \
       description="A privacy-respecting, hackable metasearch engine." \
       version="${SEARXNG_GIT_VERSION}" \

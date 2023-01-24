@@ -74,9 +74,9 @@ def get_git_version():
 
 
 try:
-    vf = version("spot")
+    vf = os.environ["SPOT_VERSION"]
     VERSION_STRING = VERSION_TAG = vf
-except ImportError:
+except KeyError:
     try:
         try:
             VERSION_STRING, VERSION_TAG = get_git_version()
