@@ -7,6 +7,10 @@
 # BouRock, 2020
 # Caner Başaran <basaran.caner@gmail.com>, 2014-2016
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# 0xFFD <barann.afsarr@gmail.com>, 2022.
+# crazychicken1 <seymaomay1809@gmail.com>, 2022.
+# Kayra Uylar <k.uylar@outlook.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -101,7 +105,7 @@ msgstr "Farklı rastgele değerler üret"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
-msgstr "İstatistik işlevleri"
+msgstr "İstatistik fonksiyonları"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
@@ -189,9 +193,15 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Mümkünse HTTP bağlantıları HTTPS olarak yeniden yaz"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Sonsuz kaydırma"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Görsel bağlantısı okunamadı. Bu desteklenmeyen bir dosya uzantısı "
+"yüzünden olabilir. TinEye sadece JPEG, PNG, GIF, BMP, TIFF veya WebP "
+"uzantılı görselleri destekliyor."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -223,7 +233,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Kategori seçimine göre ara"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -236,6 +246,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "kişisel bilgi"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -245,15 +259,15 @@ msgstr ""
 
 #: searx/plugins/tracker_url_remover.py:27
 msgid "Tracker URL remover"
-msgstr "İzleyici URL'si kaldırıcısı"
+msgstr "Takip URL kaldırıcı"
 
 #: searx/plugins/tracker_url_remover.py:28
 msgid "Remove trackers arguments from the returned URL"
-msgstr "İzleyici bağımsız değişkenlerini döndürülen URL'den kaldır"
+msgstr "Takip parametrelerini URL'den kaldır"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr "Vim-like kısayol tuşları"
+msgstr "Vim benzeri kısayol tuşları"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
@@ -995,7 +1009,7 @@ msgstr "Sorun izleyici"
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr "Herkese açık örnekler"
+msgstr "Açık sunucular"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1175,25 +1189,21 @@ msgstr "Arama sonuçları"
 msgid "Try searching for:"
 msgstr "Aramaya çalışılan:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Aramayı başlat"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Yukarıya dön"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Aramayı temizle"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Önceki sayfa"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Temizle"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "istatistikler"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Ön sayfayı göster"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1217,18 +1227,15 @@ msgstr "Şu anda mevcut veri yok."
 msgid "Engines cannot retrieve results."
 msgstr "Motorlar sonuçları alamıyor."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Lütfen daha sonra tekrar deneyin veya başka bir searx örneği bulun."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Lütfen daha sonra tekrar deneyin veya başka bir SearXNG örneği bulun."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Üzgünüz!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1302,12 +1309,10 @@ msgstr "Çekenler"
 msgid "Number of Files"
 msgstr "Dosya Sayısı"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "görüntüyü göster"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "görüntüyü gizle"

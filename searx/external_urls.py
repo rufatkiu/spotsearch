@@ -4,13 +4,13 @@ from searx.data import EXTERNAL_URLS
 
 
 IMDB_PREFIX_TO_URL_ID = {
-    'tt': 'imdb_title',
-    'mn': 'imdb_name',
-    'ch': 'imdb_character',
-    'co': 'imdb_company',
-    'ev': 'imdb_event'
+    "tt": "imdb_title",
+    "mn": "imdb_name",
+    "ch": "imdb_character",
+    "co": "imdb_company",
+    "ev": "imdb_event",
 }
-HTTP_WIKIMEDIA_IMAGE = 'http://commons.wikimedia.org/wiki/Special:FilePath/'
+HTTP_WIKIMEDIA_IMAGE = "http://commons.wikimedia.org/wiki/Special:FilePath/"
 
 
 def get_imdb_url_id(imdb_item_id):
@@ -20,9 +20,9 @@ def get_imdb_url_id(imdb_item_id):
 
 def get_wikimedia_image_id(url):
     if url.startswith(HTTP_WIKIMEDIA_IMAGE):
-        return url[len(HTTP_WIKIMEDIA_IMAGE):]
-    if url.startswith('File:'):
-        return url[len('File:'):]
+        return url[len(HTTP_WIKIMEDIA_IMAGE) :]
+    if url.startswith("File:"):
+        return url[len("File:") :]
     return url
 
 
@@ -30,14 +30,14 @@ def get_external_url(url_id, item_id, alternative="default"):
     """Return an external URL or None if url_id is not found.
 
     url_id can take value from data/external_urls.json
-    The "imdb_id" value is automaticaly converted according to the item_id value.
+    The "imdb_id" value is automatically converted according to the item_id value.
 
     If item_id is None, the raw URL with the $1 is returned.
     """
     if item_id is not None:
-        if url_id == 'imdb_id':
+        if url_id == "imdb_id":
             url_id = get_imdb_url_id(item_id)
-        elif url_id == 'wikimedia_image':
+        elif url_id == "wikimedia_image":
             item_id = get_wikimedia_image_id(item_id)
 
     url_description = EXTERNAL_URLS.get(url_id)
@@ -45,17 +45,19 @@ def get_external_url(url_id, item_id, alternative="default"):
         url_template = url_description["urls"].get(alternative)
         if url_template is not None:
             if item_id is not None:
-                return url_template.replace('$1', item_id)
+                return url_template.replace("$1", item_id)
             else:
                 return url_template
     return None
 
 
-def get_earth_coordinates_url(latitude, longitude, osm_zoom, alternative='default'):
-    url = get_external_url('map', None, alternative)\
-        .replace('${latitude}', str(latitude))\
-        .replace('${longitude}', str(longitude))\
-        .replace('${zoom}', str(osm_zoom))
+def get_earth_coordinates_url(latitude, longitude, osm_zoom, alternative="default"):
+    url = (
+        get_external_url("map", None, alternative)
+        .replace("${latitude}", str(latitude))
+        .replace("${longitude}", str(longitude))
+        .replace("${zoom}", str(osm_zoom))
+    )
     return url
 
 

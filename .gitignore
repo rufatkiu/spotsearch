@@ -1,32 +1,23 @@
-# to sync with .dockerignore
-.coverage
-coverage/
-cache/
-.installed.cfg
-engines.cfg
-env
-searx-ve
-robot_log.html
-robot_output.xml
-robot_report.html
-test_basic/
-setup.cfg
+# to sync with .dockerignore & pyrightconfig.json
 
 *.pyc
 */*.pyc
 *~
 *.swp
+geckodriver.log
 
-/node_modules
+.coverage
+coverage/
 
-.tx/
-
+.nvm/
+cache/
 build/
 dist/
 local/
 gh-pages/
 *.egg-info/
 
-*.eggs
-.env
-geckodriver.log
+/package-lock.json
+/node_modules/
+
+.idea/

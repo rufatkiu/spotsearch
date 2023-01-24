@@ -16,7 +16,7 @@ along with searx. If not, see < http://www.gnu.org/licenses/ >.
 
 
 from searx.engines import command as command_engine
-from searx.testing import SearxTestCase
+from tests import SearxTestCase
 
 
 class TestCommandEngine(SearxTestCase):
@@ -114,7 +114,6 @@ INFO:werkzeug: * Debugger PIN: 299-578-362'''
                     'template': 'key-value.html',
                     'level': 'DEBUG',
                 },
-
             ],
             [
                 {
@@ -136,7 +135,6 @@ INFO:werkzeug: * Debugger PIN: 299-578-362'''
                     'level': 'INFO',
                 },
             ],
-
         ]
 
         for i in [0, 1]:
@@ -171,7 +169,7 @@ commit '''
             'commit': '\w{40}',
             'author': '[\w* ]* <\w*@?\w*\.?\w*>',
             'date': 'Date: .*',
-            'message': '\n\n.*$'
+            'message': '\n\n.*$',
         }
         expected_results = [
             {
@@ -195,7 +193,6 @@ commit '''
                 'message': '\n\nthird interesting message',
                 'template': 'key-value.html',
             },
-
         ]
 
         results = git_log_engine.search(''.encode('utf-8'), {'pageno': 1})

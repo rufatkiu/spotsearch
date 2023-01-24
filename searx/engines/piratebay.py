@@ -12,16 +12,16 @@ from searx.utils import get_torrent_size
 
 # about
 about = {
-    "website": 'https://thepiratebay.org',
-    "wikidata_id": 'Q22663',
-    "official_api_documentation": 'https://apibay.org/',
+    "website": "https://thepiratebay.org",
+    "wikidata_id": "Q22663",
+    "official_api_documentation": "https://apibay.org/",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 # engine dependent config
-categories = ["videos", "music", "files"]
+categories = ["files"]
 
 # search-url
 url = "https://thepiratebay.org/"
@@ -40,17 +40,14 @@ trackers = [
 ]
 
 # piratebay specific type-definitions
-search_types = {"files": "0",
-                "music": "100",
-                "videos": "200"}
+search_types = {"files": "0", "music": "100", "videos": "200"}
 
 
 # do search-request
 def request(query, params):
     search_type = search_types.get(params["category"], "0")
 
-    params["url"] = search_url.format(search_term=quote(query),
-                                      search_type=search_type)
+    params["url"] = search_url.format(search_term=quote(query), search_type=search_type)
 
     return params
 
@@ -68,8 +65,9 @@ def response(resp):
     # parse results
     for result in search_res:
         link = url + "description.php?id=" + result["id"]
-        magnetlink = "magnet:?xt=urn:btih:" + result["info_hash"] + "&dn=" + result["name"]\
-                     + "&tr=" + "&tr=".join(trackers)
+        magnetlink = (
+            "magnet:?xt=urn:btih:" + result["info_hash"] + "&dn=" + result["name"] + "&tr=" + "&tr=".join(trackers)
+        )
 
         params = {
             "url": link,
@@ -77,20 +75,20 @@ def response(resp):
             "seed": result["seeders"],
             "leech": result["leechers"],
             "magnetlink": magnetlink,
-            "template": "torrent.html"
+            "template": "torrent.html",
         }
 
         # extract and convert creation date
         try:
             date = datetime.fromtimestamp(float(result["added"]))
-            params['publishedDate'] = date
+            params["publishedDate"] = date
         except:
             pass
 
         # let's try to calculate the torrent size
         try:
             filesize = get_torrent_size(result["size"], "B")
-            params['filesize'] = filesize
+            params["filesize"] = filesize
         except:
             pass
 

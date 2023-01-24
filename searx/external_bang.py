@@ -1,18 +1,21 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+from urllib.parse import quote_plus
 from searx.data import EXTERNAL_BANGS
+
+LEAF_KEY = chr(16)
 
 
 def get_node(external_bangs_db, bang):
-    node = external_bangs_db['trie']
-    after = ''
-    before = ''
+    node = external_bangs_db["trie"]
+    after = ""
+    before = ""
     for bang_letter in bang:
         after += bang_letter
         if after in node and isinstance(node, dict):
             node = node[after]
             before += after
-            after = ''
+            after = ""
     return node, before, after
 
 
@@ -21,13 +24,13 @@ def get_bang_definition_and_ac(external_bangs_db, bang):
 
     bang_definition = None
     bang_ac_list = []
-    if after != '':
+    if after != "":
         for k in node:
             if k.startswith(after):
                 bang_ac_list.append(before + k)
     elif isinstance(node, dict):
-        bang_definition = node.get('*')
-        bang_ac_list = [before + k for k in node.keys() if k != '*']
+        bang_definition = node.get(LEAF_KEY)
+        bang_ac_list = [before + k for k in node.keys() if k != LEAF_KEY]
     elif isinstance(node, str):
         bang_definition = node
         bang_ac_list = []
@@ -37,15 +40,14 @@ def get_bang_definition_and_ac(external_bangs_db, bang):
 
 def resolve_bang_definition(bang_definition, query):
     url, rank = bang_definition.split(chr(1))
-    url = url.replace(chr(2), query)
-    if url.startswith('//'):
-        url = 'https:' + url
+    url = url.replace(chr(2), quote_plus(query))
+    if url.startswith("//"):
+        url = "https:" + url
     rank = int(rank) if len(rank) > 0 else 0
     return (url, rank)
 
 
 def get_bang_definition_and_autocomplete(bang, external_bangs_db=None):
-    global EXTERNAL_BANGS
     if external_bangs_db is None:
         external_bangs_db = EXTERNAL_BANGS
 
@@ -60,7 +62,7 @@ def get_bang_definition_and_autocomplete(bang, external_bangs_db=None):
 
         current_bang_definition, current_bang_ac_list = get_bang_definition_and_ac(external_bangs_db, bang_ac)
         if current_bang_definition:
-            _, order = resolve_bang_definition(current_bang_definition, '')
+            _, order = resolve_bang_definition(current_bang_definition, "")
             new_autocomplete.append((bang_ac, order))
         for new_bang in current_bang_ac_list:
             if new_bang not in done and new_bang not in current:
@@ -78,12 +80,14 @@ def get_bang_url(search_query, external_bangs_db=None):
     :param search_query: This is a search_query object which contains preferences and the submitted queries.
     :return: None if the bang was invalid, else a string of the redirect url.
     """
-    global EXTERNAL_BANGS
+    ret_val = None
+
     if external_bangs_db is None:
         external_bangs_db = EXTERNAL_BANGS
 
     if search_query.external_bang:
         bang_definition, _ = get_bang_definition_and_ac(external_bangs_db, search_query.external_bang)
-        return resolve_bang_definition(bang_definition, search_query.query)[0] if bang_definition else None
+        if bang_definition and isinstance(bang_definition, str):
+            ret_val = resolve_bang_definition(bang_definition, search_query.query)[0]
 
-    return None
+    return ret_val

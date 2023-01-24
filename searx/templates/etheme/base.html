@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" {% if rtl %} dir="rtl" {% endif %} class="{{ etheme_style }}">
 <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="spot ecloud global, powered by searx" />
+    <meta name="description" content="spot.murena.io, powered by searx" />
     <meta name="keywords" content="spot, ecloud, searx, search, search engine, metasearch, meta search" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="generator" content="searx/{{ version }}">
@@ -107,8 +107,7 @@
     {% if autocomplete %}<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js', v=version) }}"></script>{% endif %}
     <script src="{{ url_for('static', filename='js/searx.min.js', v=version) }}"
             data-method="{{ method or 'POST' }}"
-            data-autocompleter="{% if autocomplete %}true{% else %}false{% endif %}"
-            data-translations="{{ translations }}"></script>
+            data-autocompleter="{% if autocomplete %}true{% else %}false{% endif %}"></script>
     {% for script in scripts %}
     <script src="{{ url_for('static', filename=script, v=version) }}"></script>
     {% endfor %}

@@ -1158,6 +1158,9 @@ input:checked + .slider:before {
     max-height: 140px;
   }
 }
+.highlight {
+  font-weight: bold;
+}
 #preferences h1,
 #preferences .nav-tabs,
 #preferences #notice {

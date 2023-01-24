@@ -1,2 +1,12 @@
-searx/static/css/bootstrap.min.css -diff
-searx/static/js/bootstrap.min.js -diff
+*.gif -diff
+*.png -diff
+*.min.css -diff
+*.min.js -diff
+*.css.map -diff
+*.js.map -diff
+*.eot -diff
+*.svg -diff
+*.ttf -diff
+*.woff -diff
+*.woff2 -diff
+messages.mo -diff

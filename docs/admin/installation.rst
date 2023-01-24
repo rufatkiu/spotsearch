@@ -10,16 +10,16 @@ Installation
 - :ref:`installation scripts`
 - :ref:`installation basic`
 
-The :ref:`installation basic` is good enough for intranet usage and it is a
-excellent illustration of *how a searx instance is build up*.  If you place your
-instance public to the internet you should really consider to install a
-:ref:`filtron reverse proxy <filtron.sh>` and for privacy a :ref:`result proxy
-<morty.sh>` is mandatory.
+The :ref:`installation basic` is an excellent illustration of *how a SearXNG
+instance is build up* (see :ref:`architecture uWSGI`).  If you do not have any
+special preferences, its recommend to use the :ref:`installation docker` or the
+:ref:`installation scripts`.
 
-Therefore, if you do not have any special preferences, its recommend to use the
-:ref:`installation docker` or the `Installation scripts`_ from our :ref:`tooling
-box <toolboxing>` as described below.
+.. attention::
 
+   SearXNG is growing rapidly, you should regularly read our :ref:`migrate and
+   stay tuned` section.  If you want to upgrade an existing instance or migrate
+   from searx to SearXNG, you should read this section first!
 .. _installation scripts:
 
 Installation scripts

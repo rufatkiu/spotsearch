@@ -8,57 +8,58 @@ from urllib.parse import urlencode
 
 # about
 about = {
-    "website": 'https://www.wolframalpha.com',
-    "wikidata_id": 'Q207006',
-    "official_api_documentation": 'https://products.wolframalpha.com/api/',
+    "website": "https://www.wolframalpha.com",
+    "wikidata_id": "Q207006",
+    "official_api_documentation": "https://products.wolframalpha.com/api/",
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'XML',
+    "results": "XML",
 }
 
 # search-url
-search_url = 'https://api.wolframalpha.com/v2/query?appid={api_key}&{query}'
-site_url = 'https://www.wolframalpha.com/input/?{query}'
-api_key = ''  # defined in settings.yml
+search_url = "https://api.wolframalpha.com/v2/query?appid={api_key}&{query}"
+site_url = "https://www.wolframalpha.com/input/?{query}"
+api_key = ""  # defined in settings.yml
 
 # xpath variables
 failure_xpath = '/queryresult[attribute::success="false"]'
 input_xpath = '//pod[starts-with(attribute::id, "Input")]/subpod/plaintext'
-pods_xpath = '//pod'
-subpods_xpath = './subpod'
-pod_primary_xpath = './@primary'
-pod_id_xpath = './@id'
-pod_title_xpath = './@title'
-plaintext_xpath = './plaintext'
-image_xpath = './img'
-img_src_xpath = './@src'
-img_alt_xpath = './@alt'
+pods_xpath = "//pod"
+subpods_xpath = "./subpod"
+pod_primary_xpath = "./@primary"
+pod_id_xpath = "./@id"
+pod_title_xpath = "./@title"
+plaintext_xpath = "./plaintext"
+image_xpath = "./img"
+img_src_xpath = "./@src"
+img_alt_xpath = "./@alt"
 
 # pods to display as image in infobox
 # this pods do return a plaintext, but they look better and are more useful as images
-image_pods = {'VisualRepresentation',
-              'Illustration'}
+image_pods = {"VisualRepresentation", "Illustration"}
 
 
 # do search-request
 def request(query, params):
-    params['url'] = search_url.format(query=urlencode({'input': query}), api_key=api_key)
-    params['headers']['Referer'] = site_url.format(query=urlencode({'i': query}))
+    params["url"] = search_url.format(query=urlencode({"input": query}), api_key=api_key)
+    params["headers"]["Referer"] = site_url.format(query=urlencode({"i": query}))
 
     return params
 
 
 # replace private user area characters to make text legible
 def replace_pua_chars(text):
-    pua_chars = {'\uf522': '\u2192',  # rigth arrow
-                 '\uf7b1': '\u2115',  # set of natural numbers
-                 '\uf7b4': '\u211a',  # set of rational numbers
-                 '\uf7b5': '\u211d',  # set of real numbers
-                 '\uf7bd': '\u2124',  # set of integer numbers
-                 '\uf74c': 'd',       # differential
-                 '\uf74d': '\u212f',  # euler's number
-                 '\uf74e': 'i',       # imaginary number
-                 '\uf7d9': '='}       # equals sign
+    pua_chars = {
+        "\uf522": "\u2192",  # right arrow
+        "\uf7b1": "\u2115",  # set of natural numbers
+        "\uf7b4": "\u211a",  # set of rational numbers
+        "\uf7b5": "\u211d",  # set of real numbers
+        "\uf7bd": "\u2124",  # set of integer numbers
+        "\uf74c": "d",  # differential
+        "\uf74d": "\u212f",  # euler's number
+        "\uf74e": "i",  # imaginary number
+        "\uf7d9": "=",
+    }  # equals sign
 
     for k, v in pua_chars.items():
         text = text.replace(k, v)
@@ -109,26 +110,40 @@ def response(resp):
                     infobox_title = content
 
                 content = replace_pua_chars(content)
-                result_chunks.append({'label': pod_title, 'value': content})
+                result_chunks.append({"label": pod_title, "value": content})
 
             elif image:
-                result_chunks.append({'label': pod_title,
-                                      'image': {'src': image[0].xpath(img_src_xpath)[0],
-                                                'alt': image[0].xpath(img_alt_xpath)[0]}})
+                result_chunks.append(
+                    {
+                        "label": pod_title,
+                        "image": {
+                            "src": image[0].xpath(img_src_xpath)[0],
+                            "alt": image[0].xpath(img_alt_xpath)[0],
+                        },
+                    }
+                )
 
     if not result_chunks:
         return []
 
-    title = "Wolfram|Alpha (%s)" % infobox_title
+    title = "Wolfram Alpha (%s)" % infobox_title
 
     # append infobox
-    results.append({'infobox': infobox_title,
-                    'attributes': result_chunks,
-                    'urls': [{'title': 'Wolfram|Alpha', 'url': resp.request.headers['Referer']}]})
+    results.append(
+        {
+            "infobox": infobox_title,
+            "attributes": result_chunks,
+            "urls": [{"title": "Wolfram|Alpha", "url": resp.request.headers["Referer"]}],
+        }
+    )
 
     # append link to site
-    results.append({'url': resp.request.headers['Referer'],
-                    'title': title,
-                    'content': result_content})
+    results.append(
+        {
+            "url": resp.request.headers["Referer"],
+            "title": title,
+            "content": result_content,
+        }
+    )
 
     return results

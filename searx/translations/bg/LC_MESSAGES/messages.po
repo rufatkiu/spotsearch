@@ -5,6 +5,9 @@
 # Translators:
 # ubone <van_ds_ff@mail.bg>, 2015
 # ubone <van_ds_ff@mail.bg>, 2016-2017
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# NxOne14 <kiril2315@gmail.com>, 2022.
+# vynaaa <stefanovpower@abv.bg>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -71,11 +74,11 @@ msgstr ""
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
-msgstr "Неправилни настройки, моля проверете предпочитанията си."
+msgstr "Неправилни настройки, моля проверете предпочитанията си"
 
 #: searx/webapp.py:524
 msgid "Invalid settings"
-msgstr ""
+msgstr "невалидни настройки"
 
 #: searx/webapp.py:589 searx/webapp.py:659
 msgid "search error"
@@ -91,19 +94,19 @@ msgstr "преди {hours} час(ове), {minutes} минута(минути)"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
-msgstr ""
+msgstr "Генератор на произволни стойности"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr ""
+msgstr "Генерирайте различни произволни стойности"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
-msgstr ""
+msgstr "Функции за статистика"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
-msgstr ""
+msgstr "Изчислете {functions} на аргументите"
 
 #: searx/engines/__init__.py:251
 msgid "Engine time (sec)"
@@ -132,14 +135,69 @@ msgstr "Грешки"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Вземете упътвания"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (ОСТАРЯЛО)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
+msgstr "Този запис е заменен от"
+
+#: searx/engines/qwant.py:219
+msgid "Channel"
+msgstr "Канал"
+
+#: searx/engines/semantic_scholar.py:81
+msgid ""
+"{numCitations} citations from the year {firstCitationVelocityYear} to "
+"{lastCitationVelocityYear}"
+msgstr ""
+"{numCitations} цитати от годината {firstCitationVelocityYear} до "
+"{lastCitationVelocityYear}"
+
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"URL адресът на изображението не можа да бъде прочетен. Това може да се "
+"дължи на неподдържан файлов формат. TinEye поддържа само изображения, "
+"които са JPEG, PNG, GIF, BMP, TIFF или WebP."
+
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Изображението е твърде просто за намиране на съвпадения. TinEye изисква "
+"основно ниво на визуална детайлност за успешно идентифициране на "
+"съвпадения."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Снимката не може да бъде смъкната."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Сутрин"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Обяд"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Вечер"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Нощ"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
 msgstr ""
 
 #: searx/engines/pubmed.py:78
@@ -187,23 +245,31 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Поправи HTTP връзки на HTTPS, ако е възможно"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Списък без страници."
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "хеш извлечение"
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Автоматично зареждане на следващата страница."
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Замяна на името на хоста"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"Пренапишете имената на хостове на резултатите или премахнете резултатите "
+"въз основа на името на хоста"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr ""
+msgstr "Отворен достъп DOI пренаписване"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
 "Avoid paywalls by redirecting to open-access versions of publications "
 "when available"
 msgstr ""
+"Избягвайте заплатите, като пренасочвате към версии с отворен достъп на "
+"публикации, когато са налични"
 
 #: searx/plugins/rest_api.py:8
 msgid "Rest API"
@@ -217,7 +283,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Търси при избор на категория"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -230,6 +296,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr ""
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -242,16 +312,45 @@ msgstr ""
 #: searx/plugins/tracker_url_remover.py:28
 msgid "Remove trackers arguments from the returned URL"
 msgstr ""
+"Тази добавка проверява дали адресът на заявката е изходен възел на TOR и "
+"осведомява потребителя ако е - като check.torproject.org, но от searxng."
+
+#: searx/plugins/tor_check.py:62
+msgid ""
+"The TOR exit node list (https://check.torproject.org/exit-addresses) is "
+"unreachable."
+msgstr ""
+"Листа с изходните възли на TOR (https://check.torproject.org/exit-"
+"addresses) е недостижим."
+
+#: searx/plugins/tor_check.py:78
+msgid "You are using TOR. Your IP address seems to be: {ip_address}."
+msgstr "Използвате TOR. Вашият IP адрес изглежда е: {ip_address}."
+
+#: searx/plugins/tor_check.py:84
+msgid "You are not using TOR. Your IP address seems to be: {ip_address}."
+msgstr "Не използвате TOR. Вашият IP адрес изглежда е: {ip_address}."
+
+#: searx/plugins/tracker_url_remover.py:29
+msgid "Tracker URL remover"
+msgstr "Премахвач на URL тракери"
+
+#: searx/plugins/tracker_url_remover.py:30
+msgid "Remove trackers arguments from the returned URL"
+msgstr "Премахни следящите аргументи от върнатия URL"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr ""
+msgstr "Vim наподобяващи клавишни комбинации"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
 "Navigate search results with Vim-like hotkeys (JavaScript required). "
 "Press \"h\" key on main or result page to get help."
 msgstr ""
+"Навигирайте резултатите от търсенето с Vim-подобни горещи клавиши "
+"(изисква се JavaScript). Натиснете клавиша \"h\" на главната или "
+"резултатната страница, за да получите помощ."
 
 #: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
 msgid "About"
@@ -366,13 +465,13 @@ msgstr ""
 #: searx/templates/etheme/404.html:7 searx/templates/oscar/404.html:4
 #: searx/templates/simple/404.html:4
 msgid "Page not found"
-msgstr "Страницата не е намерена."
+msgstr "Страницата не е намерена"
 
 #: searx/templates/etheme/404.html:10 searx/templates/oscar/404.html:6
 #: searx/templates/simple/404.html:6
 #, python-format
 msgid "Go to %(search_page)s."
-msgstr ""
+msgstr "Отиди на %(search_page)s."
 
 #: searx/templates/etheme/404.html:10 searx/templates/oscar/404.html:6
 #: searx/templates/simple/404.html:6
@@ -1049,7 +1148,7 @@ msgstr ""
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
 msgid "Open Access DOI resolver"
-msgstr ""
+msgstr "Дигитален идентификатор на обекти с отворен достъп"
 
 #: searx/templates/oscar/preferences.html:164
 #: searx/templates/simple/preferences.html:105
@@ -1057,14 +1156,16 @@ msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
 msgstr ""
+"Пренасочване към версий на публикации с отворен достъп, когато са "
+"достъпни (Изисква допълнение)"
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "Жетони на търсачката"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
-msgstr ""
+msgstr "Жетони за достъп до частни търсачки"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
@@ -1096,7 +1197,7 @@ msgstr ""
 #: searx/templates/oscar/time-range.html:2
 #: searx/templates/simple/preferences.html:125
 msgid "Time range"
-msgstr ""
+msgstr "Времева зона"
 
 #: searx/templates/oscar/preferences.html:223
 #: searx/templates/oscar/preferences.html:227
@@ -1108,7 +1209,7 @@ msgstr "Средно време"
 #: searx/templates/oscar/preferences.html:226
 #: searx/templates/simple/preferences.html:127
 msgid "Max time"
-msgstr "Макс. време"
+msgstr "Максимално време"
 
 #: searx/templates/oscar/preferences.html:314
 msgid "Name"
@@ -1130,7 +1231,7 @@ msgstr "Стойност"
 
 #: searx/templates/oscar/results.html:32 searx/templates/simple/results.html:45
 msgid "Engines cannot retrieve results"
-msgstr ""
+msgstr "Търсачките не можаха да намерят резултати"
 
 #: searx/templates/oscar/results.html:69
 msgid "Links"
@@ -1155,27 +1256,23 @@ msgstr "Резултати от търсенето"
 #: searx/templates/oscar/results.html:100
 #: searx/templates/simple/results.html:107
 msgid "Try searching for:"
-msgstr ""
+msgstr "Пробвайте да потърсите:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Започни търсене"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Обратно към началото"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr ""
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Предишна страница"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "статистики"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Покажи начална страница"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1194,23 +1291,115 @@ msgstr "Изглежда използвате searx за първи път."
 msgid "There is currently no data available. "
 msgstr "Няма налична достъпна информация."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Резултати"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Брой резултати"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Общо"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Обработка"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Предупреждения"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Грешки и изключения"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Изключение"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Съобщение"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Процент"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Параметър"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Име на файла"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Функция"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Код"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Проверител"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Неуспешен тест"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Коментар (и)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "По всяко време"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Последен ден"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Миналата седмица"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Миналия месец"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Миналата година"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Информация!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "В момента няма налични бисквитки."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
-msgstr ""
+msgstr "Търсачките не могат да извлекат резултати."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr ""
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Моля, опитайте отново по-късно или намерете друг сървър SearXNG."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Съжалявам!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1284,12 +1473,10 @@ msgstr "Лийчър"
 msgid "Number of Files"
 msgstr "Брой на Файлове"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "покажи видео"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "скрий видеото"

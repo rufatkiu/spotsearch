@@ -10,10 +10,10 @@ answerers_dir = dirname(realpath(__file__))
 def load_answerers():
     answerers = []
     for filename in listdir(answerers_dir):
-        if not isdir(join(answerers_dir, filename)) or filename.startswith('_'):
+        if not isdir(join(answerers_dir, filename)) or filename.startswith("_"):
             continue
-        module = load_module('answerer.py', join(answerers_dir, filename))
-        if not hasattr(module, 'keywords') or not isinstance(module.keywords, tuple) or not len(module.keywords):
+        module = load_module("answerer.py", join(answerers_dir, filename))
+        if not hasattr(module, "keywords") or not isinstance(module.keywords, tuple) or not len(module.keywords):
             exit(2)
         answerers.append(module)
     return answerers

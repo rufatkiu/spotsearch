@@ -4,6 +4,8 @@
 #
 # Translators:
 # Joseph Nuthalapati <njoseph@thoughtworks.com>, 2018
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# networkneil <shankyneil1@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -78,7 +80,7 @@ msgstr "చెల్లని అమరికలు"
 
 #: searx/webapp.py:589 searx/webapp.py:659
 msgid "search error"
-msgstr "శోధనలో దోషము"
+msgstr "శోధనలో లోపము"
 
 #: searx/webapp.py:711
 msgid "{minutes} minute(s) ago"
@@ -86,15 +88,15 @@ msgstr "{minutes} నిమిషము(ల) క్రిందట"
 
 #: searx/webapp.py:713
 msgid "{hours} hour(s), {minutes} minute(s) ago"
-msgstr ""
+msgstr "{hours} గంట(లు), {minutes} నిమిషం(లు) క్రితం"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
-msgstr ""
+msgstr "యాదృచ్ఛిక విలువ ఉత్పత్తిదారు"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr ""
+msgstr "విభిన్న యాదృచ్ఛిక విలువలను రూపొందించండి"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
@@ -102,7 +104,7 @@ msgstr "సాంఖ్యకశాస్త్ర ప్రమేయాలు"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
-msgstr ""
+msgstr "ఆర్గ్యుమెంట్‌ల {functions} గణించండి"
 
 #: searx/engines/__init__.py:251
 msgid "Engine time (sec)"
@@ -131,14 +133,24 @@ msgstr "దోషములు"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "దిశలను పొందండి"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (వాడుకలో లేదు)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
+msgstr "దీని ద్వారా ఈ ఎంట్రీ భర్తీ చేయబడింది"
+
+#: searx/engines/qwant.py:219
+msgid "Channel"
+msgstr "ఛానెల్"
+
+#: searx/engines/semantic_scholar.py:81
+msgid ""
+"{numCitations} citations from the year {firstCitationVelocityYear} to "
+"{lastCitationVelocityYear}"
 msgstr ""
 
 #: searx/engines/pubmed.py:78
@@ -186,17 +198,55 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr ""
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
 msgstr ""
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
+#: searx/engines/wttr.py:101
+msgid "Morning"
 msgstr ""
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr ""
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr ""
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr ""
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr ""
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "స్ట్రింగ్‌లను విభిన్న హాష్ డైజెస్ట్‌లుగా మారుస్తుంది."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "హాష్ డైజెస్ట్"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "హోస్ట్ పేరు భర్తీ"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr ""
+"ఫలితాల హోస్ట్ పేర్లను తిరిగి వ్రాయండి లేదా హోస్ట్ పేరు ఆధారంగా ఫలితాలను "
+"తీసివేయండి"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr ""
+msgstr "ఓపెన్ యాక్సెస్ DOI రీరైట్"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -215,40 +265,56 @@ msgstr ""
 #: searx/plugins/search_on_category_select.py:18
 msgid "Search on category select"
 msgstr ""
+"అందుబాటులో ఉన్నప్పుడు ప్రచురణల యొక్క ఓపెన్-యాక్సెస్ వెర్షన్‌లకు దారి "
+"మళ్లించడం ద్వారా పేవాల్‌లను నివారించండి"
 
 #: searx/plugins/search_on_category_select.py:19
+msgid "Search on category select"
+msgstr "వర్గం ఎంపికపై శోధించండి"
+
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
 msgstr ""
+"వర్గం ఎంపిక చేయబడితే వెంటనే శోధనను నిర్వహించండి. బహుళ వర్గాలను "
+"ఎంచుకోవడానికి నిలిపివేయండి. (జావాస్క్రిప్ట్ అవసరం)"
 
 #: searx/plugins/self_info.py:19
 msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr ""
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
 msgstr ""
+"ప్రశ్న \"ip\" అయితే మీ IPని మరియు ప్రశ్నలో \"యూజర్ ఏజెంట్\" ఉంటే మీ యూజర్"
+" ఏజెంట్‌ని ప్రదర్శిస్తుంది."
 
 #: searx/plugins/tracker_url_remover.py:27
 msgid "Tracker URL remover"
-msgstr ""
+msgstr "ట్రాకర్ URL రిమూవర్"
 
 #: searx/plugins/tracker_url_remover.py:28
 msgid "Remove trackers arguments from the returned URL"
-msgstr ""
+msgstr "తిరిగి వచ్చిన URL నుండి ట్రాకర్స్ ఆర్గ్యుమెంట్‌లను తీసివేయండి"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
-msgstr ""
+msgstr "Vim లాంటి హాట్‌కీలు"
 
 #: searx/plugins/vim_hotkeys.py:4
 msgid ""
 "Navigate search results with Vim-like hotkeys (JavaScript required). "
 "Press \"h\" key on main or result page to get help."
 msgstr ""
+"Vim లాంటి హాట్‌కీలతో శోధన ఫలితాలను నావిగేట్ చేయండి (జావాస్క్రిప్ట్ "
+"అవసరం). సహాయం పొందడానికి ప్రధాన లేదా ఫలితాల పేజీలో \"h\" కీని నొక్కండి."
 
 #: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
 msgid "About"
@@ -962,18 +1028,18 @@ msgstr ""
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "సోర్స్ కోడ్"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "ఇష్యూ ట్రాకర్"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "పబ్లిక్ ఇన్స్తంచెస్"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1040,7 +1106,7 @@ msgstr ""
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
 msgid "Open Access DOI resolver"
-msgstr ""
+msgstr "యాక్సెస్ DOI పరిష్కరిణిని తెరవండి"
 
 #: searx/templates/oscar/preferences.html:164
 #: searx/templates/simple/preferences.html:105
@@ -1048,22 +1114,109 @@ msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
 msgstr ""
+"అందుబాటులో ఉన్నప్పుడు ప్రచురణల యొక్క ఓపెన్-యాక్సెస్ వెర్షన్‌లకు దారి "
+"మళ్లించండి (ప్లగ్ఇన్ అవసరం)"
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "ఇంజిన్ టోకెన్లు"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
+msgstr "ప్రైవేట్ ఇంజిన్ల కోసం యాక్సెస్ టోకెన్లు"
+
+#: searx/templates/simple/preferences.html:179
+msgid "User interface"
+msgstr "వినియోగ మార్గము"
+
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "వినిమయసీమ భాష"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "వినిమయసీమ యొక్క భాషను మార్చు"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "థీమ్"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change SearXNG layout"
+msgstr "SearXNG లేఅవుట్‌ని మార్చండి"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
+msgstr "థీమ్ శైలి"
+
+#: searx/templates/simple/preferences.html:214
+msgid "Choose auto to follow your browser settings"
+msgstr "మీ బ్రౌజర్ సెట్టింగ్‌లను అనుసరించడానికి ఆటో ఎంచుకోండి"
+
+#: searx/templates/simple/preferences.html:217
+msgid "Center Alignment"
+msgstr "మధ్య అమరిక"
+
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "పై"
+
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "ఆఫ్"
+
+#: searx/templates/simple/preferences.html:224
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr "పేజీ మధ్యలో ఫలితాలను ప్రదర్శిస్తుంది (ఆస్కార్ లేఅవుట్)."
+
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "కొత్త ట్యాబ్‌లలో ఫలితాలు"
+
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "కొత్త బ్రౌజర్ ట్యాబ్‌లలో ఫలితాల లింక్‌లను తెరవండి"
+
+#: searx/templates/simple/preferences.html:241
+msgid "Infinite scroll"
+msgstr "అనంతమైన స్క్రోల్"
+
+#: searx/templates/simple/preferences.html:248
+msgid "Automatically load next page when scrolling to bottom of current page"
+msgstr ""
+"ప్రస్తుత పేజీ దిగువకు స్క్రోల్ చేస్తున్నప్పుడు తదుపరి పేజీని స్వయంచాలకంగా"
+" లోడ్ చేయండి"
+
+#: searx/templates/simple/preferences.html:254
+msgid "Privacy"
+msgstr "ఆంతరంగికత"
+
+#: searx/templates/simple/preferences.html:257
+msgid "HTTP Method"
+msgstr "HTTP పద్ధతి"
+
+#: searx/templates/simple/preferences.html:264
+msgid ""
+"Change how forms are submitted, <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
 msgstr ""
+"ప్రారంభించబడినప్పుడు, ఫలిత పేజీ యొక్క శీర్షిక మీ ప్రశ్నను కలిగి ఉంటుంది. "
+"మీ బ్రౌజర్ ఈ శీర్షికను రికార్డ్ చేయగలదు"
 
 #: searx/templates/oscar/preferences.html:203
 msgid "Disable all"
 msgstr ""
+"ఈ ట్యాబ్ శోధన ఫలితాల కోసం చూపబడదు, కానీ మీరు ఇక్కడ జాబితా చేయబడిన "
+"ఇంజిన్‌లను బ్యాంగ్స్ ద్వారా శోధించవచ్చు."
 
 #: searx/templates/oscar/preferences.html:218
 #: searx/templates/oscar/preferences.html:232
@@ -1148,25 +1301,21 @@ msgstr ""
 msgid "Try searching for:"
 msgstr "దీనికొరకు శోధించండి:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "శోధన ప్రారంభించు"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "తిరిగి పైకి"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr ""
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "ముందు పేజి"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "స్థితి వివరణ లెక్కలు"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "మొదటి పేజీని ప్రదర్శించండి"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1190,35 +1339,34 @@ msgstr ""
 msgid "Engines cannot retrieve results."
 msgstr "యంత్రాలు ఫలితాలను రాబట్టలేకపోయాయి."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr ""
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "దయచేసి, తర్వాత మళ్లీ ప్రయత్నించండి లేదా మరొక SearXNG ఇన్స్తంచె కనుగొనండి."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "క్షమించండి!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
 msgstr ""
+"మేము ఏ ఫలితాలను కనుగొనలేదు. దయచేసి మరొక ప్రశ్నను ఉపయోగించండి లేదా మరిన్ని"
+" వర్గాల్లో శోధించండి."
 
 #: searx/templates/oscar/result_templates/default.html:7
 #: searx/templates/oscar/result_templates/files.html:7
 #: searx/templates/oscar/result_templates/files.html:10
 #: searx/templates/simple/result_templates/default.html:6
 msgid "show media"
-msgstr ""
+msgstr "మీడియా చూపించు"
 
 #: searx/templates/oscar/result_templates/default.html:7
 #: searx/templates/oscar/result_templates/files.html:7
 #: searx/templates/simple/result_templates/default.html:6
 msgid "hide media"
-msgstr ""
+msgstr "మీడియాను దాచండి"
 
 #: searx/templates/oscar/result_templates/files.html:33
 #: searx/templates/oscar/result_templates/videos.html:19
@@ -1243,7 +1391,7 @@ msgstr ""
 
 #: searx/templates/oscar/result_templates/images.html:30
 msgid "View source"
-msgstr ""
+msgstr "మూలాన్ని వీక్షించండి"
 
 #: searx/templates/oscar/result_templates/map.html:26
 #: searx/templates/simple/result_templates/map.html:11
@@ -1273,12 +1421,10 @@ msgstr ""
 msgid "Number of Files"
 msgstr "ఫైళ్ళ సంఖ్య"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "వీడియో చూపించు"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "వీడియోను దాచిపెట్టు"

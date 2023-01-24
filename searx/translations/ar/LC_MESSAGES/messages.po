@@ -6,6 +6,10 @@
 # ButterflyOfFire ButterflyOfFire, 2018
 # ButterflyOfFire, 2018
 # d506c013dc1b502e7a53f91ebcbf8f29_985b4b3, 2017-2018
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# ken kailer <kenkailer@yahoo.com>, 2022.
+# George Kashkosh <kash.george@gmail.com>, 2022.
+# Droid <droidpy587@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -29,7 +33,7 @@ msgstr "ملفات"
 
 #: searx/webapp.py:192
 msgid "general"
-msgstr "الرئيسية"
+msgstr "عامة"
 
 #: searx/webapp.py:193
 msgid "music"
@@ -37,7 +41,7 @@ msgstr "موسيقى"
 
 #: searx/webapp.py:194
 msgid "social media"
-msgstr "شبكات التواصل الإجتماعي"
+msgstr "الشبكات التواصل الإجتماعية"
 
 #: searx/webapp.py:195
 msgid "images"
@@ -49,7 +53,7 @@ msgstr "فيديوهات"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "علوم و تكنولوجيا"
+msgstr "علوم التكنولوجيا"
 
 #: searx/webapp.py:198
 msgid "news"
@@ -57,7 +61,7 @@ msgstr "أخبار"
 
 #: searx/webapp.py:199
 msgid "map"
-msgstr "خرائط"
+msgstr "خريطة"
 
 #: searx/webapp.py:200
 msgid "onions"
@@ -65,7 +69,7 @@ msgstr ""
 
 #: searx/webapp.py:201
 msgid "science"
-msgstr "علوم"
+msgstr "عِلم"
 
 #: searx/webapp.py:399
 msgid "No item found"
@@ -101,11 +105,11 @@ msgstr "توليد قِيم عشوائية مختلفة"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
-msgstr ""
+msgstr "الدالات الإحصائية"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
-msgstr ""
+msgstr "حوسبة معطيات ال{العملية}"
 
 #: searx/engines/__init__.py:251
 msgid "Engine time (sec)"
@@ -134,14 +138,72 @@ msgstr "أخطاء"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "احصل على الاتجاهات"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (قديما)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
+msgstr "هذا الإدخال تم استبداله بـ"
+
+#: searx/engines/qwant.py:219
+msgid "Channel"
+msgstr "القناة"
+
+#: searx/engines/semantic_scholar.py:81
+msgid ""
+"{numCitations} citations from the year {firstCitationVelocityYear} to "
+"{lastCitationVelocityYear}"
+msgstr ""
+"{numCitation}استجلاب من العام {firstCitationVelocityYear} إلى "
+"{lastCitationVelocityYear}"
+
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"تعذر قراءة عنوان url للصورة. قد يكون هذا بسبب تنسيق ملف غير مدعوم. تدعم "
+"TinEye فقط الصور بتنسيق JPEG أو PNG أو GIF أو BMP أو TIFF أو WebP."
+
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"الصورة أبسط من أن تجد مطابقات. يتطلب TinEye مستوى أساسيًا من التفاصيل "
+"المرئية لتحديد التطابقات بنجاح."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "لا يمكن تنزيل الصورة."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "صباحا"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "ظهيرة"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "مساء"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "ليلا"
+
+#: searx/plugins/autodetect_search_language.py:79
+#, fuzzy
+msgid "Autodetect search language"
+msgstr "البحث التلقائي للغة"
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
 msgstr ""
 
 #: searx/engines/pubmed.py:78
@@ -189,23 +251,25 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "تحويل روابط HTTP إلى روابط آمنة HTTPS عندما يكون ذلك مُتاحًا"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "تمرير الصفحات بلا حدود"
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "استبدال اسم المضيف"
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "حمّل تلقائيا الصفحة التالية عن السحب إلى أسفل النتائج"
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr "أعد كتابة أسماء مضيفي النتائج أو أزل النتائج بناءً على اسم المضيف"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr ""
+msgstr "فتح الوصول معرف الكائن الرقمي إعادة كتابة"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
 "Avoid paywalls by redirecting to open-access versions of publications "
 "when available"
 msgstr ""
+"تجنب جدران الدفع عن طريق إعادة التوجيه إلى إصدارات الوصول المفتوح من "
+"المنشورات عند توفرها"
 
 #: searx/plugins/rest_api.py:8
 msgid "Rest API"
@@ -219,21 +283,29 @@ msgstr ""
 msgid "Search on category select"
 msgstr "البحث في الفئة المحددة"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
 msgstr ""
+"اقامت بحث فوري اذا تم اختيار مجموعة, توقيف تعدد الخيارات (java script "
+"ضروريه)"
 
 #: searx/plugins/self_info.py:19
 msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "نشرة المعلومات"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
 msgstr ""
+"يعرض IP إذا كان الاستعلام \"ip\" و وكيل المستخدم الخاص بك إذا كان "
+"الاستعلام يحتوي على\"user agent\"."
 
 #: searx/plugins/tracker_url_remover.py:27
 msgid "Tracker URL remover"
@@ -242,6 +314,8 @@ msgstr "مزيل روابط التعقّب"
 #: searx/plugins/tracker_url_remover.py:28
 msgid "Remove trackers arguments from the returned URL"
 msgstr ""
+"إزالة وسيطات التتبع من \"URL\" الذي تم إرجاعه , إزالة وسيطات التتبع من "
+"محدد موقع الموارد الموحد الذي تم إرجاعه"
 
 #: searx/plugins/vim_hotkeys.py:3
 msgid "Vim-like hotkeys"
@@ -252,6 +326,9 @@ msgid ""
 "Navigate search results with Vim-like hotkeys (JavaScript required). "
 "Press \"h\" key on main or result page to get help."
 msgstr ""
+"تصفح نتائج البحث باستخدام مفاتيح الاختصار التي تشبه Vim (مطلوب "
+"JavaScript). اضغط على مفتاح \"h\" في الصفحة الرئيسية أو صفحة النتائج "
+"للحصول على المساعدة."
 
 #: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
 msgid "About"
@@ -965,18 +1042,18 @@ msgstr "محرك بحث يحمي الخصوصية و قابل للتهكير"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "شيفرة مصدرية"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "تعقب القضايا"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "نماذج الخوادم العمومية"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1043,7 +1120,7 @@ msgstr ""
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
 msgid "Open Access DOI resolver"
-msgstr ""
+msgstr "فتح الوصول إلى محلل DOI"
 
 #: searx/templates/oscar/preferences.html:164
 #: searx/templates/simple/preferences.html:105
@@ -1051,22 +1128,110 @@ msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
 msgstr ""
+"إعادة التوجيه إلى إصدارات مفتوحة الوصول من المنشورات حيثما أمكن ذلك (يلزم"
+" وجود مكون إضافي)"
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "الرمز المميز للمحرك"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
+msgstr "رمز الوصول إلى المحرك الخاص"
+
+#: searx/templates/simple/preferences.html:179
+msgid "User interface"
+msgstr "واجهة المستخدم"
+
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "لغة الواجهة"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "تغيير لغة واجهة البحث"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "السمة"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change SearXNG layout"
+msgstr "تغيير مظهر سيركس"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
+msgstr "نمط"
+
+#: searx/templates/simple/preferences.html:214
+msgid "Choose auto to follow your browser settings"
+msgstr "اختر تلقائي لاحترام إعدادات متصفحك"
+
+#: searx/templates/simple/preferences.html:217
+msgid "Center Alignment"
+msgstr "محاذاة المركز"
+
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "يشتغل"
+
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "مُعطَّل"
+
+#: searx/templates/simple/preferences.html:224
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr "اعرض النتائج في منتصف الصفحة (تخطيط Oscar)."
+
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "عرض نتائج البحث في ألسنة جديدة"
+
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "عرض روابط نتائج البحث في ألسنة جديدة للمتصفح"
+
+#: searx/templates/simple/preferences.html:241
+msgid "Infinite scroll"
+msgstr "تمرير الصفحات بلا حدود"
+
+#: searx/templates/simple/preferences.html:248
+msgid "Automatically load next page when scrolling to bottom of current page"
+msgstr "حمّل تلقائيا الصفحة التالية عن السحب إلى أسفل النتائج"
+
+#: searx/templates/simple/preferences.html:254
+msgid "Privacy"
+msgstr "الخصوصية"
+
+#: searx/templates/simple/preferences.html:257
+msgid "HTTP Method"
+msgstr "أسلوب HTTP"
+
+#: searx/templates/simple/preferences.html:264
+msgid ""
+"Change how forms are submitted, <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">learn more about request methods</a>"
 msgstr ""
+"تغيير طريقة إرسال النماذج، <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">إعرف المزيد عن طرق الطلب</a>"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
 msgstr ""
+"عند التمكين ، يحتوي عنوان صفحة النتائج على كلمات البحث الرئيسية الخاصة "
+"بك. يمكن لمتصفحك تسجيل هذا العنوان"
 
 #: searx/templates/oscar/preferences.html:203
 msgid "Disable all"
 msgstr ""
+"لا تظهر علامة التبويب هذه في نتائج البحث ، ولكن يمكنك البحث في المحركات "
+"المدرجة هنا عبر bangs."
 
 #: searx/templates/oscar/preferences.html:218
 #: searx/templates/oscar/preferences.html:232
@@ -1151,25 +1316,21 @@ msgstr "حصيلة البحث"
 msgid "Try searching for:"
 msgstr "حاول البحث عن :"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "إبدأ البحث"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "العودة للأعلى"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr ""
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "الصفحة السابقة"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "الإحصاءات"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "اعرض الصفحة الامامية"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1200,13 +1361,11 @@ msgstr ""
 "يرجى إعادة المحاولة لاحقًا. إن كنت في عجلة من أمرك، ندعوك إلى البحث عن "
 "مثيل خادم آخر لمحرك سيركس."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "عفوا !"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1280,12 +1439,10 @@ msgstr "الحاصد"
 msgid "Number of Files"
 msgstr "عدد الملفات"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "عرض الفيديو"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "إخفاء الفيديو"

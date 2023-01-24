@@ -6,6 +6,13 @@
 # efef6ec5b435a041fce803c7f8af77d2_2341d43, 2016-2017
 # efef6ec5b435a041fce803c7f8af77d2_2341d43, 2018-2020
 # efef6ec5b435a041fce803c7f8af77d2_2341d43, 2017-2018
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Albin Håkanson <albin@sweplox.se>, 2022.
+# Waldemar Björnström <waldemar.bjornstrom@unfnorrbotten.se>, 2022.
+# Solaris <zcauchemar@gmail.com>, 2022.
+# sebstrgg <sebastian@wollter.nu>, 2022.
+# mikni <mikni@proton.me>, 2022.
+# robert <robert.paegelow@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -48,7 +55,7 @@ msgstr "videor"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "it"
+msgstr "det"
 
 #: searx/webapp.py:198
 msgid "news"
@@ -188,13 +195,68 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Omskriv HTTP-länkar till HTTPS om möjligt"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Oändlig bläddring"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Kunde inte läsa bildens webbadress. Detta kan bero på ett filformat som "
+"inte stöds. TinEye stöder endast bilder som är JPEG, PNG, GIF, BMP, TIFF "
+"eller WebP."
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "Automatiskt ladda nästa sida när du bläddrar till botten av aktuell sida"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Bilden är för enkel för att hitta matchningar. TinEye kräver en "
+"grundläggande nivå av visuell detalj för att framgångsrikt kunna "
+"identifiera matchningar."
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "Det gick inte att ladda ner bilden."
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "Morgon"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "Middag"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "Kväll"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "Natt"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr "Upptäck sökspråk automatiskt"
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr "Upptäck automatiskt webbsökningens språk och byt till det."
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "Konverterar strängar till olika hashvärden."
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "hashvärde"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "Värdnamn satt"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr "Skriv om resultat värdnamn eller ta bort resultat baserat på värdnamnet"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
@@ -220,7 +282,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Sök vid val av kategori"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -233,6 +295,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Egen information"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -984,7 +1050,7 @@ msgstr "Källkod"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr "Ärenehanterare"
+msgstr "Ärendehanterare"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
@@ -1171,25 +1237,21 @@ msgstr "Sökresultat"
 msgid "Try searching for:"
 msgstr "Försök söka efter:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Starta sökning"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Tillbaka till början"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Rensa sökningen"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Föregående sida"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Rensa"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistik"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Visa förstasidan"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1208,23 +1270,115 @@ msgstr "Det ser ut som om du använder searx första gången."
 msgid "There is currently no data available. "
 msgstr "Det finns för närvarande ingen data tillgänglig."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Poäng"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Antal resultat"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Total"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Bearbetar"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Varningar"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Fel och undantag"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Undantag"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Meddelande"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Procentsats"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parameter"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Filnamn"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funktion"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Kod"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Kontrollera"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Misslyckade testet"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Kommentar(er)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Närsom"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Igår"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Förra veckan"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Förra månaden"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Förra året"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Information!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "för närvarande finns det inga kakor definierade."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Sökmotorer kan inte hämta resultat."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Försök igen eller hitta en annan searx-instans."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Var snäll och försök igen senare eller hitta annan SearXNG-instans."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Ursäkta!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1298,12 +1452,10 @@ msgstr "Reciprokör"
 msgid "Number of Files"
 msgstr "Antal filer"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "visa video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "göm video"

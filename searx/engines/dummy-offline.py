@@ -10,11 +10,13 @@ about = {
     "official_api_documentation": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 
 def search(query, request_params):
-    return [{
-        'result': 'this is what you get',
-    }]
+    return [
+        {
+            "result": "this is what you get",
+        }
+    ]

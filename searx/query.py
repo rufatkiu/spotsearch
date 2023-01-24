@@ -3,6 +3,7 @@
 from abc import abstractmethod, ABC
 import re
 
+from searx import settings
 from searx.languages import language_codes
 from searx.engines import categories, engines, engine_shortcuts
 from searx.external_bang import get_bang_definition_and_autocomplete
@@ -39,10 +40,9 @@ class QueryPartParser(ABC):
 
 
 class TimeoutParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
-        return raw_value[0] == '<'
+        return raw_value[0] == "<"
 
     def __call__(self, raw_value):
         value = raw_value[1:]
@@ -64,18 +64,17 @@ class TimeoutParser(QueryPartParser):
         return True
 
     def _autocomplete(self):
-        for suggestion in ['<3', '<850']:
+        for suggestion in ["<3", "<850"]:
             self._add_autocomplete(suggestion)
 
 
 class LanguageParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
-        return raw_value[0] == ':'
+        return raw_value[0] == ":"
 
     def __call__(self, raw_value):
-        value = raw_value[1:].lower().replace('_', '-')
+        value = raw_value[1:].lower().replace("_", "-")
         found = self._parse(value) if len(value) > 0 else False
         if self.enable_autocomplete and not found:
             self._autocomplete(value)
@@ -86,20 +85,18 @@ class LanguageParser(QueryPartParser):
         # check if any language-code is equal with
         # declared language-codes
         for lc in language_codes:
-            lang_id, lang_name, country, english_name = map(str.lower, lc)
+            lang_id, lang_name, country, english_name, _flag = map(str.lower, lc)
 
             # if correct language-code is found
             # set it as new search-language
 
-            if (value == lang_id
-                or value == lang_name
-                or value == english_name
-                or value.replace('-', ' ') == country)\
-               and value not in self.raw_text_query.languages:
+            if (
+                value == lang_id or value == lang_name or value == english_name or value.replace("-", " ") == country
+            ) and value not in self.raw_text_query.languages:
                 found = True
-                lang_parts = lang_id.split('-')
+                lang_parts = lang_id.split("-")
                 if len(lang_parts) == 2:
-                    self.raw_text_query.languages.append(lang_parts[0] + '-' + lang_parts[1].upper())
+                    self.raw_text_query.languages.append(lang_parts[0] + "-" + lang_parts[1].upper())
                 else:
                     self.raw_text_query.languages.append(lang_id)
                 # to ensure best match (first match is not necessarily the best one)
@@ -108,9 +105,9 @@ class LanguageParser(QueryPartParser):
 
         # user may set a valid, yet not selectable language
         if VALID_LANGUAGE_CODE.match(value):
-            lang_parts = value.split('-')
+            lang_parts = value.split("-")
             if len(lang_parts) > 1:
-                value = lang_parts[0].lower() + '-' + lang_parts[1].upper()
+                value = lang_parts[0].lower() + "-" + lang_parts[1].upper()
             if value not in self.raw_text_query.languages:
                 self.raw_text_query.languages.append(value)
                 found = True
@@ -120,35 +117,40 @@ class LanguageParser(QueryPartParser):
     def _autocomplete(self, value):
         if not value:
             # show some example queries
-            for lang in [":en", ":en_us", ":english", ":united_kingdom"]:
-                self.raw_text_query.autocomplete_list.append(lang)
+            if len(settings["search"]["languages"]) < 10:
+                for lang in settings["search"]["languages"]:
+                    self.raw_text_query.autocomplete_list.append(":" + lang)
+            else:
+                for lang in [":en", ":en_us", ":english", ":united_kingdom"]:
+                    self.raw_text_query.autocomplete_list.append(lang)
             return
 
         for lc in language_codes:
-            lang_id, lang_name, country, english_name = map(str.lower, lc)
+            if lc[0] not in settings["search"]["languages"]:
+                continue
+            lang_id, lang_name, country, english_name, _flag = map(str.lower, lc)
 
             # check if query starts with language-id
             if lang_id.startswith(value):
                 if len(value) <= 2:
-                    self._add_autocomplete(':' + lang_id.split('-')[0])
+                    self._add_autocomplete(":" + lang_id.split("-")[0])
                 else:
-                    self._add_autocomplete(':' + lang_id)
+                    self._add_autocomplete(":" + lang_id)
 
             # check if query starts with language name
             if lang_name.startswith(value) or english_name.startswith(value):
-                self._add_autocomplete(':' + lang_name)
+                self._add_autocomplete(":" + lang_name)
 
             # check if query starts with country
             # here "new_zealand" is "new-zealand" (see __call__)
-            if country.startswith(value.replace('-', ' ')):
-                self._add_autocomplete(':' + country.replace(' ', '_'))
+            if country.startswith(value.replace("-", " ")):
+                self._add_autocomplete(":" + country.replace(" ", "_"))
 
 
 class ExternalBangParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
-        return raw_value.startswith('!!')
+        return raw_value.startswith("!!")
 
     def __call__(self, raw_value):
         value = raw_value[2:]
@@ -167,21 +169,20 @@ class ExternalBangParser(QueryPartParser):
 
     def _autocomplete(self, bang_ac_list):
         if not bang_ac_list:
-            bang_ac_list = ['g', 'ddg', 'bing']
+            bang_ac_list = ["g", "ddg", "bing"]
         for external_bang in bang_ac_list:
-            self._add_autocomplete('!!' + external_bang)
+            self._add_autocomplete("!!" + external_bang)
 
 
 class BangParser(QueryPartParser):
-
     @staticmethod
     def check(raw_value):
-        return raw_value[0] == '!' or raw_value[0] == '?'
+        return raw_value[0] == "!"
 
     def __call__(self, raw_value):
-        value = raw_value[1:].replace('-', ' ').replace('_', ' ')
+        value = raw_value[1:].replace("-", " ").replace("_", " ")
         found = self._parse(value) if len(value) > 0 else False
-        if found and raw_value[0] == '!':
+        if found and raw_value[0] == "!":
             self.raw_text_query.specific = True
         if self.enable_autocomplete:
             self._autocomplete(raw_value[0], value)
@@ -194,16 +195,18 @@ class BangParser(QueryPartParser):
 
         # check if prefix is equal with engine name
         if value in engines:
-            self.raw_text_query.enginerefs.append(EngineRef(value, 'none'))
+            self.raw_text_query.enginerefs.append(EngineRef(value, "none"))
             return True
 
-        # check if prefix is equal with categorie name
+        # check if prefix is equal with category name
         if value in categories:
             # using all engines for that search, which
-            # are declared under that categorie name
-            self.raw_text_query.enginerefs.extend(EngineRef(engine.name, value)
-                                                  for engine in categories[value]
-                                                  if (engine.name, value) not in self.raw_text_query.disabled_engines)
+            # are declared under that category name
+            self.raw_text_query.enginerefs.extend(
+                EngineRef(engine.name, value)
+                for engine in categories[value]
+                if (engine.name, value) not in self.raw_text_query.disabled_engines
+            )
             return True
 
         return False
@@ -211,20 +214,20 @@ class BangParser(QueryPartParser):
     def _autocomplete(self, first_char, value):
         if not value:
             # show some example queries
-            for suggestion in ['images', 'wikipedia', 'osm']:
+            for suggestion in ["images", "wikipedia", "osm"]:
                 if suggestion not in self.raw_text_query.disabled_engines or suggestion in categories:
                     self._add_autocomplete(first_char + suggestion)
             return
 
-        # check if query starts with categorie name
+        # check if query starts with category name
         for category in categories:
             if category.startswith(value):
-                self._add_autocomplete(first_char + category)
+                self._add_autocomplete(first_char + category.replace(" ", "_"))
 
         # check if query starts with engine name
         for engine in engines:
             if engine.startswith(value):
-                self._add_autocomplete(first_char + engine.replace(' ', '_'))
+                self._add_autocomplete(first_char + engine.replace(" ", "_"))
 
         # check if query starts with engine shortcut
         for engine_shortcut in engine_shortcuts:
@@ -239,7 +242,7 @@ class RawTextQuery:
         TimeoutParser,  # this force the timeout
         LanguageParser,  # this force a language
         ExternalBangParser,  # external bang (must be before BangParser)
-        BangParser  # this force a engine or category
+        BangParser,  # this force a engine or category
     ]
 
     def __init__(self, query, disabled_engines):
@@ -267,15 +270,14 @@ class RawTextQuery:
         """
 
         # split query, including whitespaces
-        raw_query_parts = re.split(r'(\s+)', self.query)
+        raw_query_parts = re.split(r"(\s+)", self.query)
 
         last_index_location = None
         autocomplete_index = len(raw_query_parts) - 1
 
         for i, query_part in enumerate(raw_query_parts):
             # part does only contain spaces, skip
-            if query_part.isspace()\
-               or query_part == '':
+            if query_part.isspace() or query_part == "":
                 continue
 
             # parse special commands
@@ -300,31 +302,36 @@ class RawTextQuery:
     def changeQuery(self, query):
         self.user_query_parts = query.strip().split()
         self.query = self.getFullQuery()
-        self.autocomplete_location = (self.user_query_parts, len(self.user_query_parts) - 1)
+        self.autocomplete_location = (
+            self.user_query_parts,
+            len(self.user_query_parts) - 1,
+        )
         self.autocomplete_list = []
         return self
 
     def getQuery(self):
-        return ' '.join(self.user_query_parts)
+        return " ".join(self.user_query_parts)
 
     def getFullQuery(self):
         """
-        get full querry including whitespaces
+        get full query including whitespaces
         """
-        return '{0} {1}'.format(' '.join(self.query_parts), self.getQuery()).strip()
+        return "{0} {1}".format(" ".join(self.query_parts), self.getQuery()).strip()
 
     def __str__(self):
         return self.getFullQuery()
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} " \
-               + f"query={self.query!r} " \
-               + f"disabled_engines={self.disabled_engines!r}\n  " \
-               + f"languages={self.languages!r} " \
-               + f"timeout_limit={self.timeout_limit!r} "\
-               + f"external_bang={self.external_bang!r} " \
-               + f"specific={self.specific!r} " \
-               + f"enginerefs={self.enginerefs!r}\n  " \
-               + f"autocomplete_list={self.autocomplete_list!r}\n  " \
-               + f"query_parts={self.query_parts!r}\n  " \
-               + f"user_query_parts={self.user_query_parts!r} >"
+        return (
+            f"<{self.__class__.__name__} "
+            + f"query={self.query!r} "
+            + f"disabled_engines={self.disabled_engines!r}\n  "
+            + f"languages={self.languages!r} "
+            + f"timeout_limit={self.timeout_limit!r} "
+            + f"external_bang={self.external_bang!r} "
+            + f"specific={self.specific!r} "
+            + f"enginerefs={self.enginerefs!r}\n  "
+            + f"autocomplete_list={self.autocomplete_list!r}\n  "
+            + f"query_parts={self.query_parts!r}\n  "
+            + f"user_query_parts={self.user_query_parts!r} >"
+        )

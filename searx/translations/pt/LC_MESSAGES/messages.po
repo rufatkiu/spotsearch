@@ -5,6 +5,11 @@
 # Translators:
 # Dickprince, 2017
 # C. E., 2018
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Miguel Silva <miguelcabeca.dev@gmail.com>, 2022.
+# Ricardo Simões <xmcorporation@gmail.com>, 2022.
+# zaioti <zaioti@tuta.io>, 2022.
+# Alexandre Flament <alex@al-f.net>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -132,11 +137,11 @@ msgstr "Erros"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "Obter direções"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (OBSOLETO)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
@@ -187,9 +192,15 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Reformulação de hiperligações HTTP para HTTPS se possível"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Deslocação Infinita"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Não foi possível ler o url dessa imagem. Pode ser devido a um formato de "
+"ficheiro não suportado.O TinEye só suporta imagens que estejam em "
+"JPEG,PNG,GIF,BMP,TIFF ou WebP."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -221,7 +232,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Pesquisar na seleção de categoria"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -235,6 +246,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informação"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -983,18 +998,18 @@ msgstr "um motor de metapesquisa editável e respeitador da sua privacidade"
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "Código fonte"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "Rastreador de problemas"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "Instâncias públicas"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1077,19 +1092,90 @@ msgstr ""
 
 #: searx/templates/oscar/preferences.html:176
 msgid "Engine tokens"
-msgstr ""
+msgstr "Tokens do Motor"
 
 #: searx/templates/oscar/preferences.html:177
 msgid "Access tokens for private engines"
+msgstr "Access tokens para private engines"
+
+#: searx/templates/simple/preferences.html:179
+msgid "User interface"
+msgstr "Interface de usuário"
+
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "Idioma de interface"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "Alterar o idioma do esquema"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "Tema"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change SearXNG layout"
+msgstr "Mudar o layout do SearXNG"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
+msgstr "Estilo de tema"
+
+#: searx/templates/simple/preferences.html:214
+msgid "Choose auto to follow your browser settings"
+msgstr "Escolha auto para seguir as definições do seu navegador"
+
+#: searx/templates/simple/preferences.html:217
+msgid "Center Alignment"
+msgstr "Alinhar ao centro"
+
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "Ligado"
+
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "Desligado"
+
+#: searx/templates/simple/preferences.html:224
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr "Exibe os resultados no centro da página (esquema do Oscar)."
+
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "Resultados em novos separadores"
+
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "Abrir resultados num novo separador"
+
+#: searx/templates/simple/preferences.html:241
+msgid "Infinite scroll"
+msgstr "Deslocação Infinita"
+
+#: searx/templates/simple/preferences.html:248
+msgid "Automatically load next page when scrolling to bottom of current page"
 msgstr ""
+"Carregar automaticamente a próxima página assim que se desloque para o "
+"fim da página atual"
 
 #: searx/templates/oscar/preferences.html:202
 msgid "Allow all"
 msgstr ""
+"Modifique como os formulários são submetidos, <a "
+"href=\"https://pt.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Métodos_de_solicitação\""
+" rel=\"external\">mais sobre métodos de solicitação</a>"
 
 #: searx/templates/oscar/preferences.html:203
 msgid "Disable all"
 msgstr ""
+"Quando habilitado, o título da página resultante contém sua frase de "
+"pesquisa. O seu navegador pode gravar esse título"
 
 #: searx/templates/oscar/preferences.html:218
 #: searx/templates/oscar/preferences.html:232
@@ -1174,25 +1260,21 @@ msgstr "Resultados de pesquisa"
 msgid "Try searching for:"
 msgstr "Tente pesquisar por:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Começar pesquisa"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Voltar ao topo"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr ""
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Página anterior"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr ""
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "estatísticas"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Mostrar a primeira página"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1211,8 +1293,103 @@ msgstr "Parece que está a utilizar o searx pela primeira vez."
 msgid "There is currently no data available. "
 msgstr "Não existem dados disponíveis."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Contagens"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Quantidade de resultados"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Total"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Processar"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Avisos"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Erros e excepções"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Excepção"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Mensagem"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Percentagem"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parâmetro"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Nome do ficheiro"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Função"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Código"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Checker"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Teste falhado"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Comentário(s)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Qualquer altura"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Ontem"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Semana passada"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Mês passado"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Ano passado"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informação!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "atualmente não existem cookies definidos"
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Mecanismos não podem recuperar resultados."
 
@@ -1223,13 +1400,11 @@ msgstr ""
 "Por favor, tente novamente mais tarde ou encontre outra ocorrência de "
 "searx."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Desculpe!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1303,12 +1478,10 @@ msgstr "Leecher"
 msgid "Number of Files"
 msgstr "Número de Ficheiros"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "mostrar vídeo"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "esconder vídeo"

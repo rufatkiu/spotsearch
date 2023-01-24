@@ -2,13 +2,13 @@
 import lxml.etree
 from lxml import html
 
-from searx.testing import SearxTestCase
 from searx.exceptions import SearxXPathSyntaxException, SearxEngineXPathException
 from searx import utils
 
+from tests import SearxTestCase
+
 
 class TestUtils(SearxTestCase):
-
     def test_gen_useragent(self):
         self.assertIsInstance(utils.gen_useragent(), str)
         self.assertIsNotNone(utils.gen_useragent())
@@ -72,6 +72,7 @@ class TestUtils(SearxTestCase):
     def test_extract_url(self):
         def f(html_str, search_url):
             return utils.extract_url(html.fromstring(html_str), search_url)
+
         self.assertEqual(f('<span id="42">https://example.com</span>', 'http://example.com/'), 'https://example.com/')
         self.assertEqual(f('https://example.com', 'http://example.com/'), 'https://example.com/')
         self.assertEqual(f('//example.com', 'http://example.com/'), 'http://example.com/')
@@ -90,6 +91,14 @@ class TestUtils(SearxTestCase):
         self.assertEqual(utils.match_language('es', ['es']), 'es')
         self.assertEqual(utils.match_language('es', [], fallback='fallback'), 'fallback')
         self.assertEqual(utils.match_language('ja', ['jp'], {'ja': 'jp'}), 'jp')
+
+        # handle script tags
+        self.assertEqual(utils.match_language('zh-CN', ['zh-Hans-CN', 'zh-Hant-TW']), 'zh-Hans-CN')
+        self.assertEqual(utils.match_language('zh-TW', ['zh-Hans-CN', 'zh-Hant-TW']), 'zh-Hant-TW')
+        self.assertEqual(utils.match_language('zh-Hans-CN', ['zh-CN', 'zh-TW']), 'zh-CN')
+        self.assertEqual(utils.match_language('zh-Hant-TW', ['zh-CN', 'zh-TW']), 'zh-TW')
+        self.assertEqual(utils.match_language('zh-Hans', ['zh-CN', 'zh-TW', 'zh-HK']), 'zh-CN')
+        self.assertEqual(utils.match_language('zh-Hant', ['zh-CN', 'zh-TW', 'zh-HK']), 'zh-TW')
 
         aliases = {'en-GB': 'en-UK', 'he': 'iw'}
 
@@ -113,16 +122,13 @@ class TestUtils(SearxTestCase):
 
     def test_ecma_unscape(self):
         self.assertEqual(utils.ecma_unescape('text%20with%20space'), 'text with space')
-        self.assertEqual(utils.ecma_unescape('text using %xx: %F3'),
-                         'text using %xx: ó')
-        self.assertEqual(utils.ecma_unescape('text using %u: %u5409, %u4E16%u754c'),
-                         'text using %u: 吉, 世界')
+        self.assertEqual(utils.ecma_unescape('text using %xx: %F3'), 'text using %xx: ó')
+        self.assertEqual(utils.ecma_unescape('text using %u: %u5409, %u4E16%u754c'), 'text using %u: 吉, 世界')
 
 
 class TestHTMLTextExtractor(SearxTestCase):
-
     def setUp(self):
-        self.html_text_extractor = utils.HTMLTextExtractor()
+        self.html_text_extractor = utils._HTMLTextExtractor()
 
     def test__init__(self):
         self.assertEqual(self.html_text_extractor.result, [])
@@ -143,7 +149,7 @@ class TestHTMLTextExtractor(SearxTestCase):
 
     def test_invalid_html(self):
         text = '<p><b>Lorem ipsum</i>dolor sit amet</p>'
-        with self.assertRaises(utils.HTMLTextExtractorException):
+        with self.assertRaises(utils._HTMLTextExtractorException):
             self.html_text_extractor.feed(text)
 
 
@@ -226,3 +232,25 @@ class TestXPathUtils(SearxTestCase):
         with self.assertRaises(SearxEngineXPathException) as context:
             utils.eval_xpath_getindex(doc, 'count(//i)', 1)
         self.assertEqual(context.exception.message, 'the result is not a list')
+
+    def test_detect_language(self):
+        # make sure new line are not an issue
+        # fasttext.predict('') does not accept new line.
+        l = utils.detect_language('The quick brown fox jumps over\nthe lazy dog')
+        self.assertEqual(l, 'en')
+
+        l = utils.detect_language('いろはにほへと ちりぬるを わかよたれそ つねならむ うゐのおくやま けふこえて あさきゆめみし ゑひもせす')
+        self.assertEqual(l, 'ja')
+
+        l = utils.detect_language('Pijamalı hasta yağız şoföre çabucak güvendi.')
+        self.assertEqual(l, 'tr')
+
+        l = utils.detect_language('')
+        self.assertIsNone(l)
+
+        # mix languages --> None
+        l = utils.detect_language('The いろはにほへと Pijamalı')
+        self.assertIsNone(l)
+
+        with self.assertRaises(ValueError):
+            utils.detect_language(None)

@@ -74,7 +74,7 @@ def get_git_version():
 
 
 try:
-    vf = version('spot')
+    vf = version("spot")
     VERSION_STRING = VERSION_TAG = vf
 except ImportError:
     try:
@@ -105,7 +105,11 @@ VERSION_TAG = "{VERSION_TAG}"
 GIT_URL = "{GIT_URL}"
 GIT_BRANCH = "{GIT_BRANCH}"
 """
-        with open(os.path.join(os.path.dirname(__file__), "version_frozen.py"), "w", encoding="utf8") as f:
+        with open(
+            os.path.join(os.path.dirname(__file__), "version_frozen.py"),
+            "w",
+            encoding="utf8",
+        ) as f:
             f.write(python_code)
             print(f"{f.name} created")
     else:

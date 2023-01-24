@@ -10,22 +10,22 @@ from datetime import datetime
 from searx.utils import extract_text
 
 about = {
-    "website": 'https://rumble.com/',
-    "wikidata_id": 'Q104765127',
-    "official_api_documentation": 'https://help.rumble.com/',
+    "website": "https://rumble.com/",
+    "wikidata_id": "Q104765127",
+    "official_api_documentation": "https://help.rumble.com/",
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 # engine dependent config
-categories = ['videos']
+categories = ["videos"]
 paging = True
 
 # search-url
-base_url = 'https://rumble.com'
+base_url = "https://rumble.com"
 # https://rumble.com/search/video?q=searx&page=3
-search_url = base_url + '/search/video?{query}&page={pageno}'
+search_url = base_url + "/search/video?{query}&page={pageno}"
 
 url_xpath = './/a[@class="video-item--a"]/@href'
 thumbnail_xpath = './/img[@class="video-item--img"]/@src'
@@ -39,7 +39,7 @@ length_xpath = './/span[@class="video-item--duration"]/@data-value'
 
 
 def request(query, params):
-    params['url'] = search_url.format(pageno=params['pageno'], query=urlencode({'q': query}))
+    params["url"] = search_url.format(pageno=params["pageno"], query=urlencode({"q": query}))
     return params
 
 
@@ -57,7 +57,7 @@ def response(resp):
         title = extract_text(result_dom.xpath(title_xpath))
         p_date = extract_text(result_dom.xpath(published_date))
         # fix offset date for line 644 webapp.py check
-        fixed_date = datetime.strptime(p_date, '%Y-%m-%dT%H:%M:%S%z')
+        fixed_date = datetime.strptime(p_date, "%Y-%m-%dT%H:%M:%S%z")
         earned = extract_text(result_dom.xpath(earned_xpath))
         views = extract_text(result_dom.xpath(views_xpath))
         rumbles = extract_text(result_dom.xpath(rumbles_xpath))
@@ -68,14 +68,16 @@ def response(resp):
         else:
             content = f"{views} views - {rumbles} rumbles"
 
-        results.append({
-            'url': url,
-            'title': title,
-            'content': content,
-            'author': author,
-            'length': length,
-            'template': 'videos.html',
-            'publishedDate': fixed_date,
-            'thumbnail': thumbnail,
-        })
+        results.append(
+            {
+                "url": url,
+                "title": title,
+                "content": content,
+                "author": author,
+                "length": length,
+                "template": "videos.html",
+                "publishedDate": fixed_date,
+                "thumbnail": thumbnail,
+            }
+        )
     return results

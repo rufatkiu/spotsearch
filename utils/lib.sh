@@ -78,8 +78,17 @@ required_commands() {
 
 # shellcheck disable=SC2034
 set_terminal_colors() {
-    _colors=8
+    # https://en.wikipedia.org/wiki/ANSI_escape_code
+
+    # CSI (Control Sequence Introducer) sequences
+    _show_cursor='\e[?25h'
+    _hide_cursor='\e[?25l'
+
+    # SGR (Select Graphic Rendition) parameters
     _creset='\e[0m'  # reset all attributes
+
+    # original specification only had 8 colors
+    _colors=8
 
     _Black='\e[0;30m'
     _White='\e[1;37m'
@@ -186,7 +195,7 @@ wait_key(){
     [[ -n $_t ]] && _t="-t $_t"
     printf "$msg"
     # shellcheck disable=SC2086
-    read -r -s -n1 $_t
+    read -r -s -n1 $_t || true
     echo
     clean_stdin
 }
@@ -270,6 +279,8 @@ prefix_stdout () {
     (while IFS= read line; do
         echo -e "${prefix}$line"
     done)
+    # some piped commands hide the cursor, show cursory when the stream ends
+    echo -en "$_show_cursor"
 }
 
 append_line() {
@@ -426,7 +437,8 @@ install_template() {
 
     if [[ "$do_eval" == "1" ]]; then
         template_file="${CACHE}${dst}${variant}"
-        info_msg "BUILD template ${template_file}"
+	info_msg "BUILD ${template_file}"
+	info_msg "BUILD using template ${template_origin}"
         if [[ -n ${SUDO_USER} ]]; then
             sudo -u "${SUDO_USER}" mkdir -p "$(dirname "${template_file}")"
         else
@@ -451,17 +463,17 @@ install_template() {
     fi
 
     if [[ -f "${dst}" ]] && cmp --silent "${template_file}" "${dst}" ; then
-        info_msg "file ${dst} allready installed"
+        info_msg "file ${dst} already installed"
         return 0
     fi
 
-    info_msg "diffrent file ${dst} allready exists on this host"
+    info_msg "different file ${dst} already exists on this host"
 
     while true; do
         choose_one _reply "choose next step with file $dst" \
                    "replace file" \
                    "leave file unchanged" \
-                   "interactiv shell" \
+                   "interactive shell" \
                    "diff files"
 
         case $_reply in
@@ -474,7 +486,7 @@ install_template() {
             "leave file unchanged")
                 break
                 ;;
-            "interactiv shell")
+            "interactive shell")
                 echo -e "// edit ${_Red}${dst}${_creset} to your needs"
                 echo -e "// exit with [${_BCyan}CTRL-D${_creset}]"
                 sudo -H -u "${owner}" -i
@@ -491,7 +503,6 @@ install_template() {
         esac
     done
 }
-
 
 service_is_available() {
 
@@ -559,8 +570,8 @@ pyenv() {
         pyenv.drop > /dev/null
         build_msg PYENV "[virtualenv] installing ${PY_ENV_REQ} into ${PY_ENV}"
 
-        "${PYTHON}" -m venv "$@" "${PY_ENV}" || exit
-        "${PY_ENV_BIN}/python" -m pip install -U "${PIP_BOILERPLATE[@]}" || exit
+        "${PYTHON}" -m venv "$@" "${PY_ENV}"
+        "${PY_ENV_BIN}/python" -m pip install -U "${PIP_BOILERPLATE[@]}"
 
         for i in ${PY_ENV_REQ}; do
             pip_req=( "${pip_req[@]}" "-r" "$i" )
@@ -589,15 +600,19 @@ pyenv.OK() {
     fi
 
     if [ ! -f "${PY_ENV}/requirements.sha256" ] \
-        || ! sha256sum --check --status <"${PY_ENV}/requirements.sha256" 2>/dev/null; then
+        || ! sha256sum -c "${PY_ENV}/requirements.sha256" > /dev/null 2>&1; then
         build_msg PYENV "[virtualenv] requirements.sha256 failed"
         sed 's/^/          [virtualenv] - /' <"${PY_ENV}/requirements.sha256"
         return 1
     fi
 
-    pyenv.check \
-        | "${PY_ENV_BIN}/python" 2>&1 \
-        | prefix_stdout "${_Blue}PYENV     ${_creset}[check] "
+    if [ "$VERBOSE" = "1" ]; then
+        pyenv.check \
+            | "${PY_ENV_BIN}/python" 2>&1 \
+            | prefix_stdout "${_Blue}PYENV     ${_creset}[check] "
+    else
+        pyenv.check | "${PY_ENV_BIN}/python" 1>/dev/null
+    fi
 
     local err=${PIPESTATUS[1]}
     if [ "$err" -ne "0" ]; then
@@ -605,7 +620,7 @@ pyenv.OK() {
         return "$err"
     fi
 
-    build_msg PYENV "OK"
+    [ "$VERBOSE" = "1" ] && build_msg PYENV "OK"
     _pyenv_OK="OK"
     return 0
 }
@@ -709,6 +724,14 @@ pyenv.cmd() {
     )
 }
 
+
+pyenv.activate() {
+    pyenv.install
+    # shellcheck source=/dev/null
+    source "${PY_ENV_BIN}/activate"
+}
+
+
 # Sphinx doc
 # ----------
 
@@ -769,12 +792,16 @@ docs.gh-pages() {
     local remote="$(git config branch."${branch}".remote)"
     local remote_url="$(git config remote."${remote}".url)"
 
+    build_msg GH-PAGES "prepare folder: ${GH_PAGES}"
+    build_msg GH-PAGES "remote of the gh-pages branch: ${remote} / ${remote_url}"
+    build_msg GH-PAGES "current branch: ${branch}"
+
     # prepare the *orphan* gh-pages working tree
     (
         git worktree remove -f "${GH_PAGES}"
         git branch -D gh-pages
     ) &> /dev/null  || true
-    git worktree add --no-checkout "${GH_PAGES}" origin/master
+    git worktree add --no-checkout "${GH_PAGES}" "${remote}/master"
 
     pushd "${GH_PAGES}" &> /dev/null
     git checkout --orphan gh-pages
@@ -795,40 +822,6 @@ EOF
 
     set +x
     build_msg GH-PAGES "deployed"
-}
-
-# golang
-# ------
-
-go_is_available() {
-
-    # usage:  go_is_available $SERVICE_USER && echo "go is installed!"
-
-    sudo -i -u "${1}" which go &>/dev/null
-}
-
-install_go() {
-
-    # usage:  install_go "${GO_PKG_URL}" "${GO_TAR}" "${SERVICE_USER}"
-
-    local _svcpr="  ${_Yellow}|${3}|${_creset} "
-
-    rst_title "Install Go in user's HOME" section
-
-    rst_para "download and install go binary .."
-    cache_download "${1}" "${2}"
-
-    tee_stderr 0.1 <<EOF | sudo -i -u "${3}" | prefix_stdout "$_svcpr"
-echo \$PATH
-echo \$GOPATH
-mkdir -p \$HOME/local
-rm -rf \$HOME/local/go
-tar -C \$HOME/local -xzf ${CACHE}/${2}
-EOF
-    sudo -i -u "${3}" <<EOF | prefix_stdout
-! which go >/dev/null &&  echo "ERROR - Go Installation not found in PATH!?!"
-which go >/dev/null &&  go version && echo "congratulations -- Go installation OK :)"
-EOF
 }
 
 # system accounts
@@ -1018,8 +1011,8 @@ nginx_install_app() {
 
 nginx_include_apps_enabled() {
 
-    # Add the *NGINX_APPS_ENABLED* infrastruture to a nginx server block.  Such
-    # infrastruture is already known from fedora and centos, including apps (location
+    # Add the *NGINX_APPS_ENABLED* infrastructure to a nginx server block.  Such
+    # infrastructure is already known from fedora and centos, including apps (location
     # directives) from the /etc/nginx/default.d folder into the *default* nginx
     # server.
 
@@ -1034,7 +1027,7 @@ nginx_include_apps_enabled() {
     local include_directive="include ${NGINX_APPS_ENABLED}/*.conf;"
     local include_directive_re="^\s*include ${NGINX_APPS_ENABLED}/\*\.conf;"
 
-    info_msg "checking existence: '${include_directive}' in file  ${server_conf}"
+    info_msg "checking existence: '${include_directive}' in file ${server_conf}"
     if grep "${include_directive_re}" "${server_conf}"; then
         info_msg "OK, already exists."
         return
@@ -1124,7 +1117,7 @@ apache_distro_setup() {
             APACHE_SITES_AVAILABLE="/etc/httpd/sites-available"
             APACHE_SITES_ENABLED="/etc/httpd/sites-enabled"
             APACHE_MODULES="modules"
-            APACHE_PACKAGES="httpd"
+            APACHE_PACKAGES="httpd mod_ssl"
             ;;
         *)
             err_msg "$DIST_ID-$DIST_VERS: apache not yet implemented"
@@ -1256,8 +1249,6 @@ apache_dissable_site() {
 # -----
 
 uWSGI_SETUP="${uWSGI_SETUP:=/etc/uwsgi}"
-uWSGI_USER=
-uWSGI_GROUP=
 
 # How distros manage uWSGI apps is very different.  From uWSGI POV read:
 # - https://uwsgi-docs.readthedocs.io/en/latest/Management.html
@@ -1283,13 +1274,14 @@ uWSGI_distro_setup() {
             ;;
         fedora-*|centos-7)
             # systemd --> /usr/lib/systemd/system/uwsgi.service
-            # The unit file starts uWSGI in emperor mode (/etc/uwsgi.ini), see
-            # - https://uwsgi-docs.readthedocs.io/en/latest/Emperor.html
+            # Fedora runs uWSGI in emperor-tyrant mode: in Tyrant mode the
+            # Emperor will run the vassal using the UID/GID of the vassal
+            # configuration file [1] (user and group of the app .ini file).
+            # There are some quirks abbout additional POSIX groups in uWSGI
+            # 2.0.x, read at least: https://github.com/unbit/uwsgi/issues/2099
             uWSGI_APPS_AVAILABLE="${uWSGI_SETUP}/apps-available"
             uWSGI_APPS_ENABLED="${uWSGI_SETUP}.d"
             uWSGI_PACKAGES="uwsgi"
-            uWSGI_USER="uwsgi"
-            uWSGI_GROUP="uwsgi"
             ;;
         *)
             err_msg "$DIST_ID-$DIST_VERS: uWSGI not yet implemented"
@@ -1351,30 +1343,6 @@ uWSGI_restart() {
     esac
 }
 
-uWSGI_prepare_app() {
-
-    # usage:  uWSGI_prepare_app <myapp.ini>
-
-    [[ -z $1 ]] && die_caller 42 "missing argument <myapp.ini>"
-
-    local APP="${1%.*}"
-
-    case $DIST_ID-$DIST_VERS in
-        fedora-*|centos-7)
-            # in emperor mode, the uwsgi user is the owner of the sockets
-            info_msg "prepare (uwsgi:uwsgi)  /run/uwsgi/app/${APP}"
-            mkdir -p "/run/uwsgi/app/${APP}"
-            chown -R "uwsgi:uwsgi"  "/run/uwsgi/app/${APP}"
-            ;;
-        *)
-            info_msg "prepare (${SERVICE_USER}:${SERVICE_GROUP})  /run/uwsgi/app/${APP}"
-            mkdir -p "/run/uwsgi/app/${APP}"
-            chown -R "${SERVICE_USER}:${SERVICE_GROUP}"  "/run/uwsgi/app/${APP}"
-            ;;
-    esac
-}
-
-
 uWSGI_app_available() {
     # usage:  uWSGI_app_available <myapp.ini>
     local CONF="$1"
@@ -1385,7 +1353,7 @@ uWSGI_app_available() {
 
 uWSGI_install_app() {
 
-    # usage:  uWSGI_install_app [<template option> ...] <myapp.ini>
+    # usage:  uWSGI_install_app [<template option> ...] <myapp.ini> [{owner} [{group} [{chmod}]]]
     #
     # <template option>:  see install_template
 
@@ -1397,11 +1365,10 @@ uWSGI_install_app() {
             *)  pos_args+=("$i");;
         esac
     done
-    uWSGI_prepare_app "${pos_args[1]}"
     mkdir -p "${uWSGI_APPS_AVAILABLE}"
     install_template "${template_opts[@]}" \
                      "${uWSGI_APPS_AVAILABLE}/${pos_args[1]}" \
-                     root root 644
+                     "${pos_args[2]:-root}" "${pos_args[3]:-root}" "${pos_args[4]:-644}"
     uWSGI_enable_app "${pos_args[1]}"
     uWSGI_restart "${pos_args[1]}"
     info_msg "uWSGI app: ${pos_args[1]} is installed"
@@ -1475,7 +1442,6 @@ uWSGI_enable_app() {
             mkdir -p "${uWSGI_APPS_ENABLED}"
             rm -f "${uWSGI_APPS_ENABLED}/${CONF}"
             ln -s "${uWSGI_APPS_AVAILABLE}/${CONF}" "${uWSGI_APPS_ENABLED}/${CONF}"
-            chown "${uWSGI_USER}:${uWSGI_GROUP}" "${uWSGI_APPS_ENABLED}/${CONF}"
             info_msg "enabled uWSGI app: ${CONF}"
             ;;
         *)
@@ -1521,7 +1487,7 @@ _apt_pkg_info_is_updated=0
 
 pkg_install() {
 
-    # usage: TITEL='install foobar' pkg_install foopkg barpkg
+    # usage: TITLE='install foobar' pkg_install foopkg barpkg
 
     rst_title "${TITLE:-installation of packages}" section
     echo -e "\npackage(s)::\n"
@@ -1542,7 +1508,7 @@ pkg_install() {
             ;;
         arch)
             # shellcheck disable=SC2068
-            pacman -Sy --noconfirm $@
+            pacman --noprogressbar -Sy --noconfirm --needed $@
             ;;
         fedora)
             # shellcheck disable=SC2068
@@ -1557,7 +1523,7 @@ pkg_install() {
 
 pkg_remove() {
 
-    # usage: TITEL='remove foobar' pkg_remove foopkg barpkg
+    # usage: TITLE='remove foobar' pkg_remove foopkg barpkg
 
     rst_title "${TITLE:-remove packages}" section
     echo -e "\npackage(s)::\n"
@@ -1574,7 +1540,7 @@ pkg_remove() {
             ;;
         arch)
             # shellcheck disable=SC2068
-            pacman -R --noconfirm $@
+            pacman --noprogressbar -R --noconfirm $@
             ;;
         fedora)
             # shellcheck disable=SC2068
@@ -1623,10 +1589,10 @@ git_clone() {
     #    git_clone <url> <path> [<branch> [<user>]]
     #
     #  First form uses $CACHE/<name> as destination folder, second form clones
-    #  into <path>.  If repository is allready cloned, pull from <branch> and
+    #  into <path>.  If repository is already cloned, pull from <branch> and
     #  update working tree (if needed, the caller has to stash local changes).
     #
-    #    git clone https://github.com/searx/searx searx-src origin/master searxlogin
+    #    git clone https://github.com/searxng/searxng searx-src origin/master searxlogin
     #
 
     local url="$1"
@@ -1696,7 +1662,7 @@ lxc_init_container_env() {
     # usage: lxc_init_container_env <name>
 
     # Create a /.lxcenv file in the root folder.  Call this once after the
-    # container is inital started and before installing any boilerplate stuff.
+    # container is initial started and before installing any boilerplate stuff.
 
     info_msg "create /.lxcenv in container $1"
     cat <<EOF | lxc exec "${1}" -- bash | prefix_stdout "[${_BBlue}${1}${_creset}] "

@@ -7,9 +7,14 @@
 # Issa1552 <fairfull.playing@gmail.com>, 2020-2021
 # Nathan Follens, 2015-2018
 # Rejo Zenger <rejo@zenger.nl>, 2016-2017
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Chris Capisce <christof1588@gmail.com>, 2022.
+# SecularSteve <fairfull.playing@gmail.com>, 2022.
+# Sweder doc <swederdvl@gmail.com>, 2022.
+# Peter Martin <weblate@pe7er.com>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: searx\n"
+"Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
 "PO-Revision-Date: 2022-11-26 23:09+0000\n"
@@ -49,7 +54,7 @@ msgstr "video’s"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "IT"
+msgstr "het"
 
 #: searx/webapp.py:198
 msgid "news"
@@ -85,15 +90,15 @@ msgstr "zoekfout"
 
 #: searx/webapp.py:711
 msgid "{minutes} minute(s) ago"
-msgstr "{minutes} min geleden"
+msgstr "{minutes} minu(u)t(en) geleden"
 
 #: searx/webapp.py:713
 msgid "{hours} hour(s), {minutes} minute(s) ago"
-msgstr "{hours} uur, {minutes} min geleden"
+msgstr "{hours} uur, {minutes} minu(u)t(en) geleden"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
-msgstr "Random value generator"
+msgstr "Generator van willekeurige waarden"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
@@ -142,7 +147,7 @@ msgstr "{title} (VEROUDERD)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "Dit object is vervangen door"
+msgstr "Dit object is overbodig gemaakt door"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
@@ -189,9 +194,15 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Herschrijf HTTP-koppelingen naar HTTPS, indien mogelijk"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Oneindig scrollen"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Kan die afbeeldings-URL niet lezen. Dit kan te wijten zijn aan een niet-"
+"ondersteunde bestandsindeling. TinEye ondersteunt alleen afbeeldingen die"
+" JPEG, PNG, GIF, BMP, TIFF of WebP zijn."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -223,7 +234,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Zoeken bij selecteren van categorie"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -237,6 +248,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informatie Over Jezelf"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -1177,25 +1192,21 @@ msgstr "Zoekresultaten"
 msgid "Try searching for:"
 msgstr "Probeer te zoeken naar:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Start zoeken"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Terug naar boven in"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Zoekopdracht wissen"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Vorige pagina"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Wissen"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "stats"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Geef voorpagina"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1214,23 +1225,117 @@ msgstr "Het lijkt erop dat je searx voor de eerste keer gebruikt."
 msgid "There is currently no data available. "
 msgstr "Er zijn momenteel geen gegevens beschikbaar. "
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Scores"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Aantal resultaten"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Totaal"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Verwerken"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Waarschuwingen"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Foutmeldingen en uitzonderingen"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Uitzondering"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Bericht"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Percentage"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parameter"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Functie"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Code"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Controleur"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Gefaalde test"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Opmerking(en)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Altijd"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Gisteren"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Vorige week"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Vorige maand"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Vorig jaar"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informatie!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "er zijn momenteel geen cookies gedefinieerd."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Zoekmachines konden geen resultaten ophalen."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Probeer het later opnieuw, of gebruik een andere searx server."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr ""
+"Gelieve later opnieuw te proberen of een andere SearXNG-instantie te "
+"proberen."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Sorry!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1304,12 +1409,10 @@ msgstr "Leechers"
 msgid "Number of Files"
 msgstr "Aantal bestanden"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "toon video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "verberg video"

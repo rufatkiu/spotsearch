@@ -12,15 +12,13 @@ services:
 python:
   stage: check
   script:
-    - ./manage test.pep8
+    - ./manage test.black
     - ./manage test.pylint
 
 build:web:
   stage: build
-  before_script:
-    - ./manage node.update
-    - ./manage node.env
   script:
+    - ./manage node.env
     - ./manage themes.etheme
     - ./manage babel.compile
 

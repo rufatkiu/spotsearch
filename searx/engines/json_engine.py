@@ -13,8 +13,13 @@ title_query = None
 content_html_to_text = False
 title_html_to_text = False
 paging = False
-suggestion_query = ''
-results_query = ''
+suggestion_query = ""
+results_query = ""
+
+cookies = {}
+headers = {}
+"""Some engines might offer different result based on cookies or headers.
+Possible use-case: To set safesearch cookie or header to moderate."""
 
 # parameters for engines with paging support
 #
@@ -43,8 +48,8 @@ def is_iterable(obj):
 
 def parse(query):
     q = []
-    for part in query.split('/'):
-        if part == '':
+    for part in query.split("/"):
+        if part == "":
             continue
         else:
             q.append(part)
@@ -82,14 +87,17 @@ def query(data, query_string):
 
 
 def request(query, params):
-    query = urlencode({'q': query})[2:]
+    query = urlencode({"q": query})[2:]
 
-    fp = {'query': query}
-    if paging and search_url.find('{pageno}') >= 0:
-        fp['pageno'] = (params['pageno'] - 1) * page_size + first_page_num
+    fp = {"query": query}
+    if paging and search_url.find("{pageno}") >= 0:
+        fp["pageno"] = (params["pageno"] - 1) * page_size + first_page_num
 
-    params['url'] = search_url.format(**fp)
-    params['query'] = query
+    params["cookies"].update(cookies)
+    params["headers"].update(headers)
+
+    params["url"] = search_url.format(**fp)
+    params["query"] = query
 
     return params
 
@@ -119,25 +127,25 @@ def response(resp):
                 content = query(result, content_query)[0]
             except:
                 content = ""
-            results.append({
-                'url': to_string(url),
-                'title': title_filter(to_string(title)),
-                'content': content_filter(to_string(content)),
-            })
+            results.append(
+                {
+                    "url": to_string(url),
+                    "title": title_filter(to_string(title)),
+                    "content": content_filter(to_string(content)),
+                }
+            )
     else:
-        for url, title, content in zip(
-            query(json, url_query),
-            query(json, title_query),
-            query(json, content_query)
-        ):
-            results.append({
-                'url': to_string(url),
-                'title': title_filter(to_string(title)),
-                'content': content_filter(to_string(content)),
-            })
+        for url, title, content in zip(query(json, url_query), query(json, title_query), query(json, content_query)):
+            results.append(
+                {
+                    "url": to_string(url),
+                    "title": title_filter(to_string(title)),
+                    "content": content_filter(to_string(content)),
+                }
+            )
 
     if not suggestion_query:
         return results
     for suggestion in query(json, suggestion_query):
-        results.append({'suggestion': suggestion})
+        results.append({"suggestion": suggestion})
     return results

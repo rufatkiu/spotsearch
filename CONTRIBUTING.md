@@ -2,8 +2,8 @@
 
 ## Resources in the documentation
 
-* [Development quickstart](https://searx.github.io/searx/dev/contribution_guide.html)
-* [Contribution guide](https://searx.github.io/searx/dev/contribution_guide.html)
+* [Development quickstart](https://docs.searxng.org/dev/contribution_guide.html)
+* [Contribution guide](https://docs.searxng.org/dev/contribution_guide.html)
 
 ## Submitting PRs
 

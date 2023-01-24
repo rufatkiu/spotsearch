@@ -12,6 +12,12 @@
 # Luca C <mybusiness@yopmail.com>, 2017
 # Luc <luc.absil2@gmail.com>, 2015
 # Random_R, 2018-2020
+# carlonigiulio <giuliocarloni20@gmail.com>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Content Card <weblate-bubu1@gabg.email>, 2022.
+# Robert Bridda <briddarobert@icloud.com>, 2022.
+# random <thrizem+wnd43@gmail.com>, 2022.
+# Franco Longo <longofrancoale@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: searx\n"
@@ -194,9 +200,15 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Se possible, converti gli indirizzi HTTP in HTTPS"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Scorrimento infinito"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Impossibile leggere l'URL dell'immagine. Ciò potrebbe essere dovuto a un "
+"formato del file non supportato. TinEye supporta solo immagini JPEG, PNG,"
+" GIF, BMP, TIFF o Web."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -228,7 +240,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Cerca nella categoria selezionata"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -242,6 +254,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informazioni su di sé"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -1178,25 +1194,21 @@ msgstr "Risultati della ricerca"
 msgid "Try searching for:"
 msgstr "Prova a cercare:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Cerca"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Torna in cima"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Svuota ricerca"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "pagina precedente"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Svuota"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistiche"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Visualizza la pagina principale"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1215,23 +1227,115 @@ msgstr "Sembra che tu stia utilizzando searx per la prima volta."
 msgid "There is currently no data available. "
 msgstr "Al momento non ci sono dati disponibili. "
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Punteggio"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Conteggio dei risultati"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Totale"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Elaborazione"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Avvisi"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Errori e eccezioni"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Eccezione"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Messaggio"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Percentuale"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parametro"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Nome del file"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funzione"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Codice"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Checker"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Test fallito"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Commento(i)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Qualsiasi data"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Ultimo giorno"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Ultima settimana"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Ultimo mese"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Ultimo anno"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informazione!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "Attualmente non ci sono cookie definiti."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "I motori di ricerca non riescono a trovare risultati."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Riprova nuovamente o cerca un'altra istanza di searx."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "Riprova più tardi o trova un'altra istanza SearXNG."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Scusa!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1305,12 +1409,10 @@ msgstr "Leecher"
 msgid "Number of Files"
 msgstr "Numero di file"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "mostra video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "nascondi video"

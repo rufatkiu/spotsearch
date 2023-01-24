@@ -5,6 +5,11 @@
 # Translators:
 # df3fdd29c9d33426452a2db187d128e3, 2017
 # Issa1552 <fairfull.playing@gmail.com>, 2020
+# Matija Kromar <matija.kromar@gmail.com>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# SecularSteve <fairfull.playing@gmail.com>, 2022.
+# prljav <marin.ruskica@gmail.com>, 2022.
+# ptomljanovic <phill2605@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -36,7 +41,7 @@ msgstr "glazba"
 
 #: searx/webapp.py:194
 msgid "social media"
-msgstr "društveni mediji"
+msgstr "društvene mreže"
 
 #: searx/webapp.py:195
 msgid "images"
@@ -48,7 +53,7 @@ msgstr "video zapisi"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "it"
+msgstr "IT"
 
 #: searx/webapp.py:198
 msgid "news"
@@ -92,7 +97,7 @@ msgstr "prije {hours} sat(i) i {minutes} minut(u,e,a)"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
-msgstr "Generator slučajnih vrijednosti"
+msgstr "Generator vrijednosti nasumice"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
@@ -188,9 +193,15 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "Zamijeni HTTP veze sa HTTPS ukoliko je moguće"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "Beskonačno pomicanje"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Nije moguće učitati sliku sa URL-a. Moguće da je u pitanju neispravan "
+"format dokumenta. TinEye samo podržava slike JPEG, PNG, GIF, BMP, TIFF i "
+"WebP formata."
 
 #: searx/plugins/infinite_scroll.py:4
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -220,7 +231,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "Traži u odabranoj kategoriji"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -233,6 +244,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "Informacije o sebi"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -1173,25 +1188,21 @@ msgstr "Rezultati pretraživanja"
 msgid "Try searching for:"
 msgstr "Pokušajte tražiti sljedeće:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "Pokreni pretraživanje"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "Natrag na vrh"
 
-#: searx/templates/oscar/search.html:9
-#: searx/templates/oscar/search_full.html:12
-#: searx/templates/simple/search.html:5
-msgid "Clear search"
-msgstr "Očistite pretražnik"
+#: searx/templates/simple/results.html:170
+msgid "Previous page"
+msgstr "Prethodna stranica"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
 msgstr "Očisti"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "statistika"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "Prikaži naslovnu stranicu"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1210,23 +1221,117 @@ msgstr "Izgleda kao da prvi puta koristite searx."
 msgid "There is currently no data available. "
 msgstr "Trenutačno nema dostupnih podataka."
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "Pogodci"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "Broj rezultata"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "Ukupno"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "Obrada"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "Upozorenja"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "Pogreške i iznimke"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "Iznimka"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "Poruka"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "Postotak"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "Parametar"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "Naziv datoteke"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "Funkcija"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "Koda"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Provjernik"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "Neuspjeli test"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "Komentar(i)"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "Bilokad"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "Posljednji dan"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "Prošli tjedan"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "Prošli mjesec"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "Prošle godine"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "Informacija!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "trenutačno nema definiranih kolačića."
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "Tražilice ne mogu dohvatiti rezultate."
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "Pokušajte ponovo kasnije ili potražite drugu searx instancu."
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr ""
+"Molimo vas da pokušate ponovo kasnije ili da pronađete drugu SearXNG "
+"instancu."
 
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Ispričavamo se!"
 
-#: searx/templates/oscar/messages/no_results.html:15
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1300,12 +1405,10 @@ msgstr "Leecher"
 msgid "Number of Files"
 msgstr "Broj datoteka"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "prikaži video"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "sakrij video"

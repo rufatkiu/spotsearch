@@ -1,4 +1,3 @@
-
 """Onesearch
 """
 
@@ -15,28 +14,28 @@ from urllib.parse import unquote
 
 # about
 about = {
-    "website": 'https://www.onesearch.com/',
+    "website": "https://www.onesearch.com/",
     "wikidata_id": None,
     "use_official_api": False,
     "require_api_key": False,
-    "results": 'HTML',
+    "results": "HTML",
 }
 
 # engine dependent config
-categories = ['general']
+categories = ["general"]
 paging = True
 
 # search-url
-URL = 'https://www.onesearch.com/yhs/search;?p=%s&b=%d&intl=%s'
+URL = "https://www.onesearch.com/yhs/search;?p=%s&b=%d&intl=%s"
 
 
 def request(query, params):
     try:
-        region = params['language'].split('-')[-1]
+        region = params["language"].split("-")[-1]
     except:
-        region = 'us'
-    starting_from = (params['pageno'] * 10) - 9
-    params['url'] = URL % (query, starting_from, region.lower())
+        region = "us"
+    starting_from = (params["pageno"] * 10) - 9
+    params["url"] = URL % (query, starting_from, region.lower())
     return params
 
 
@@ -51,11 +50,13 @@ def response(resp):
     onesearch_urls = eval_xpath(doc, '//div[contains(@class, "algo")]//h3[contains(@class, "title")]/a/@href')
 
     for title_tag, content, onesearch_url in zip(titles_tags, contents, onesearch_urls):
-        matches = re.search(r'RU=(.*?)\/', onesearch_url)
-        results.append({
-            'title': title_tag.text_content(),
-            'content': extract_text(content),
-            'url': unquote(matches.group(1)),
-        })
+        matches = re.search(r"RU=(.*?)\/", onesearch_url)
+        results.append(
+            {
+                "title": title_tag.text_content(),
+                "content": extract_text(content),
+                "url": unquote(matches.group(1)),
+            }
+        )
 
     return results

@@ -4,7 +4,6 @@
 from setuptools import setup
 from setuptools import find_packages
 from searx.version import VERSION_TAG
-from searx import brand
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
@@ -21,11 +20,6 @@ setup(
     version=VERSION_TAG,
     description="A privacy-respecting, hackable metasearch engine",
     long_description=long_description,
-    url=brand.DOCS_URL,
-    project_urls={
-        "Code": brand.GIT_URL,
-        "Issue tracker": brand.ISSUE_URL
-    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python",
@@ -38,7 +32,7 @@ setup(
     author='MURENA SAS',
     author_email='dev@murena.io',
     license='GNU Affero General Public License',
-    packages=find_packages(exclude=["tests*", "searx_extra"]),
+    packages=find_packages(exclude=["tests*", "searxng_extra"]),
     zip_safe=False,
     install_requires=requirements,
     extras_require={

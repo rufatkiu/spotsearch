@@ -12,6 +12,8 @@
 # Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2018
 # pointhi, 2014
 # Thomas Pointhuber, 2015-2016
+# tents <remendne@pentrens.jp>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -70,7 +72,7 @@ msgstr ""
 
 #: searx/webapp.py:201
 msgid "science"
-msgstr "学問"
+msgstr "科学"
 
 #: searx/webapp.py:399
 msgid "No item found"
@@ -78,11 +80,11 @@ msgstr "アイテムが見つかりません"
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
-msgstr "不正な設定です。設定を編集してください。"
+msgstr "設定が無効です、設定を変更してください"
 
 #: searx/webapp.py:524
 msgid "Invalid settings"
-msgstr "不正な設定"
+msgstr "無効な設定です"
 
 #: searx/webapp.py:589 searx/webapp.py:659
 msgid "search error"
@@ -90,19 +92,19 @@ msgstr "検索エラー"
 
 #: searx/webapp.py:711
 msgid "{minutes} minute(s) ago"
-msgstr "{minutes}分前"
+msgstr "{minutes} 分前"
 
 #: searx/webapp.py:713
 msgid "{hours} hour(s), {minutes} minute(s) ago"
-msgstr "{hours}時間と{minutes}分前"
+msgstr "{hours} 時間と{minutes} 分前"
 
 #: searx/answerers/random/answerer.py:65
 msgid "Random value generator"
-msgstr "ランダム値の生成"
+msgstr "ランダムな値を生成"
 
 #: searx/answerers/random/answerer.py:66
 msgid "Generate different random values"
-msgstr "新しいランダム値を生成する"
+msgstr "異なるランダムな値を生成する"
 
 #: searx/answerers/statistics/answerer.py:50
 msgid "Statistics functions"
@@ -110,7 +112,7 @@ msgstr "統計機能"
 
 #: searx/answerers/statistics/answerer.py:51
 msgid "Compute {functions} of the arguments"
-msgstr "変数の{functions}を計算する"
+msgstr "変数の {functions} を計算する"
 
 #: searx/engines/__init__.py:251
 msgid "Engine time (sec)"
@@ -139,7 +141,7 @@ msgstr "エラー"
 
 #: searx/engines/openstreetmap.py:155
 msgid "Get directions"
-msgstr ""
+msgstr "経路を取得する"
 
 #: searx/engines/pdbe.py:90
 msgid "{title} (OBSOLETE)"
@@ -147,7 +149,7 @@ msgstr "{title} (OBSOLETE)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "このエントリーの優先"
+msgstr "このエントリは、置き換えられました:"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
@@ -194,17 +196,66 @@ msgstr ""
 msgid "Rewrite HTTP links to HTTPS if possible"
 msgstr "可能ならば HTTP リンクを HTTPS リンクに書き換える"
 
-#: searx/plugins/infinite_scroll.py:3
-msgid "Infinite scroll"
-msgstr "無限スクロール"
+#: searx/engines/tineye.py:40
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr "この画像URLは読み取ることができません。サポートされていないフォーマットだと考えられます。TinEyeはJPEG、PNG、GIF、BMP、TIFF、WebPの画像のみサポートしています。"
 
-#: searx/plugins/infinite_scroll.py:4
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "現在のページの下端でスクロールすると自動的に次のページを読み込む"
+#: searx/engines/tineye.py:46
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr "画像がマッチするものが多すぎます。TinEyeは基本的に視覚情報の詳細が一致することで成功しやすいです。"
+
+#: searx/engines/tineye.py:52
+msgid "The image could not be downloaded."
+msgstr "この画像はダウンロードはできません。"
+
+#: searx/engines/wttr.py:101
+msgid "Morning"
+msgstr "朝"
+
+#: searx/engines/wttr.py:101
+msgid "Noon"
+msgstr "昼"
+
+#: searx/engines/wttr.py:101
+msgid "Evening"
+msgstr "夕方"
+
+#: searx/engines/wttr.py:101
+msgid "Night"
+msgstr "夜間"
+
+#: searx/plugins/autodetect_search_language.py:79
+msgid "Autodetect search language"
+msgstr "検索言語自動検出"
+
+#: searx/plugins/autodetect_search_language.py:80
+msgid "Automatically detect the query search language and switch to it."
+msgstr "検索言語の自動検出と切り替えを実施。"
+
+#: searx/plugins/hash_plugin.py:24
+msgid "Converts strings to different hash digests."
+msgstr "文字列を異なるハッシュダイジェストに変換。"
+
+#: searx/plugins/hash_plugin.py:52
+msgid "hash digest"
+msgstr "ハッシュダイジェスト"
+
+#: searx/plugins/hostname_replace.py:9
+msgid "Hostname replace"
+msgstr "ホストネーム入れ替え"
+
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
+msgstr "結果のホスト名を書き換えるか、ホスト名に基づいて結果を削除します"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
-msgstr "オープンアクセス DOI リライト"
+msgstr "オープンアクセス DOI の書き換え"
 
 #: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
@@ -224,7 +275,7 @@ msgstr ""
 msgid "Search on category select"
 msgstr "カテゴリ選択したら検索を実行"
 
-#: searx/plugins/search_on_category_select.py:19
+#: searx/plugins/search_on_category_select.py:20
 msgid ""
 "Perform search immediately if a category selected. Disable to select "
 "multiple categories. (JavaScript required)"
@@ -235,6 +286,10 @@ msgid "Self Informations"
 msgstr ""
 
 #: searx/plugins/self_info.py:20
+msgid "Self Information"
+msgstr "自分の情報"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -972,18 +1027,18 @@ msgstr "プライバシー保護を重視した、ハッカブルなメタサー
 
 #: searx/templates/oscar/base.html:86 searx/templates/simple/base.html:54
 msgid "Source code"
-msgstr ""
+msgstr "ソースコード"
 
 #: searx/templates/oscar/base.html:87 searx/templates/simple/base.html:55
 msgid "Issue tracker"
-msgstr ""
+msgstr "課題報告"
 
 #: searx/templates/oscar/base.html:88
 #: searx/templates/oscar/messages/no_results.html:10
 #: searx/templates/simple/base.html:56
 #: searx/templates/simple/messages/no_results.html:10
 msgid "Public instances"
-msgstr ""
+msgstr "パブリック インスタンス"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
@@ -1078,10 +1133,10 @@ msgstr "すべてを許可する"
 msgid "Disable all"
 msgstr ""
 
-#: searx/templates/oscar/preferences.html:179
-#: searx/templates/oscar/preferences.html:189
-msgid "Selected language"
-msgstr "選択された言語"
+#: searx/templates/simple/preferences.html:273
+#: searx/templates/simple/preferences.html:285
+msgid "Disabled"
+msgstr "無効"
 
 #: searx/templates/oscar/preferences.html:222
 #: searx/templates/oscar/preferences.html:228
@@ -1149,11 +1204,9 @@ msgstr "検索結果"
 msgid "Try searching for:"
 msgstr "検索:"
 
-#: searx/templates/oscar/search.html:8
-#: searx/templates/oscar/search_full.html:11
-#: searx/templates/simple/search.html:6
-msgid "Start search"
-msgstr "検索を開始"
+#: searx/templates/simple/results.html:152
+msgid "Back to top"
+msgstr "トップに戻る"
 
 #: searx/templates/oscar/search.html:9
 #: searx/templates/oscar/search_full.html:12
@@ -1165,9 +1218,9 @@ msgstr "検索のクリア"
 msgid "Clear"
 msgstr "クリア"
 
-#: searx/templates/oscar/stats.html:2
-msgid "stats"
-msgstr "統計"
+#: searx/templates/simple/search.html:3
+msgid "Display the front page"
+msgstr "フロントページを表示する"
 
 #: searx/templates/oscar/stats.html:5 searx/templates/simple/stats.html:7
 msgid "Engine stats"
@@ -1186,23 +1239,115 @@ msgstr "Searxを使うのは初めてようですね。"
 msgid "There is currently no data available. "
 msgstr "現在データがありません。"
 
-#: searx/templates/oscar/messages/no_results.html:4
-#: searx/templates/simple/messages/no_results.html:4
+#: searx/templates/simple/stats.html:26
+msgid "Scores"
+msgstr "スコア"
+
+#: searx/templates/simple/stats.html:27
+msgid "Result count"
+msgstr "結果カウント"
+
+#: searx/templates/simple/stats.html:59
+msgid "Total"
+msgstr "合計"
+
+#: searx/templates/simple/stats.html:60
+msgid "HTTP"
+msgstr "HTTP"
+
+#: searx/templates/simple/stats.html:61
+msgid "Processing"
+msgstr "処理"
+
+#: searx/templates/simple/stats.html:99
+msgid "Warnings"
+msgstr "注意"
+
+#: searx/templates/simple/stats.html:99
+msgid "Errors and exceptions"
+msgstr "エラーと例外"
+
+#: searx/templates/simple/stats.html:105
+msgid "Exception"
+msgstr "例外"
+
+#: searx/templates/simple/stats.html:107
+msgid "Message"
+msgstr "メッセージ"
+
+#: searx/templates/simple/stats.html:109
+msgid "Percentage"
+msgstr "確率"
+
+#: searx/templates/simple/stats.html:111
+msgid "Parameter"
+msgstr "パラメータ"
+
+#: searx/templates/simple/stats.html:119
+msgid "Filename"
+msgstr "ファイル名"
+
+#: searx/templates/simple/stats.html:120
+msgid "Function"
+msgstr "ファンクション"
+
+#: searx/templates/simple/stats.html:121
+msgid "Code"
+msgstr "コード"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "チェッカー"
+
+#: searx/templates/simple/stats.html:131
+msgid "Failed test"
+msgstr "テストに失敗しました"
+
+#: searx/templates/simple/stats.html:132
+msgid "Comment(s)"
+msgstr "コメント"
+
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "期間指定なし"
+
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "24 時間以内"
+
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "1 週間以内"
+
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "1 か月以内"
+
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "1 年以内"
+
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "お知らせ!"
+
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "現在、クッキーは定義されていません。"
+
+#: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "エンジンは結果を取得できません。"
 
-#: searx/templates/oscar/messages/no_results.html:10
-#: searx/templates/simple/messages/no_results.html:10
-msgid "Please, try again later or find another searx instance."
-msgstr "後でやり直すか、別の searx インスタンスを探して下さい。"
-
-#: searx/templates/oscar/messages/no_results.html:14
-#: searx/templates/simple/messages/no_results.html:14
-msgid "Sorry!"
-msgstr "申し訳ありません!"
-
-#: searx/templates/oscar/messages/no_results.html:15
 #: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another SearXNG instance."
+msgstr "後でやり直すか、別の SearXNG インスタンスを試してみて下さい。"
+
+#: searx/templates/simple/messages/no_results.html:20
+msgid "Sorry!"
+msgstr "すみません!"
+
+#: searx/templates/simple/messages/no_results.html:21
 msgid ""
 "we didn't find any results. Please use another query or search in more "
 "categories."
@@ -1274,12 +1419,10 @@ msgstr "リーチャー"
 msgid "Number of Files"
 msgstr "ファイル数"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "show video"
 msgstr "動画を表示する"
 
-#: searx/templates/oscar/result_templates/videos.html:7
 #: searx/templates/simple/result_templates/videos.html:6
 msgid "hide video"
 msgstr "動画を隠す"

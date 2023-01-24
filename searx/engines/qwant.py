@@ -9,16 +9,16 @@ https://www.qwant.com/ queries.
 This implementation is used by different qwant engines in the settings.yml::
 
   - name: qwant
-    categories: general
+    qwant_categ: web
     ...
   - name: qwant news
-    categories: news
+    qwant_categ: news
     ...
   - name: qwant images
-    categories: images
+    qwant_categ: images
     ...
   - name: qwant videos
-    categories: videos
+    qwant_categ: videos
     ...
 
 """
@@ -30,74 +30,79 @@ from datetime import (
 from json import loads
 from urllib.parse import urlencode
 from flask_babel import gettext
+import babel
 
-from searx.utils import match_language
 from searx.exceptions import SearxEngineAPIException
-from searx.raise_for_httperror import raise_for_httperror
+from searx.network import raise_for_httperror
+from searx.locales import get_engine_locale
 
 
 # about
 about = {
-    "website": 'https://www.qwant.com/',
-    "wikidata_id": 'Q14657870',
+    "website": "https://www.qwant.com/",
+    "wikidata_id": "Q14657870",
     "official_api_documentation": None,
     "use_official_api": True,
     "require_api_key": False,
-    "results": 'JSON',
+    "results": "JSON",
 }
 
 # engine dependent config
 categories = []
 paging = True
-supported_languages_url = about['website']
+supported_languages_url = about["website"]
+qwant_categ = None  # web|news|inages|videos
 
-category_to_keyword = {
-    'general': 'web',
-    'news': 'news',
-    'images': 'images',
-    'videos': 'videos',
-}
+safesearch = True
+safe_search_map = {0: "&safesearch=0", 1: "&safesearch=1", 2: "&safesearch=2"}
+
+# fmt: off
+qwant_news_locales = [
+    'ca_ad', 'ca_es', 'ca_fr', 'co_fr', 'de_at', 'de_ch', 'de_de', 'en_au',
+    'en_ca', 'en_gb', 'en_ie', 'en_my', 'en_nz', 'en_us', 'es_ad', 'es_ar',
+    'es_cl', 'es_co', 'es_es', 'es_mx', 'es_pe', 'eu_es', 'eu_fr', 'fc_ca',
+    'fr_ad', 'fr_be', 'fr_ca', 'fr_ch', 'fr_fr', 'it_ch', 'it_it', 'nl_be',
+    'nl_nl', 'pt_ad', 'pt_pt',
+]
+# fmt: on
 
 # search-url
-url = 'https://api.qwant.com/v3/search/{keyword}?{query}&count={count}&offset={offset}'
+url = "https://api.qwant.com/v3/search/{keyword}?{query}&count={count}&offset={offset}"
 
 
 def request(query, params):
     """Qwant search request"""
-    keyword = category_to_keyword[categories[0]]
+
+    if not query:
+        return None
+
     count = 10  # web: count must be equal to 10
 
-    if keyword == 'images':
+    if qwant_categ == "images":
         count = 50
-        offset = (params['pageno'] - 1) * count
+        offset = (params["pageno"] - 1) * count
         # count + offset must be lower than 250
         offset = min(offset, 199)
     else:
-        offset = (params['pageno'] - 1) * count
+        offset = (params["pageno"] - 1) * count
         # count + offset must be lower than 50
         offset = min(offset, 40)
 
-    params['url'] = url.format(
-        keyword=keyword,
-        query=urlencode({'q': query}),
+    params["url"] = url.format(
+        keyword=qwant_categ,
+        query=urlencode({"q": query}),
         offset=offset,
         count=count,
     )
 
-    # add language tag
-    if params['language'] == 'all':
-        params['url'] += '&locale=en_US'
-    else:
-        language = match_language(
-            params['language'],
-            supported_languages,
-            language_aliases,
-        )
-        if language not in supported_languages:
-            language = 'en-US'
-        params['url'] += '&locale=' + language.replace('-', '_')
+    # add quant's locale
+    q_locale = get_engine_locale(params["language"], supported_languages, default="en_US")
+    params["url"] += "&locale=" + q_locale
 
-    params['raise_for_httperror'] = False
+    # add safesearch option
+    params["url"] += safe_search_map.get(params["safesearch"], "")
+
+    params["raise_for_httperror"] = False
     return params
 
 
@@ -105,40 +110,39 @@ def response(resp):
     """Get response from Qwant's search request"""
     # pylint: disable=too-many-locals, too-many-branches, too-many-statements
 
-    keyword = category_to_keyword[categories[0]]
     results = []
 
     # load JSON result
     search_results = loads(resp.text)
-    data = search_results.get('data', {})
+    data = search_results.get("data", {})
 
     # check for an API error
-    if search_results.get('status') != 'success':
+    if search_results.get("status") != "success":
         msg = ",".join(
             data.get(
-                'message',
+                "message",
                 [
-                    'unknown',
+                    "unknown",
                 ],
             )
         )
-        raise SearxEngineAPIException('API error::' + msg)
+        raise SearxEngineAPIException("API error::" + msg)
 
     # raise for other errors
     raise_for_httperror(resp)
 
-    if keyword == 'web':
+    if qwant_categ == "web":
         # The WEB query contains a list named 'mainline'.  This list can contain
         # different result types (e.g. mainline[0]['type'] returns type of the
         # result items in mainline[0]['items']
-        mainline = data.get('result', {}).get('items', {}).get('mainline', {})
+        mainline = data.get("result", {}).get("items", {}).get("mainline", {})
     else:
         # Queries on News, Images and Videos do not have a list named 'mainline'
         # in the response.  The result items are directly in the list
         # result['items'].
-        mainline = data.get('result', {}).get('items', [])
+        mainline = data.get("result", {}).get("items", [])
         mainline = [
-            {'type': keyword, 'items': mainline},
+            {"type": qwant_categ, "items": mainline},
         ]
 
     # return empty array if there are no results
@@ -147,66 +151,66 @@ def response(resp):
 
     for row in mainline:
 
-        mainline_type = row.get('type', 'web')
-        if mainline_type != keyword:
+        mainline_type = row.get("type", "web")
+        if mainline_type != qwant_categ:
             continue
 
-        if mainline_type == 'ads':
+        if mainline_type == "ads":
             # ignore adds
             continue
 
-        mainline_items = row.get('items', [])
+        mainline_items = row.get("items", [])
         for item in mainline_items:
 
-            title = item.get('title', None)
-            res_url = item.get('url', None)
+            title = item.get("title", None)
+            res_url = item.get("url", None)
 
-            if mainline_type == 'web':
-                content = item['desc']
+            if mainline_type == "web":
+                content = item["desc"]
                 results.append(
                     {
-                        'title': title,
-                        'url': res_url,
-                        'content': content,
+                        "title": title,
+                        "url": res_url,
+                        "content": content,
                     }
                 )
 
-            elif mainline_type == 'news':
+            elif mainline_type == "news":
 
-                pub_date = item['date']
+                pub_date = item["date"]
                 if pub_date is not None:
                     pub_date = datetime.fromtimestamp(pub_date)
-                news_media = item.get('media', [])
+                news_media = item.get("media", [])
                 img_src = None
                 if news_media:
-                    img_src = news_media[0].get('pict', {}).get('url', None)
+                    img_src = news_media[0].get("pict", {}).get("url", None)
                 results.append(
                     {
-                        'title': title,
-                        'url': res_url,
-                        'publishedDate': pub_date,
-                        'img_src': img_src,
+                        "title": title,
+                        "url": res_url,
+                        "publishedDate": pub_date,
+                        "img_src": img_src,
                     }
                 )
 
-            elif mainline_type == 'images':
-                thumbnail = item['thumbnail']
-                img_src = item['media']
+            elif mainline_type == "images":
+                thumbnail = item["thumbnail"]
+                img_src = item["media"]
                 results.append(
                     {
-                        'title': title,
-                        'url': res_url,
-                        'template': 'images.html',
-                        'thumbnail_src': thumbnail,
-                        'img_src': img_src,
+                        "title": title,
+                        "url": res_url,
+                        "template": "images.html",
+                        "thumbnail_src": thumbnail,
+                        "img_src": img_src,
                     }
                 )
 
-            elif mainline_type == 'videos':
+            elif mainline_type == "videos":
                 # some videos do not have a description: while qwant-video
                 # returns an empty string, such video from a qwant-web query
                 # miss the 'desc' key.
-                d, s, c = item.get('desc'), item.get('source'), item.get('channel')
+                d, s, c = item.get("desc"), item.get("source"), item.get("channel")
                 content_parts = []
                 if d:
                     content_parts.append(d)
@@ -214,45 +218,69 @@ def response(resp):
                     content_parts.append("%s: %s " % (gettext("Source"), s))
                 if c:
                     content_parts.append("%s: %s " % (gettext("Channel"), c))
-                content = ' // '.join(content_parts)
-                length = item['duration']
+                content = " // ".join(content_parts)
+                length = item["duration"]
                 if length is not None:
-                    length = timedelta(milliseconds=length)
-                pub_date = item['date']
+                    length = str(timedelta(milliseconds=length))
+                pub_date = item["date"]
                 if pub_date is not None:
                     pub_date = datetime.fromtimestamp(pub_date)
-                thumbnail = item['thumbnail']
+                thumbnail = item["thumbnail"]
                 # from some locations (DE and others?) the s2 link do
                 # response a 'Please wait ..' but does not deliver the thumbnail
-                thumbnail = thumbnail.replace('https://s2.qwant.com', 'https://s1.qwant.com', 1)
+                thumbnail = thumbnail.replace("https://s2.qwant.com", "https://s1.qwant.com", 1)
                 results.append(
                     {
-                        'title': title,
-                        'url': res_url,
-                        'content': content,
-                        'publishedDate': pub_date,
-                        'thumbnail': thumbnail,
-                        'template': 'videos.html',
-                        'length': length,
+                        "title": title,
+                        "url": res_url,
+                        "content": content,
+                        "publishedDate": pub_date,
+                        "thumbnail": thumbnail,
+                        "template": "videos.html",
+                        "length": length,
                     }
                 )
 
     return results
 
 
-# get supported languages from their site
 def _fetch_supported_languages(resp):
-    # list of regions is embedded in page as a js object
-    response_text = resp.text
-    response_text = response_text[response_text.find('INITIAL_PROPS'):]
-    response_text = response_text[response_text.find('{'): response_text.find('</script>')]
 
-    regions_json = loads(response_text)
+    text = resp.text
+    text = text[text.find("INITIAL_PROPS") :]
+    text = text[text.find("{") : text.find("</script>")]
 
-    supported_languages = []
-    for country, langs in regions_json['locales'].items():
-        for lang in langs['langs']:
-            lang_code = "{lang}-{country}".format(lang=lang, country=country)
-            supported_languages.append(lang_code)
+    q_initial_props = loads(text)
+    q_locales = q_initial_props.get("locales")
+    q_valid_locales = []
+
+    for country, v in q_locales.items():
+        for lang in v["langs"]:
+            _locale = "{lang}_{country}".format(lang=lang, country=country)
+
+            if qwant_categ == "news" and _locale.lower() not in qwant_news_locales:
+                # qwant-news does not support all locales from qwant-web:
+                continue
+
+            q_valid_locales.append(_locale)
+
+    supported_languages = {}
+
+    for q_locale in q_valid_locales:
+        try:
+            locale = babel.Locale.parse(q_locale, sep="_")
+        except babel.core.UnknownLocaleError:
+            print("ERROR: can't determine babel locale of quant's locale %s" % q_locale)
+            continue
+
+        # note: supported_languages (dict)
+        #
+        #   dict's key is a string build up from a babel.Locale object / the
+        #   notation 'xx-XX' (and 'xx') conforms to SearXNG's locale (and
+        #   language) notation and dict's values are the locale strings used by
+        #   the engine.
+
+        searxng_locale = locale.language + "-" + locale.territory  # --> params['language']
+        supported_languages[searxng_locale] = q_locale
 
     return supported_languages
