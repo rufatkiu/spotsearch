@@ -336,7 +336,7 @@ def initialize(settings_engines=None, settings_outgoing=None):
 
     settings_engines = settings_engines or settings["engines"]
     settings_outgoing = settings_outgoing or settings["outgoing"]
-
+    settings_outgoing["proxies"] = {}
     if 'SEARX_PROXY_HTTP' in environ:
         settings_outgoing["proxies"]["http"] = environ['SEARX_PROXY_HTTP']
     if 'SEARX_PROXY_HTTPS' in environ:
