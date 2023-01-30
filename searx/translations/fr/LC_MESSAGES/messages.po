@@ -13,18 +13,18 @@
 # rike, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2020-07-11 16:29+0000\n"
-"Last-Translator: Cqoicebordel\n"
+"PO-Revision-Date: 2023-01-30 20:48+0000\n"
+"Last-Translator: Nivesh Krishna <nivesh@e.email>\n"
+"Language-Team: French <https://i18n.e.foundation/projects/ecloud/spot/fr/>\n"
 "Language: fr\n"
-"Language-Team: French "
-"(http://www.transifex.com/asciimoo/searx/language/fr/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.15.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -171,7 +171,7 @@ msgstr ""
 
 #: searx/plugins/calculator.py:59
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
@@ -1493,4 +1493,3 @@ msgstr "Réponses"
 
 #~ msgid "Loading..."
 #~ msgstr "Chargement…"
-
