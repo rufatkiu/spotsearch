@@ -325,6 +325,7 @@ def check_network_configuration():
     if exception_count > 0:
         raise RuntimeError("Invalid network configuration")
 
+
 # pylint: disable=too-many-branches
 def initialize(settings_engines=None, settings_outgoing=None):
     # pylint: disable=import-outside-toplevel)
