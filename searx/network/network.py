@@ -8,7 +8,7 @@ import asyncio
 import ipaddress
 from itertools import cycle
 from typing import Dict
-
+from os import environ
 import httpx
 
 from searx import logger, searx_debug
@@ -326,6 +326,7 @@ def check_network_configuration():
         raise RuntimeError("Invalid network configuration")
 
 
+# pylint: disable=too-many-branches
 def initialize(settings_engines=None, settings_outgoing=None):
     # pylint: disable=import-outside-toplevel)
     from searx.engines import engines
@@ -335,6 +336,11 @@ def initialize(settings_engines=None, settings_outgoing=None):
 
     settings_engines = settings_engines or settings["engines"]
     settings_outgoing = settings_outgoing or settings["outgoing"]
+    settings_outgoing["proxies"] = {}
+    if 'SEARX_PROXY_HTTP' in environ:
+        settings_outgoing["proxies"]["http"] = environ['SEARX_PROXY_HTTP']
+    if 'SEARX_PROXY_HTTPS' in environ:
+        settings_outgoing["proxies"]["https"] = environ['SEARX_PROXY_HTTPS']
 
     # default parameters for AsyncHTTPTransport
     # see https://github.com/encode/httpx/blob/e05a5372eb6172287458b37447c30f650047e1b8/httpx/_transports/default.py#L108-L121  # pylint: disable=line-too-long
