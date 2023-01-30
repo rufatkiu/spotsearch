@@ -338,9 +338,9 @@ def initialize(settings_engines=None, settings_outgoing=None):
     settings_outgoing = settings_outgoing or settings["outgoing"]
 
     if 'SEARX_PROXY_HTTP' in environ:
-        settings_outgoing.setdefault('proxies', {})['http'] = environ['SEARX_PROXY_HTTP']
+        settings_outgoing["proxies"]["http"] = environ['SEARX_PROXY_HTTP']
     if 'SEARX_PROXY_HTTPS' in environ:
-        settings_outgoing.setdefault('proxies', {})['https'] = environ['SEARX_PROXY_HTTPS']
+        settings_outgoing["proxies"]["https"] = environ['SEARX_PROXY_HTTPS']
 
     # default parameters for AsyncHTTPTransport
     # see https://github.com/encode/httpx/blob/e05a5372eb6172287458b37447c30f650047e1b8/httpx/_transports/default.py#L108-L121  # pylint: disable=line-too-long
