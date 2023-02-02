@@ -15,20 +15,20 @@
 # No4vick <MineBor1@yandex.ru>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2020-07-20 11:54+0000\n"
-"Last-Translator: Dima Ivchenko <kvdbve34@gmail.com>\n"
+"PO-Revision-Date: 2023-02-03 14:53+0000\n"
+"Last-Translator: Nikolay Sinyov <nikolay.sinyov@gmail.com>\n"
+"Language-Team: Russian <https://i18n.e.foundation/projects/ecloud/spot/ru/>\n"
 "Language: ru\n"
-"Language-Team: Russian "
-"(http://www.transifex.com/asciimoo/searx/language/ru/)\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
-"|| (n%100>=11 && n%100<=14)? 2 : 3)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.15.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -69,7 +69,7 @@ msgstr "Карты"
 
 #: searx/webapp.py:200
 msgid "onions"
-msgstr ""
+msgstr "Луковицы"
 
 #: searx/webapp.py:201
 msgid "science"
@@ -159,23 +159,25 @@ msgstr "Нет аннотации для этой публикации."
 #: searx/engines/qwant.py:200
 #: searx/templates/etheme/result_templates/currency.html:13
 msgid "Source"
-msgstr ""
+msgstr "Источник"
 
 #: searx/engines/qwant.py:202
 msgid "Channel"
-msgstr ""
+msgstr "Канал"
 
 #: searx/plugins/calculator.py:6
 msgid "Calculator"
-msgstr ""
+msgstr "Калькулятор"
 
 #: searx/plugins/calculator.py:7
 msgid "This plugin extends results when the query is a mathematical expression"
 msgstr ""
+"Этот плагин расширяет результаты, когда запрос представляет собой "
+"математическое выражение"
 
 #: searx/plugins/calculator.py:59
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
@@ -191,7 +193,7 @@ msgstr ""
 
 #: searx/plugins/hostname_replace.py:8
 msgid "Rewrite result hostnames"
-msgstr ""
+msgstr "Перезапись имен хостов результатов"
 
 #: searx/plugins/https_rewrite.py:29
 msgid "Rewrite HTTP links to HTTPS if possible"
@@ -245,15 +247,15 @@ msgstr "Автоматически определять язык поиска з
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
-msgstr "Рассчитывает контрольные суммы от строки."
+msgstr "Преобразует строки в различные хэш-дайджесты."
 
 #: searx/plugins/hash_plugin.py:52
 msgid "hash digest"
-msgstr "контрольная сумма"
+msgstr "хэш-дайджест"
 
 #: searx/plugins/hostname_replace.py:9
 msgid "Hostname replace"
-msgstr "Замена имени сайта"
+msgstr "Замена имени хоста"
 
 #: searx/plugins/hostname_replace.py:10
 msgid "Rewrite result hostnames or remove results based on the hostname"
@@ -273,11 +275,11 @@ msgstr ""
 
 #: searx/plugins/rest_api.py:8
 msgid "Rest API"
-msgstr ""
+msgstr "Rest API"
 
 #: searx/plugins/rest_api.py:9
 msgid "Update REST API"
-msgstr ""
+msgstr "Обновить Rest API"
 
 #: searx/plugins/search_on_category_select.py:18
 msgid "Search on category select"
@@ -293,7 +295,7 @@ msgstr ""
 
 #: searx/plugins/self_info.py:19
 msgid "Self Informations"
-msgstr ""
+msgstr "Информация о себе"
 
 #: searx/plugins/self_info.py:20
 msgid "Self Information"
@@ -330,43 +332,47 @@ msgstr ""
 
 #: searx/templates/__common__/about.html:2 searx/templates/etheme/base.html:97
 msgid "About"
-msgstr ""
+msgstr "О сайте"
 
 #: searx/templates/__common__/about.html:5
 msgid "Spot is a fork of"
-msgstr ""
+msgstr "Spot является форком"
 
 #: searx/templates/__common__/about.html:5
 msgid "which is a"
-msgstr ""
+msgstr ", который"
 
 #: searx/templates/__common__/about.html:6
 msgid "aggregating the results of other"
-msgstr ""
+msgstr "агрегирование результатов других"
 
 #: searx/templates/__common__/about.html:7
 msgid "while not storing information about its users."
-msgstr ""
+msgstr ",при этом не сохраняя информацию о своих пользователях."
 
 #: searx/templates/__common__/about.html:10
 msgid "More about Spot..."
-msgstr ""
+msgstr "Больше информации о Spot..."
 
 #: searx/templates/__common__/about.html:21
 msgid "Why use Spot?"
-msgstr ""
+msgstr "Зачем использовать Spot?"
 
 #: searx/templates/__common__/about.html:25
 msgid ""
 "Spot may not offer you as personalised results as Google, but it doesn't "
 "generate a profile about you."
 msgstr ""
+"Spot может предложить вам не такие персонализированные результаты, как "
+"Google, но он не создает ваш профиль."
 
 #: searx/templates/__common__/about.html:28
 msgid ""
 "Spot doesn't care about what you search for, never shares anything with a"
 " third party, and it can't be used to compromise you."
 msgstr ""
+"Spot не заботится о том, что вы ищете, никогда ничего не передает третьей "
+"стороне и не может быть использован для компрометации вас."
 
 #: searx/templates/__common__/about.html:31
 #, python-format
@@ -374,6 +380,8 @@ msgid ""
 "Spot is free software, the code is 100%% open and you can help to make it"
 " better.  See more on"
 msgstr ""
+"Spot - это свободное программное обеспечение, код открыт на 100%%, и вы "
+"можете помочь сделать его лучше.   Смотрите больше на"
 
 #: searx/templates/__common__/about.html:36
 msgid ""
@@ -381,10 +389,14 @@ msgid ""
 "believe in digital freedom, make Spot your default search engine or run "
 "it on your own server"
 msgstr ""
+"Если вы заботитесь о конфиденциальности, хотите быть сознательным "
+"пользователем или иным образом верите в свободу цифровых технологий, "
+"сделайте Spot поисковой системой по умолчанию или запустите его на "
+"собственном сервере"
 
 #: searx/templates/__common__/about.html:39
 msgid "Technical details - How does it work?"
-msgstr ""
+msgstr "Технические детали - Как это работает?"
 
 #: searx/templates/__common__/about.html:45
 msgid ""
@@ -403,40 +415,59 @@ msgid ""
 "set as\n"
 "    the default search engine."
 msgstr ""
+"Он обеспечивает базовую конфиденциальность, смешивая ваши запросы с поисками "
+"на других\n"
+"    платформах, не сохраняя данные поиска. Запросы выполняются с помощью "
+"POST-запроса\n"
+"    во всех браузерах (кроме браузеров на базе Chromium*).  Поэтому они не "
+"отображаются \n"
+"    ни в наших журналах, ни в истории ваших запросов. В случае с браузерами "
+"на базе Chromium\n"
+"    есть исключение: Spot использует строку поиска для выполнения GET\n"
+"    запросы.\n"
+"    \n"
+"    Spot можно добавить в строку поиска вашего браузера; более того, его "
+"можно установить в качестве\n"
+"    поисковой системы по умолчанию."
 
 #: searx/templates/__common__/about.html:56
 msgid "How to set as the default search engine?"
-msgstr ""
+msgstr "Как установить в качестве поисковой системы по умолчанию?"
 
 #: searx/templates/__common__/about.html:59
 msgid "Spot supports"
-msgstr ""
+msgstr "Sport поддерживает"
 
 #: searx/templates/__common__/about.html:60
 msgid ""
 "For more information on changing your default search engine, see your "
 "browser's documentation:"
 msgstr ""
+"Дополнительную информацию об изменении поисковой системы по умолчанию см. в "
+"документации к браузеру:"
 
 #: searx/templates/__common__/about.html:66
 msgid "only add websites that the user navigates to without a path."
 msgstr ""
+"добавлять только те сайты, на которые пользователь переходит без указания "
+"пути."
 
 #: searx/templates/__common__/about.html:70
 msgid "How can I make it my own?"
-msgstr ""
+msgstr "Как я могу сделать его своим?"
 
 #: searx/templates/__common__/about.html:73
 msgid "Spot appreciates your concern regarding logs, so take the code from the"
 msgstr ""
+"Spot понимает вашу озабоченность по поводу журналов, поэтому возьмите код из"
 
 #: searx/templates/__common__/about.html:73
 msgid "original Spot project"
-msgstr ""
+msgstr "оригинального проекта Spot"
 
 #: searx/templates/__common__/about.html:73
 msgid "and run it yourself!"
-msgstr ""
+msgstr "и запустите его у себя!"
 
 #: searx/templates/etheme/404.html:7 searx/templates/oscar/404.html:4
 #: searx/templates/simple/404.html:4
@@ -461,11 +492,11 @@ msgstr "о сайте"
 
 #: searx/templates/etheme/base.html:80
 msgid "view file"
-msgstr ""
+msgstr "просмотр файла"
 
 #: searx/templates/etheme/base.html:81
 msgid "view source"
-msgstr ""
+msgstr "просмотреть источник"
 
 #: searx/templates/etheme/base.html:94 searx/templates/oscar/base.html:85
 #: searx/templates/simple/base.html:53
@@ -695,11 +726,11 @@ msgstr "Выкл."
 
 #: searx/templates/etheme/preferences.html:110
 msgid "No safe search"
-msgstr ""
+msgstr "Отсутствие безопасного поиска"
 
 #: searx/templates/etheme/preferences.html:111
 msgid "Slow"
-msgstr ""
+msgstr "Медленный"
 
 #: searx/templates/etheme/preferences.html:126
 #: searx/templates/oscar/preferences.html:25
@@ -716,7 +747,7 @@ msgstr "Ответчики"
 #: searx/templates/etheme/preferences.html:145
 #: searx/templates/oscar/preferences.html:310
 msgid "This is the list of searx's instant answering modules."
-msgstr "Это список модулей мгновенного ответа searx"
+msgstr "Это список модулей мгновенного ответа searx."
 
 #: searx/templates/etheme/preferences.html:149
 #: searx/templates/oscar/preferences.html:315
@@ -767,7 +798,7 @@ msgstr "Поисковые системы"
 
 #: searx/templates/etheme/preferences.html:186
 msgid "Advanced"
-msgstr ""
+msgstr "Расширенный"
 
 #: searx/templates/etheme/preferences.html:207
 #: searx/templates/oscar/preferences.html:361
@@ -825,26 +856,26 @@ msgstr "Восстановить настройки по умолчанию"
 
 #: searx/templates/etheme/privacy.html:2
 msgid "Privacy policy"
-msgstr ""
+msgstr "Политика конфиденциальности"
 
 #: searx/templates/etheme/results.html:19
 msgid "Did you mean:"
-msgstr ""
+msgstr "Вы имели в виду:"
 
 #: searx/templates/etheme/results.html:79
 msgid "Images"
-msgstr ""
+msgstr "Картинки"
 
 #: searx/templates/etheme/components/categories.html:17
 #: searx/templates/etheme/components/categories.html:19
 #: searx/templates/etheme/results.html:80
 #: searx/templates/etheme/results.html:87
 msgid "More"
-msgstr ""
+msgstr "Больше"
 
 #: searx/templates/etheme/results.html:86
 msgid "Videos"
-msgstr ""
+msgstr "Видео"
 
 #: searx/templates/etheme/results.html:109
 #: searx/templates/oscar/results.html:160
@@ -868,19 +899,19 @@ msgstr "Предложения"
 #: searx/templates/etheme/components/categories.html:18
 #: searx/templates/etheme/components/categories.html:20
 msgid "Less"
-msgstr ""
+msgstr "Меньше"
 
 #: searx/templates/etheme/components/infobox.html:42
 msgid "More information:"
-msgstr ""
+msgstr "Больше информации:"
 
 #: searx/templates/etheme/components/navbar.html:5
 msgid "mail"
-msgstr ""
+msgstr "почта"
 
 #: searx/templates/etheme/components/navbar.html:6
 msgid "drive"
-msgstr ""
+msgstr "хранилище"
 
 #: searx/templates/etheme/components/time-range.html:3
 #: searx/templates/oscar/time-range.html:5
@@ -924,35 +955,35 @@ msgstr "в настоящее время не определены файлы co
 
 #: searx/templates/etheme/messages/no_results.html:3
 msgid "Sorry, no results found!"
-msgstr ""
+msgstr "Извините, результаты не найдены!"
 
 #: searx/templates/etheme/messages/no_results.html:11
 msgid "Some engines are not working as expected!"
-msgstr ""
+msgstr "Некоторые движки работают не так, как ожидалось!"
 
 #: searx/templates/etheme/messages/no_results.html:12
 msgid "Debug info"
-msgstr ""
+msgstr "Отладочная инфомация"
 
 #: searx/templates/etheme/messages/no_results.html:13
 msgid "Node : "
-msgstr ""
+msgstr "Запись: "
 
 #: searx/templates/etheme/messages/no_results.html:22
 msgid "Please, try the following."
-msgstr ""
+msgstr "Пожалуйста, попробуйте следующее."
 
 #: searx/templates/etheme/messages/no_results.html:24
 msgid "Search again later"
-msgstr ""
+msgstr "Повторите поиск позже"
 
 #: searx/templates/etheme/messages/no_results.html:25
 msgid "Try another query"
-msgstr ""
+msgstr "Попробуйте другой запрос"
 
 #: searx/templates/etheme/messages/no_results.html:26
 msgid "Report this problem"
-msgstr ""
+msgstr "Сообщить об этой проблеме"
 
 #: searx/templates/etheme/messages/save_settings_successfull.html:5
 #: searx/templates/etheme/messages/unknow_error.html:5
@@ -1017,11 +1048,11 @@ msgstr "торрент-файл"
 
 #: searx/templates/etheme/result_templates/torrent.html:17
 msgid "Seeders"
-msgstr ""
+msgstr "Сидеры"
 
 #: searx/templates/etheme/result_templates/torrent.html:18
 msgid "Leechers"
-msgstr ""
+msgstr "Личеры"
 
 #: searx/templates/etheme/result_templates/torrent.html:22
 #: searx/templates/oscar/result_templates/files.html:37
@@ -1032,11 +1063,11 @@ msgstr "Размер файла"
 
 #: searx/templates/etheme/result_templates/torrent.html:29
 msgid "Files"
-msgstr ""
+msgstr "Файлы"
 
 #: searx/templates/etheme/result_templates/video_torrent.html:7
 msgid "torrent"
-msgstr ""
+msgstr "торрент"
 
 #: searx/templates/oscar/advanced.html:4
 msgid "Advanced settings"
@@ -1063,7 +1094,7 @@ msgstr "Публичные зеркала"
 
 #: searx/templates/oscar/base.html:89 searx/templates/simple/base.html:57
 msgid "Contact instance maintainer"
-msgstr ""
+msgstr "Связаться с сопровождающим мейнтнером"
 
 #: searx/templates/oscar/languages.html:2
 msgid "Language"
@@ -1085,7 +1116,7 @@ msgstr "Разрешить"
 #: searx/templates/oscar/preferences.html:9
 #: searx/templates/simple/preferences.html:27
 msgid "No HTTPS"
-msgstr ""
+msgstr "Без HTTPS"
 
 #: searx/templates/oscar/preferences.html:44
 #: searx/templates/oscar/preferences.html:46
@@ -1120,11 +1151,11 @@ msgstr "Изменить вид сайта"
 
 #: searx/templates/oscar/preferences.html:153
 msgid "Show advanced settings"
-msgstr ""
+msgstr "Показать расширенные настройки"
 
 #: searx/templates/oscar/preferences.html:154
 msgid "Show advanced settings panel in the home page by default"
-msgstr ""
+msgstr "Показывать панель расширенных настроек на главной странице по умолчанию"
 
 #: searx/templates/oscar/preferences.html:163
 #: searx/templates/simple/preferences.html:95
@@ -1270,7 +1301,7 @@ msgstr "Похоже, вы используете searx впервые."
 
 #: searx/templates/oscar/messages/no_data_available.html:4
 msgid "There is currently no data available. "
-msgstr "На данный момент данные недоступны."
+msgstr "На данный момент данные недоступны. "
 
 #: searx/templates/oscar/messages/no_results.html:4
 #: searx/templates/simple/messages/no_results.html:4
@@ -1315,15 +1346,15 @@ msgstr "Автор"
 
 #: searx/templates/oscar/result_templates/files.html:35
 msgid "Filename"
-msgstr ""
+msgstr "Имя файла"
 
 #: searx/templates/oscar/result_templates/files.html:46
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: searx/templates/oscar/result_templates/files.html:48
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: searx/templates/oscar/result_templates/images.html:27
 msgid "Get image"
@@ -1336,15 +1367,15 @@ msgstr "Перейти к источнику"
 #: searx/templates/oscar/result_templates/map.html:26
 #: searx/templates/simple/result_templates/map.html:11
 msgid "address"
-msgstr ""
+msgstr "адрес"
 
 #: searx/templates/oscar/result_templates/products.html:14
 msgid "Has stock"
-msgstr ""
+msgstr "В наличии"
 
 #: searx/templates/oscar/result_templates/products.html:14
 msgid "Out of stock"
-msgstr ""
+msgstr "Закончилось"
 
 #: searx/templates/oscar/result_templates/torrent.html:6
 #: searx/templates/simple/result_templates/torrent.html:9
@@ -1444,4 +1475,3 @@ msgstr "Ответы"
 
 #~ msgid "Loading..."
 #~ msgstr "Загрузка..."
-
