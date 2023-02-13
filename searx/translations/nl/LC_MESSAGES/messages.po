@@ -14,10 +14,10 @@
 # Peter Martin <weblate@pe7er.com>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
-"PO-Revision-Date: 2022-11-26 23:09+0000\n"
+"PO-Revision-Date: 2023-02-14 12:08+0000\n"
 "Last-Translator: Edoardo Regni <eregni@pm.me>\n"
 "Language-Team: Dutch <https://i18n.e.foundation/projects/ecloud/spot/nl/>\n"
 "Language: nl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 4.15.2\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: searx/webapp.py:191
@@ -156,19 +156,21 @@ msgstr "Voor deze publicatie is geen abstract beschikbaar."
 #: searx/engines/qwant.py:200
 #: searx/templates/etheme/result_templates/currency.html:13
 msgid "Source"
-msgstr ""
+msgstr "Bron"
 
 #: searx/engines/qwant.py:202
 msgid "Channel"
-msgstr ""
+msgstr "Kanaal"
 
 #: searx/plugins/calculator.py:6
 msgid "Calculator"
-msgstr ""
+msgstr "Rekenmachine"
 
 #: searx/plugins/calculator.py:7
 msgid "This plugin extends results when the query is a mathematical expression"
 msgstr ""
+"Deze plug-in zal resultaten uitbreiden wanneer de zoekopdracht een "
+"mathematische expressie is"
 
 #: searx/plugins/calculator.py:59
 msgid "Error"
