@@ -283,6 +283,7 @@ engines:
     engine: artic
     shortcut: arc
     timeout: 4.0
+    disabled: true
 
   - name: arxiv
     engine: arxiv
@@ -529,6 +530,7 @@ engines:
     engine: tineye
     shortcut: tin
     timeout: 9.0
+    disabled: true
 
   - name: etymonline
     engine: xpath

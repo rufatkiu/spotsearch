@@ -16,7 +16,7 @@
             {% endif %}
     
             {% if infobox.content %}
-            <p class="content"><bdi>{{ infobox.content }}</bdi></p> 
+            <p class="content"><bdi>{{ infobox.content|safe }}</bdi></p> 
             {% endif %}
         </div>
 
