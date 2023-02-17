@@ -18,6 +18,7 @@
 # Robert Bridda <briddarobert@icloud.com>, 2022.
 # random <thrizem+wnd43@gmail.com>, 2022.
 # Franco Longo <longofrancoale@gmail.com>, 2022.
+# VaiTon <eyadlorenzo@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: searx\n"

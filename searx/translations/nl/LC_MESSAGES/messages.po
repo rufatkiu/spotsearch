@@ -12,6 +12,7 @@
 # SecularSteve <fairfull.playing@gmail.com>, 2022.
 # Sweder doc <swederdvl@gmail.com>, 2022.
 # Peter Martin <weblate@pe7er.com>, 2022.
+# Max Westen <max@maxwesten.nl>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: searx\n"
@@ -54,7 +55,7 @@ msgstr "video’s"
 
 #: searx/webapp.py:197
 msgid "it"
-msgstr "het"
+msgstr "IT"
 
 #: searx/webapp.py:198
 msgid "news"

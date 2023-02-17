@@ -4,11 +4,11 @@
 #
 # Translators:
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2017
-# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
 # Mico Hautaluoma <m@mha.fi>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
 "PO-Revision-Date: 2020-07-09 13:10+0000\n"
@@ -151,6 +151,8 @@ msgstr "Tästä julkaisusta ei ole yhteenvetoa."
 #: searx/templates/etheme/result_templates/currency.html:13
 msgid "Source"
 msgstr ""
+"{numCitations} Sitaatit vuodesta {firstCitationVelocityYear} vuoteen "
+"{lastCitationVelocityYear}"
 
 #: searx/engines/qwant.py:202
 msgid "Channel"
@@ -228,7 +230,7 @@ msgstr "Yö"
 
 #: searx/plugins/autodetect_search_language.py:79
 msgid "Autodetect search language"
-msgstr ""
+msgstr "Tunnista hakukieli automaattisesti"
 
 #: searx/plugins/autodetect_search_language.py:80
 msgid "Automatically detect the query search language and switch to it."

@@ -61,9 +61,8 @@ sc_code = ""
 
 def raise_captcha(resp):
 
-    if str(resp.url).startswith("https://www.startpage.com/sp/captcha"):
-        # suspend CAPTCHA for 7 days
-        raise SearxEngineCaptchaException(suspended_time=7 * 24 * 3600)
+    if str(resp.url).startswith('https://www.startpage.com/sp/captcha'):
+        raise SearxEngineCaptchaException()
 
 
 def get_sc_code(headers):

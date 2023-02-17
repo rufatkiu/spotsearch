@@ -7,6 +7,7 @@
 # Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
 # Alexandre Flament <alex@al-f.net>, 2022.
 # peterT1D <kozlovic.peter@gmail.com>, 2022.
+# Nik Drešar <nik.dresar@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -143,7 +144,7 @@ msgstr "{title} (neveljaven)"
 
 #: searx/engines/pdbe.py:97
 msgid "This entry has been superseded by"
-msgstr "Ta vnos je bil presezen"
+msgstr "Ta vnos je bil nadomeščen z"
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
@@ -157,6 +158,8 @@ msgstr ""
 #: searx/engines/qwant.py:202
 msgid "Channel"
 msgstr ""
+"{numCitations} navedb od leta {firstCitationVelocityYear} do "
+"{lastCitationVelocityYear}"
 
 #: searx/plugins/calculator.py:6
 msgid "Calculator"
@@ -1224,7 +1227,7 @@ msgstr "Poskusite iskati:"
 
 #: searx/templates/simple/results.html:152
 msgid "Back to top"
-msgstr ""
+msgstr "Nazaj na vrh"
 
 #: searx/templates/oscar/search_full.html:12
 msgid "Clear"
@@ -1258,19 +1261,19 @@ msgstr "Točke"
 
 #: searx/templates/simple/stats.html:27
 msgid "Result count"
-msgstr ""
+msgstr "Število rezultatov"
 
 #: searx/templates/simple/stats.html:59
 msgid "Total"
-msgstr ""
+msgstr "Skupaj"
 
 #: searx/templates/simple/stats.html:60
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: searx/templates/simple/stats.html:61
 msgid "Processing"
-msgstr ""
+msgstr "obdelava"
 
 #: searx/templates/simple/stats.html:99
 msgid "Warnings"
@@ -1294,7 +1297,7 @@ msgstr "Odstotek"
 
 #: searx/templates/simple/stats.html:111
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 #: searx/templates/simple/stats.html:119
 msgid "Filename"
@@ -1306,15 +1309,15 @@ msgstr "Funkcija"
 
 #: searx/templates/simple/stats.html:121
 msgid "Code"
-msgstr ""
+msgstr "Koda"
 
 #: searx/templates/simple/stats.html:128
 msgid "Checker"
-msgstr ""
+msgstr "Pregledovalnik"
 
 #: searx/templates/simple/stats.html:131
 msgid "Failed test"
-msgstr ""
+msgstr "Neuspešen preizkus"
 
 #: searx/templates/simple/stats.html:132
 msgid "Comment(s)"
@@ -1396,7 +1399,7 @@ msgstr ""
 
 #: searx/templates/oscar/result_templates/files.html:48
 msgid "Type"
-msgstr ""
+msgstr "Vrsta"
 
 #: searx/templates/oscar/result_templates/images.html:27
 msgid "Get image"

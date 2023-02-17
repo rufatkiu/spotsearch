@@ -11,9 +11,10 @@
 # 0xFFD <barann.afsarr@gmail.com>, 2022.
 # crazychicken1 <seymaomay1809@gmail.com>, 2022.
 # Kayra Uylar <k.uylar@outlook.com>, 2022.
+# emirhan <xemirhankoc@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
 "PO-Revision-Date: 2020-09-30 20:20+0000\n"

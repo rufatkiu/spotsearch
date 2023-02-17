@@ -9,11 +9,11 @@
 # pointhi, 2014
 # rike, 2014
 # stf <stefan.marsiske@gmail.com>, 2014
-# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
 # Shopimisrel <shopisrael12@gmail.com>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-20 11:20+0530\n"
 "PO-Revision-Date: 2020-12-13 17:24+0000\n"
@@ -208,27 +208,27 @@ msgstr "אי אפשר להוריד את תמונה זו."
 
 #: searx/engines/wttr.py:101
 msgid "Morning"
-msgstr ""
+msgstr "בוקר"
 
 #: searx/engines/wttr.py:101
 msgid "Noon"
-msgstr ""
+msgstr "צהריים"
 
 #: searx/engines/wttr.py:101
 msgid "Evening"
-msgstr ""
+msgstr "ערב"
 
 #: searx/engines/wttr.py:101
 msgid "Night"
-msgstr ""
+msgstr "לילה"
 
 #: searx/plugins/autodetect_search_language.py:79
 msgid "Autodetect search language"
-msgstr ""
+msgstr "זיהוי שפת חיפוש אוטומטי"
 
 #: searx/plugins/autodetect_search_language.py:80
 msgid "Automatically detect the query search language and switch to it."
-msgstr ""
+msgstr "זהה אוטומטית את שפת החיפוש והחלף אליה בהתאם."
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
@@ -288,7 +288,7 @@ msgstr ""
 
 #: searx/plugins/self_info.py:20
 msgid "Self Information"
-msgstr ""
+msgstr "מידע עצמי"
 
 #: searx/plugins/self_info.py:21
 msgid ""
@@ -1396,7 +1396,7 @@ msgstr ""
 
 #: searx/templates/oscar/result_templates/files.html:48
 msgid "Type"
-msgstr ""
+msgstr "סוג"
 
 #: searx/templates/oscar/result_templates/images.html:27
 msgid "Get image"

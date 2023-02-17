@@ -76,7 +76,7 @@ msgstr "چیزی پیدا نشد"
 
 #: searx/webapp.py:508 searx/webapp.py:907
 msgid "Invalid settings, please edit your preferences"
-msgstr "تنظیمات نادرست است، لطفا پیش‌فرض‌های جستجو را تغییر دهید"
+msgstr "تنظیمات نادرست است، لطفا تنظیمات جستجو را تغییر دهید"
 
 #: searx/webapp.py:524
 msgid "Invalid settings"
