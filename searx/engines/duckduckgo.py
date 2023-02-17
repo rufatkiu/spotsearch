@@ -27,7 +27,7 @@ supported_languages_url = "https://duckduckgo.com/util/u172.js"
 number_of_results = 10
 time_range_support = True
 safesearch = True
-VQD_REGEX = r"vqd='(\d+-\d+-\d+)'"
+VQD_REGEX = r"vqd='(\d+-\d+)'"
 language_aliases = {
     "ca-ES": "ct-ca",
     "de-AT": "de-de",
