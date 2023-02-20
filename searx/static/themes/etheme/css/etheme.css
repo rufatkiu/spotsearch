@@ -431,7 +431,7 @@ footer {
   color: #c1c1c1;
   padding-bottom: 8px;
 }
-footer .links > :first-child {
+footer .links a {
   margin-right: 8px;
 }
 .hidden,
