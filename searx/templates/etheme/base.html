@@ -90,12 +90,13 @@
         <p class="text-muted">
             <small>
                 <span class="links">
+                    <a id="set-default" href="{{url_for('about', _anchor='add-to-browser')}}">{{ _('Set as default') }}</a>
                     <a href="{{url_for('about')}}">{{ _('About') }}</a>
                     <a href="https://e.foundation/legal-notice-privacy">{{ _('Privacy') }}</a>
                 </span></br>
                 e Foundation 2018-{{ year }},
                 {{ _('Powered by') }} <a href="{{ repo_url }}">Spot</a> {{ version }}<br/>
-                An open-source metasearch engine forked from <a href="https://docs.searxng.org/">Searxng</a>
+                {{ _('An open-source metasearch engine forked from') }}<a href="https://docs.searxng.org/"> Searxng</a>
             </small>
         </p>
     </footer>

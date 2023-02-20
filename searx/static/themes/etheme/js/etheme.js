@@ -85,6 +85,37 @@ $(document).ready(function(){
     document.getElementById("image_view_url_link").href = target.dataset.url;
   }
 
+  function getUserBrowser() {
+    // Detect user browser
+    // https://stackoverflow.com/a/9851769/6490675   
+    if (typeof InstallTrigger !== 'undefined') {
+      return 'firefox';
+    }
+    else if (!isIE && !!window.StyleMedia) {
+      return 'edge';
+    }
+    else if(!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) {
+      return 'chrome';
+    }
+    return -1;
+  }
+
+  var browser_urls = {
+    "chrome": "https://support.google.com/chrome/answer/95426",
+    "edge": "https://support.microsoft.com/en-us/help/4028574/microsoft-edge-change-the-default-search-engine",
+    "firefox": "https://support.mozilla.org/en-US/kb/add-or-remove-search-engine-firefox"
+  };
+  
+  $("#chrome").attr("href", browser_urls.chrome);
+  $("#edge").attr("href", browser_urls.edge);
+  $("#firefox").attr("href", browser_urls.firefox);
+
+  var browser = getUserBrowser();
+
+  if (browser !== -1) {
+    $("#set-default").attr("href", browser_urls[browser]);
+  }
+
   $("#main_results").on("click", ".result.result-images", function (event) {
     event.preventDefault();
     var target = event.target;
