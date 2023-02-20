@@ -295,6 +295,10 @@ babel.extract() {
     pyenv.cmd pybabel extract -F babel.cfg \
                 -o "${messages_pot}" \
                 "searx/"
+    build_msg BABEL 'update existing message catalogs from POT file'
+    pybabel update -N \
+        -i "${messages_pot}" \
+        -d "${REPO_ROOT}/searx/translations"
     dump_return $?
 }
 

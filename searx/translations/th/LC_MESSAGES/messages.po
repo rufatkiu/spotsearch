@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-12-12 07:18+0000\n"
+"POT-Creation-Date: 2023-02-20 20:38+0530\n"
 "PO-Revision-Date: 2022-07-06 22:11+0000\n"
 "Last-Translator: watchakorn-18k <porton2559@gmail.com>\n"
 "Language: th\n"
@@ -17,219 +17,95 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.10.3\n"
 
-#. CONSTANT_NAMES['DEFAULT_GROUP_NAME']
-#: searx/searxng.msg
-msgid "others"
-msgstr "ชื่ออื่นๆ"
-
-#. CONSTANT_NAMES['OTHER_CATEGORY']
-#: searx/searxng.msg
-msgid "other"
-msgstr "หมวดหมู่อื่นๆ"
-
-#. CATEGORY_NAMES['FILES']
-#: searx/searxng.msg
-msgid "files"
-msgstr "ไฟล์"
-
-#. CATEGORY_NAMES['GENERAL']
-#: searx/searxng.msg
-msgid "general"
-msgstr "ทั่วไป"
-
-#. CATEGORY_NAMES['MUSIC']
-#: searx/searxng.msg
-msgid "music"
-msgstr "เพลง"
-
-#. CATEGORY_NAMES['SOCIAL_MEDIA']
-#: searx/searxng.msg
-msgid "social media"
-msgstr "สื่อสังคม"
-
-#. CATEGORY_NAMES['IMAGES']
-#: searx/searxng.msg
-msgid "images"
-msgstr "รูปภาพ"
-
-#. CATEGORY_NAMES['VIDEOS']
-#: searx/searxng.msg
-msgid "videos"
-msgstr "วิดีโอ"
-
-#. CATEGORY_NAMES['IT']
-#: searx/searxng.msg
-msgid "it"
-msgstr "ไอที"
-
-#. CATEGORY_NAMES['NEWS']
-#: searx/searxng.msg
-msgid "news"
-msgstr "ข่าว"
-
-#. CATEGORY_NAMES['MAP']
-#: searx/searxng.msg
-msgid "map"
-msgstr "แผนที่"
-
-#. CATEGORY_NAMES['ONIONS']
-#: searx/searxng.msg
-msgid "onions"
-msgstr "หัวหอม"
-
-#. CATEGORY_NAMES['SCIENCE']
-#: searx/searxng.msg
-msgid "science"
-msgstr "วิทยาศาสตร์"
-
-#. CATEGORY_GROUPS['APPS']
-#: searx/searxng.msg
-msgid "apps"
-msgstr "แอป"
-
-#. CATEGORY_GROUPS['DICTIONARIES']
-#: searx/searxng.msg
-msgid "dictionaries"
-msgstr "พจนานุกรม"
-
-#. CATEGORY_GROUPS['LYRICS']
-#: searx/searxng.msg
-msgid "lyrics"
-msgstr "เนื้อเพลง"
-
-#. CATEGORY_GROUPS['PACKAGES']
-#: searx/searxng.msg
-msgid "packages"
-msgstr "แพ็คเกจ"
-
-#. CATEGORY_GROUPS['Q_A']
-#: searx/searxng.msg
-msgid "q&a"
-msgstr "ถาม&ตอบ"
-
-#. CATEGORY_GROUPS['REPOS']
-#: searx/searxng.msg
-msgid "repos"
-msgstr "แหล่งที่เก็บข้อมูล"
-
-#. CATEGORY_GROUPS['SOFTWARE_WIKIS']
-#: searx/searxng.msg
-msgid "software wikis"
-msgstr "ซอฟต์แวร์วิกิ"
-
-#. CATEGORY_GROUPS['WEB']
-#: searx/searxng.msg
-msgid "web"
-msgstr "เว็บ"
-
-#. CATEGORY_GROUPS['SCIENTIFIC PUBLICATIONS']
-#: searx/searxng.msg
-msgid "scientific publications"
-msgstr ""
-
-#. STYLE_NAMES['AUTO']
-#: searx/searxng.msg
-msgid "auto"
-msgstr "อัตโนมัติ"
-
-#. STYLE_NAMES['LIGHT']
-#: searx/searxng.msg
-msgid "light"
-msgstr "สว่าง"
-
-#. STYLE_NAMES['DARK']
-#: searx/searxng.msg
-msgid "dark"
-msgstr "มืด"
-
-#: searx/webapp.py:165
+#: searx/webapp.py:201
 msgid "timeout"
 msgstr "หมดเวลา"
 
-#: searx/webapp.py:166
+#: searx/webapp.py:202
 msgid "parsing error"
 msgstr "ผิดพลาดในการวจีวิภาค"
 
-#: searx/webapp.py:167
+#: searx/webapp.py:203
 msgid "HTTP protocol error"
 msgstr "ข้อผิดพลาดของโปรโตคอล HTTP"
 
-#: searx/webapp.py:168
+#: searx/webapp.py:204
 msgid "network error"
 msgstr "ข้อผิดพลาดจากเครือข่าย"
 
-#: searx/webapp.py:169
+#: searx/webapp.py:205
 msgid "SSL error: certificate validation has failed"
 msgstr ""
 
-#: searx/webapp.py:171
+#: searx/webapp.py:207
 msgid "unexpected crash"
 msgstr "ข้อผิดพลาดที่ไม่คาดคิด"
 
-#: searx/webapp.py:178
+#: searx/webapp.py:214
 msgid "HTTP error"
 msgstr "ข้อผิดพลาดจาก HTTP"
 
-#: searx/webapp.py:179
+#: searx/webapp.py:215
 msgid "HTTP connection error"
 msgstr "ข้อผิดพลาดจากการเชื่อมต่อ HTTP"
 
-#: searx/webapp.py:185
+#: searx/webapp.py:221
 msgid "proxy error"
 msgstr "ข้อผิดพลาดจากพร็อกซี"
 
-#: searx/webapp.py:186
+#: searx/webapp.py:222
 msgid "CAPTCHA"
 msgstr "แคปต์ชา"
 
-#: searx/webapp.py:187
+#: searx/webapp.py:223
 msgid "too many requests"
 msgstr "คำขอมากเกินไป"
 
-#: searx/webapp.py:188
+#: searx/webapp.py:224
 msgid "access denied"
 msgstr "การเข้าถึงถูกปฏิเสธ"
 
-#: searx/webapp.py:189
+#: searx/webapp.py:225
 msgid "server API error"
 msgstr "ข้อผิดพลาดจาก API ของเซิร์ฟเวอร์"
 
-#: searx/webapp.py:366
+#: searx/webapp.py:407
 msgid "No item found"
 msgstr "ไม่พบรายการ"
 
-#: searx/engines/qwant.py:217
-#: searx/templates/simple/result_templates/images.html:20 searx/webapp.py:368
+#: searx/engines/qwant.py:218
+#: searx/templates/etheme/result_templates/currency.html:14
+#: searx/templates/simple/result_templates/images.html:20 searx/webapp.py:409
 msgid "Source"
 msgstr "แหล่งที่มา"
 
-#: searx/webapp.py:370
+#: searx/webapp.py:411
 msgid "Error loading the next page"
 msgstr "เกิดข้อผิดพลาดในการโหลดหน้าถัดไป"
 
-#: searx/webapp.py:522 searx/webapp.py:954
+#: searx/webapp.py:567 searx/webapp.py:1034
 msgid "Invalid settings, please edit your preferences"
 msgstr "การตั้งค่าไม่ถูกต้อง โปรดแก้ไขการตั้งค่าของคุณ"
 
-#: searx/webapp.py:538
+#: searx/webapp.py:583
 msgid "Invalid settings"
 msgstr "การตั้งค่าไม่ถูกต้อง"
 
-#: searx/webapp.py:615 searx/webapp.py:691
+#: searx/webapp.py:660 searx/webapp.py:736
 msgid "search error"
 msgstr "ข้อผิดพลาดจากการค้นหา"
 
-#: searx/webapp.py:853
+#: searx/webapp.py:916
 msgid "Suspended"
 msgstr "ถูกระงับ"
 
-#: searx/webutils.py:161
+#: searx/webutils.py:198
 msgid "{minutes} minute(s) ago"
 msgstr "{minutes} นาทีก่อน"
 
-#: searx/webutils.py:162
+#: searx/webutils.py:199
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "{hours} ชั่วโมง),{minutes} นาทีก่อน"
 
@@ -249,23 +125,23 @@ msgstr "ฟังก์ชันสถิติ"
 msgid "Compute {functions} of the arguments"
 msgstr "คำนวณ {functions} จากอาร์กิวเมนต์"
 
-#: searx/engines/openstreetmap.py:160
+#: searx/engines/openstreetmap.py:167
 msgid "Get directions"
 msgstr "รับเส้นทาง"
 
-#: searx/engines/pdbe.py:96
+#: searx/engines/pdbe.py:108
 msgid "{title} (OBSOLETE)"
 msgstr "{title} (ล้าสมัย)"
 
-#: searx/engines/pdbe.py:103
+#: searx/engines/pdbe.py:115
 msgid "This entry has been superseded by"
 msgstr "รายการนี้ถูกแทนที่โดย"
 
-#: searx/engines/qwant.py:219
+#: searx/engines/qwant.py:220
 msgid "Channel"
 msgstr "ช่อง"
 
-#: searx/engines/semantic_scholar.py:81
+#: searx/engines/semantic_scholar.py:82
 msgid ""
 "{numCitations} citations from the year {firstCitationVelocityYear} to "
 "{lastCitationVelocityYear}"
@@ -288,27 +164,27 @@ msgstr ""
 msgid "The image could not be downloaded."
 msgstr ""
 
-#: searx/engines/wttr.py:101
+#: searx/engines/wttr.py:102
 msgid "Morning"
 msgstr ""
 
-#: searx/engines/wttr.py:101
+#: searx/engines/wttr.py:103
 msgid "Noon"
 msgstr ""
 
-#: searx/engines/wttr.py:101
+#: searx/engines/wttr.py:104
 msgid "Evening"
 msgstr ""
 
-#: searx/engines/wttr.py:101
+#: searx/engines/wttr.py:105
 msgid "Night"
 msgstr ""
 
-#: searx/plugins/autodetect_search_language.py:79
+#: searx/plugins/autodetect_search_language.py:74
 msgid "Autodetect search language"
 msgstr ""
 
-#: searx/plugins/autodetect_search_language.py:80
+#: searx/plugins/autodetect_search_language.py:75
 msgid "Automatically detect the query search language and switch to it."
 msgstr ""
 
@@ -338,6 +214,14 @@ msgid ""
 "when available"
 msgstr "หลีกเลี่ยงข้อจำกัดการชำระเงินโดยเปลี่ยนเส้นทางไปรุ่นเอกสารที่เปิดให้ใช้งาน"
 
+#: searx/plugins/rest_api.py:8
+msgid "Rest API"
+msgstr ""
+
+#: searx/plugins/rest_api.py:9
+msgid "Update REST API"
+msgstr ""
+
 #: searx/plugins/search_on_category_select.py:19
 msgid "Search on category select"
 msgstr "ค้นหาในตัวเลือกหมวดหมู่"
@@ -349,6 +233,16 @@ msgid ""
 msgstr ""
 "ทำการค้นหาทันทีหากเลือกหมวดหมู่แล้ว "
 "ปิดการใช้งานเพื่อเลือกหมวดหมู่ได้หลายหมวดหมู่ (ต้องใช้จาวาสคริปต์)"
+
+#: searx/plugins/search_operators.py:5
+msgid "Search operators"
+msgstr ""
+
+#: searx/plugins/search_operators.py:6
+msgid ""
+"Filter results using hyphen, site: and -site:.\n"
+"Please note that you might get less results with the additional filtering."
+msgstr ""
 
 #: searx/plugins/self_info.py:20
 msgid "Self Information"
@@ -368,22 +262,24 @@ msgstr ""
 
 #: searx/plugins/tor_check.py:28
 msgid ""
-"This plugin checks if the address of the request is a TOR exit node, and "
-"informs the user if it is, like check.torproject.org but from searxng."
+"This plugin checks if the address of the request is a Tor exit-node, and "
+"informs the user if it is; like check.torproject.org, but from SearXNG."
 msgstr ""
 
 #: searx/plugins/tor_check.py:62
 msgid ""
-"The TOR exit node list (https://check.torproject.org/exit-addresses) is "
-"unreachable."
+"The could not download the list of Tor exit-nodes from "
+"https://check.torproject.org/exit-addresses."
 msgstr ""
 
-#: searx/plugins/tor_check.py:78
-msgid "You are using TOR. Your IP address seems to be: {ip_address}."
+#: searx/plugins/tor_check.py:79
+msgid ""
+"You are using Tor. It looks like you have this external IP address: "
+"{ip_address}."
 msgstr ""
 
-#: searx/plugins/tor_check.py:84
-msgid "You are not using TOR. Your IP address seems to be: {ip_address}."
+#: searx/plugins/tor_check.py:87
+msgid "You are not using Tor. You have this external IP address: {ip_address}."
 msgstr ""
 
 #: searx/plugins/tracker_url_remover.py:29
@@ -406,35 +302,621 @@ msgstr ""
 "นำทางผลลัพธ์จากการค้นหาด้วยปุ่มลัดแบบ Vim (ต้องใช้ JavaScript) กดปุ่ม "
 "\"h\" บนหน้าหลักหรือหน้าผลลัพธ์เพื่อรับความช่วยเหลือ"
 
-#: searx/templates/simple/404.html:4
+#: searx/templates/etheme/404.html:7 searx/templates/simple/404.html:4
 msgid "Page not found"
 msgstr "ไม่พบหน้านี้"
 
-#: searx/templates/simple/404.html:6
+#: searx/templates/etheme/404.html:10 searx/templates/simple/404.html:6
 #, python-format
 msgid "Go to %(search_page)s."
 msgstr "ไปยัง %(search_page)s"
 
-#: searx/templates/simple/404.html:6
+#: searx/templates/etheme/404.html:10 searx/templates/simple/404.html:6
 msgid "search page"
 msgstr "หน้าค้นหา"
 
+#: searx/templates/etheme/about.html:2
+msgid "about"
+msgstr ""
+
+#: searx/templates/etheme/about.html:7 searx/templates/etheme/base.html:94
 #: searx/templates/simple/base.html:46
 msgid "About"
 msgstr "เกี่ยวกับ"
 
-#: searx/templates/simple/base.html:50
-msgid "Donate"
-msgstr "บริจาค"
+#: searx/templates/etheme/about.html:10
+msgid "Spot is a fork of"
+msgstr ""
 
+#: searx/templates/etheme/about.html:10
+msgid "which is a"
+msgstr ""
+
+#: searx/templates/etheme/about.html:12
+msgid "aggregating the results of other"
+msgstr ""
+
+#: searx/templates/etheme/about.html:13
+msgid "while not storing information about its users."
+msgstr ""
+
+#: searx/templates/etheme/about.html:16
+msgid "More about Spot..."
+msgstr ""
+
+#: searx/templates/etheme/about.html:27
+msgid "Why use Spot?"
+msgstr ""
+
+#: searx/templates/etheme/about.html:31
+msgid ""
+"Spot may not offer you as personalised results as Google, but it doesn't "
+"generate a profile about you."
+msgstr ""
+
+#: searx/templates/etheme/about.html:35
+msgid ""
+"Spot doesn't care about what you search for, never shares anything with a"
+" third party, and it can't be\n"
+"        used to compromise you."
+msgstr ""
+
+#: searx/templates/etheme/about.html:39
+#, python-format
+msgid ""
+"Spot is free software, the code is 100%% open and you can help to make it"
+" better. See more on"
+msgstr ""
+
+#: searx/templates/etheme/about.html:45
+msgid ""
+"If you do care about privacy, want to be a conscious user, or otherwise "
+"believe in digital freedom, make\n"
+"      Spot your default search engine or run it on your own server"
+msgstr ""
+
+#: searx/templates/etheme/about.html:49
+msgid "Technical details - How does it work?"
+msgstr ""
+
+#: searx/templates/etheme/about.html:55
+msgid ""
+"It provides basic privacy by mixing your queries with searches on other\n"
+"      platforms without storing search data. Queries are made using a "
+"POST request\n"
+"      on every browser (except Chromium-based browsers*). Therefore they "
+"show up\n"
+"      in neither our logs, nor your url history. In the case of Chromium-"
+"based\n"
+"      browser users there is an exception: Spot uses the search bar to "
+"perform GET\n"
+"      requests.\n"
+"\n"
+"      Spot can be added to your browser's search bar; moreover, it can be"
+" set as\n"
+"      the default search engine."
+msgstr ""
+
+#: searx/templates/etheme/about.html:66
+msgid "How to set as the default search engine?"
+msgstr ""
+
+#: searx/templates/etheme/about.html:69
+msgid "Spot supports"
+msgstr ""
+
+#: searx/templates/etheme/about.html:71
+msgid ""
+"For more information on changing your default search engine, see your "
+"browser's documentation:"
+msgstr ""
+
+#: searx/templates/etheme/about.html:81
+msgid "How can I make it my own?"
+msgstr ""
+
+#: searx/templates/etheme/about.html:84
+msgid "Spot appreciates your concern regarding logs, so take the code from the"
+msgstr ""
+
+#: searx/templates/etheme/about.html:85
+msgid "original Spot project"
+msgstr ""
+
+#: searx/templates/etheme/about.html:85
+msgid "and run it yourself!"
+msgstr ""
+
+#: searx/templates/etheme/base.html:79
+msgid "view file"
+msgstr ""
+
+#: searx/templates/etheme/base.html:80
+msgid "view source"
+msgstr ""
+
+#: searx/templates/etheme/base.html:93
+msgid "Set as default"
+msgstr ""
+
+#: searx/templates/etheme/base.html:95 searx/templates/etheme/privacy.html:7
+#: searx/templates/simple/preferences.html:254
+msgid "Privacy"
+msgstr "ความเป็นส่วนตัว"
+
+#: searx/templates/etheme/base.html:98 searx/templates/simple/base.html:64
+msgid "Powered by"
+msgstr "ขับเคลื่อนโดย"
+
+#: searx/templates/etheme/base.html:99
+msgid "An open-source metasearch engine forked from"
+msgstr ""
+
+#: searx/templates/etheme/macros.html:15 searx/templates/simple/search.html:9
+#: searx/templates/simple/simple_search.html:5
+msgid "Search for..."
+msgstr "ค้นหา..."
+
+#: searx/templates/etheme/macros.html:69 searx/templates/simple/macros.html:45
+msgid "cached"
+msgstr "แคช"
+
+#: searx/templates/etheme/macros.html:71 searx/templates/simple/macros.html:45
+msgid "proxied"
+msgstr "พร็อกซี่"
+
+#: searx/templates/etheme/macros.html:87
+msgid "supported"
+msgstr ""
+
+#: searx/templates/etheme/macros.html:91
+#: searx/templates/etheme/preferences.html:100
+msgid "not supported"
+msgstr ""
+
+#: searx/templates/etheme/macros.html:127
+#: searx/templates/simple/result_templates/torrent.html:12
+msgid "Bytes"
+msgstr "ไบต์"
+
+#: searx/templates/etheme/macros.html:128
+#: searx/templates/simple/result_templates/torrent.html:13
+msgid "kiB"
+msgstr "กิบิไบต์"
+
+#: searx/templates/etheme/macros.html:129
+#: searx/templates/simple/result_templates/torrent.html:14
+msgid "MiB"
+msgstr "เมบิไบต์"
+
+#: searx/templates/etheme/macros.html:130
+#: searx/templates/simple/result_templates/torrent.html:15
+msgid "GiB"
+msgstr "จิบิไบต์"
+
+#: searx/templates/etheme/macros.html:131
+#: searx/templates/simple/result_templates/torrent.html:16
+msgid "TiB"
+msgstr "เทบิไบต์"
+
+#: searx/templates/etheme/macros.html:137
+#: searx/templates/simple/messages/no_results.html:6
+#: searx/templates/simple/results.html:46
+msgid "Error!"
+msgstr "เกิดข้อผิดพลาด!"
+
+#: searx/templates/etheme/components/navbar.html:9
+#: searx/templates/etheme/components/navbar.html:20
+#: searx/templates/etheme/preferences.html:3
+msgid "preferences"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:20
 #: searx/templates/simple/base.html:54
 #: searx/templates/simple/preferences.html:99
 msgid "Preferences"
 msgstr "การตั้งค่า"
 
-#: searx/templates/simple/base.html:64
-msgid "Powered by"
-msgstr "ขับเคลื่อนโดย"
+#: searx/templates/etheme/components/languages.html:1
+#: searx/templates/etheme/preferences.html:29
+#: searx/templates/simple/filters/languages.html:1
+#: searx/templates/simple/preferences.html:115
+msgid "Search language"
+msgstr "ค้นหาภาษา"
+
+#: searx/templates/etheme/preferences.html:30
+#: searx/templates/simple/preferences.html:124
+msgid "What language do you prefer for search?"
+msgstr "คุณต้องการค้นหาภาษาใด?"
+
+#: searx/templates/etheme/preferences.html:35
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "ภาษาส่วนต่อประสาน"
+
+#: searx/templates/etheme/preferences.html:36
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "เปลี่ยนภาษาของเค้าโครง"
+
+#: searx/templates/etheme/preferences.html:45
+#: searx/templates/simple/preferences.html:129
+msgid "Autocomplete"
+msgstr "เติมข้อความอัตโนมัติ"
+
+#: searx/templates/etheme/preferences.html:46
+#: searx/templates/simple/preferences.html:138
+msgid "Find stuff as you type"
+msgstr "ค้นหาสิ่งต่างๆในขณะพิมพ์"
+
+#: searx/templates/etheme/preferences.html:56
+#: searx/templates/simple/filters/safesearch.html:1
+#: searx/templates/simple/filters/safesearch.html:2
+#: searx/templates/simple/filters/safesearch.html:3
+#: searx/templates/simple/filters/safesearch.html:4
+#: searx/templates/simple/preferences.html:143
+#: searx/templates/simple/preferences.html:311
+msgid "SafeSearch"
+msgstr "ค้นหาแบบปลอดภัย"
+
+#: searx/templates/etheme/preferences.html:57
+#: searx/templates/simple/preferences.html:151
+msgid "Filter content"
+msgstr "ตัวกรอกเนื้อหา"
+
+#: searx/templates/etheme/preferences.html:60
+#: searx/templates/simple/filters/safesearch.html:2
+#: searx/templates/simple/preferences.html:146
+msgid "Strict"
+msgstr "เข้มงวด"
+
+#: searx/templates/etheme/preferences.html:61
+#: searx/templates/simple/filters/safesearch.html:3
+#: searx/templates/simple/preferences.html:147
+msgid "Moderate"
+msgstr "ปานกลาง"
+
+#: searx/templates/etheme/preferences.html:62
+#: searx/templates/simple/filters/safesearch.html:4
+#: searx/templates/simple/preferences.html:148
+msgid "None"
+msgstr "ไม่มี"
+
+#: searx/templates/etheme/preferences.html:66
+msgid "Choose style for this theme"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:66
+msgid "Style"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:73
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "ผลลัพธ์ในแท็บใหม่"
+
+#: searx/templates/etheme/preferences.html:74
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "เปิดลิงก์ผลลัพธ์ด้วยแท็บเบราว์เซอร์ใหม่"
+
+#: searx/templates/etheme/preferences.html:77
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "เปิด"
+
+#: searx/templates/etheme/preferences.html:78
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "ปิด"
+
+#: searx/templates/etheme/preferences.html:101
+msgid "No safe search"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:102
+msgid "Slow"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:117
+msgid "Plugins"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:135
+msgid "Answerers"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:136
+msgid "This is the list of spot's instant answering modules."
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:140
+#: searx/templates/simple/preferences.html:359
+msgid "Keywords"
+msgstr "คำสำคัญ"
+
+#: searx/templates/etheme/preferences.html:143
+#: searx/templates/simple/preferences.html:362
+msgid "Examples"
+msgstr "ตัวอย่าง"
+
+#: searx/templates/etheme/preferences.html:153
+#: searx/templates/simple/preferences.html:393
+msgid "Cookies"
+msgstr "คุกกี้"
+
+#: searx/templates/etheme/preferences.html:155
+msgid ""
+"This is the list of cookies and their values spot is storing on your "
+"computer."
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:156
+msgid "With that list, you can assess spot's transparency."
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:175
+#: searx/templates/simple/preferences.html:105
+msgid "General"
+msgstr "ทั่วไป"
+
+#: searx/templates/etheme/preferences.html:176
+#: searx/templates/simple/preferences.html:294
+msgid "Engines"
+msgstr "เครื่องมือ"
+
+#: searx/templates/etheme/preferences.html:177
+msgid "Advanced"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:198
+#: searx/templates/simple/preferences.html:428
+msgid ""
+"These settings are stored in your cookies, this allows us not to store "
+"this data about you."
+msgstr ""
+"การตั้งค่าพวกนี้ถูกเก็บไว้ในคุกกี้ของคุณแล้ว "
+"ซึ่งช่วยให้เราไม่สามารถจัดเก็บข้อมูลนี้เกี่ยวกับคุณได้"
+
+#: searx/templates/etheme/preferences.html:200
+#: searx/templates/simple/preferences.html:430
+msgid ""
+"These cookies serve your sole convenience, we don't use these cookies to "
+"track you."
+msgstr ""
+"คุกกี้พวกนี้ให้บริการเพื่อความสะดวกของคุณ "
+"เราไม่ใช้คุกกี้เหล่านี้เพื่อติดตามคุณ"
+
+#: searx/templates/etheme/preferences.html:205
+#: searx/templates/simple/preferences.html:414
+msgid "Search URL of the currently saved preferences"
+msgstr "ค้นหา URL จากการตั้งค่าที่บันทึกไว้ในปัจจุบัน"
+
+#: searx/templates/etheme/preferences.html:205
+#: searx/templates/simple/preferences.html:418
+msgid ""
+"Note: specifying custom settings in the search URL can reduce privacy by "
+"leaking data to the clicked result sites."
+msgstr ""
+"หมายเหตุ: การระบุการตั้งค่าแบบกำหนดเองใน URL "
+"การค้นหาสามารถลดความเป็นส่วนตัวได้โดยการทำให้ข้อมูลรั่วไหลไปยังไซต์ผลลัพธ์ที่คลิก"
+
+#: searx/templates/etheme/preferences.html:211
+msgid "save"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:212
+msgid "back"
+msgstr ""
+
+#: searx/templates/etheme/preferences.html:214
+#: searx/templates/simple/preferences.html:434
+msgid "Reset defaults"
+msgstr "รีเซ็ตค่าเริ่มต้น"
+
+#: searx/templates/etheme/privacy.html:2 searx/templates/simple/base.html:72
+msgid "Privacy policy"
+msgstr "นโยบายความเป็นส่วนตัว"
+
+#: searx/templates/etheme/results.html:19
+msgid "Did you mean:"
+msgstr ""
+
+#: searx/templates/etheme/results.html:81
+msgid "Images"
+msgstr ""
+
+#: searx/templates/etheme/components/categories.html:17
+#: searx/templates/etheme/components/categories.html:19
+#: searx/templates/etheme/results.html:82
+#: searx/templates/etheme/results.html:89
+msgid "More"
+msgstr ""
+
+#: searx/templates/etheme/results.html:88
+msgid "Videos"
+msgstr ""
+
+#: searx/templates/etheme/results.html:111
+msgid "previous page"
+msgstr ""
+
+#: searx/templates/etheme/results.html:115
+msgid "next page"
+msgstr ""
+
+#: searx/templates/etheme/results.html:139
+#: searx/templates/simple/results.html:68
+msgid "Suggestions"
+msgstr "ข้อเสนอแนะ"
+
+#: searx/templates/etheme/components/categories.html:18
+#: searx/templates/etheme/components/categories.html:20
+msgid "Less"
+msgstr ""
+
+#: searx/templates/etheme/components/infobox.html:42
+msgid "More information:"
+msgstr ""
+
+#: searx/templates/etheme/components/languages.html:2
+#: searx/templates/simple/filters/languages.html:2
+#: searx/templates/simple/preferences.html:118
+msgid "Default language"
+msgstr "ภาษาเริ่มต้น"
+
+#: searx/templates/etheme/components/navbar.html:5
+msgid "mail"
+msgstr ""
+
+#: searx/templates/etheme/components/navbar.html:6
+msgid "drive"
+msgstr ""
+
+#: searx/templates/etheme/components/time-range.html:3
+#: searx/templates/simple/filters/time_range.html:3
+msgid "Anytime"
+msgstr "ทุกเวลา"
+
+#: searx/templates/etheme/components/time-range.html:6
+#: searx/templates/simple/filters/time_range.html:6
+msgid "Last day"
+msgstr "วันล่าสุด"
+
+#: searx/templates/etheme/components/time-range.html:9
+#: searx/templates/simple/filters/time_range.html:9
+msgid "Last week"
+msgstr "สัปดาห์ล่าสุด"
+
+#: searx/templates/etheme/components/time-range.html:12
+#: searx/templates/simple/filters/time_range.html:12
+msgid "Last month"
+msgstr "เดือนล่าสุด"
+
+#: searx/templates/etheme/components/time-range.html:15
+#: searx/templates/simple/filters/time_range.html:15
+msgid "Last year"
+msgstr "ปีล่าสุด"
+
+#: searx/templates/etheme/messages/no_cookies.html:2
+#: searx/templates/simple/messages/no_cookies.html:3
+msgid "Information!"
+msgstr "สารสนเทศ!"
+
+#: searx/templates/etheme/messages/no_cookies.html:3
+#: searx/templates/simple/messages/no_cookies.html:4
+msgid "currently, there are no cookies defined."
+msgstr "ขณะนี้ไม่มีการกำหนดคุกกี้ใดๆ"
+
+#: searx/templates/etheme/messages/no_results.html:3
+msgid "Sorry, no results found!"
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:11
+msgid "Some engines are not working as expected!"
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:12
+msgid "Debug info"
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:13
+msgid "Node : "
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:22
+msgid "Please, try the following."
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:24
+msgid "Search again later"
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:25
+msgid "Try another query"
+msgstr ""
+
+#: searx/templates/etheme/messages/no_results.html:26
+msgid "Report this problem"
+msgstr ""
+
+#: searx/templates/etheme/messages/save_settings_successfull.html:5
+#: searx/templates/etheme/messages/unknow_error.html:5
+msgid "Close"
+msgstr ""
+
+#: searx/templates/etheme/messages/save_settings_successfull.html:7
+msgid "Well done!"
+msgstr ""
+
+#: searx/templates/etheme/messages/save_settings_successfull.html:8
+msgid "Settings saved successfully."
+msgstr ""
+
+#: searx/templates/etheme/messages/unknow_error.html:7
+msgid "Oh snap!"
+msgstr ""
+
+#: searx/templates/etheme/messages/unknow_error.html:8
+msgid "Something went wrong."
+msgstr ""
+
+#: searx/templates/etheme/result_templates/map.html:7
+#: searx/templates/simple/result_templates/map.html:43
+msgid "show map"
+msgstr "แสดงแผนที่"
+
+#: searx/templates/etheme/result_templates/map.html:7
+#: searx/templates/simple/result_templates/map.html:43
+msgid "hide map"
+msgstr "ซ่อนแผนที่"
+
+#: searx/templates/etheme/result_templates/map.html:11
+msgid "show details"
+msgstr ""
+
+#: searx/templates/etheme/result_templates/map.html:11
+msgid "hide details"
+msgstr ""
+
+#: searx/templates/etheme/result_templates/torrent.html:6
+#: searx/templates/simple/result_templates/torrent.html:6
+msgid "magnet link"
+msgstr "ลิงก์แม่เหล็ก"
+
+#: searx/templates/etheme/result_templates/torrent.html:9
+#: searx/templates/simple/result_templates/torrent.html:7
+msgid "torrent file"
+msgstr "ไฟล์ทอร์เรนต์"
+
+#: searx/templates/etheme/result_templates/torrent.html:17
+msgid "Seeders"
+msgstr ""
+
+#: searx/templates/etheme/result_templates/torrent.html:18
+msgid "Leechers"
+msgstr ""
+
+#: searx/templates/etheme/result_templates/torrent.html:22
+#: searx/templates/simple/result_templates/torrent.html:11
+msgid "Filesize"
+msgstr "ขนาดไฟล์"
+
+#: searx/templates/etheme/result_templates/torrent.html:29
+msgid "Files"
+msgstr ""
+
+#: searx/templates/etheme/result_templates/video_torrent.html:7
+msgid "torrent"
+msgstr ""
+
+#: searx/templates/simple/base.html:50
+msgid "Donate"
+msgstr "บริจาค"
 
 #: searx/templates/simple/base.html:64
 msgid "a privacy-respecting, open metasearch engine"
@@ -457,10 +939,6 @@ msgstr "เครื่องมือสถิติ"
 msgid "Public instances"
 msgstr "อินสแตนซ์สาธารณะ"
 
-#: searx/templates/simple/base.html:72
-msgid "Privacy policy"
-msgstr "นโยบายความเป็นส่วนตัว"
-
 #: searx/templates/simple/base.html:75
 msgid "Contact instance maintainer"
 msgstr "ติดต่อผู้ดูแลอินสแตนซ์"
@@ -478,14 +956,6 @@ msgstr "ความยาว"
 #: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
 msgstr "ผู้เขียน"
-
-#: searx/templates/simple/macros.html:45
-msgid "cached"
-msgstr "แคช"
-
-#: searx/templates/simple/macros.html:45
-msgid "proxied"
-msgstr "พร็อกซี่"
 
 #: searx/templates/simple/new_issue.html:64
 msgid "Start submiting a new issue on GitHub"
@@ -541,63 +1011,9 @@ msgstr "ตัวตรวจสอบการทดสอบล้มเหล
 msgid "Errors:"
 msgstr "ข้อผิดพลาด:"
 
-#: searx/templates/simple/preferences.html:105
-msgid "General"
-msgstr "ทั่วไป"
-
 #: searx/templates/simple/preferences.html:108
 msgid "Default categories"
 msgstr "หมวดหมู่เริ่มต้น"
-
-#: searx/templates/simple/filters/languages.html:1
-#: searx/templates/simple/preferences.html:115
-msgid "Search language"
-msgstr "ค้นหาภาษา"
-
-#: searx/templates/simple/filters/languages.html:2
-#: searx/templates/simple/preferences.html:118
-msgid "Default language"
-msgstr "ภาษาเริ่มต้น"
-
-#: searx/templates/simple/preferences.html:124
-msgid "What language do you prefer for search?"
-msgstr "คุณต้องการค้นหาภาษาใด?"
-
-#: searx/templates/simple/preferences.html:129
-msgid "Autocomplete"
-msgstr "เติมข้อความอัตโนมัติ"
-
-#: searx/templates/simple/preferences.html:138
-msgid "Find stuff as you type"
-msgstr "ค้นหาสิ่งต่างๆในขณะพิมพ์"
-
-#: searx/templates/simple/filters/safesearch.html:1
-#: searx/templates/simple/filters/safesearch.html:2
-#: searx/templates/simple/filters/safesearch.html:3
-#: searx/templates/simple/filters/safesearch.html:4
-#: searx/templates/simple/preferences.html:143
-#: searx/templates/simple/preferences.html:311
-msgid "SafeSearch"
-msgstr "ค้นหาแบบปลอดภัย"
-
-#: searx/templates/simple/filters/safesearch.html:2
-#: searx/templates/simple/preferences.html:146
-msgid "Strict"
-msgstr "เข้มงวด"
-
-#: searx/templates/simple/filters/safesearch.html:3
-#: searx/templates/simple/preferences.html:147
-msgid "Moderate"
-msgstr "ปานกลาง"
-
-#: searx/templates/simple/filters/safesearch.html:4
-#: searx/templates/simple/preferences.html:148
-msgid "None"
-msgstr "ไม่มี"
-
-#: searx/templates/simple/preferences.html:151
-msgid "Filter content"
-msgstr "ตัวกรอกเนื้อหา"
 
 #: searx/templates/simple/preferences.html:157
 msgid "Open Access DOI resolver"
@@ -621,14 +1037,6 @@ msgstr "โทเคนการเข้าถึงของเครื่อ
 msgid "User interface"
 msgstr "ส่วนต่อประสานกับผู้ใช้"
 
-#: searx/templates/simple/preferences.html:182
-msgid "Interface language"
-msgstr "ภาษาส่วนต่อประสาน"
-
-#: searx/templates/simple/preferences.html:190
-msgid "Change the language of the layout"
-msgstr "เปลี่ยนภาษาของเค้าโครง"
-
 #: searx/templates/simple/preferences.html:195
 msgid "Theme"
 msgstr "ธีม"
@@ -649,29 +1057,9 @@ msgstr "เลือกอัตโนมัติเพื่อติดตา
 msgid "Center Alignment"
 msgstr "จัดตำแหน่งกึ่งกลาง"
 
-#: searx/templates/simple/preferences.html:220
-#: searx/templates/simple/preferences.html:232
-#: searx/templates/simple/preferences.html:244
-msgid "On"
-msgstr "เปิด"
-
-#: searx/templates/simple/preferences.html:221
-#: searx/templates/simple/preferences.html:233
-#: searx/templates/simple/preferences.html:245
-msgid "Off"
-msgstr "ปิด"
-
 #: searx/templates/simple/preferences.html:224
 msgid "Displays results in the center of the page (Oscar layout)."
 msgstr "แสดงผลตรงกลางหน้า (เค้าโครงออสการ์)"
-
-#: searx/templates/simple/preferences.html:229
-msgid "Results on new tabs"
-msgstr "ผลลัพธ์ในแท็บใหม่"
-
-#: searx/templates/simple/preferences.html:236
-msgid "Open result links on new browser tabs"
-msgstr "เปิดลิงก์ผลลัพธ์ด้วยแท็บเบราว์เซอร์ใหม่"
 
 #: searx/templates/simple/preferences.html:241
 msgid "Infinite scroll"
@@ -680,10 +1068,6 @@ msgstr "เลื่อนเมาส์แบบไม่มีที่สิ
 #: searx/templates/simple/preferences.html:248
 msgid "Automatically load next page when scrolling to bottom of current page"
 msgstr "โหลดหน้าถัดไปโดยอัตโนมัติเมื่อเลื่อนเมาส์ลงไปที่ด้านล่างของหน้าปัจจุบัน"
-
-#: searx/templates/simple/preferences.html:254
-msgid "Privacy"
-msgstr "ความเป็นส่วนตัว"
 
 #: searx/templates/simple/preferences.html:257
 msgid "HTTP Method"
@@ -725,10 +1109,6 @@ msgid ""
 msgstr ""
 "เมื่อเปิดใช้งานแล้ว ชื่อของหน้าผลลัพธ์จะมีข้อความคิวรีของคุณ "
 "เบราว์เซอร์ของคุณสามารถบันทึกชื่อของหน้านี้ได้"
-
-#: searx/templates/simple/preferences.html:294
-msgid "Engines"
-msgstr "เครื่องมือ"
 
 #: searx/templates/simple/preferences.html:295
 msgid "Currently used search engines"
@@ -783,10 +1163,6 @@ msgstr "ความน่าเชื่อถือ"
 msgid "Special Queries"
 msgstr "การคิวรีพิเศษ"
 
-#: searx/templates/simple/preferences.html:359
-msgid "Keywords"
-msgstr "คำสำคัญ"
-
 #: searx/templates/simple/preferences.html:360
 msgid "Name"
 msgstr "ชื่อ"
@@ -795,10 +1171,6 @@ msgstr "ชื่อ"
 msgid "Description"
 msgstr "คำอธิบาย"
 
-#: searx/templates/simple/preferences.html:362
-msgid "Examples"
-msgstr "ตัวอย่าง"
-
 #: searx/templates/simple/preferences.html:365
 msgid "This is the list of SearXNG's instant answering modules."
 msgstr "นี่คือรายการโมดูลที่ตอบรับทันทีของเซียร์เอ็กซ์เอ็นจี"
@@ -806,10 +1178,6 @@ msgstr "นี่คือรายการโมดูลที่ตอบร
 #: searx/templates/simple/preferences.html:376
 msgid "This is the list of plugins."
 msgstr "นี่คือรายการปลั๊กอิน"
-
-#: searx/templates/simple/preferences.html:393
-msgid "Cookies"
-msgstr "คุกกี้"
 
 #: searx/templates/simple/preferences.html:395
 msgid ""
@@ -829,18 +1197,6 @@ msgstr "ชื่อคุกกี้"
 msgid "Value"
 msgstr "ค่า"
 
-#: searx/templates/simple/preferences.html:414
-msgid "Search URL of the currently saved preferences"
-msgstr "ค้นหา URL จากการตั้งค่าที่บันทึกไว้ในปัจจุบัน"
-
-#: searx/templates/simple/preferences.html:418
-msgid ""
-"Note: specifying custom settings in the search URL can reduce privacy by "
-"leaking data to the clicked result sites."
-msgstr ""
-"หมายเหตุ: การระบุการตั้งค่าแบบกำหนดเองใน URL "
-"การค้นหาสามารถลดความเป็นส่วนตัวได้โดยการทำให้ข้อมูลรั่วไหลไปยังไซต์ผลลัพธ์ที่คลิก"
-
 #: searx/templates/simple/preferences.html:419
 msgid "URL to restore your preferences in another browser"
 msgstr "URL เพื่อกู้คืนการตั้งค่าของคุณในเบราว์เซอร์อื่น"
@@ -853,29 +1209,9 @@ msgstr ""
 "การระบุการตั้งค่าแบบกำหนดเองใน URL "
 "ค่ากำหนดสามารถใช้เพื่อซิงค์กับค่ากำหนดในอุปกรณ์ต่างๆได้"
 
-#: searx/templates/simple/preferences.html:428
-msgid ""
-"These settings are stored in your cookies, this allows us not to store "
-"this data about you."
-msgstr ""
-"การตั้งค่าพวกนี้ถูกเก็บไว้ในคุกกี้ของคุณแล้ว "
-"ซึ่งช่วยให้เราไม่สามารถจัดเก็บข้อมูลนี้เกี่ยวกับคุณได้"
-
-#: searx/templates/simple/preferences.html:430
-msgid ""
-"These cookies serve your sole convenience, we don't use these cookies to "
-"track you."
-msgstr ""
-"คุกกี้พวกนี้ให้บริการเพื่อความสะดวกของคุณ "
-"เราไม่ใช้คุกกี้เหล่านี้เพื่อติดตามคุณ"
-
 #: searx/templates/simple/preferences.html:433
 msgid "Save"
 msgstr "บันทึก"
-
-#: searx/templates/simple/preferences.html:434
-msgid "Reset defaults"
-msgstr "รีเซ็ตค่าเริ่มต้น"
 
 #: searx/templates/simple/preferences.html:435
 msgid "Back"
@@ -889,18 +1225,9 @@ msgstr "คำตอบ"
 msgid "Number of results"
 msgstr "จำนวนผลลัพธ์"
 
-#: searx/templates/simple/messages/no_results.html:6
-#: searx/templates/simple/results.html:46
-msgid "Error!"
-msgstr "เกิดข้อผิดพลาด!"
-
 #: searx/templates/simple/results.html:46
 msgid "Engines cannot retrieve results"
 msgstr "เครื่องมือไม่สามารถดึงผลลัพธ์ได้"
-
-#: searx/templates/simple/results.html:68
-msgid "Suggestions"
-msgstr "ข้อเสนอแนะ"
 
 #: searx/templates/simple/results.html:90
 msgid "Search URL"
@@ -929,11 +1256,6 @@ msgstr "หน้าต่อไป"
 #: searx/templates/simple/search.html:3
 msgid "Display the front page"
 msgstr "แสดงหน้าแรก"
-
-#: searx/templates/simple/search.html:9
-#: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
-msgstr "ค้นหา..."
 
 #: searx/templates/simple/search.html:10
 #: searx/templates/simple/simple_search.html:6
@@ -1017,34 +1339,6 @@ msgstr "ทดสอบไม่ผ่าน"
 msgid "Comment(s)"
 msgstr "ความคิดเห็น"
 
-#: searx/templates/simple/filters/time_range.html:3
-msgid "Anytime"
-msgstr "ทุกเวลา"
-
-#: searx/templates/simple/filters/time_range.html:6
-msgid "Last day"
-msgstr "วันล่าสุด"
-
-#: searx/templates/simple/filters/time_range.html:9
-msgid "Last week"
-msgstr "สัปดาห์ล่าสุด"
-
-#: searx/templates/simple/filters/time_range.html:12
-msgid "Last month"
-msgstr "เดือนล่าสุด"
-
-#: searx/templates/simple/filters/time_range.html:15
-msgid "Last year"
-msgstr "ปีล่าสุด"
-
-#: searx/templates/simple/messages/no_cookies.html:3
-msgid "Information!"
-msgstr "สารสนเทศ!"
-
-#: searx/templates/simple/messages/no_cookies.html:4
-msgid "currently, there are no cookies defined."
-msgstr "ขณะนี้ไม่มีการกำหนดคุกกี้ใดๆ"
-
 #: searx/templates/simple/messages/no_results.html:6
 msgid "Engines cannot retrieve results."
 msgstr "เครื่องมือไม่สามารถดึงผลลัพธ์ได้"
@@ -1092,14 +1386,6 @@ msgstr "ดูแหล่งที่มา"
 msgid "address"
 msgstr "ที่อยู่"
 
-#: searx/templates/simple/result_templates/map.html:43
-msgid "show map"
-msgstr "แสดงแผนที่"
-
-#: searx/templates/simple/result_templates/map.html:43
-msgid "hide map"
-msgstr "ซ่อนแผนที่"
-
 #: searx/templates/simple/result_templates/paper.html:5
 msgid "Published date"
 msgstr ""
@@ -1144,14 +1430,6 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 
-#: searx/templates/simple/result_templates/torrent.html:6
-msgid "magnet link"
-msgstr "ลิงก์แม่เหล็ก"
-
-#: searx/templates/simple/result_templates/torrent.html:7
-msgid "torrent file"
-msgstr "ไฟล์ทอร์เรนต์"
-
 #: searx/templates/simple/result_templates/torrent.html:9
 msgid "Seeder"
 msgstr "ผู้ที่แบ่งปันไฟล์"
@@ -1159,30 +1437,6 @@ msgstr "ผู้ที่แบ่งปันไฟล์"
 #: searx/templates/simple/result_templates/torrent.html:9
 msgid "Leecher"
 msgstr "ผู้ที่ดาวน์โหลดไฟล์"
-
-#: searx/templates/simple/result_templates/torrent.html:11
-msgid "Filesize"
-msgstr "ขนาดไฟล์"
-
-#: searx/templates/simple/result_templates/torrent.html:12
-msgid "Bytes"
-msgstr "ไบต์"
-
-#: searx/templates/simple/result_templates/torrent.html:13
-msgid "kiB"
-msgstr "กิบิไบต์"
-
-#: searx/templates/simple/result_templates/torrent.html:14
-msgid "MiB"
-msgstr "เมบิไบต์"
-
-#: searx/templates/simple/result_templates/torrent.html:15
-msgid "GiB"
-msgstr "จิบิไบต์"
-
-#: searx/templates/simple/result_templates/torrent.html:16
-msgid "TiB"
-msgstr "เทบิไบต์"
 
 #: searx/templates/simple/result_templates/torrent.html:20
 msgid "Number of Files"
@@ -1217,4 +1471,99 @@ msgstr "ซ่อนวิดีโอ"
 #~ "เปลี่ยนวิธีการส่งแบบฟอร์ม <a "
 #~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
 #~ " rel=\"external\">เรียนรู้เพิ่มเติมเกี่ยวกับวิธีการส่งคำขอ</a>"
+
+#~ msgid "others"
+#~ msgstr "ชื่ออื่นๆ"
+
+#~ msgid "other"
+#~ msgstr "หมวดหมู่อื่นๆ"
+
+#~ msgid "files"
+#~ msgstr "ไฟล์"
+
+#~ msgid "general"
+#~ msgstr "ทั่วไป"
+
+#~ msgid "music"
+#~ msgstr "เพลง"
+
+#~ msgid "social media"
+#~ msgstr "สื่อสังคม"
+
+#~ msgid "images"
+#~ msgstr "รูปภาพ"
+
+#~ msgid "videos"
+#~ msgstr "วิดีโอ"
+
+#~ msgid "it"
+#~ msgstr "ไอที"
+
+#~ msgid "news"
+#~ msgstr "ข่าว"
+
+#~ msgid "map"
+#~ msgstr "แผนที่"
+
+#~ msgid "onions"
+#~ msgstr "หัวหอม"
+
+#~ msgid "science"
+#~ msgstr "วิทยาศาสตร์"
+
+#~ msgid "apps"
+#~ msgstr "แอป"
+
+#~ msgid "dictionaries"
+#~ msgstr "พจนานุกรม"
+
+#~ msgid "lyrics"
+#~ msgstr "เนื้อเพลง"
+
+#~ msgid "packages"
+#~ msgstr "แพ็คเกจ"
+
+#~ msgid "q&a"
+#~ msgstr "ถาม&ตอบ"
+
+#~ msgid "repos"
+#~ msgstr "แหล่งที่เก็บข้อมูล"
+
+#~ msgid "software wikis"
+#~ msgstr "ซอฟต์แวร์วิกิ"
+
+#~ msgid "web"
+#~ msgstr "เว็บ"
+
+#~ msgid "scientific publications"
+#~ msgstr ""
+
+#~ msgid "auto"
+#~ msgstr "อัตโนมัติ"
+
+#~ msgid "light"
+#~ msgstr "สว่าง"
+
+#~ msgid "dark"
+#~ msgstr "มืด"
+
+#~ msgid ""
+#~ "This plugin checks if the address "
+#~ "of the request is a TOR exit "
+#~ "node, and informs the user if it"
+#~ " is, like check.torproject.org but from "
+#~ "searxng."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The TOR exit node list "
+#~ "(https://check.torproject.org/exit-addresses) is "
+#~ "unreachable."
+#~ msgstr ""
+
+#~ msgid "You are using TOR. Your IP address seems to be: {ip_address}."
+#~ msgstr ""
+
+#~ msgid "You are not using TOR. Your IP address seems to be: {ip_address}."
+#~ msgstr ""
 
