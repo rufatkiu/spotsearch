@@ -5,7 +5,7 @@
 # Translators:
 # Dickprince, 2017
 # C. E., 2018
-# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
 # Miguel Silva <miguelcabeca.dev@gmail.com>, 2022.
 # Ricardo Simões <xmcorporation@gmail.com>, 2022.
 # zaioti <zaioti@tuta.io>, 2022.
@@ -28,7 +28,7 @@ msgstr ""
 
 #: searx/webapp.py:191
 msgid "files"
-msgstr "ficheiros"
+msgstr "arquivos"
 
 #: searx/webapp.py:192
 msgid "general"

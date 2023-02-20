@@ -13,6 +13,7 @@
 # sebstrgg <sebastian@wollter.nu>, 2022.
 # mikni <mikni@proton.me>, 2022.
 # robert <robert.paegelow@gmail.com>, 2022.
+# tygyh <jonis9898@hotmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -1268,7 +1269,7 @@ msgstr "Det ser ut som om du använder searx första gången."
 
 #: searx/templates/oscar/messages/no_data_available.html:4
 msgid "There is currently no data available. "
-msgstr "Det finns för närvarande ingen data tillgänglig."
+msgstr "Det finns för närvarande ingen data tillgänglig. "
 
 #: searx/templates/simple/stats.html:26
 msgid "Scores"

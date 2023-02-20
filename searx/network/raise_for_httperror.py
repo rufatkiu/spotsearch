@@ -8,6 +8,7 @@ from searx.exceptions import (
     SearxEngineCaptchaException,
     SearxEngineAccessDeniedException,
 )
+from searx import get_setting
 
 
 def is_cloudflare_challenge(resp):
@@ -32,15 +33,22 @@ def raise_for_cloudflare_captcha(resp):
         if is_cloudflare_challenge(resp):
             # https://support.cloudflare.com/hc/en-us/articles/200170136-Understanding-Cloudflare-Challenge-Passage-Captcha-
             # suspend for 2 weeks
-            raise SearxEngineCaptchaException(message="Cloudflare CAPTCHA", suspended_time=3600 * 24 * 15)
+            raise SearxEngineCaptchaException(
+                message='Cloudflare CAPTCHA', suspended_time=get_setting('search.suspended_times.cf_SearxEngineCaptcha')
+            )
 
         if is_cloudflare_firewall(resp):
-            raise SearxEngineAccessDeniedException(message="Cloudflare Firewall", suspended_time=3600 * 24)
+            raise SearxEngineAccessDeniedException(
+                message='Cloudflare Firewall',
+                suspended_time=get_setting('search.suspended_times.cf_SearxEngineAccessDenied'),
+            )
 
 
 def raise_for_recaptcha(resp):
     if resp.status_code == 503 and '"https://www.google.com/recaptcha/' in resp.text:
-        raise SearxEngineCaptchaException(message="ReCAPTCHA", suspended_time=3600 * 24 * 7)
+        raise SearxEngineCaptchaException(
+            message='ReCAPTCHA', suspended_time=get_setting('search.suspended_times.recaptcha_SearxEngineCaptcha')
+        )
 
 
 def raise_for_captcha(resp):
@@ -63,9 +71,7 @@ def raise_for_httperror(resp):
     if resp.status_code and resp.status_code >= 400:
         raise_for_captcha(resp)
         if resp.status_code in (402, 403):
-            raise SearxEngineAccessDeniedException(
-                message="HTTP error " + str(resp.status_code), suspended_time=3600 * 24
-            )
+            raise SearxEngineAccessDeniedException(message='HTTP error ' + str(resp.status_code))
         if resp.status_code == 429:
             return
             # raise SearxEngineTooManyRequestsException()

@@ -6,7 +6,7 @@
 # ButterflyOfFire ButterflyOfFire, 2018
 # ButterflyOfFire, 2018
 # d506c013dc1b502e7a53f91ebcbf8f29_985b4b3, 2017-2018
-# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
 # ken kailer <kenkailer@yahoo.com>, 2022.
 # George Kashkosh <kash.george@gmail.com>, 2022.
 # Droid <droidpy587@gmail.com>, 2022.
@@ -198,13 +198,12 @@ msgid "Night"
 msgstr "ليلا"
 
 #: searx/plugins/autodetect_search_language.py:79
-#, fuzzy
 msgid "Autodetect search language"
-msgstr "البحث التلقائي للغة"
+msgstr "كشف تلقائي عن لغة البحث"
 
 #: searx/plugins/autodetect_search_language.py:80
 msgid "Automatically detect the query search language and switch to it."
-msgstr ""
+msgstr "كشف تلقائي عن لغة البحث والتبديل إليها."
 
 #: searx/engines/pubmed.py:78
 msgid "No abstract is available for this publication."
