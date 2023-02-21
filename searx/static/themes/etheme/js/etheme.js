@@ -91,19 +91,23 @@ $(document).ready(function(){
     if (typeof InstallTrigger !== 'undefined') {
       return 'firefox';
     }
-    else if (!(/*@cc_on!@*/false || !!document.documentMode && !!window.StyleMedia)) {
-      return 'edge';
-    }
-    else if(window.chrome !== 'undefined') {
+    else if (window.chrome !== 'undefined') {
+      if (navigator.userAgent.includes('Edg')) {
+        return 'edge';
+      }
       return 'chrome';
+    }
+    else if (!/*@cc_on!@*/false && !!window.StyleMedia) {
+      return 'edge';
     }
     return -1;
   }
-
+  var langCode = navigator.language || "en-US";
+  
   var browser_urls = {
-    "chrome": "https://support.google.com/chrome/answer/95426",
-    "edge": "https://support.microsoft.com/en-us/help/4028574/microsoft-edge-change-the-default-search-engine",
-    "firefox": "https://support.mozilla.org/en-US/kb/add-or-remove-search-engine-firefox"
+    "chrome": "https://support.google.com/chrome/answer/95426?hl=" + langCode,
+    "edge": "https://support.microsoft.com/"+ langCode +"/help/4028574/microsoft-edge-change-the-default-search-engine",
+    "firefox": "https://support.mozilla.org/"+ langCode +"/kb/add-or-remove-search-engine-firefox"
   };
   
   $("#chrome").attr("href", browser_urls.chrome);
