@@ -91,7 +91,7 @@ $(document).ready(function(){
     if (typeof InstallTrigger !== 'undefined') {
       return 'firefox';
     }
-    else if (!(/*@cc_on!@*/false || !!document["documentMode"]) && !!window["StyleMedia"]) {
+    else if (!(/*@cc_on!@*/false || !!document.documentMode && !!window.StyleMedia)) {
       return 'edge';
     }
     else if(window.chrome !== 'undefined') {
