@@ -91,10 +91,10 @@ $(document).ready(function(){
     if (typeof InstallTrigger !== 'undefined') {
       return 'firefox';
     }
-    else if (!isIE && !!window.StyleMedia) {
+    else if (!(/*@cc_on!@*/false || !!document["documentMode"]) && !!window["StyleMedia"]) {
       return 'edge';
     }
-    else if(!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) {
+    else if(window.chrome !== 'undefined') {
       return 'chrome';
     }
     return -1;
