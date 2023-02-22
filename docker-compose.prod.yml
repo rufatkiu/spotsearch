@@ -17,7 +17,7 @@ services:
     logging: 
       driver: syslog
       options:
-          tag: docker-${ENVIRONMENT_NAME}-spot
+          tag: docker-${ENVIRONMENT_NAME}-spot-app
     restart: always
     networks:
       - ${INTERNAL_NETWORK_NAME}
@@ -40,7 +40,7 @@ services:
     logging: 
       driver: syslog
       options:
-          tag: docker-${ENVIRONMENT_NAME}-nginx
+          tag: docker-${ENVIRONMENT_NAME}-spot-nginx
     networks:
       - ${INTERNAL_NETWORK_NAME}
     volumes:
