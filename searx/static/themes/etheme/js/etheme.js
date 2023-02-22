@@ -102,7 +102,7 @@ $(document).ready(function(){
     }
     return -1;
   }
-  var langCode = navigator.language || "en-US";
+  var langCode = document.documentElement.lang || "en-US";
   
   var browser_urls = {
     "chrome": "https://support.google.com/chrome/answer/95426?hl=" + langCode,
