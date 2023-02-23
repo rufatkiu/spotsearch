@@ -288,6 +288,20 @@ babel.compile() {
     pyenv.cmd pybabel compile -d "${REPO_ROOT}/searx/translations"
     dump_return $?
 }
+babel.extract() {
+    build_msg BABEL extract
+    local messages_pot
+    messages_pot="${REPO_ROOT}/searx/translations/messages.pot"
+    pyenv.cmd pybabel extract -F babel.cfg \
+                -o "${messages_pot}" \
+                "searx/"
+    build_msg BABEL 'update existing message catalogs from POT file'
+    pybabel update -N \
+        -i "${messages_pot}" \
+        -d "${REPO_ROOT}/searx/translations"
+    dump_return $?
+}
+
 weblate.push.translations() {
 
     # Push *translation changes* from SearXNG (origin) to Weblate's counterpart

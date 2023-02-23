@@ -63,7 +63,7 @@
       the default search engine.""") }}
     </p>
 
-    <h2 id='add to browser'>{{ _('How to set as the default search engine?') }}</h2>
+    <h2 id='add-to-browser'>{{ _('How to set as the default search engine?') }}</h2>
 
     <p>
       {{ _('Spot supports') }} <a
@@ -72,12 +72,9 @@
     </p>
 
     <ul>
-      <li><a href="https://support.mozilla.org/en-US/kb/add-or-remove-search-engine-firefox">Firefox</a></li>
-      <li><a
-          href="https://support.microsoft.com/en-us/help/4028574/microsoft-edge-change-the-default-search-engine">Microsoft
-          Edge</a></li>
-      <li>Chromium-based browsers <a href="https://www.chromium.org/tab-to-search">{{ _('only add websites that the user
-          navigates to without a path.') }}</a>
+      <li><a id="firefox">Firefox</a></li>
+      <li><a id="edge">Microsoft Edge</a></li>
+      <li><a id="chrome">{{ _('Chromium-based browsers') }}</a></li>
     </ul>
 
 
@@ -85,8 +82,7 @@
 
     <p>
       {{ _('Spot appreciates your concern regarding logs, so take the code from the') }} <a
-        href="https://gitlab.e.foundation/e/infra/spot">{{ _('original Spot project') }}</a> {{ _('and run it
-      yourself!') }}
+        href="https://gitlab.e.foundation/e/infra/spot">{{ _('original Spot project') }}</a> {{ _('and run it yourself!') }}
     </p>
 
   </div>

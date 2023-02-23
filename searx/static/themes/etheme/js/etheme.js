@@ -85,6 +85,41 @@ $(document).ready(function(){
     document.getElementById("image_view_url_link").href = target.dataset.url;
   }
 
+  function getUserBrowser() {
+    // Detect user browser
+    // https://stackoverflow.com/a/9851769/6490675   
+    if (typeof InstallTrigger !== 'undefined') {
+      return 'firefox';
+    }
+    else if (window.chrome !== 'undefined') {
+      if (navigator.userAgent.includes('Edg')) {
+        return 'edge';
+      }
+      return 'chrome';
+    }
+    else if (!/*@cc_on!@*/false && !!window.StyleMedia) {
+      return 'edge';
+    }
+    return -1;
+  }
+  var langCode = document.documentElement.lang || "en-US";
+  
+  var browser_urls = {
+    "chrome": "https://support.google.com/chrome/answer/95426?hl=" + langCode,
+    "edge": "https://support.microsoft.com/"+ langCode +"/help/4028574/microsoft-edge-change-the-default-search-engine",
+    "firefox": "https://support.mozilla.org/"+ langCode +"/kb/add-or-remove-search-engine-firefox"
+  };
+  
+  $("#chrome").attr("href", browser_urls.chrome);
+  $("#edge").attr("href", browser_urls.edge);
+  $("#firefox").attr("href", browser_urls.firefox);
+
+  var browser = getUserBrowser();
+
+  if (browser !== -1) {
+    $("#set-default").attr("href", browser_urls[browser]);
+  }
+
   $("#main_results").on("click", ".result.result-images", function (event) {
     event.preventDefault();
     var target = event.target;
