@@ -51,7 +51,6 @@ services:
 
   filtron:
     image: dalf/filtron:latest
-    logging: *default-logging
     restart: always
     command: -listen :3000 -rules /etc/filtron/rules.json -target spot-nginx
     networks:
