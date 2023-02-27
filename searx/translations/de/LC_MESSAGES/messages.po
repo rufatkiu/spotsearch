@@ -19,71 +19,71 @@
 # Thomas Pointhuber, 2016-2017
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2023-02-20 20:38+0530\n"
-"PO-Revision-Date: 2022-12-14 15:05+0000\n"
+"PO-Revision-Date: 2023-02-28 13:05+0000\n"
 "Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
+"Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
-"Language-Team: German "
-"<https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15.2\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: searx/webapp.py:201
 msgid "timeout"
-msgstr ""
+msgstr "Zeit abgelaufen"
 
 #: searx/webapp.py:202
 msgid "parsing error"
-msgstr ""
+msgstr "Parsing-Fehler"
 
 #: searx/webapp.py:203
 msgid "HTTP protocol error"
-msgstr ""
+msgstr "HTTP Protokoll-Fehler"
 
 #: searx/webapp.py:204
 msgid "network error"
-msgstr ""
+msgstr "Netzwerkfehler"
 
 #: searx/webapp.py:205
 msgid "SSL error: certificate validation has failed"
-msgstr ""
+msgstr "SSL-Fehler: Die Zertifikatsverifikation ist fehlgeschlagen"
 
 #: searx/webapp.py:207
 msgid "unexpected crash"
-msgstr ""
+msgstr "Unerwarteter Absturz"
 
 #: searx/webapp.py:214
 msgid "HTTP error"
-msgstr ""
+msgstr "HTTP-Fehler"
 
 #: searx/webapp.py:215
 msgid "HTTP connection error"
-msgstr ""
+msgstr "HTTP-Verbindungsfehler"
 
 #: searx/webapp.py:221
 msgid "proxy error"
-msgstr ""
+msgstr "Proxyfehler"
 
 #: searx/webapp.py:222
 msgid "CAPTCHA"
-msgstr ""
+msgstr "CAPTCHA"
 
 #: searx/webapp.py:223
 msgid "too many requests"
-msgstr ""
+msgstr "zu viele Anfragen"
 
 #: searx/webapp.py:224
 msgid "access denied"
-msgstr ""
+msgstr "Zugriff verweigert"
 
 #: searx/webapp.py:225
 msgid "server API error"
-msgstr ""
+msgstr "Server-API-Fehler"
 
 #: searx/webapp.py:407
 msgid "No item found"
@@ -97,7 +97,7 @@ msgstr "Quelle"
 
 #: searx/webapp.py:411
 msgid "Error loading the next page"
-msgstr ""
+msgstr "Fehler beim Laden der nächsten Seite"
 
 #: searx/webapp.py:567 searx/webapp.py:1034
 msgid "Invalid settings, please edit your preferences"
@@ -113,7 +113,7 @@ msgstr "Suchfehler"
 
 #: searx/webapp.py:916
 msgid "Suspended"
-msgstr ""
+msgstr "Vorübergehend aufgehoben"
 
 #: searx/webutils.py:198
 msgid "{minutes} minute(s) ago"
@@ -160,6 +160,8 @@ msgid ""
 "{numCitations} citations from the year {firstCitationVelocityYear} to "
 "{lastCitationVelocityYear}"
 msgstr ""
+"{numCitations} Zitate aus dem Jahr {firstCitationVelocityYear} bis "
+"{lastCitationVelocityYear}"
 
 #: searx/engines/tineye.py:40
 msgid ""
@@ -1784,4 +1786,3 @@ msgstr "Video verstecken"
 
 #~ msgid "Out of stock"
 #~ msgstr "Nicht auf Lager"
-
