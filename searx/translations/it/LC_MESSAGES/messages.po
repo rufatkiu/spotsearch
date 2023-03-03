@@ -21,71 +21,71 @@
 # VaiTon <eyadlorenzo@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2023-02-20 20:38+0530\n"
-"PO-Revision-Date: 2022-05-12 22:34+0000\n"
+"PO-Revision-Date: 2023-03-05 00:05+0000\n"
 "Last-Translator: Paolo Pantaleo <panta@e.email>\n"
+"Language-Team: Italian <https://i18n.e.foundation/projects/ecloud/spot/it/>\n"
 "Language: it\n"
-"Language-Team: Italian "
-"<https://i18n.e.foundation/projects/ecloud/spot/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15.2\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: searx/webapp.py:201
 msgid "timeout"
-msgstr ""
+msgstr "timeout"
 
 #: searx/webapp.py:202
 msgid "parsing error"
-msgstr ""
+msgstr "errore di lettura"
 
 #: searx/webapp.py:203
 msgid "HTTP protocol error"
-msgstr ""
+msgstr "Errore protocollo HTTP"
 
 #: searx/webapp.py:204
 msgid "network error"
-msgstr ""
+msgstr "errore di rete"
 
 #: searx/webapp.py:205
 msgid "SSL error: certificate validation has failed"
-msgstr ""
+msgstr "errore SSL: convalida del certificato non riuscita"
 
 #: searx/webapp.py:207
 msgid "unexpected crash"
-msgstr ""
+msgstr "arresto imprevisto"
 
 #: searx/webapp.py:214
 msgid "HTTP error"
-msgstr ""
+msgstr "errore HTTP"
 
 #: searx/webapp.py:215
 msgid "HTTP connection error"
-msgstr ""
+msgstr "errore connessione HTTP"
 
 #: searx/webapp.py:221
 msgid "proxy error"
-msgstr ""
+msgstr "errore proxy"
 
 #: searx/webapp.py:222
 msgid "CAPTCHA"
-msgstr ""
+msgstr "CAPTCHA"
 
 #: searx/webapp.py:223
 msgid "too many requests"
-msgstr ""
+msgstr "troppe richieste"
 
 #: searx/webapp.py:224
 msgid "access denied"
-msgstr ""
+msgstr "accesso negato"
 
 #: searx/webapp.py:225
 msgid "server API error"
-msgstr ""
+msgstr "errore API server"
 
 #: searx/webapp.py:407
 msgid "No item found"
@@ -95,11 +95,11 @@ msgstr "Nessun oggetto trovato"
 #: searx/templates/etheme/result_templates/currency.html:14
 #: searx/templates/simple/result_templates/images.html:20 searx/webapp.py:409
 msgid "Source"
-msgstr ""
+msgstr "Sorgente"
 
 #: searx/webapp.py:411
 msgid "Error loading the next page"
-msgstr ""
+msgstr "Errore nel caricamento della pagina seguente"
 
 #: searx/webapp.py:567 searx/webapp.py:1034
 msgid "Invalid settings, please edit your preferences"
@@ -115,7 +115,7 @@ msgstr "errore di ricerca"
 
 #: searx/webapp.py:916
 msgid "Suspended"
-msgstr ""
+msgstr "Sospeso"
 
 #: searx/webutils.py:198
 msgid "{minutes} minute(s) ago"
@@ -155,13 +155,15 @@ msgstr "Questa voce è stata sostituita da"
 
 #: searx/engines/qwant.py:220
 msgid "Channel"
-msgstr ""
+msgstr "Canale"
 
 #: searx/engines/semantic_scholar.py:82
 msgid ""
 "{numCitations} citations from the year {firstCitationVelocityYear} to "
 "{lastCitationVelocityYear}"
 msgstr ""
+"{numCitations} citazioni dal {firstCitationVelocityYear} al "
+"{lastCitationVelocityYear}"
 
 #: searx/engines/tineye.py:40
 msgid ""
@@ -178,50 +180,55 @@ msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
 msgstr ""
+"L'immagine è troppo semplice per trovare corrispondenze. TinEye richiede un "
+"livello base di dettaglio visivo per identificare con successo delle "
+"corrispondenze."
 
 #: searx/engines/tineye.py:52
 msgid "The image could not be downloaded."
-msgstr ""
+msgstr "L'immagine non può essere scaricata."
 
 #: searx/engines/wttr.py:102
 msgid "Morning"
-msgstr ""
+msgstr "Mattino"
 
 #: searx/engines/wttr.py:103
 msgid "Noon"
-msgstr ""
+msgstr "Pomeriggio"
 
 #: searx/engines/wttr.py:104
 msgid "Evening"
-msgstr ""
+msgstr "Sera"
 
 #: searx/engines/wttr.py:105
 msgid "Night"
-msgstr ""
+msgstr "Notte"
 
 #: searx/plugins/autodetect_search_language.py:74
 msgid "Autodetect search language"
-msgstr ""
+msgstr "Rileva automaticamente la lingua di ricerca"
 
 #: searx/plugins/autodetect_search_language.py:75
 msgid "Automatically detect the query search language and switch to it."
 msgstr ""
+"Rileva automaticamente la lingua di ricerca della query e passa ad essa."
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
-msgstr ""
+msgstr "Converte le stringhe in diversi codici hash."
 
 #: searx/plugins/hash_plugin.py:52
 msgid "hash digest"
-msgstr ""
+msgstr "codici hash"
 
 #: searx/plugins/hostname_replace.py:9
 msgid "Hostname replace"
-msgstr ""
+msgstr "Sostituzione nome host"
 
 #: searx/plugins/hostname_replace.py:10
 msgid "Rewrite result hostnames or remove results based on the hostname"
 msgstr ""
+"Riscrive i nomi host dei risultati o rimuove i risultati in base ai nomi host"
 
 #: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
@@ -237,11 +244,11 @@ msgstr ""
 
 #: searx/plugins/rest_api.py:8
 msgid "Rest API"
-msgstr ""
+msgstr "Rest API"
 
 #: searx/plugins/rest_api.py:9
 msgid "Update REST API"
-msgstr ""
+msgstr "Aggiorna REST API"
 
 #: searx/plugins/search_on_category_select.py:19
 msgid "Search on category select"
@@ -258,13 +265,15 @@ msgstr ""
 
 #: searx/plugins/search_operators.py:5
 msgid "Search operators"
-msgstr ""
+msgstr "Strumenti di ricerca"
 
 #: searx/plugins/search_operators.py:6
 msgid ""
 "Filter results using hyphen, site: and -site:.\n"
 "Please note that you might get less results with the additional filtering."
 msgstr ""
+"Filtra i risultati utilizzando il trattino, sito: e -sito:.\n"
+"Nota: con il filtro aggiuntivo si potrebbero ottenere meno risultati."
 
 #: searx/plugins/self_info.py:20
 msgid "Self Information"
@@ -280,29 +289,35 @@ msgstr ""
 
 #: searx/plugins/tor_check.py:25
 msgid "Tor check plugin"
-msgstr ""
+msgstr "Plugin di verifica Tor"
 
 #: searx/plugins/tor_check.py:28
 msgid ""
 "This plugin checks if the address of the request is a Tor exit-node, and "
 "informs the user if it is; like check.torproject.org, but from SearXNG."
 msgstr ""
+"Questo plugin verifica se l'indirizzo della richiesta è un exit-node di Tor "
+"e informa l'utente se lo è; come check.torproject.org, ma da SearXNG."
 
 #: searx/plugins/tor_check.py:62
 msgid ""
 "The could not download the list of Tor exit-nodes from "
 "https://check.torproject.org/exit-addresses."
 msgstr ""
+"Non è stato possibile scaricare l'elenco dei nodi di uscita di Tor da "
+"https://check.torproject.org/exit-addresses."
 
 #: searx/plugins/tor_check.py:79
 msgid ""
 "You are using Tor. It looks like you have this external IP address: "
 "{ip_address}."
 msgstr ""
+"Stai utilizzando Tor. Sembra come se il tuo indirizzo IP esterno sia: "
+"{ip_address}."
 
 #: searx/plugins/tor_check.py:87
 msgid "You are not using Tor. You have this external IP address: {ip_address}."
-msgstr ""
+msgstr "Non stai utilizzando Tor. Il tuo indirizzo IP esterno è: {ip_address}."
 
 #: searx/plugins/tracker_url_remover.py:29
 msgid "Tracker URL remover"
@@ -344,37 +359,39 @@ msgstr "informazioni"
 #: searx/templates/etheme/about.html:7 searx/templates/etheme/base.html:94
 #: searx/templates/simple/base.html:46
 msgid "About"
-msgstr ""
+msgstr "Informazioni"
 
 #: searx/templates/etheme/about.html:10
 msgid "Spot is a fork of"
-msgstr ""
+msgstr "Spot è un fork di"
 
 #: searx/templates/etheme/about.html:10
 msgid "which is a"
-msgstr ""
+msgstr "che è un"
 
 #: searx/templates/etheme/about.html:12
 msgid "aggregating the results of other"
-msgstr ""
+msgstr "che aggrega i risultati di altri"
 
 #: searx/templates/etheme/about.html:13
 msgid "while not storing information about its users."
-msgstr ""
+msgstr "senza memorizzare informazioni sui suoi utenti."
 
 #: searx/templates/etheme/about.html:16
 msgid "More about Spot..."
-msgstr ""
+msgstr "Maggiori informazioni su Spot..."
 
 #: searx/templates/etheme/about.html:27
 msgid "Why use Spot?"
-msgstr ""
+msgstr "Perchè usare Spot?"
 
 #: searx/templates/etheme/about.html:31
 msgid ""
 "Spot may not offer you as personalised results as Google, but it doesn't "
 "generate a profile about you."
 msgstr ""
+"Spot non offre risultati personalizzati come Google, ma in compenso non "
+"profila l'utente."
 
 #: searx/templates/etheme/about.html:35
 msgid ""
@@ -382,6 +399,9 @@ msgid ""
 " third party, and it can't be\n"
 "        used to compromise you."
 msgstr ""
+"Spot non si preoccupa di ciò che cercate, non condivide mai niente con terzi "
+"e non può essere usato per danneggiarvi.\n"
+"        è solito dannegiare l'utente."
 
 #: searx/templates/etheme/about.html:39
 #, python-format
@@ -389,6 +409,8 @@ msgid ""
 "Spot is free software, the code is 100%% open and you can help to make it"
 " better. See more on"
 msgstr ""
+"Spot è software libero, il codice è aperto al 100%% e puoi contribuire a "
+"migliorarlo. Maggiori informazioni su"
 
 #: searx/templates/etheme/about.html:45
 msgid ""
@@ -396,10 +418,14 @@ msgid ""
 "believe in digital freedom, make\n"
 "      Spot your default search engine or run it on your own server"
 msgstr ""
+"Se hai a cuore la privacy, vuoi essere un utente consapevole o credi nella "
+"libertà digitale, fai in modo che\n"
+"      Spot sia il tuo motore di ricerca predefinito o eseguilo su un tuo "
+"server"
 
 #: searx/templates/etheme/about.html:49
 msgid "Technical details - How does it work?"
-msgstr ""
+msgstr "Dettagli tecnici - Come funziona?"
 
 #: searx/templates/etheme/about.html:55
 msgid ""
@@ -418,48 +444,66 @@ msgid ""
 " set as\n"
 "      the default search engine."
 msgstr ""
+"Fornisce una privacy di base mescolando le query con le ricerche effettuate "
+"su altre\n"
+"      piattaforme senza memorizzare i dati di ricerca. Le query vengono "
+"effettuate tramite una richiesta POST\n"
+"      su tutti i browser (tranne quelli basati su Chromium*). Pertanto non "
+"vengono visualizzate\n"
+"      nei nostri registri e nella cronologia degli URL. Nel caso degli "
+"utenti di browser basati su Chromium\n"
+"      esiste un'eccezione: Spot utilizza la barra di ricerca per eseguire "
+"richieste\n"
+"      GET.\n"
+"\n"
+"      Spot può essere aggiunto alla barra di ricerca del browser e può "
+"essere impostato come\n"
+"      motore di ricerca predefinito."
 
 #: searx/templates/etheme/about.html:66
 msgid "How to set as the default search engine?"
-msgstr ""
+msgstr "Come impostarlo come motore di ricerca predefinito?"
 
 #: searx/templates/etheme/about.html:69
 msgid "Spot supports"
-msgstr ""
+msgstr "Spopt sostiene"
 
 #: searx/templates/etheme/about.html:71
 msgid ""
 "For more information on changing your default search engine, see your "
 "browser's documentation:"
 msgstr ""
+"Per ulteriori informazioni sulla modifica del motore di ricerca predefinito, "
+"consulta la documentazione del tuo browser:"
 
 #: searx/templates/etheme/about.html:81
 msgid "How can I make it my own?"
-msgstr ""
+msgstr "Come posso farlo da solo?"
 
 #: searx/templates/etheme/about.html:84
 msgid "Spot appreciates your concern regarding logs, so take the code from the"
 msgstr ""
+"Spot apprezza la tua preoccupazione per i log, quindi preleva il codice dal"
 
 #: searx/templates/etheme/about.html:85
 msgid "original Spot project"
-msgstr ""
+msgstr "progetto Spot originale"
 
 #: searx/templates/etheme/about.html:85
 msgid "and run it yourself!"
-msgstr ""
+msgstr "e eseguilo da te!"
 
 #: searx/templates/etheme/base.html:79
 msgid "view file"
-msgstr ""
+msgstr "vedi file"
 
 #: searx/templates/etheme/base.html:80
 msgid "view source"
-msgstr ""
+msgstr "vedi sorgente"
 
 #: searx/templates/etheme/base.html:93
 msgid "Set as default"
-msgstr ""
+msgstr "Imposta predefinito"
 
 #: searx/templates/etheme/base.html:95 searx/templates/etheme/privacy.html:7
 #: searx/templates/simple/preferences.html:254
@@ -472,7 +516,7 @@ msgstr "Offerto da"
 
 #: searx/templates/etheme/base.html:99
 msgid "An open-source metasearch engine forked from"
-msgstr ""
+msgstr "Un motore di metaricerca open-source derivato da"
 
 #: searx/templates/etheme/macros.html:15 searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
@@ -638,11 +682,11 @@ msgstr "Off"
 
 #: searx/templates/etheme/preferences.html:101
 msgid "No safe search"
-msgstr ""
+msgstr "Nessuna ricerca sicura"
 
 #: searx/templates/etheme/preferences.html:102
 msgid "Slow"
-msgstr ""
+msgstr "Lento"
 
 #: searx/templates/etheme/preferences.html:117
 msgid "Plugins"
@@ -654,7 +698,7 @@ msgstr "Risponditori"
 
 #: searx/templates/etheme/preferences.html:136
 msgid "This is the list of spot's instant answering modules."
-msgstr ""
+msgstr "Questo è l'elenco dei moduli di risposta immediata di Spot."
 
 #: searx/templates/etheme/preferences.html:140
 #: searx/templates/simple/preferences.html:359
@@ -676,10 +720,12 @@ msgid ""
 "This is the list of cookies and their values spot is storing on your "
 "computer."
 msgstr ""
+"Questo è l'elenco dei cookie e dei loro valori che Spot memorizza sul tuo "
+"computer."
 
 #: searx/templates/etheme/preferences.html:156
 msgid "With that list, you can assess spot's transparency."
-msgstr ""
+msgstr "Da questo elenco è possibile valutare la trasparenza di Spot."
 
 #: searx/templates/etheme/preferences.html:175
 #: searx/templates/simple/preferences.html:105
@@ -693,7 +739,7 @@ msgstr "Motori"
 
 #: searx/templates/etheme/preferences.html:177
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzato"
 
 #: searx/templates/etheme/preferences.html:198
 #: searx/templates/simple/preferences.html:428
@@ -742,15 +788,15 @@ msgstr "Reimposta i valori iniziali"
 
 #: searx/templates/etheme/privacy.html:2 searx/templates/simple/base.html:72
 msgid "Privacy policy"
-msgstr ""
+msgstr "Privacy policy"
 
 #: searx/templates/etheme/results.html:19
 msgid "Did you mean:"
-msgstr ""
+msgstr "intendi:"
 
 #: searx/templates/etheme/results.html:81
 msgid "Images"
-msgstr ""
+msgstr "Immagini"
 
 #: searx/templates/etheme/components/categories.html:17
 #: searx/templates/etheme/components/categories.html:19
@@ -761,7 +807,7 @@ msgstr "Altro"
 
 #: searx/templates/etheme/results.html:88
 msgid "Videos"
-msgstr ""
+msgstr "Video"
 
 #: searx/templates/etheme/results.html:111
 msgid "previous page"
@@ -779,11 +825,11 @@ msgstr "Suggerimenti"
 #: searx/templates/etheme/components/categories.html:18
 #: searx/templates/etheme/components/categories.html:20
 msgid "Less"
-msgstr ""
+msgstr "Meno"
 
 #: searx/templates/etheme/components/infobox.html:42
 msgid "More information:"
-msgstr ""
+msgstr "Maggiori informazioni:"
 
 #: searx/templates/etheme/components/languages.html:2
 #: searx/templates/simple/filters/languages.html:2
@@ -793,11 +839,11 @@ msgstr "Lingua predefinita"
 
 #: searx/templates/etheme/components/navbar.html:5
 msgid "mail"
-msgstr ""
+msgstr "mail"
 
 #: searx/templates/etheme/components/navbar.html:6
 msgid "drive"
-msgstr ""
+msgstr "disco"
 
 #: searx/templates/etheme/components/time-range.html:3
 #: searx/templates/simple/filters/time_range.html:3
@@ -836,35 +882,35 @@ msgstr "Attualmente non ci sono cookie definiti."
 
 #: searx/templates/etheme/messages/no_results.html:3
 msgid "Sorry, no results found!"
-msgstr ""
+msgstr "Spiacente, non ho trovato risultati!"
 
 #: searx/templates/etheme/messages/no_results.html:11
 msgid "Some engines are not working as expected!"
-msgstr ""
+msgstr "Alcuni motori non funzionano come previsto!"
 
 #: searx/templates/etheme/messages/no_results.html:12
 msgid "Debug info"
-msgstr ""
+msgstr "Informazioni di debug"
 
 #: searx/templates/etheme/messages/no_results.html:13
 msgid "Node : "
-msgstr ""
+msgstr "Nodo : "
 
 #: searx/templates/etheme/messages/no_results.html:22
 msgid "Please, try the following."
-msgstr ""
+msgstr "Prova a eseguire le operazioni descritte di seguito."
 
 #: searx/templates/etheme/messages/no_results.html:24
 msgid "Search again later"
-msgstr ""
+msgstr "Ritenta la ricerca"
 
 #: searx/templates/etheme/messages/no_results.html:25
 msgid "Try another query"
-msgstr ""
+msgstr "Prova una domanda differente"
 
 #: searx/templates/etheme/messages/no_results.html:26
 msgid "Report this problem"
-msgstr ""
+msgstr "Riporta questo problema"
 
 #: searx/templates/etheme/messages/save_settings_successfull.html:5
 #: searx/templates/etheme/messages/unknow_error.html:5
@@ -908,7 +954,7 @@ msgstr "nascondi dettagli"
 #: searx/templates/etheme/result_templates/torrent.html:6
 #: searx/templates/simple/result_templates/torrent.html:6
 msgid "magnet link"
-msgstr "magnet link"
+msgstr "link magnetico"
 
 #: searx/templates/etheme/result_templates/torrent.html:9
 #: searx/templates/simple/result_templates/torrent.html:7
@@ -917,11 +963,11 @@ msgstr "file torrent"
 
 #: searx/templates/etheme/result_templates/torrent.html:17
 msgid "Seeders"
-msgstr ""
+msgstr "Seeders"
 
 #: searx/templates/etheme/result_templates/torrent.html:18
 msgid "Leechers"
-msgstr ""
+msgstr "Leechers"
 
 #: searx/templates/etheme/result_templates/torrent.html:22
 #: searx/templates/simple/result_templates/torrent.html:11
@@ -930,19 +976,19 @@ msgstr "Dimensioni file"
 
 #: searx/templates/etheme/result_templates/torrent.html:29
 msgid "Files"
-msgstr ""
+msgstr "File"
 
 #: searx/templates/etheme/result_templates/video_torrent.html:7
 msgid "torrent"
-msgstr ""
+msgstr "torrent"
 
 #: searx/templates/simple/base.html:50
 msgid "Donate"
-msgstr ""
+msgstr "Dona"
 
 #: searx/templates/simple/base.html:64
 msgid "a privacy-respecting, open metasearch engine"
-msgstr ""
+msgstr "il motore di metaricerca aperto e rispettoso della privacy"
 
 #: searx/templates/simple/base.html:65
 msgid "Source code"
@@ -963,7 +1009,7 @@ msgstr "Istanze pubbliche"
 
 #: searx/templates/simple/base.html:75
 msgid "Contact instance maintainer"
-msgstr ""
+msgstr "Contatta il manutentore della procedura"
 
 #: searx/templates/simple/categories.html:24
 msgid "Click on the magnifier to perform search"
@@ -981,23 +1027,27 @@ msgstr "Autore"
 
 #: searx/templates/simple/new_issue.html:64
 msgid "Start submiting a new issue on GitHub"
-msgstr ""
+msgstr "Inserisci una nuova issue su GitHub"
 
 #: searx/templates/simple/new_issue.html:66
 msgid "Please check for existing bugs about this engine on GitHub"
-msgstr ""
+msgstr "Verifica la presenza di bug sul motore di ricerca su GitHub"
 
 #: searx/templates/simple/new_issue.html:69
 msgid "I confirm there is no existing bug about the issue I encounter"
 msgstr ""
+"Confermo che non è presente alcun bug relativo al problema che ho riscontrato"
 
 #: searx/templates/simple/new_issue.html:71
 msgid "If this is a public instance, please specify the URL in the bug report"
 msgstr ""
+"Se si tratta di un'istanza pubblica, riportane l'URL nella segnalazione del "
+"bug"
 
 #: searx/templates/simple/new_issue.html:72
 msgid "Submit a new issue on Github including the above information"
 msgstr ""
+"Inserisci una nuova issue su Github includendo le informazioni di cui sopra"
 
 #: searx/templates/simple/preferences.html:29
 msgid "No HTTPS"
@@ -1231,7 +1281,7 @@ msgstr ""
 
 #: searx/templates/simple/preferences.html:433
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: searx/templates/simple/preferences.html:435
 msgid "Back"
@@ -1730,4 +1780,3 @@ msgstr "nascondi video"
 
 #~ msgid "Out of stock"
 #~ msgstr ""
-
