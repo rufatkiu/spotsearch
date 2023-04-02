@@ -13,18 +13,18 @@
 # rike, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version:  searx\n"
+"Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2023-02-20 20:38+0530\n"
-"PO-Revision-Date: 2023-02-05 01:23+0000\n"
-"Last-Translator: Max N <mib@e.email>\n"
+"PO-Revision-Date: 2023-04-03 22:13+0000\n"
+"Last-Translator: Thomas  Renne <thomas.renne@e.email>\n"
+"Language-Team: French <https://i18n.e.foundation/projects/ecloud/spot/fr/>\n"
 "Language: fr\n"
-"Language-Team: French "
-"<https://i18n.e.foundation/projects/ecloud/spot/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.16.4\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: searx/webapp.py:201
@@ -751,7 +751,7 @@ msgstr ""
 #: searx/templates/etheme/results.html:82
 #: searx/templates/etheme/results.html:89
 msgid "More"
-msgstr ""
+msgstr "Plus"
 
 #: searx/templates/etheme/results.html:88
 msgid "Videos"
@@ -1733,4 +1733,3 @@ msgstr "cacher la vidéo"
 
 #~ msgid "Out of stock"
 #~ msgstr ""
-
