@@ -32,7 +32,7 @@
   --dropdown-bg-color: #eeeeee;
   --link-color: #007fff;
   --color-accent--dark: #2344a2;
-  --nav-text-color: #868686;
+  --nav-text-color: #7B7B7B;
   --nav-background-color: white;
   --color-main-text: #60686f;
   --color-primary: #1f6ed7;
@@ -373,9 +373,6 @@ body {
 body.lock {
   overflow: hidden;
 }
-body * {
-  font-family: sans-serif, "Cantarell", 'Roboto', Helvetica, Arial;
-}
 input,
 select {
   box-shadow: none !important;
@@ -510,6 +507,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: 'Helvetica', 'Roboto', 'Cantarell', Arial, sans-serif;
   text-transform: capitalize;
   line-height: 20px;
   margin-bottom: 24px;
@@ -533,6 +531,7 @@ nav .etheme_links > a {
     right: 0;
     top: 0;
     flex-direction: column;
+    font-family: 'Helvetica', 'Roboto', 'Cantarell', Arial, sans-serif;
     height: 100%;
     background-color: var(--nav-background-color);
     z-index: 1000;
@@ -594,6 +593,7 @@ nav .etheme_links > a {
 }
 .nav_dark-mode .nav_dark-mode--label label {
   cursor: pointer;
+  color: var(--nav-text-color);
 }
 .switch {
   position: relative;
