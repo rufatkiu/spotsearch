@@ -8,6 +8,7 @@
 # Markus Heiser <markus.heiser@darmarit.de>, 2022, 2023.
 # Constantine Giannopoulos <K.Giannopoulos@acg.edu>, 2022.
 # Alexandre Flament <alex@al-f.net>, 2022.
+# return42 <markus.heiser@darmarit.de>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -531,7 +532,7 @@ msgstr "προτιμήσεις"
 
 #: searx/templates/etheme/preferences.html:20
 #: searx/templates/simple/base.html:54
-#: searx/templates/simple/preferences.html:99
+#: searx/templates/simple/preferences.html:100
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
@@ -1000,30 +1001,38 @@ msgstr ""
 msgid "View error logs and submit a bug report"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:53
+#: searx/templates/simple/preferences.html:35
+msgid "!bang for this engine"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:36
+msgid "!bang for its categories"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:54
 #: searx/templates/simple/stats.html:64
 msgid "Median"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:54
+#: searx/templates/simple/preferences.html:55
 #: searx/templates/simple/stats.html:70
 msgid "P80"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:55
+#: searx/templates/simple/preferences.html:56
 #: searx/templates/simple/stats.html:76
 msgid "P95"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:83
+#: searx/templates/simple/preferences.html:84
 msgid "Failed checker test(s): "
 msgstr ""
 
-#: searx/templates/simple/preferences.html:85
+#: searx/templates/simple/preferences.html:86
 msgid "Errors:"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:108
+#: searx/templates/simple/preferences.html:109
 msgid "Default categories"
 msgstr "Προεπιλεγμένες κατηγορίες"
 
@@ -1031,7 +1040,7 @@ msgstr "Προεπιλεγμένες κατηγορίες"
 msgid "Open Access DOI resolver"
 msgstr "Επιλυτής DOI ανοικτής πρόσβασης"
 
-#: searx/templates/simple/preferences.html:167
+#: searx/templates/simple/preferences.html:171
 msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
@@ -1039,15 +1048,15 @@ msgstr ""
 "Ανακατεύθυνση σε εκδόσεις ανοικτής πρόσβασης των δημοσιεύσεων όταν είναι "
 "διαθέσιμες (απαιτείται πρόσθετο)"
 
-#: searx/templates/simple/preferences.html:171
+#: searx/templates/simple/preferences.html:175
 msgid "Engine tokens"
 msgstr "Tokens μηχανών αναζήτησης"
 
-#: searx/templates/simple/preferences.html:175
+#: searx/templates/simple/preferences.html:179
 msgid "Access tokens for private engines"
 msgstr "Tokens πρόσβασης για ιδιωτικές μηχανές"
 
-#: searx/templates/simple/preferences.html:179
+#: searx/templates/simple/preferences.html:183
 msgid "User interface"
 msgstr "Διεπαφή χρήστη"
 
@@ -1055,131 +1064,131 @@ msgstr "Διεπαφή χρήστη"
 msgid "Theme"
 msgstr "Θέμα"
 
-#: searx/templates/simple/preferences.html:203
+#: searx/templates/simple/preferences.html:207
 msgid "Change SearXNG layout"
 msgstr "Τροποποίηση διάταξης του SearXNG"
 
-#: searx/templates/simple/preferences.html:206
+#: searx/templates/simple/preferences.html:210
 msgid "Theme style"
 msgstr "Στυλ θέματος"
 
-#: searx/templates/simple/preferences.html:214
+#: searx/templates/simple/preferences.html:218
 msgid "Choose auto to follow your browser settings"
 msgstr ""
 "Επιλέξτε αυτόματο για να τηρήσετε τις ρυθμίσεις του προγράμματος "
 "περιήγησης"
 
-#: searx/templates/simple/preferences.html:217
+#: searx/templates/simple/preferences.html:221
 msgid "Center Alignment"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:224
+#: searx/templates/simple/preferences.html:228
 msgid "Displays results in the center of the page (Oscar layout)."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:241
+#: searx/templates/simple/preferences.html:245
 msgid "Infinite scroll"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:248
+#: searx/templates/simple/preferences.html:252
 msgid "Automatically load next page when scrolling to bottom of current page"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:257
+#: searx/templates/simple/preferences.html:261
 msgid "HTTP Method"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:264
+#: searx/templates/simple/preferences.html:268
 msgid ""
 "Change how forms are submitted, <a "
 "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
 " rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:269
+#: searx/templates/simple/preferences.html:273
 msgid "Image proxy"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:272
-#: searx/templates/simple/preferences.html:284
+#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:288
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
-#: searx/templates/simple/preferences.html:273
-#: searx/templates/simple/preferences.html:285
+#: searx/templates/simple/preferences.html:277
+#: searx/templates/simple/preferences.html:289
 msgid "Disabled"
 msgstr "Απενεργοποιημένο"
 
-#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:280
 msgid "Proxying image results through SearXNG"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:281
+#: searx/templates/simple/preferences.html:285
 msgid "Query in the page's title"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:288
+#: searx/templates/simple/preferences.html:292
 msgid ""
 "When enabled, the result page's title contains your query. Your browser "
 "can record this title"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:295
+#: searx/templates/simple/preferences.html:299
 msgid "Currently used search engines"
 msgstr "Μηχανές αναζήτησης που χρησιμοποιούνται"
 
-#: searx/templates/simple/preferences.html:302
+#: searx/templates/simple/preferences.html:306
 msgid ""
-"This tab does not show up for search results, but you can search the "
-"engines listed here via bangs."
+"This tab dues not exists in the user interface, but you can search in "
+"these engines by its !bangs."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:307
-#: searx/templates/simple/preferences.html:358
+#: searx/templates/simple/preferences.html:311
+#: searx/templates/simple/preferences.html:365
 msgid "Allow"
 msgstr "Επέτρεψε"
 
-#: searx/templates/simple/preferences.html:308
+#: searx/templates/simple/preferences.html:312
 #: searx/templates/simple/stats.html:25
 msgid "Engine name"
 msgstr "Όνομα μηχανής"
 
-#: searx/templates/simple/preferences.html:309
-msgid "Shortcut"
-msgstr "Συντόμευση"
+#: searx/templates/simple/preferences.html:313
+msgid "Bang"
+msgstr ""
 
-#: searx/templates/simple/preferences.html:310
+#: searx/templates/simple/preferences.html:314
 msgid "Supports selected language"
 msgstr "Υποστηρίζει την επιλεγμένη γλώσσα"
 
 #: searx/templates/simple/filters/time_range.html:1
-#: searx/templates/simple/preferences.html:312
+#: searx/templates/simple/preferences.html:316
 msgid "Time range"
 msgstr "Εύρος χρόνου"
 
-#: searx/templates/simple/preferences.html:313
+#: searx/templates/simple/preferences.html:317
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:314
+#: searx/templates/simple/preferences.html:318
 msgid "Max time"
 msgstr "Μέγιστος χρόνος"
 
-#: searx/templates/simple/preferences.html:315
+#: searx/templates/simple/preferences.html:319
 #: searx/templates/simple/stats.html:29
 msgid "Reliability"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:353
+#: searx/templates/simple/preferences.html:360
 msgid "Special Queries"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:360
+#: searx/templates/simple/preferences.html:367
 msgid "Name"
 msgstr "Όνομα"
 
-#: searx/templates/simple/preferences.html:361
+#: searx/templates/simple/preferences.html:368
 msgid "Description"
 msgstr "Περιγραφή"
 
@@ -1187,25 +1196,25 @@ msgstr "Περιγραφή"
 msgid "This is the list of SearXNG's instant answering modules."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:376
+#: searx/templates/simple/preferences.html:383
 msgid "This is the list of plugins."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:395
+#: searx/templates/simple/preferences.html:402
 msgid ""
 "This is the list of cookies and their values SearXNG is storing on your "
 "computer."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:396
+#: searx/templates/simple/preferences.html:403
 msgid "With that list, you can assess SearXNG transparency."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:401
+#: searx/templates/simple/preferences.html:408
 msgid "Cookie name"
 msgstr "Όνομα cookie"
 
-#: searx/templates/simple/preferences.html:402
+#: searx/templates/simple/preferences.html:409
 msgid "Value"
 msgstr "Τιμή"
 
@@ -1213,17 +1222,17 @@ msgstr "Τιμή"
 msgid "URL to restore your preferences in another browser"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:423
+#: searx/templates/simple/preferences.html:430
 msgid ""
 "Specifying custom settings in the preferences URL can be used to sync "
 "preferences across devices."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:433
+#: searx/templates/simple/preferences.html:440
 msgid "Save"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:435
+#: searx/templates/simple/preferences.html:442
 msgid "Back"
 msgstr ""
 
@@ -1279,7 +1288,7 @@ msgstr ""
 
 #: searx/templates/simple/stats.html:21
 msgid "There is currently no data available. "
-msgstr "Δεν υπάρχουν διαθέσιμα δεδομένα."
+msgstr "Δεν υπάρχουν διαθέσιμα δεδομένα. "
 
 #: searx/templates/simple/stats.html:26
 msgid "Scores"
@@ -1406,7 +1415,7 @@ msgstr ""
 
 #: searx/templates/simple/result_templates/paper.html:9
 msgid "Journal"
-msgstr ""
+msgstr "Περιοδικό"
 
 #: searx/templates/simple/result_templates/paper.html:22
 msgid "Editor"
@@ -1426,23 +1435,23 @@ msgstr ""
 
 #: searx/templates/simple/result_templates/paper.html:26
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: searx/templates/simple/result_templates/paper.html:27
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: searx/templates/simple/result_templates/paper.html:28
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: searx/templates/simple/result_templates/paper.html:33
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: searx/templates/simple/result_templates/paper.html:34
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: searx/templates/simple/result_templates/torrent.html:9
 msgid "Seeder"

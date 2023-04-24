@@ -5,6 +5,7 @@
 # Translators:
 # dd721411 <dd721411@gmail.com>, 2018
 # Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# nam000 <nam000gl@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Last-Translator: Markus Heiser <markus.heiser@darmarit.de>\n"
 "Language: vi\n"
 "Language-Team: Vietnamese "
-"<https://weblate.bubu1.eu/projects/searxng/searxng/vi/>\n"
+"<https://translate.codeberg.org/projects/searxng/searxng/vi/>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -289,6 +290,10 @@ msgstr ""
 msgid "You are not using Tor. You have this external IP address: {ip_address}."
 msgstr ""
 
+#: searx/plugins/tor_check.py:86
+msgid "You are not using Tor and you have this external IP address: {ip_address}"
+msgstr "Bạn hiện không sử dụng Tor và đây là địa chỉ IP của bạn: {ip_address}"
+
 #: searx/plugins/tracker_url_remover.py:29
 msgid "Tracker URL remover"
 msgstr "Trình loại bỏ URL theo dõi"
@@ -329,8 +334,9 @@ msgstr ""
 
 #: searx/templates/etheme/about.html:7 searx/templates/etheme/base.html:94
 #: searx/templates/simple/base.html:46
+#, fuzzy
 msgid "About"
-msgstr ""
+msgstr "Về chúng tôi"
 
 #: searx/templates/etheme/about.html:10
 msgid "Spot is a fork of"
@@ -521,7 +527,7 @@ msgstr ""
 
 #: searx/templates/etheme/preferences.html:20
 #: searx/templates/simple/base.html:54
-#: searx/templates/simple/preferences.html:99
+#: searx/templates/simple/preferences.html:100
 msgid "Preferences"
 msgstr "Tuỳ chỉnh"
 
@@ -997,26 +1003,34 @@ msgstr ""
 msgid "View error logs and submit a bug report"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:53
+#: searx/templates/simple/preferences.html:35
+msgid "!bang for this engine"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:36
+msgid "!bang for its categories"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:54
 #: searx/templates/simple/stats.html:64
 msgid "Median"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:54
+#: searx/templates/simple/preferences.html:55
 #: searx/templates/simple/stats.html:70
 msgid "P80"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:55
+#: searx/templates/simple/preferences.html:56
 #: searx/templates/simple/stats.html:76
 msgid "P95"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:83
+#: searx/templates/simple/preferences.html:84
 msgid "Failed checker test(s): "
 msgstr ""
 
-#: searx/templates/simple/preferences.html:85
+#: searx/templates/simple/preferences.html:86
 msgid "Errors:"
 msgstr ""
 
@@ -1028,7 +1042,7 @@ msgstr "Các danh mục mặc định"
 msgid "Open Access DOI resolver"
 msgstr "Trình xử lý DOI Truy Cập Miễn Phí"
 
-#: searx/templates/simple/preferences.html:167
+#: searx/templates/simple/preferences.html:171
 msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
@@ -1036,15 +1050,15 @@ msgstr ""
 "Chuyển hướng đến các phiên bản truy cập miễn phí của ấn phẩm khi có thể "
 "(yêu cầu phần mở rộng)"
 
-#: searx/templates/simple/preferences.html:171
+#: searx/templates/simple/preferences.html:175
 msgid "Engine tokens"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:175
+#: searx/templates/simple/preferences.html:179
 msgid "Access tokens for private engines"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:179
+#: searx/templates/simple/preferences.html:183
 msgid "User interface"
 msgstr "Giao diện người dùng"
 
@@ -1052,19 +1066,19 @@ msgstr "Giao diện người dùng"
 msgid "Theme"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:203
+#: searx/templates/simple/preferences.html:207
 msgid "Change SearXNG layout"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:206
+#: searx/templates/simple/preferences.html:210
 msgid "Theme style"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:214
+#: searx/templates/simple/preferences.html:218
 msgid "Choose auto to follow your browser settings"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:217
+#: searx/templates/simple/preferences.html:221
 msgid "Center Alignment"
 msgstr ""
 
@@ -1076,7 +1090,7 @@ msgstr ""
 msgid "Infinite scroll"
 msgstr "Cuộn liên tục"
 
-#: searx/templates/simple/preferences.html:248
+#: searx/templates/simple/preferences.html:252
 msgid "Automatically load next page when scrolling to bottom of current page"
 msgstr "Tự động tải trang kế tiếp khi cuộn đến cuối trang hiện tại"
 
@@ -1084,36 +1098,36 @@ msgstr "Tự động tải trang kế tiếp khi cuộn đến cuối trang hi�
 msgid "HTTP Method"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:264
+#: searx/templates/simple/preferences.html:268
 msgid ""
 "Change how forms are submitted, <a "
 "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
 " rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:269
+#: searx/templates/simple/preferences.html:273
 msgid "Image proxy"
 msgstr "Proxy hình ảnh"
 
-#: searx/templates/simple/preferences.html:272
-#: searx/templates/simple/preferences.html:284
+#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:288
 msgid "Enabled"
 msgstr "Đã"
 
-#: searx/templates/simple/preferences.html:273
-#: searx/templates/simple/preferences.html:285
+#: searx/templates/simple/preferences.html:277
+#: searx/templates/simple/preferences.html:289
 msgid "Disabled"
 msgstr "Đã tắt"
 
-#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:280
 msgid "Proxying image results through SearXNG"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:281
+#: searx/templates/simple/preferences.html:285
 msgid "Query in the page's title"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:288
+#: searx/templates/simple/preferences.html:292
 msgid ""
 "When enabled, the result page's title contains your query. Your browser "
 "can record this title"
@@ -1123,50 +1137,50 @@ msgstr ""
 msgid "Currently used search engines"
 msgstr "Các trình tìm kiếm đang được dùng"
 
-#: searx/templates/simple/preferences.html:302
+#: searx/templates/simple/preferences.html:306
 msgid ""
-"This tab does not show up for search results, but you can search the "
-"engines listed here via bangs."
+"This tab dues not exists in the user interface, but you can search in "
+"these engines by its !bangs."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:307
-#: searx/templates/simple/preferences.html:358
+#: searx/templates/simple/preferences.html:311
+#: searx/templates/simple/preferences.html:365
 msgid "Allow"
 msgstr "Cho phép"
 
-#: searx/templates/simple/preferences.html:308
+#: searx/templates/simple/preferences.html:312
 #: searx/templates/simple/stats.html:25
 msgid "Engine name"
 msgstr "Tên trình tìm kiếm"
 
-#: searx/templates/simple/preferences.html:309
-msgid "Shortcut"
-msgstr "Lối tắt"
+#: searx/templates/simple/preferences.html:313
+msgid "Bang"
+msgstr ""
 
-#: searx/templates/simple/preferences.html:310
+#: searx/templates/simple/preferences.html:314
 msgid "Supports selected language"
 msgstr "Có hỗ trợ ngôn ngữ được chọn"
 
 #: searx/templates/simple/filters/time_range.html:1
-#: searx/templates/simple/preferences.html:312
+#: searx/templates/simple/preferences.html:316
 msgid "Time range"
 msgstr "Khoảng thời gian"
 
-#: searx/templates/simple/preferences.html:313
+#: searx/templates/simple/preferences.html:317
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:314
+#: searx/templates/simple/preferences.html:318
 msgid "Max time"
 msgstr "Thời gian tối đa"
 
-#: searx/templates/simple/preferences.html:315
+#: searx/templates/simple/preferences.html:319
 #: searx/templates/simple/stats.html:29
 msgid "Reliability"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:353
+#: searx/templates/simple/preferences.html:360
 msgid "Special Queries"
 msgstr ""
 
@@ -1174,7 +1188,7 @@ msgstr ""
 msgid "Name"
 msgstr "Tên"
 
-#: searx/templates/simple/preferences.html:361
+#: searx/templates/simple/preferences.html:368
 msgid "Description"
 msgstr "Mô tả"
 
@@ -1182,7 +1196,7 @@ msgstr "Mô tả"
 msgid "This is the list of SearXNG's instant answering modules."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:376
+#: searx/templates/simple/preferences.html:383
 msgid "This is the list of plugins."
 msgstr ""
 
@@ -1192,15 +1206,15 @@ msgid ""
 "computer."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:396
+#: searx/templates/simple/preferences.html:403
 msgid "With that list, you can assess SearXNG transparency."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:401
+#: searx/templates/simple/preferences.html:408
 msgid "Cookie name"
 msgstr "Tên cookie"
 
-#: searx/templates/simple/preferences.html:402
+#: searx/templates/simple/preferences.html:409
 msgid "Value"
 msgstr "Giá trị"
 
@@ -1208,7 +1222,7 @@ msgstr "Giá trị"
 msgid "URL to restore your preferences in another browser"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:423
+#: searx/templates/simple/preferences.html:430
 msgid ""
 "Specifying custom settings in the preferences URL can be used to sync "
 "preferences across devices."

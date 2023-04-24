@@ -10,7 +10,6 @@ import re
 from searx.network import get
 from lxml.html import fromstring
 
-# about
 about = {
     "website": "https://duckduckgo.com/",
     "wikidata_id": "Q12805",
@@ -19,6 +18,12 @@ about = {
     "require_api_key": False,
     "results": "HTML",
 }
+
+send_accept_language_header = True
+"""DuckDuckGo-Lite tries to guess user's prefered language from the HTTP
+``Accept-Language``.  Optional the user can select a region filter (but not a
+language).
+"""
 
 # engine dependent config
 categories = ["general"]
@@ -125,7 +130,6 @@ def request(query, params):
     return params
 
 
-# get response from search-request
 def response(resp):
     if resp.status_code == 303:
         return []
@@ -163,8 +167,8 @@ def response(resp):
     return results
 
 
-# get supported languages from their site
-def _fetch_supported_languages(resp):
+def fetch_traits(engine_traits: EngineTraits):
+    """Fetch languages & regions from DuckDuckGo.
 
     # response is a js file with regions as an embedded object
     response_page = resp.text
@@ -174,4 +178,93 @@ def _fetch_supported_languages(resp):
     regions_json = loads(response_page)
     supported_languages = map((lambda x: x[3:] + "-" + x[:2].upper()), regions_json.keys())
 
-    return list(supported_languages)
+    - en_US
+    - en_AU
+    - en_CA
+    - en_GB
+
+    The function :py:obj:`get_ddg_lang` evaluates DuckDuckGo's language from
+    SearXNG's locale.
+
+    """
+    # pylint: disable=too-many-branches, too-many-statements
+    # fetch regions
+
+    engine_traits.all_locale = 'wt-wt'
+
+    # updated from u588 to u661 / should be updated automatically?
+    resp = network.get('https://duckduckgo.com/util/u661.js')
+
+    if not resp.ok:
+        print("ERROR: response from DuckDuckGo is not OK.")
+
+    pos = resp.text.find('regions:{') + 8
+    js_code = resp.text[pos:]
+    pos = js_code.find('}') + 1
+    regions = json.loads(js_code[:pos])
+
+    for eng_tag, name in regions.items():
+
+        if eng_tag == 'wt-wt':
+            engine_traits.all_locale = 'wt-wt'
+            continue
+
+        region = ddg_reg_map.get(eng_tag)
+        if region == 'skip':
+            continue
+
+        if not region:
+            eng_territory, eng_lang = eng_tag.split('-')
+            region = eng_lang + '_' + eng_territory.upper()
+
+        try:
+            sxng_tag = locales.region_tag(babel.Locale.parse(region))
+        except babel.UnknownLocaleError:
+            print("ERROR: %s (%s) -> %s is unknown by babel" % (name, eng_tag, region))
+            continue
+
+        conflict = engine_traits.regions.get(sxng_tag)
+        if conflict:
+            if conflict != eng_tag:
+                print("CONFLICT: babel %s --> %s, %s" % (sxng_tag, conflict, eng_tag))
+            continue
+        engine_traits.regions[sxng_tag] = eng_tag
+
+    # fetch languages
+
+    engine_traits.custom['lang_region'] = {}
+
+    pos = resp.text.find('languages:{') + 10
+    js_code = resp.text[pos:]
+    pos = js_code.find('}') + 1
+    js_code = '{"' + js_code[1:pos].replace(':', '":').replace(',', ',"')
+    languages = json.loads(js_code)
+
+    for eng_lang, name in languages.items():
+
+        if eng_lang == 'wt_WT':
+            continue
+
+        babel_tag = ddg_lang_map.get(eng_lang, eng_lang)
+        if babel_tag == 'skip':
+            continue
+
+        try:
+
+            if babel_tag == 'lang_region':
+                sxng_tag = locales.region_tag(babel.Locale.parse(eng_lang))
+                engine_traits.custom['lang_region'][sxng_tag] = eng_lang
+                continue
+
+            sxng_tag = locales.language_tag(babel.Locale.parse(babel_tag))
+
+        except babel.UnknownLocaleError:
+            print("ERROR: language %s (%s) is unknown by babel" % (name, eng_lang))
+            continue
+
+        conflict = engine_traits.languages.get(sxng_tag)
+        if conflict:
+            if conflict != eng_lang:
+                print("CONFLICT: babel %s --> %s, %s" % (sxng_tag, conflict, eng_lang))
+            continue
+        engine_traits.languages[sxng_tag] = eng_lang

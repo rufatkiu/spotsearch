@@ -6,6 +6,7 @@
 # Cymrodor <aled@aledpowell.cymru>, 2019
 # Markus Heiser <markus.heiser@darmarit.de>, 2022.
 # CJ <charl.cj.monke@gmail.com>, 2022.
+# RhysJones <proladrhys123@outlook.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
@@ -41,7 +42,7 @@ msgstr ""
 
 #: searx/webapp.py:205
 msgid "SSL error: certificate validation has failed"
-msgstr ""
+msgstr "Gwall SSL: dilysu tystysgrif wedi methu"
 
 #: searx/webapp.py:207
 msgid "unexpected crash"
@@ -91,7 +92,7 @@ msgstr ""
 
 #: searx/webapp.py:567 searx/webapp.py:1034
 msgid "Invalid settings, please edit your preferences"
-msgstr "Gosodiadau annilys. Addasa dy ddewisiadau."
+msgstr "Gosodiadau annilys, golygu eich dewisiadau"
 
 #: searx/webapp.py:583
 msgid "Invalid settings"
@@ -103,7 +104,7 @@ msgstr "gwall chwilio"
 
 #: searx/webapp.py:916
 msgid "Suspended"
-msgstr ""
+msgstr "Atal"
 
 #: searx/webutils.py:198
 msgid "{minutes} minute(s) ago"
@@ -115,41 +116,43 @@ msgstr "{hours} awr, {minutes} munud yn ôl"
 
 #: searx/answerers/random/answerer.py:67
 msgid "Random value generator"
-msgstr ""
+msgstr "Generadur gwerth ar hap"
 
 #: searx/answerers/random/answerer.py:68
 msgid "Generate different random values"
-msgstr ""
+msgstr "Cynhyrchu gwahanol werthoedd ar hap"
 
 #: searx/answerers/statistics/answerer.py:47
 msgid "Statistics functions"
-msgstr ""
+msgstr "Swyddogaethau ystadegau"
 
 #: searx/answerers/statistics/answerer.py:48
 msgid "Compute {functions} of the arguments"
-msgstr ""
+msgstr "Compute {functions} o'r dadleuon"
 
 #: searx/engines/openstreetmap.py:167
 msgid "Get directions"
-msgstr ""
+msgstr "Cael cyfarwyddiadau"
 
 #: searx/engines/pdbe.py:108
 msgid "{title} (OBSOLETE)"
-msgstr ""
+msgstr "{title} (OBSOLETE)"
 
 #: searx/engines/pdbe.py:115
 msgid "This entry has been superseded by"
-msgstr ""
+msgstr "Mae'r cofnod hwn wedi ei ddisodli gan"
 
 #: searx/engines/qwant.py:220
 msgid "Channel"
-msgstr ""
+msgstr "Sianel"
 
 #: searx/engines/semantic_scholar.py:82
 msgid ""
 "{numCitations} citations from the year {firstCitationVelocityYear} to "
 "{lastCitationVelocityYear}"
 msgstr ""
+"{numCitations} dyfyniadau o'r flwyddyn {firstCitationVelocityYear} i "
+"{lastCitationVelocityYear}"
 
 #: searx/engines/tineye.py:40
 msgid ""
@@ -157,28 +160,33 @@ msgid ""
 "format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
 " WebP."
 msgstr ""
+"Allai ddim darllen yr url delwedd hwnnw. Gall hyn fod oherwydd fformat "
+"ffeil heb gymorth. Mae TinEye yn cefnogi delweddau yn unig sy'n JPEG, "
+"PNG, GIF, BMP, TIFF neu WebP."
 
 #: searx/engines/tineye.py:46
 msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
 msgstr ""
+"Mae'r ddelwedd yn rhy syml i ddod o hyd i gemau. Mae TinEye angen lefel "
+"sylfaenol o fanylion gweledol i adnabod gemau yn llwyddiannus."
 
 #: searx/engines/tineye.py:52
 msgid "The image could not be downloaded."
-msgstr ""
+msgstr "Doedd dim modd lawrlwytho'r ddelwedd."
 
 #: searx/engines/wttr.py:102
 msgid "Morning"
-msgstr ""
+msgstr "Bore"
 
 #: searx/engines/wttr.py:103
 msgid "Noon"
-msgstr ""
+msgstr "Canol Dydd"
 
 #: searx/engines/wttr.py:104
 msgid "Evening"
-msgstr ""
+msgstr "Noswaith"
 
 #: searx/engines/wttr.py:105
 msgid "Night"
@@ -194,11 +202,11 @@ msgstr ""
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
-msgstr ""
+msgstr "Trosi llinynnau i wahanol dreuliadau hash."
 
 #: searx/plugins/hash_plugin.py:52
 msgid "hash digest"
-msgstr ""
+msgstr "Digon o hash"
 
 #: searx/plugins/hostname_replace.py:9
 msgid "Hostname replace"
@@ -511,7 +519,7 @@ msgstr "dewisiadau"
 
 #: searx/templates/etheme/preferences.html:20
 #: searx/templates/simple/base.html:54
-#: searx/templates/simple/preferences.html:99
+#: searx/templates/simple/preferences.html:100
 msgid "Preferences"
 msgstr "Dewisiadau"
 
@@ -980,26 +988,34 @@ msgstr ""
 msgid "View error logs and submit a bug report"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:53
+#: searx/templates/simple/preferences.html:35
+msgid "!bang for this engine"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:36
+msgid "!bang for its categories"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:54
 #: searx/templates/simple/stats.html:64
 msgid "Median"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:54
+#: searx/templates/simple/preferences.html:55
 #: searx/templates/simple/stats.html:70
 msgid "P80"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:55
+#: searx/templates/simple/preferences.html:56
 #: searx/templates/simple/stats.html:76
 msgid "P95"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:83
+#: searx/templates/simple/preferences.html:84
 msgid "Failed checker test(s): "
 msgstr ""
 
-#: searx/templates/simple/preferences.html:85
+#: searx/templates/simple/preferences.html:86
 msgid "Errors:"
 msgstr ""
 
@@ -1011,21 +1027,21 @@ msgstr "Categorïau arferol"
 msgid "Open Access DOI resolver"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:167
+#: searx/templates/simple/preferences.html:171
 msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:171
+#: searx/templates/simple/preferences.html:175
 msgid "Engine tokens"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:175
+#: searx/templates/simple/preferences.html:179
 msgid "Access tokens for private engines"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:179
+#: searx/templates/simple/preferences.html:183
 msgid "User interface"
 msgstr "Rhyngwyneb defnyddiwr"
 
@@ -1033,19 +1049,19 @@ msgstr "Rhyngwyneb defnyddiwr"
 msgid "Theme"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:203
+#: searx/templates/simple/preferences.html:207
 msgid "Change SearXNG layout"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:206
+#: searx/templates/simple/preferences.html:210
 msgid "Theme style"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:214
+#: searx/templates/simple/preferences.html:218
 msgid "Choose auto to follow your browser settings"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:217
+#: searx/templates/simple/preferences.html:221
 msgid "Center Alignment"
 msgstr ""
 
@@ -1057,7 +1073,7 @@ msgstr ""
 msgid "Infinite scroll"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:248
+#: searx/templates/simple/preferences.html:252
 msgid "Automatically load next page when scrolling to bottom of current page"
 msgstr ""
 
@@ -1065,36 +1081,36 @@ msgstr ""
 msgid "HTTP Method"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:264
+#: searx/templates/simple/preferences.html:268
 msgid ""
 "Change how forms are submitted, <a "
 "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
 " rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:269
+#: searx/templates/simple/preferences.html:273
 msgid "Image proxy"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:272
-#: searx/templates/simple/preferences.html:284
+#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:288
 msgid "Enabled"
 msgstr "Galluogwyd"
 
-#: searx/templates/simple/preferences.html:273
-#: searx/templates/simple/preferences.html:285
+#: searx/templates/simple/preferences.html:277
+#: searx/templates/simple/preferences.html:289
 msgid "Disabled"
 msgstr "Analluogwyd"
 
-#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:280
 msgid "Proxying image results through SearXNG"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:281
+#: searx/templates/simple/preferences.html:285
 msgid "Query in the page's title"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:288
+#: searx/templates/simple/preferences.html:292
 msgid ""
 "When enabled, the result page's title contains your query. Your browser "
 "can record this title"
@@ -1104,50 +1120,50 @@ msgstr ""
 msgid "Currently used search engines"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:302
+#: searx/templates/simple/preferences.html:306
 msgid ""
-"This tab does not show up for search results, but you can search the "
-"engines listed here via bangs."
+"This tab dues not exists in the user interface, but you can search in "
+"these engines by its !bangs."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:307
-#: searx/templates/simple/preferences.html:358
+#: searx/templates/simple/preferences.html:311
+#: searx/templates/simple/preferences.html:365
 msgid "Allow"
 msgstr "Caniatáu"
 
-#: searx/templates/simple/preferences.html:308
+#: searx/templates/simple/preferences.html:312
 #: searx/templates/simple/stats.html:25
 msgid "Engine name"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:309
-msgid "Shortcut"
-msgstr "Llwybr Byr"
+#: searx/templates/simple/preferences.html:313
+msgid "Bang"
+msgstr ""
 
-#: searx/templates/simple/preferences.html:310
+#: searx/templates/simple/preferences.html:314
 msgid "Supports selected language"
 msgstr "Cefnogir yr iaith a ddewiswyd"
 
 #: searx/templates/simple/filters/time_range.html:1
-#: searx/templates/simple/preferences.html:312
+#: searx/templates/simple/preferences.html:316
 msgid "Time range"
 msgstr "Cyfnod amser"
 
-#: searx/templates/simple/preferences.html:313
+#: searx/templates/simple/preferences.html:317
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:314
+#: searx/templates/simple/preferences.html:318
 msgid "Max time"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:315
+#: searx/templates/simple/preferences.html:319
 #: searx/templates/simple/stats.html:29
 msgid "Reliability"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:353
+#: searx/templates/simple/preferences.html:360
 msgid "Special Queries"
 msgstr ""
 
@@ -1155,7 +1171,7 @@ msgstr ""
 msgid "Name"
 msgstr "Enw"
 
-#: searx/templates/simple/preferences.html:361
+#: searx/templates/simple/preferences.html:368
 msgid "Description"
 msgstr "Disgrifiad"
 
@@ -1163,7 +1179,7 @@ msgstr "Disgrifiad"
 msgid "This is the list of SearXNG's instant answering modules."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:376
+#: searx/templates/simple/preferences.html:383
 msgid "This is the list of plugins."
 msgstr ""
 
@@ -1173,15 +1189,15 @@ msgid ""
 "computer."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:396
+#: searx/templates/simple/preferences.html:403
 msgid "With that list, you can assess SearXNG transparency."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:401
+#: searx/templates/simple/preferences.html:408
 msgid "Cookie name"
 msgstr "Enw cwci"
 
-#: searx/templates/simple/preferences.html:402
+#: searx/templates/simple/preferences.html:409
 msgid "Value"
 msgstr "Gwerth"
 
@@ -1189,7 +1205,7 @@ msgstr "Gwerth"
 msgid "URL to restore your preferences in another browser"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:423
+#: searx/templates/simple/preferences.html:430
 msgid ""
 "Specifying custom settings in the preferences URL can be used to sync "
 "preferences across devices."
@@ -1696,5 +1712,61 @@ msgstr "cuddio fideo"
 #~ msgstr ""
 
 #~ msgid "Out of stock"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This plugin checks if the address "
+#~ "of the request is a TOR exit "
+#~ "node, and informs the user if it"
+#~ " is, like check.torproject.org but from "
+#~ "searxng."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The TOR exit node list "
+#~ "(https://check.torproject.org/exit-addresses) is "
+#~ "unreachable."
+#~ msgstr ""
+
+#~ msgid "You are using TOR. Your IP address seems to be: {ip_address}."
+#~ msgstr ""
+
+#~ msgid "You are not using TOR. Your IP address seems to be: {ip_address}."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The could not download the list of"
+#~ " Tor exit-nodes from "
+#~ "https://check.torproject.org/exit-addresses."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You are using Tor. It looks like"
+#~ " you have this external IP address:"
+#~ " {ip_address}."
+#~ msgstr ""
+
+#~ msgid "You are not using Tor. You have this external IP address: {ip_address}."
+#~ msgstr ""
+
+#~ msgid "Autodetect search language"
+#~ msgstr ""
+
+#~ msgid "Automatically detect the query search language and switch to it."
+#~ msgstr ""
+
+#~ msgid "others"
+#~ msgstr "eraill"
+
+#~ msgid ""
+#~ "This tab does not show up for "
+#~ "search results, but you can search "
+#~ "the engines listed here via bangs."
+#~ msgstr ""
+
+#~ msgid "Shortcut"
+#~ msgstr "Llwybr Byr"
+
+#~ msgid "!bang"
 #~ msgstr ""
 
