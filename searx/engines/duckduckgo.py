@@ -1,22 +1,45 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """
- DuckDuckGo (Web)
+DuckDuckGo Lite
+~~~~~~~~~~~~~~~
 """
 
-from json import loads
-from urllib.parse import urlencode
-from searx.utils import match_language, extract_text
+from typing import TYPE_CHECKING
 import re
-from searx.network import get
-from lxml.html import fromstring
+from urllib.parse import urlencode
+import json
+import babel
+import lxml.html
+
+from searx import (
+    network,
+    locales,
+    redislib,
+    external_bang,
+)
+from searx import redisdb
+from searx.utils import (
+    eval_xpath,
+    eval_xpath_getindex,
+    extract_text,
+)
+from searx.enginelib.traits import EngineTraits
+from searx.exceptions import SearxEngineAPIException
+
+if TYPE_CHECKING:
+    import logging
+
+    logger: logging.Logger
+
+traits: EngineTraits
 
 about = {
-    "website": "https://duckduckgo.com/",
-    "wikidata_id": "Q12805",
-    "official_api_documentation": "https://duckduckgo.com/api",
+    "website": 'https://lite.duckduckgo.com/lite/',
+    "wikidata_id": 'Q12805',
     "use_official_api": False,
     "require_api_key": False,
-    "results": "HTML",
+    "results": 'HTML',
 }
 
 send_accept_language_header = True
@@ -26,157 +49,299 @@ language).
 """
 
 # engine dependent config
-categories = ["general"]
+categories = ['general', 'web']
 paging = True
-supported_languages_url = "https://duckduckgo.com/util/u172.js"
-number_of_results = 10
 time_range_support = True
-safesearch = True
-VQD_REGEX = r"vqd='(\d+-\d+)'"
-language_aliases = {
-    "ca-ES": "ct-ca",
-    "de-AT": "de-de",
-    "de-CH": "de-de",
-    "es-AR": "es-es",
-    "es-CL": "es-es",
-    "es-MX": "es-es",
-    "fr-BE": "be-fr",
-    "fr-CA": "ca-fr",
-    "fr-CH": "ch-fr",
-    "ar-SA": "ar-XA",
-    "es-419": "es-XL",
-    "ja": "jp-JP",
-    "ko": "kr-KR",
-    "sl-SI": "sl-SL",
-    "zh-TW": "tzh-TW",
-    "zh-HK": "tzh-HK",
-}
+safesearch = True  # user can't select but the results are filtered
 
-# search-url
-url = "https://links.duckduckgo.com/d.js?"
-url_ping = "https://duckduckgo.com/t/sl_h"
-time_range_dict = {"day": "d", "week": "w", "month": "m", "year": "y"}
+url = 'https://lite.duckduckgo.com/lite/'
+# url_ping = 'https://duckduckgo.com/t/sl_l'
+
+time_range_dict = {'day': 'd', 'week': 'w', 'month': 'm', 'year': 'y'}
+form_data = {'v': 'l', 'api': 'd.js', 'o': 'json'}
 
 
-# match query's language to a region code that duckduckgo will accept
-def get_region_code(lang, lang_list=None):
-    if lang == "all":
-        return None
+def cache_vqd(query, value):
+    """Caches a ``vqd`` value from a query.
 
-    lang_code = match_language(lang, lang_list or [], language_aliases, "wt-WT")
-    lang_parts = lang_code.split("-")
+    The vqd value depends on the query string and is needed for the follow up
+    pages or the images loaded by a XMLHttpRequest:
 
-    # country code goes first
-    return lang_parts[1].lower() + "-" + lang_parts[0].lower()
+    - DuckDuckGo Web: `https://links.duckduckgo.com/d.js?q=...&vqd=...`
+    - DuckDuckGo Images: `https://duckduckgo.com/i.js??q=...&vqd=...`
+
+    """
+    c = redisdb.client()
+    if c:
+        logger.debug("cache vqd value: %s", value)
+        key = 'SearXNG_ddg_vqd' + redislib.secret_hash(query)
+        c.set(key, value, ex=600)
 
 
 def get_vqd(query, headers):
-    resp = get(f"https://duckduckgo.com/?q={query}&ia=web", headers=headers)
-    resp = re.findall(VQD_REGEX, resp.text)
-    return resp[0]
+    """Returns the ``vqd`` that fits to the *query*.  If there is no ``vqd`` cached
+    (:py:obj:`cache_vqd`) the query is sent to DDG to get a vqd value from the
+    response.
+
+    """
+    value = None
+    c = redisdb.client()
+    if c:
+        key = 'SearXNG_ddg_vqd' + redislib.secret_hash(query)
+        value = c.get(key)
+        if value:
+            value = value.decode('utf-8')
+            logger.debug("re-use cached vqd value: %s", value)
+            return value
+
+    query_url = 'https://duckduckgo.com/?{query}&iar=images'.format(query=urlencode({'q': query}))
+    res = network.get(query_url, headers=headers)
+    content = res.text
+    if content.find('vqd=\'') == -1:
+        raise SearxEngineAPIException('Request failed')
+    value = content[content.find('vqd=\'') + 5 :]
+    value = value[: value.find('\'')]
+    logger.debug("new vqd value: %s", value)
+    cache_vqd(query, value)
+    return value
+
+
+def get_ddg_lang(eng_traits: EngineTraits, sxng_locale, default='en_US'):
+    """Get DuckDuckGo's language identifier from SearXNG's locale.
+
+    DuckDuckGo defines its lanaguages by region codes (see
+    :py:obj:`fetch_traits`).
+
+    To get region and language of a DDG service use:
+
+    .. code: python
+
+       eng_region = traits.get_region(params['searxng_locale'], traits.all_locale)
+       eng_lang = get_ddg_lang(traits, params['searxng_locale'])
+
+    It might confuse, but the ``l`` value of the cookie is what SearXNG calls
+    the *region*:
+
+    .. code:: python
+
+        # !ddi paris :es-AR --> {'ad': 'es_AR', 'ah': 'ar-es', 'l': 'ar-es'}
+        params['cookies']['ad'] = eng_lang
+        params['cookies']['ah'] = eng_region
+        params['cookies']['l'] = eng_region
+
+    .. hint::
+
+       `DDG-lite <https://lite.duckduckgo.com/lite>`__ does not offer a language
+       selection to the user, only a region can be selected by the user
+       (``eng_region`` from the example above).  DDG-lite stores the selected
+       region in a cookie::
+
+         params['cookies']['kl'] = eng_region  # 'ar-es'
+
+    """
+    return eng_traits.custom['lang_region'].get(sxng_locale, eng_traits.get_language(sxng_locale, default))
+
+
+ddg_reg_map = {
+    'tw-tzh': 'zh_TW',
+    'hk-tzh': 'zh_HK',
+    'ct-ca': 'skip',  # ct-ca and es-ca both map to ca_ES
+    'es-ca': 'ca_ES',
+    'id-en': 'id_ID',
+    'no-no': 'nb_NO',
+    'jp-jp': 'ja_JP',
+    'kr-kr': 'ko_KR',
+    'xa-ar': 'ar_SA',
+    'sl-sl': 'sl_SI',
+    'th-en': 'th_TH',
+    'vn-en': 'vi_VN',
+}
+
+ddg_lang_map = {
+    # use ar --> ar_EG (Egypt's arabic)
+    "ar_DZ": 'lang_region',
+    "ar_JO": 'lang_region',
+    "ar_SA": 'lang_region',
+    # use bn --> bn_BD
+    'bn_IN': 'lang_region',
+    # use de --> de_DE
+    'de_CH': 'lang_region',
+    # use en --> en_US,
+    'en_AU': 'lang_region',
+    'en_CA': 'lang_region',
+    'en_GB': 'lang_region',
+    # Esperanto
+    'eo_XX': 'eo',
+    # use es --> es_ES,
+    'es_AR': 'lang_region',
+    'es_CL': 'lang_region',
+    'es_CO': 'lang_region',
+    'es_CR': 'lang_region',
+    'es_EC': 'lang_region',
+    'es_MX': 'lang_region',
+    'es_PE': 'lang_region',
+    'es_UY': 'lang_region',
+    'es_VE': 'lang_region',
+    # use fr --> rf_FR
+    'fr_CA': 'lang_region',
+    'fr_CH': 'lang_region',
+    'fr_BE': 'lang_region',
+    # use nl --> nl_NL
+    'nl_BE': 'lang_region',
+    # use pt --> pt_PT
+    'pt_BR': 'lang_region',
+    # skip these languages
+    'od_IN': 'skip',
+    'io_XX': 'skip',
+    'tokipona_XX': 'skip',
+}
 
 
 def request(query, params):
 
-    params["method"] = "GET"
+    # quote ddg bangs
+    query_parts = []
+    # for val in re.split(r'(\s+)', query):
+    for val in re.split(r'(\s+)', query):
+        if not val.strip():
+            continue
+        if val.startswith('!') and external_bang.get_node(external_bang.EXTERNAL_BANGS, val[1:]):
+            val = f"'{val}'"
+        query_parts.append(val)
+    query = ' '.join(query_parts)
 
-    vqd = get_vqd(query, params["headers"])
-    dl, ct = match_language(params["language"], supported_languages, language_aliases, "wt-WT").split("-")
-    query_dict = {
-        "q": query,
-        "t": "D",
-        "l": f"{dl}-{ct}",
-        "kl": f"{ct}-{dl}",
-        "s": (params["pageno"] - 1) * number_of_results,
-        "dl": dl,
-        "ct": ct,
-        "ss_mkt": get_region_code(params["language"], supported_languages),
-        "df": params["time_range"],
-        "vqd": vqd,
-        "ex": -2,
-        "sp": "1",
-        "bpa": "1",
-        "biaexp": "b",
-        "msvrtexp": "b",
-    }
-    if params["safesearch"] == 2:  # STRICT
-        del query_dict["t"]
-        query_dict["p"] = 1
-        query_dict.update(
-            {
-                "videxp": "a",
-                "nadse": "b",
-                "eclsexp": "a",
-                "stiaexp": "a",
-                "tjsexp": "b",
-                "related": "b",
-                "msnexp": "a",
-            }
-        )
-    elif params["safesearch"] == 1:  # MODERATE
-        query_dict["ex"] = -1
-        query_dict.update({"nadse": "b", "eclsexp": "b", "tjsexp": "b"})
-    else:  # OFF
-        query_dict["ex"] = -2
-        query_dict.update({"nadse": "b", "eclsexp": "b", "tjsexp": "b"})
+    eng_region = traits.get_region(params['searxng_locale'], traits.all_locale)
+    # eng_lang = get_ddg_lang(traits, params['searxng_locale'])
 
-    params["allow_redirects"] = False
-    params["data"] = query_dict
-    params["cookies"]["kl"] = params["data"]["kl"]
-    if params["time_range"] in time_range_dict:
-        params["data"]["df"] = time_range_dict[params["time_range"]]
-        params["cookies"]["df"] = time_range_dict[params["time_range"]]
-    params["url"] = url + urlencode(params["data"])
+    params['url'] = url
+    params['method'] = 'POST'
+    params['data']['q'] = query
+
+    # The API is not documented, so we do some reverse engineering and emulate
+    # what https://lite.duckduckgo.com/lite/ does when you press "next Page"
+    # link again and again ..
+
+    params['headers']['Content-Type'] = 'application/x-www-form-urlencoded'
+    params['headers']['Referer'] = 'https://google.com/'
+
+    # initial page does not have an offset
+    if params['pageno'] == 2:
+        # second page does have an offset of 30
+        offset = (params['pageno'] - 1) * 30
+        params['data']['s'] = offset
+        params['data']['dc'] = offset + 1
+
+    elif params['pageno'] > 2:
+        # third and following pages do have an offset of 30 + n*50
+        offset = 30 + (params['pageno'] - 2) * 50
+        params['data']['s'] = offset
+        params['data']['dc'] = offset + 1
+
+    # request needs a vqd argument
+    params['data']['vqd'] = get_vqd(query, params["headers"])
+
+    # initial page does not have additional data in the input form
+    if params['pageno'] > 1:
+
+        params['data']['o'] = form_data.get('o', 'json')
+        params['data']['api'] = form_data.get('api', 'd.js')
+        params['data']['nextParams'] = form_data.get('nextParams', '')
+        params['data']['v'] = form_data.get('v', 'l')
+
+    params['data']['kl'] = eng_region
+    params['cookies']['kl'] = eng_region
+
+    params['data']['df'] = ''
+    if params['time_range'] in time_range_dict:
+        params['data']['df'] = time_range_dict[params['time_range']]
+        params['cookies']['df'] = time_range_dict[params['time_range']]
+
+    logger.debug("param data: %s", params['data'])
+    logger.debug("param cookies: %s", params['cookies'])
     return params
 
 
 def response(resp):
+
     if resp.status_code == 303:
         return []
 
-    # parse the response
     results = []
+    doc = lxml.html.fromstring(resp.text)
 
-    data = re.findall(
-        r"DDG\.pageLayout\.load\('d',(\[.+\])\);DDG\.duckbar\.load\('images'",
-        str(resp.text),
-    )
-    try:
-        search_data = loads(data[0].replace("/\t/g", "    "))
-    except IndexError:
-        return
+    result_table = eval_xpath(doc, '//html/body/form/div[@class="filters"]/table')
 
-    if len(search_data) == 1 and ("n" not in search_data[0]):
-        only_result = search_data[0]
-        if (
-            (only_result.get("da") is not None and only_result.get("t") == "EOF")
-            or only_result.get("a") is not None
-            or only_result.get("d") == "google.com search"
-        ):
-            return
+    if len(result_table) == 2:
+        # some locales (at least China) does not have a "next page" button and
+        # the layout of the HTML tables is different.
+        result_table = result_table[1]
+    elif not len(result_table) >= 3:
+        # no more results
+        return []
+    else:
+        result_table = result_table[2]
+        # update form data from response
+        form = eval_xpath(doc, '//html/body/form/div[@class="filters"]/table//input/..')
+        if len(form):
 
-    for search_result in search_data:
-        if "n" in search_result:
+            form = form[0]
+            form_data['v'] = eval_xpath(form, '//input[@name="v"]/@value')[0]
+            form_data['api'] = eval_xpath(form, '//input[@name="api"]/@value')[0]
+            form_data['o'] = eval_xpath(form, '//input[@name="o"]/@value')[0]
+            logger.debug('form_data: %s', form_data)
+
+            value = eval_xpath(form, '//input[@name="vqd"]/@value')[0]
+            query = resp.search_params['data']['q']
+            cache_vqd(query, value)
+
+    tr_rows = eval_xpath(result_table, './/tr')
+    # In the last <tr> is the form of the 'previous/next page' links
+    tr_rows = tr_rows[:-1]
+
+    len_tr_rows = len(tr_rows)
+    offset = 0
+
+    while len_tr_rows >= offset + 4:
+
+        # assemble table rows we need to scrap
+        tr_title = tr_rows[offset]
+        tr_content = tr_rows[offset + 1]
+        offset += 4
+
+        # ignore sponsored Adds <tr class="result-sponsored">
+        if tr_content.get('class') == 'result-sponsored':
             continue
 
-        title = extract_text(fromstring(search_result.get("t")))
+        a_tag = eval_xpath_getindex(tr_title, './/td//a[@class="result-link"]', 0, None)
+        if a_tag is None:
+            continue
 
-        content = extract_text(fromstring(search_result.get("a")))
+        td_content = eval_xpath_getindex(tr_content, './/td[@class="result-snippet"]', 0, None)
+        if td_content is None:
+            continue
 
-        results.append({"title": title, "content": content, "url": search_result.get("u")})
+        results.append(
+            {
+                'title': a_tag.text_content(),
+                'content': extract_text(td_content),
+                'url': a_tag.get('href'),
+            }
+        )
+
     return results
 
 
 def fetch_traits(engine_traits: EngineTraits):
     """Fetch languages & regions from DuckDuckGo.
 
-    # response is a js file with regions as an embedded object
-    response_page = resp.text
-    response_page = response_page[response_page.find("regions:{") + 8 :]
-    response_page = response_page[: response_page.find("}") + 1]
+    SearXNG's ``all`` locale maps DuckDuckGo's "Alle regions" (``wt-wt``).
+    DuckDuckGo's language "Browsers prefered language" (``wt_WT``) makes no
+    sense in a SearXNG request since SearXNG's ``all`` will not add a
+    ``Accept-Language`` HTTP header.  The value in ``engine_traits.all_locale``
+    is ``wt-wt`` (the region).
 
-    regions_json = loads(response_page)
-    supported_languages = map((lambda x: x[3:] + "-" + x[:2].upper()), regions_json.keys())
+    Beside regions DuckDuckGo also defines its lanaguages by region codes.  By
+    example these are the english languages in DuckDuckGo:
 
     - en_US
     - en_AU
