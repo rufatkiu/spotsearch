@@ -36,6 +36,11 @@ server:
         X-Robots-Tag : noindex, nofollow
         Referrer-Policy : no-referrer
 
+redis:
+  # URL to connect redis database. Is overwritten by ${SEARXNG_REDIS_URL}.
+  # https://redis-py.readthedocs.io/en/stable/connections.html#redis.client.Redis.from_url
+  url: redis://redis:6379
+
 ui:
     autofocus : True # Autofocus search input
     archive_today : False # show archive.today links
