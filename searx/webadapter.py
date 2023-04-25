@@ -63,8 +63,8 @@ def parse_lang(preferences: Preferences, form: Dict[str, str], raw_text_query: R
         query_lang = preferences.get_value("language")
 
     # check language
-    if not VALID_LANGUAGE_CODE.match(query_lang):
-        raise SearxParameterException("language", query_lang)
+    if not VALID_LANGUAGE_CODE.match(query_lang) and query_lang != 'auto':
+        raise SearxParameterException('language', query_lang)
 
     return query_lang
 

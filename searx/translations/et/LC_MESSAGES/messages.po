@@ -525,7 +525,7 @@ msgstr "eelistused"
 
 #: searx/templates/etheme/preferences.html:20
 #: searx/templates/simple/base.html:54
-#: searx/templates/simple/preferences.html:99
+#: searx/templates/simple/preferences.html:100
 msgid "Preferences"
 msgstr "Eelistused"
 
@@ -1000,30 +1000,38 @@ msgstr ""
 msgid "View error logs and submit a bug report"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:53
+#: searx/templates/simple/preferences.html:35
+msgid "!bang for this engine"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:36
+msgid "!bang for its categories"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:54
 #: searx/templates/simple/stats.html:64
 msgid "Median"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:54
+#: searx/templates/simple/preferences.html:55
 #: searx/templates/simple/stats.html:70
 msgid "P80"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:55
+#: searx/templates/simple/preferences.html:56
 #: searx/templates/simple/stats.html:76
 msgid "P95"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:83
+#: searx/templates/simple/preferences.html:84
 msgid "Failed checker test(s): "
 msgstr ""
 
-#: searx/templates/simple/preferences.html:85
+#: searx/templates/simple/preferences.html:86
 msgid "Errors:"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:108
+#: searx/templates/simple/preferences.html:109
 msgid "Default categories"
 msgstr "Vaikimisi kategooriad"
 
@@ -1031,7 +1039,7 @@ msgstr "Vaikimisi kategooriad"
 msgid "Open Access DOI resolver"
 msgstr "Open Access DOI resolver"
 
-#: searx/templates/simple/preferences.html:167
+#: searx/templates/simple/preferences.html:171
 msgid ""
 "Redirect to open-access versions of publications when available (plugin "
 "required)"
@@ -1039,15 +1047,15 @@ msgstr ""
 "Suuna võimalusel väljaannete avatud ligipääsuga versioonidele (nõuab "
 "pluginat)"
 
-#: searx/templates/simple/preferences.html:171
+#: searx/templates/simple/preferences.html:175
 msgid "Engine tokens"
 msgstr "Mootori tokenid"
 
-#: searx/templates/simple/preferences.html:175
+#: searx/templates/simple/preferences.html:179
 msgid "Access tokens for private engines"
 msgstr "Ligipääsutokenid privaatsetele mootoritele"
 
-#: searx/templates/simple/preferences.html:179
+#: searx/templates/simple/preferences.html:183
 msgid "User interface"
 msgstr "Kasutajaliides"
 
@@ -1055,19 +1063,19 @@ msgstr "Kasutajaliides"
 msgid "Theme"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:203
+#: searx/templates/simple/preferences.html:207
 msgid "Change SearXNG layout"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:206
+#: searx/templates/simple/preferences.html:210
 msgid "Theme style"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:214
+#: searx/templates/simple/preferences.html:218
 msgid "Choose auto to follow your browser settings"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:217
+#: searx/templates/simple/preferences.html:221
 msgid "Center Alignment"
 msgstr ""
 
@@ -1079,105 +1087,105 @@ msgstr ""
 msgid "Infinite scroll"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:248
+#: searx/templates/simple/preferences.html:252
 msgid "Automatically load next page when scrolling to bottom of current page"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:257
+#: searx/templates/simple/preferences.html:261
 msgid "HTTP Method"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:264
+#: searx/templates/simple/preferences.html:268
 msgid ""
 "Change how forms are submitted, <a "
 "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
 " rel=\"external\">learn more about request methods</a>"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:269
+#: searx/templates/simple/preferences.html:273
 msgid "Image proxy"
 msgstr "Pildiproksi"
 
-#: searx/templates/simple/preferences.html:272
-#: searx/templates/simple/preferences.html:284
+#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:288
 msgid "Enabled"
 msgstr "Lubatud"
 
-#: searx/templates/simple/preferences.html:273
-#: searx/templates/simple/preferences.html:285
+#: searx/templates/simple/preferences.html:277
+#: searx/templates/simple/preferences.html:289
 msgid "Disabled"
 msgstr "Keelatud"
 
-#: searx/templates/simple/preferences.html:276
+#: searx/templates/simple/preferences.html:280
 msgid "Proxying image results through SearXNG"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:281
+#: searx/templates/simple/preferences.html:285
 msgid "Query in the page's title"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:288
+#: searx/templates/simple/preferences.html:292
 msgid ""
 "When enabled, the result page's title contains your query. Your browser "
 "can record this title"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:295
+#: searx/templates/simple/preferences.html:299
 msgid "Currently used search engines"
 msgstr "Hetkel kasutatud otsingumootorid"
 
-#: searx/templates/simple/preferences.html:302
+#: searx/templates/simple/preferences.html:306
 msgid ""
-"This tab does not show up for search results, but you can search the "
-"engines listed here via bangs."
+"This tab dues not exists in the user interface, but you can search in "
+"these engines by its !bangs."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:307
-#: searx/templates/simple/preferences.html:358
+#: searx/templates/simple/preferences.html:311
+#: searx/templates/simple/preferences.html:365
 msgid "Allow"
 msgstr "Luba"
 
-#: searx/templates/simple/preferences.html:308
+#: searx/templates/simple/preferences.html:312
 #: searx/templates/simple/stats.html:25
 msgid "Engine name"
 msgstr "Mootori nimi"
 
-#: searx/templates/simple/preferences.html:309
-msgid "Shortcut"
-msgstr "Otsetee"
+#: searx/templates/simple/preferences.html:313
+msgid "Bang"
+msgstr ""
 
-#: searx/templates/simple/preferences.html:310
+#: searx/templates/simple/preferences.html:314
 msgid "Supports selected language"
 msgstr "Toetab valitud keelt"
 
 #: searx/templates/simple/filters/time_range.html:1
-#: searx/templates/simple/preferences.html:312
+#: searx/templates/simple/preferences.html:316
 msgid "Time range"
 msgstr "Ajavahemik"
 
-#: searx/templates/simple/preferences.html:313
+#: searx/templates/simple/preferences.html:317
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:314
+#: searx/templates/simple/preferences.html:318
 msgid "Max time"
 msgstr "Maksimaalne aeg"
 
-#: searx/templates/simple/preferences.html:315
+#: searx/templates/simple/preferences.html:319
 #: searx/templates/simple/stats.html:29
 msgid "Reliability"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:353
+#: searx/templates/simple/preferences.html:360
 msgid "Special Queries"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:360
+#: searx/templates/simple/preferences.html:367
 msgid "Name"
 msgstr "Nimi"
 
-#: searx/templates/simple/preferences.html:361
+#: searx/templates/simple/preferences.html:368
 msgid "Description"
 msgstr "Kirjeldus"
 
@@ -1185,25 +1193,25 @@ msgstr "Kirjeldus"
 msgid "This is the list of SearXNG's instant answering modules."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:376
+#: searx/templates/simple/preferences.html:383
 msgid "This is the list of plugins."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:395
+#: searx/templates/simple/preferences.html:402
 msgid ""
 "This is the list of cookies and their values SearXNG is storing on your "
 "computer."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:396
+#: searx/templates/simple/preferences.html:403
 msgid "With that list, you can assess SearXNG transparency."
 msgstr ""
 
-#: searx/templates/simple/preferences.html:401
+#: searx/templates/simple/preferences.html:408
 msgid "Cookie name"
 msgstr "Küpsise nimi"
 
-#: searx/templates/simple/preferences.html:402
+#: searx/templates/simple/preferences.html:409
 msgid "Value"
 msgstr "Väärtus"
 
@@ -1211,7 +1219,7 @@ msgstr "Väärtus"
 msgid "URL to restore your preferences in another browser"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:423
+#: searx/templates/simple/preferences.html:430
 msgid ""
 "Specifying custom settings in the preferences URL can be used to sync "
 "preferences across devices."
@@ -1221,7 +1229,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:435
+#: searx/templates/simple/preferences.html:442
 msgid "Back"
 msgstr ""
 

@@ -62,9 +62,9 @@ def search(query, request_params):
 
     for row in result_list:
         entry = {
-            "query": query,
-            "language": request_params["language"],
-            "value": row.get("value"),
+            'query': query,
+            'language': request_params['searxng_locale'],
+            'value': row.get("value"),
             # choose a result template or comment out to use the *default*
             "template": "key-value.html",
         }
