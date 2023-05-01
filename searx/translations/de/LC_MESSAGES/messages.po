@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2023-02-20 20:38+0530\n"
-"PO-Revision-Date: 2023-02-28 13:05+0000\n"
+"PO-Revision-Date: 2023-05-02 09:58+0000\n"
 "Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 4.17\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: searx/webapp.py:201
@@ -178,30 +178,32 @@ msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
 msgstr ""
+"Dieses Bild ist zu klein, um Übereinstimmungen finden zu können. TinEye "
+"efordert ein Minimum an Details, um Übereinstimmungen zu identifizieren."
 
 #: searx/engines/tineye.py:52
 msgid "The image could not be downloaded."
-msgstr ""
+msgstr "Das Bild konnte nicht heruntergeladen werden."
 
 #: searx/engines/wttr.py:102
 msgid "Morning"
-msgstr ""
+msgstr "Morgens"
 
 #: searx/engines/wttr.py:103
 msgid "Noon"
-msgstr ""
+msgstr "Mittags"
 
 #: searx/engines/wttr.py:104
 msgid "Evening"
-msgstr ""
+msgstr "Abends"
 
 #: searx/engines/wttr.py:105
 msgid "Night"
-msgstr ""
+msgstr "Nachts"
 
 #: searx/plugins/autodetect_search_language.py:74
 msgid "Autodetect search language"
-msgstr ""
+msgstr "Suchsprache automatisch bestimmen"
 
 #: searx/plugins/autodetect_search_language.py:75
 msgid "Automatically detect the query search language and switch to it."
