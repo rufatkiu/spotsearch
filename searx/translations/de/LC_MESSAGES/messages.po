@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2023-02-20 20:38+0530\n"
-"PO-Revision-Date: 2023-05-02 09:58+0000\n"
+"PO-Revision-Date: 2023-05-10 13:27+0000\n"
 "Last-Translator: F Wildermuth <wildermuth.f@e.email>\n"
 "Language-Team: German <https://i18n.e.foundation/projects/ecloud/spot/de/>\n"
 "Language: de\n"
@@ -208,6 +208,7 @@ msgstr "Suchsprache automatisch bestimmen"
 #: searx/plugins/autodetect_search_language.py:75
 msgid "Automatically detect the query search language and switch to it."
 msgstr ""
+"Automatisch die Sprache der Suchanfrage feststellen und dorthin wechseln."
 
 #: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
@@ -1251,7 +1252,7 @@ msgstr ""
 
 #: searx/templates/simple/preferences.html:440
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: searx/templates/simple/preferences.html:442
 msgid "Back"
