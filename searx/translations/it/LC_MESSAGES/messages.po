@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2023-02-20 20:38+0530\n"
-"PO-Revision-Date: 2023-05-02 09:58+0000\n"
+"PO-Revision-Date: 2023-05-16 21:58+0000\n"
 "Last-Translator: Paolo Pantaleo <panta@e.email>\n"
 "Language-Team: Italian <https://i18n.e.foundation/projects/ecloud/spot/it/>\n"
 "Language: it\n"
@@ -1053,7 +1053,7 @@ msgstr ""
 
 #: searx/templates/simple/preferences.html:29
 msgid "No HTTPS"
-msgstr ""
+msgstr "No HTTPS"
 
 #: searx/templates/simple/messages/no_results.html:10
 #: searx/templates/simple/preferences.html:31
@@ -1073,17 +1073,17 @@ msgstr "esegui un !bang per le sue categorie"
 #: searx/templates/simple/preferences.html:54
 #: searx/templates/simple/stats.html:64
 msgid "Median"
-msgstr ""
+msgstr "Mediano"
 
 #: searx/templates/simple/preferences.html:55
 #: searx/templates/simple/stats.html:70
 msgid "P80"
-msgstr ""
+msgstr "P80"
 
 #: searx/templates/simple/preferences.html:56
 #: searx/templates/simple/stats.html:76
 msgid "P95"
-msgstr ""
+msgstr "P95"
 
 #: searx/templates/simple/preferences.html:84
 msgid "Failed checker test(s): "
@@ -1127,7 +1127,7 @@ msgstr "Tema"
 
 #: searx/templates/simple/preferences.html:207
 msgid "Change SearXNG layout"
-msgstr ""
+msgstr "Modifica la visualizzazione di SearXNG"
 
 #: searx/templates/simple/preferences.html:210
 msgid "Theme style"
@@ -1147,7 +1147,7 @@ msgstr "Mostra i risultato al centro della pagina (layout Oscar)."
 
 #: searx/templates/simple/preferences.html:245
 msgid "Infinite scroll"
-msgstr ""
+msgstr "Scorrimento continuo"
 
 #: searx/templates/simple/preferences.html:252
 msgid "Automatically load next page when scrolling to bottom of current page"
@@ -1165,6 +1165,9 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
 " rel=\"external\">learn more about request methods</a>"
 msgstr ""
+"Modifica la maniera in cui sono inviai i form, <a href=\"http://en.wikipedia."
+"org/wiki/Hypertext_Transfer_Protocol#Request_methods\" rel=\"external\""
+">altre informazioni sui metodi delle richieste</a>"
 
 #: searx/templates/simple/preferences.html:273
 msgid "Image proxy"
@@ -1182,7 +1185,7 @@ msgstr "Disabilitato"
 
 #: searx/templates/simple/preferences.html:280
 msgid "Proxying image results through SearXNG"
-msgstr ""
+msgstr "Eseguo il proxy dei risultati immagine attraverso SearXNG"
 
 #: searx/templates/simple/preferences.html:285
 msgid "Query in the page's title"
@@ -1241,7 +1244,7 @@ msgstr "Tempo massimo"
 #: searx/templates/simple/preferences.html:319
 #: searx/templates/simple/stats.html:29
 msgid "Reliability"
-msgstr ""
+msgstr "Affidabilità"
 
 #: searx/templates/simple/preferences.html:360
 msgid "Special Queries"
@@ -1292,6 +1295,8 @@ msgid ""
 "Specifying custom settings in the preferences URL can be used to sync "
 "preferences across devices."
 msgstr ""
+"Usare impostazioni personalizzate nell'URL delle preferenze può essere "
+"utilizzato per sincronizzarle tra diversi dispositivi."
 
 #: searx/templates/simple/preferences.html:440
 msgid "Save"
@@ -1458,7 +1463,7 @@ msgstr "Questo sito non fornisce alcuna descrizione."
 
 #: searx/templates/simple/result_templates/images.html:19
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: searx/templates/simple/result_templates/images.html:21
 msgid "Engine"
@@ -1486,7 +1491,7 @@ msgstr "Editore"
 
 #: searx/templates/simple/result_templates/paper.html:23
 msgid "Publisher"
-msgstr ""
+msgstr "Editore"
 
 #: searx/templates/simple/result_templates/paper.html:24
 msgid "Type"
@@ -1498,7 +1503,7 @@ msgstr "Tag"
 
 #: searx/templates/simple/result_templates/paper.html:26
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: searx/templates/simple/result_templates/paper.html:27
 msgid "ISSN"
