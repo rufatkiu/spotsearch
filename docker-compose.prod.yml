@@ -49,7 +49,7 @@ services:
       - ./etc/nginx/proxy_spot_params:/etc/nginx/proxy_spot_params
       - ./searx/static:/var/www/spot/static
     labels:
-      - "com.centurylinklabs.watchtower.scope=$COMPOSE_PROJECT_NAME"
+      - "com.centurylinklabs.watchtower.scope=staging-spot"
 
   filtron:
     image: dalf/filtron:latest
@@ -67,9 +67,9 @@ services:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 86400 --scope $COMPOSE_PROJECT_NAME
+    command: --interval 86400 --scope staging-spot
     labels:
-      - "com.centurylinklabs.watchtower.scope=$COMPOSE_PROJECT_NAME"
+      - "com.centurylinklabs.watchtower.scope=staging-spot"
 
 networks:
   staging-spot-default:
