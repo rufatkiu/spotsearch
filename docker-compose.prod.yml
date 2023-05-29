@@ -49,7 +49,7 @@ services:
       - ./etc/nginx/proxy_spot_params:/etc/nginx/proxy_spot_params
       - ./searx/static:/var/www/spot/static
     labels:
-      - "com.centurylinklabs.watchtower.scope=uptime_kuma"
+      - "com.centurylinklabs.watchtower.scope=$COMPOSE_PROJECT_NAME"
 
   filtron:
     image: dalf/filtron:latest
@@ -63,6 +63,13 @@ services:
     volumes:
       - ./etc/filtron/rules.json:/etc/filtron/rules.json
 
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 86400 --scope $COMPOSE_PROJECT_NAME
+    labels:
+      - "com.centurylinklabs.watchtower.scope=$COMPOSE_PROJECT_NAME"
 
 networks:
   staging-spot-default:
