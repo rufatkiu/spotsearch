@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    logging: 
+    logging:
       driver: syslog
       options:
           tag: docker-${ENVIRONMENT_NAME}-spot-app
@@ -37,7 +37,7 @@ services:
   spot-nginx:
     image: nginx:1.23
     restart: always
-    logging: 
+    logging:
       driver: syslog
       options:
           tag: docker-${ENVIRONMENT_NAME}-spot-nginx
@@ -45,9 +45,11 @@ services:
       - ${INTERNAL_NETWORK_NAME}
     volumes:
       - ./etc/nginx/conf.d/spot.conf:/etc/nginx/conf.d/default.conf
-      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf      
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./etc/nginx/proxy_spot_params:/etc/nginx/proxy_spot_params
       - ./searx/static:/var/www/spot/static
+    labels:
+      - "com.centurylinklabs.watchtower.scope=staging-spot"
 
   filtron:
     image: dalf/filtron:latest
@@ -61,6 +63,13 @@ services:
     volumes:
       - ./etc/filtron/rules.json:/etc/filtron/rules.json
 
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 86400 --scope staging-spot
+    labels:
+      - "com.centurylinklabs.watchtower.scope=staging-spot"
 
 networks:
   staging-spot-default:
